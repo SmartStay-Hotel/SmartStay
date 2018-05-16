@@ -14,10 +14,10 @@ class CreateRoomTypesTable extends Migration
     public function up()
     {
         Schema::create('room_types', function (Blueprint $table) {
+            //Columns
             $table->increments('id');
             $table->string('name', 25);
-            $table->string('description',100);
-
+            $table->string('description',250);
             $table->timestamps();
         });
     }
