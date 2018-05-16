@@ -9,12 +9,13 @@
     <title>SmartStay</title>
 
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    <script type="text/javascript" src="{{asset('js/loginGuest.js') }}"></script>
+    <script type="text/javascript" src="{{asset('js/app.js') }}"></script>
 
 </head>
 
 <body onload="inPass()" id="body-index">
-<form action="#">
+<form method="POST" action="{{ url('/') }}">
+    {{ csrf_field() }}
     <div class="passGroup">
         <input type="password" name="code[]" class="pass" maxlength="1" autofocus id="firstPass">
         <input type="password" name="code[]" class="pass" maxlength="1">
