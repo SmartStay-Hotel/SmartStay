@@ -14,8 +14,10 @@
 </head>
 
 <body onload="inPass()" id="body-index">
+
 <div id="containerLogin">
-<form action="#" id="formLogin">
+    <form method="POST" action="{{ url('/') }}" id="formLogin">
+        {{ csrf_field() }}
     <div class="passGroup">
         <input type="password" name="code[]" class="pass" maxlength="1" autofocus id="firstPass">
         <input type="password" name="code[]" class="pass" maxlength="1">
