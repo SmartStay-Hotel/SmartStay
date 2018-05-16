@@ -14,8 +14,10 @@
 </head>
 
 <body onload="inPass()" id="body-index">
-<form method="POST" action="{{ url('/') }}">
-    {{ csrf_field() }}
+
+<div id="containerLogin">
+    <form method="POST" action="{{ url('/') }}" id="formLogin">
+        {{ csrf_field() }}
     <div class="passGroup">
         <input type="password" name="code[]" class="pass" maxlength="1" autofocus id="firstPass">
         <input type="password" name="code[]" class="pass" maxlength="1">
@@ -23,10 +25,12 @@
         <input type="password" name="code[]" class="pass" maxlength="1" id="fourthPass">
         <input type="password" name="code[]" class="pass" maxlength="1">
         <input type="password" name="code[]" class="pass" maxlength="1">
-        <br>
-        <input type="submit" id="submit" value="submit">
+
     </div>
+    <input type="submit" id="submit" value="Sign in">
+
 </form>
+</div>
 
 </body>
 </html>
