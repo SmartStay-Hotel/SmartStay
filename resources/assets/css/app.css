@@ -1,0 +1,49 @@
+/*----------- CSS APP ------------------*/
+
+#body-index {
+    background-image: url("../img/login_background_black.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.passGroup {
+    margin: auto;
+    width: 15%;
+    height: 15%;
+    padding: 5rem;
+    background-color: rgba(225, 225, 225, 0.5);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 4px;
+    justify-content: center;
+}
+
+.pass {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 4px;
+    margin: auto;
+    text-align: center;
+    font-size: 20px;
+
+}
+
+#submit {
+    display: block;
+    margin: 0 auto;
+    margin-top: 2rem;
+    border-radius: 4px;
+    border: none;
+    font-size: 20px;
+    padding: 0.5rem;
+}
+
+#firstPass, #fourthPass {
+    margin-left: 1rem;
+}
+/*----------- END CSS APP ------------------*/
