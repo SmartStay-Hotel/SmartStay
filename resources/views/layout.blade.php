@@ -14,7 +14,6 @@
 
             if (window.innerWidth <= 600)
             {
-
                 document.getElementById('bttnsDirection').innerHTML = "<i class=\"fas fa-chevron-left\"></i>\n" +
                     "    <i class=\"fas fa-chevron-right\"></i>";
                 document.getElementsByClassName('bttnsDirection')[0].innerHTML = "";
