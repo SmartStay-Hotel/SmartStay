@@ -1,4 +1,3 @@
-//----------- JS APP ------------------
 function inPass() {
     var container = document.getElementsByClassName("passGroup")[0];
     container.onkeyup = function (e) {
@@ -29,12 +28,7 @@ function inPass() {
             }
         }
     }
-
-    var heightScreen = window.innerHeight;
-    document.getElementById('body-index').style.height=heightScreen+"px";
-    console.log(heightScreen);
 }
-//----------- END JS APP ------------------
 
 
 
