@@ -55,6 +55,12 @@
         "sort-packages": true,
         "optimize-autoloader": true
     },
+    //the change in permission of the public/ directory.
+    "post-install-cmd": [
+        "php artisan clear-compiled",
+        "php artisan optimize",
+        "chmod -R 775 public/"
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }
