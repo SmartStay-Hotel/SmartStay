@@ -28,6 +28,7 @@
 <div id="containerLogin">
     <form method="POST" action="{{ url('/') }}" id="formLogin">
         {{ csrf_field() }}
+
     <div class="passGroup">
         <input type="password" name="code[]" class="pass" maxlength="1" autofocus id="firstPass">
         <input type="password" name="code[]" class="pass" maxlength="1">
@@ -35,7 +36,6 @@
         <input type="password" name="code[]" class="pass" maxlength="1" id="fourthPass">
         <input type="password" name="code[]" class="pass" maxlength="1">
         <input type="password" name="code[]" class="pass" maxlength="1">
-
     </div>
     <input type="submit" id="submit" value="{{trans('smartstay.login.submit')}}">
 
