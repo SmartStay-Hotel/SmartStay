@@ -17,10 +17,11 @@ class CreateRoomsTable extends Migration
             //Columns
             $table->increments('id');
             $table->unsignedInteger('type_id');
+            $table->integer('number');
             $table->integer('capacity');
             $table->boolean('disabled_adapted');
             $table->boolean('jacuzzi');
-            $table->string('code', 5); //room code
+            $table->string('code', 6); //room code
             $table->timestamps();
 
             //FK

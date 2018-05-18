@@ -31,6 +31,7 @@
     <div id="nav2">
         <p><i class="fas fa-door-closed" style="margin-right:5px"></i>147</p>
     </div>
+
 </nav>
 <div id="subMenu">
     <div id="subMenu1">
