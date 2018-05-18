@@ -31,5 +31,5 @@ Route::get('dashboard', function () {
 });
 //SSL
 Route::get('.well-known/acme-challenge/0Bto4sHnkxqR40GnuyQ6dXqmPW8ChLIjZf4qJXYKzoQ', function () {
-    return view('well-known.acme-challenge.index');
+    return "0Bto4sHnkxqR40GnuyQ6dXqmPW8ChLIjZf4qJXYKzoQ.-jPNpDhIwB2QYPLNqLkrMU_X_ze7Mwb7UKe2TZR0P58";
 });
