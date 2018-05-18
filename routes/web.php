@@ -29,3 +29,7 @@ Route::post('/', 'CodeController@login');
 Route::get('dashboard', function () {
     return view('guest.dashboard');
 });
+//SSL
+Route::get('.well-known/acme-challenge/0Bto4sHnkxqR40GnuyQ6dXqmPW8ChLIjZf4qJXYKzoQ', function () {
+    return view('guest.dashboard');
+});
