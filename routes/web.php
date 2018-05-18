@@ -30,6 +30,10 @@ Route::get('dashboard', function () {
     return view('guest.dashboard');
 });
 //SSL
-Route::get('.well-known/acme-challenge/0Bto4sHnkxqR40GnuyQ6dXqmPW8ChLIjZf4qJXYKzoQ', function () {
-    return "0Bto4sHnkxqR40GnuyQ6dXqmPW8ChLIjZf4qJXYKzoQ.-jPNpDhIwB2QYPLNqLkrMU_X_ze7Mwb7UKe2TZR0P58";
+Route::get('/.well-known/acme-challenge/{id}', function ($id) {
+    if ($id == env('LETSENCRYPT_REQUEST')) {
+        return env('LETSENCRYPT_RESPONSE');
+    } else {
+        abort(404);
+    }
 });
