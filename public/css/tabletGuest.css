@@ -1,0 +1,85 @@
+@media (min-width: 1366px) {
+
+
+
+    nav {
+        padding: 2rem;
+        font-size:2rem;
+    }
+    nav h3{
+        font-size:3.5rem;
+    }
+    nav span{
+        font-size:2rem!important;
+    }
+
+    #subMenu {
+        padding: 1.5rem;
+        margin-bottom:2rem;
+    }
+
+    #main_container {
+        padding-top: 1rem;
+    }
+
+    #servicesHome {
+        width: 60%;
+
+    }
+    #servicesTop{
+        margin-bottom:2rem;
+    }
+    #servicesTop > div:first-child, #servicesBottom > div:first-child{
+        margin-right:2rem;
+    }
+
+    .bttnDirection {
+        width: 20%;
+    }
+
+    .bttnServices {
+        width: 25rem;
+        height: 15rem;
+    }
+
+    .bttnServices p {
+        padding: 1rem;
+        font-size:2rem;
+
+    }
+
+
+
+    /*--------------TOGGLE BUTTON----------------*/
+    .slider{
+        font-size:40px;
+    }
+    .switch {
+        width: 160px;
+        height: 70px;
+    }
+
+    .slider:before {
+        content: "OUT";
+        height: 60px;
+        width: 75px;
+        left: 4px;
+        bottom: 4px;
+
+    }
+
+    input:checked + .slider:before{
+        content: "IN";
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(75px);
+        -ms-transform: translateX(75px);
+        transform: translateX(75px);
+    }
+
+}

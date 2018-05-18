@@ -1,0 +1,338 @@
+@font-face {
+    font-family: OswaldLight;
+    src: url(../fonts/Oswald-Light.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: OswaldBold;
+    src: url(../fonts/Oswald-Bold.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: OpenSansLight;
+    src: url(../fonts/OpenSansCondensed-Light.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: OpenSansBold;
+    src: url(../fonts/OpenSansCondensed-Bold.ttf) format("truetype");
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: OpenSansLight;
+
+}
+
+body {
+    background-color: #2B2B2B;
+}
+
+nav {
+    background-color: #252C4B;;
+    padding: 1rem;
+    color: white;
+    display: flex;
+}
+
+#subMenu {
+    display: flex;
+    background-color: #151515 /*#E1E1E1*/;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+#main_container {
+    padding-top: 1rem;
+    color: white;
+}
+
+#inOut {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+#servicesHome {
+    width: 80%;
+    margin:auto;
+
+}
+
+#servicesTop, #servicesBottom {
+    display: flex;
+    justify-content: center;
+
+}
+
+#servicesTop {
+    margin-bottom: 2rem;
+}
+#servicesTop > div:first-child, #servicesBottom > div:first-child{
+    margin-right:2rem;
+}
+
+#nav1 {
+    width: 93%;
+}
+
+#subMenu1 {
+    margin-left: 1rem;
+}
+
+
+#bttnBack, #bttnForward{
+    display:flex;
+    align-items: center;
+}
+#bttnBack{
+    justify-content: flex-end;
+}
+
+#bttnsDirection {
+    width:100%;
+    background-color:#151515;
+    margin-top:2rem;
+    display:flex;
+    justify-content: space-around;
+    padding:1rem;
+}
+
+.bttnServices {
+    display: flex;
+    align-items: flex-end;
+    width: 20rem;
+    height: 10rem;
+
+    border-left: 8px solid black;
+}
+
+.bttnServices p {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 0.5rem;
+    width: 100%;
+}
+
+#bttnRestaurant {
+    background-image: url("../img/home_services/restaurant.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#bttnRestaurant p:hover{
+   background-color: rgba(37, 44, 75, 0.8);
+}
+#bttnRestaurant:active{
+    box-shadow: -2px 2px 4px rgba(0, 0, 0, .4);
+
+}
+
+#bttnSnackDrink {
+    background-image: url("../img/home_services/snack.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#bttnSnackDrink p:hover{
+    background-color: rgba(37, 44, 75, 0.8);
+}
+#bttnSnackDrink:active{
+    box-shadow: -2px 2px 4px rgba(0, 0, 0, .4);
+}
+#bttnSpa {
+    background-image: url("../img/home_services/spa.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#bttnSpa p:hover{
+    background-color: rgba(37, 44, 75, 0.8);
+}
+#bttnSpa:active{
+    box-shadow: -2px 2px 4px rgba(0, 0, 0, .4);
+}
+
+#bttnAlarm {
+    background-image: url("../img/home_services/alarm.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#bttnAlarm p:hover{
+    background-color: rgba(37, 44, 75, 0.8);
+}
+#bttnAlarm:active{
+    box-shadow: -2px 2px 4px rgba(0, 0, 0, .4);
+}
+#bttnForward, #bttnBack{
+    width:10%;
+}
+
+#containerButtons{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+/*--------------TOGGLE BUTTON----------------*/
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    background-color: red;
+    font-weight: bolder;
+    font-size:15px;
+    color:black;
+    border-radius:5px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "OUT";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius:5px;
+}
+
+
+input:checked + .slider {
+    background-color: green;
+
+}
+input:checked + .slider:before{
+    content: "IN";
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/*-----------------------------------------*/
+@media only screen and (max-width: 600px) {
+    /*#servicesTop, #servicesBottom{*/
+        /*flex-direction: column;*/
+    /*}*/
+    /*#servicesTop > div:first-child, #servicesBottom > div:first-child{*/
+        /*margin-bottom:2rem;*/
+    /*}*/
+
+    nav {
+        padding: 1rem;
+        font-size:0.8rem;
+    }
+    nav h3{
+        font-size:1rem;
+        padding:0px;
+    }
+    nav span{
+        font-size:0.8rem!important;
+    }
+    #nav1 {
+        width: 80%;
+    }
+
+    #subMenu {
+
+        margin-bottom:0px;
+    }
+
+    #main_container {
+        padding-top: 1rem;
+    }
+
+    #servicesHome {
+        width: 80%;
+
+    }
+    #servicesTop{
+        margin-bottom:2rem;
+    }
+    #servicesTop > div:first-child, #servicesBottom > div:first-child{
+        margin-right:2rem;
+    }
+
+    .bttnDirection {
+        width: 20%;
+    }
+
+    .bttnServices {
+        width: 150px!important;
+        height: 80px;
+    }
+
+    .bttnServices p {
+        padding: 2px;
+        font-size:10px;
+
+    }
+
+
+
+
+    /*--------------TOGGLE BUTTON----------------*/
+    .slider{
+        font-size:18px;
+    }
+    .switch {
+        width: 70px;
+        height: 40px;
+    }
+
+    .slider:before {
+        content: "OUT";
+        height: 30px;
+        width: 30px;
+        left: 5px;
+        bottom: 5px;
+
+    }
+
+    input:checked + .slider:before{
+        content: "IN";
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(30px);
+        -ms-transform: translateX(30px);
+        transform: translateX(30px);
+    }
+}
