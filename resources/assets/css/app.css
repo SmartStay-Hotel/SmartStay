@@ -1,5 +1,5 @@
 /*----------- CSS APP ------------------*/
-
+/* loginGuest */
 #body-index {
     background-image: url("../img/background1.jpg");
     background-repeat: no-repeat;
@@ -11,7 +11,7 @@
     justify-content:center;
 }
 
-form{
+#formLogin{
     display: flex;
     flex-direction: column;
     background-color: rgba(225, 225, 225, 0.5);
@@ -50,4 +50,20 @@ form{
 #fourthPass{
     margin-left: 2rem;
 }
+
+/* login admin*/
+#bodyLogin{
+    background-image: url("../img/backgroundLogin.jpg");
+/*background-color: #232323;*/
+    overflow: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+#loginBox {
+    box-shadow: -7px 7px 25px rgba(0, 0, 0, 0.7);
+}
+
 /*----------- END CSS APP ------------------*/
