@@ -30,7 +30,7 @@ Route::get('dashboard', function () {
     return view('guest.dashboard');
 });
 //SSL
-Route::get('/.well-known/acme-challenge/{id}', function ($id) {
+Route::get('.well-known/acme-challenge/{id}', function ($id) {
     if ($id == env('LETSENCRYPT_REQUEST')) {
         return env('LETSENCRYPT_RESPONSE');
     } else {
