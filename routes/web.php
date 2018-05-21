@@ -27,5 +27,6 @@ Route::get('/admin', 'HomeController@index')->name('admin');
 Route::post('/', 'CodeController@login');
 
 Route::get('dashboard', function () {
-    return view('guest.dashboard');
+    $services = \App\Services::all();
+    return view('guest.dashboard', compact('services'));
 });

@@ -1,5 +1,6 @@
 <?php
 
+use DB;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +17,7 @@ class RoomSeeder extends Seeder
         $faker = Faker::create();
 
         for ($i = 100; $i <= 150; $i++) {
-            \DB::table('rooms')->insert([
+            DB::table('rooms')->insert([
                 'number'         => $i,
                 'capacity'       => $faker->numberBetween($min = 2, $max = 6),
                 'disabled_adapted' => $faker->boolean($chanceOfGettingTrue = 90),
@@ -27,7 +28,7 @@ class RoomSeeder extends Seeder
         }
 
         for ($i = 200; $i <= 250; $i++) {
-            \DB::table('rooms')->insert([
+            DB::table('rooms')->insert([
                 'number'         => $i,
                 'capacity'       => $faker->numberBetween($min = 2, $max = 6),
                 'disabled_adapted' => $faker->boolean($chanceOfGettingTrue = 90),
@@ -37,7 +38,7 @@ class RoomSeeder extends Seeder
         }
 
         for ($i = 300; $i <= 350; $i++) {
-            \DB::table('rooms')->insert([
+            DB::table('rooms')->insert([
                 'number'         => $i,
                 'capacity'       => $faker->numberBetween($min = 2, $max = 6),
                 'disabled_adapted' => $faker->boolean($chanceOfGettingTrue = 90),

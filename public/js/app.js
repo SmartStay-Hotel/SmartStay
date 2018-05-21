@@ -23422,9 +23422,9 @@ function inPass() {
         }
     }
 
-    // var heightScreen = window.innerHeight;
-    // document.getElementById('body-index').style.height=heightScreen+"px";
-    // console.log(heightScreen);
+    var heightScreen = window.innerHeight;
+    document.getElementById('body-index').style.height=heightScreen+"px";
+    console.log(heightScreen);
 }
 //----------- END JS APP ------------------
 
