@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use DB;
 use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
 
 class RoomSeeder extends Seeder
 {
@@ -14,16 +15,35 @@ class RoomSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i=0; $i < 50; $i++) {
-            \DB::table('rooms')->insert(array(
-                'number' => $faker->firstNameFemale,
-                'capacity' => $faker->firstNameFemale,
-                'disable_dapted' => $faker->firstNameFemale,
-                'jacuzzi' => $faker->boolean(true, 50), //No creo que esté bien
-                'code'  => $faker->numberBetween($min = 1000, $max = 5000),
-                'created_at' => date('Y-m-d H:m:s'),
-                'updated_at' => date('Y-m-d H:m:s')
-            ));
+        for ($i = 100; $i <= 150; $i++) {
+            DB::table('rooms')->insert([
+                'number'         => $i,
+                'capacity'       => $faker->numberBetween($min = 2, $max = 6),
+                'disabled_adapted' => $faker->boolean($chanceOfGettingTrue = 90),
+                'jacuzzi'        => $faker->boolean($chanceOfGettingTrue = 90),
+                'code'           => $faker->password(6, 6),
+                'status'        => $faker->boolean($chanceOfGettingTrue = 90),
+            ]);
+        }
+
+        for ($i = 200; $i <= 250; $i++) {
+            DB::table('rooms')->insert([
+                'number'         => $i,
+                'capacity'       => $faker->numberBetween($min = 2, $max = 6),
+                'disabled_adapted' => $faker->boolean($chanceOfGettingTrue = 90),
+                'jacuzzi'        => $faker->boolean($chanceOfGettingTrue = 90),
+                'code'           => $faker->password(6, 6),
+            ]);
+        }
+
+        for ($i = 300; $i <= 350; $i++) {
+            DB::table('rooms')->insert([
+                'number'         => $i,
+                'capacity'       => $faker->numberBetween($min = 2, $max = 6),
+                'disabled_adapted' => $faker->boolean($chanceOfGettingTrue = 90),
+                'jacuzzi'        => $faker->boolean($chanceOfGettingTrue = 90),
+                'code'           => $faker->password(6, 6),
+            ]);
         }
     }
 }
