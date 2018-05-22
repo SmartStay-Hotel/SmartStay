@@ -1,3 +1,5 @@
+/*---------------------FONTS-------------------------*/
+
 @font-face {
     font-family: OswaldLight;
     src: url(../fonts/Oswald-Light.ttf) format("truetype");
@@ -17,6 +19,7 @@
     font-family: OpenSansBold;
     src: url(../fonts/OpenSansCondensed-Bold.ttf) format("truetype");
 }
+/*-----------------------------------------------------------------*/
 
 * {
     margin: 0px;
@@ -25,7 +28,7 @@
     font-family: OpenSansLight;
 
 }
-
+/*-----------HEADER------------------*/
 body {
     background-color: #2B2B2B;
 }
@@ -40,9 +43,11 @@ nav {
 #subMenu {
     display: flex;
     background-color: #151515 /*#E1E1E1*/;
-    padding: 0.5rem;
+    padding:1%;/*padding: 0.5rem;*/
     width: 100%;
+
 }
+/*-----------------------------------*/
 
 #main_container {
     padding-top: 1rem;
@@ -58,6 +63,7 @@ nav {
 #servicesHome {
     width: 80%;
     margin:auto;
+
 
 }
 

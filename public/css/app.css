@@ -9209,7 +9209,11 @@ button.toast-close-button {
 }
 
 /*----------- CSS APP ------------------*/
-/* loginGuest */
+@font-face {
+    font-family: OpenSansLight;
+    src: url(../fonts/OpenSansCondensed-Light.ttf) format("truetype");
+}
+
 #body-index {
     background-image: url("../img/guestloginback2.jpg");
     background-repeat: no-repeat;
@@ -9222,24 +9226,36 @@ button.toast-close-button {
     justify-content:center;
 
 }
-
-#formLogin{
+#formLoginGuest > p{
+    text-align:center;
+    font-family: OpenSansLight;
+    color:white;
+    font-size:150%;
+    text-shadow: -2px 2px 4px rgba(0,0,0,0.7);
+    text-transform: uppercase;
+}
+#formLoginGuest{
     display: flex;
     flex-direction: column;
     margin: auto;
     position: absolute;
-    height: 28%;
+    height:35%;
     width:30%;
-    top:37.5%;
+    top:32.5%;
     left:35%;
-    padding:2rem;
-
 }
 
 .passGroup {
     display: flex;
-    align-content: center;
+    flex-direction: row;
     justify-content: center;
+}
+[id^=passGroup]{
+    display:flex;
+    flex-direction:row;
+}
+#passGroup1{
+    margin-right:25px;
 }
 
 .pass {
@@ -9249,11 +9265,8 @@ button.toast-close-button {
     margin: auto 0.3rem;
     text-align: center;
     font-size: 20px;
-    /*border:1px solid black;*/
-    /*border:1px solid black;*/
-    /*border-left:2px solid black;*/
     border:none;
-    box-shadow:-3px 3px 10px black;
+    box-shadow:-3px 3px 10px rgba(0,0,0,0.7);
 
 }
 
@@ -9277,20 +9290,84 @@ button.toast-close-button {
 
 }
 
-#fourthPass{
-    margin-left: 2rem;
+
+@media only screen and (max-width: 420px) {
+
+    #formLoginGuest {
+        font-size:10px;
+    }
+    .pass{
+        width:1.5rem;
+        height:1.5rem;
+    }
+
+}
+@media only screen and (max-width: 200px) {
+
+    #formLoginGuest {
+        font-size:10px;
+    }
+    #formLoginGuest{
+       width:100%;
+        left:0;
+    }
+    .passGroup{
+        flex-direction:column;
+        align-items: center;
+    }
+    #passGroup1{
+        margin-bottom:5px;
+        margin-right:0px;
+    }
+
+
+
 }
 
-#language{
-    float: right;
-    line-height:30px;
+.dropbtn {
+    background-color:white;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    border:none;
+    padding:0.5rem;
 }
 
-#selectLanguage{
-    float: left;
-    margin-right: 5px;
+.dropdown {
+    top: 5px;
+    float:right;
+    right: 5px;
+    position:fixed;
+    z-index:1;
 }
 
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #151515;
+    color:white;
+}
 /* login admin*/
 #bodyLogin{
     background-image: url("../img/backgroundLogin.jpg");
@@ -9304,6 +9381,41 @@ button.toast-close-button {
 
 #loginBox {
     box-shadow: -7px 7px 25px rgba(0, 0, 0, 0.7);
+}
+
+.dropdown {
+    top: 5px;
+    float:right;
+    right: 20px;
+    position:fixed;
+    z-index:1;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #151515;
+    color:white;
 }
 
 /*----------- END CSS APP ------------------*/

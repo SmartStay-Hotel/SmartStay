@@ -1,5 +1,6 @@
 @extends("layout")
 @section("content")
+
     <div id="inOut">
         <label class="switch">
             <input type="checkbox">
