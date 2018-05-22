@@ -20,6 +20,7 @@ class CreateGuestsTable extends Migration
             $table->string('nif');
             $table->string('email')->unique();
             $table->string('telephone')->unique();
+            $table->double('balance')->default(0);
             $table->timestamps();
         });
     }
