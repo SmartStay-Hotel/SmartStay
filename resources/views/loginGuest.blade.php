@@ -13,24 +13,28 @@
 
 </head>
 
-<body onload="inPass()" id="body-index">
+<body id="body-index">
 
-<div id="containerLogin">
-    <form method="POST" action="{{ url('/') }}" id="formLogin">
+
+    <form method="POST" action="{{ url('/') }}" id="formLoginGuest">
         {{ csrf_field() }}
-
+<p>Introduce your code</p>
     <div class="passGroup">
-        <input type="password" name="code[]" class="pass" maxlength="1" autofocus id="firstPass">
-        <input type="password" name="code[]" class="pass" maxlength="1">
-        <input type="password" name="code[]" class="pass" maxlength="1">
-        <input type="password" name="code[]" class="pass" maxlength="1" id="fourthPass">
-        <input type="password" name="code[]" class="pass" maxlength="1">
-        <input type="password" name="code[]" class="pass" maxlength="1">
+        <div id="passGroup1">
+        <input type="password" name="code[]" class="pass" maxlength="1" id="firstPass" onkeyup="nextPass(0)" autofocus>
+        <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(1)">
+        <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(2)">
+        </div>
+        <div id="passGroup2">
+        <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(3)">
+        <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(4)">
+        <input type="password" name="code[]" class="pass" maxlength="1" >
+        </div>
     </div>
     <input type="submit" id="submit" value="Sign in">
 
 </form>
-</div>
+
 
 </body>
 </html>
