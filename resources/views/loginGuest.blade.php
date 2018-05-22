@@ -9,11 +9,30 @@
     <title>SmartStay</title>
 
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    {{--<link rel="stylesheet" href="{{asset('css/loginGuest.css')}}">--}}
     <script type="text/javascript" src="{{asset('js/app.js') }}"></script>
 
 </head>
 
 <body id="body-index">
+
+
+    <form method="POST" action="{{ url('/') }}" id="formLoginGuest">
+
+<div class="dropdown">
+    <button class="dropbtn">{{ Config::get('languages')[App::getLocale()] }}</button>
+    <div class="dropdown-content" id="language">
+
+        @foreach (Config::get('languages') as $lang => $language)
+            @if ($lang != App::getLocale())
+                    <a href="{{ route('lang.switch', $lang) }}">{{$language}}</a>
+            @endif
+        @endforeach
+
+    </div>
+
+</div>
+
 
 
     <form method="POST" action="{{ url('/') }}" id="formLoginGuest">
@@ -31,8 +50,7 @@
         <input type="password" name="code[]" class="pass" maxlength="1" >
         </div>
     </div>
-    <input type="submit" id="submit" value="Sign in">
-
+        <input type="submit" id="submit" value="{{trans('smartstay.login.submit')}}">
 </form>
 
 

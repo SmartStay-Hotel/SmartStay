@@ -1,5 +1,6 @@
 @extends("layout")
 @section("content")
+    {{dd($services)}}
     <div id="inOut">
         <label class="switch">
             <input type="checkbox">

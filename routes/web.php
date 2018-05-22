@@ -14,18 +14,25 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('loginGuest');
-});
 
-Auth::routes();
+Route::group(['middleware'=>'language'], function(){
+    Route::get('/', function () {
+        return view('loginGuest');
+    });
+    Auth::routes();
+    Route::get('language/{lang}', function($lang){
+        \Session::put('locale', $lang);
+        return redirect()->back();
+    });
 
-Route::get('/admin', 'HomeController@index')->name('admin');
+    Route::get('/admin', 'HomeController@index')->name('admin');
 
+    Route::post('/', 'CodeController@login');
 
+    Route::get('dashboard', function () {
+        $services = \App\Services::all();
+        return view('guest.dashboard', compact('services'));
+    });
 
-Route::post('/', 'CodeController@login');
-
-Route::get('dashboard', function () {
-    return view('guest.dashboard');
+    Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']);
 });

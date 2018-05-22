@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGuestRoomsTable extends Migration
+class CreateGuestRoomTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateGuestRoomsTable extends Migration
      */
     public function up()
     {
-        Schema::create('guests_rooms', function (Blueprint $table) {
+        Schema::create('guest_room', function (Blueprint $table) {
 
             //Columns
 
@@ -38,6 +38,6 @@ class CreateGuestRoomsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('guest_rooms');
+        Schema::dropIfExists('guest_room');
     }
 }
