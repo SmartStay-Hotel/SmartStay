@@ -18,12 +18,12 @@
 
 
 <div class="dropdown">
-    <button class="dropbtn">{{ Config::get('languages')[App::getLocale()] }}</button>
+    <button class="dropbtn"><img src="{{ Config::get('languages')[App::getLocale()]['flag']}}"/></button>
     <div class="dropdown-content" id="language">
 
         @foreach (Config::get('languages') as $lang => $language)
             @if ($lang != App::getLocale())
-                    <a href="{{ route('lang.switch', $lang) }}">{{$language}}</a>
+                    <a href="{{ route('lang.switch', $lang) }}"><img src="{{$language['flag']}}"/></a>
             @endif
         @endforeach
 

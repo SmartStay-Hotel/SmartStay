@@ -9281,16 +9281,50 @@ button.toast-close-button {
     margin-left: 2rem;
 }
 
-#language{
-    float: right;
-    line-height:30px;
+.dropbtn {
+    background-color:white;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    border:none;
+    padding:0.5rem;
 }
 
-#selectLanguage{
-    float: left;
-    margin-right: 5px;
+.dropdown {
+    top: 5px;
+    float:right;
+    right: 5px;
+    position:fixed;
+    z-index:1;
 }
 
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #151515;
+    color:white;
+}
 /* login admin*/
 #bodyLogin{
     background-image: url("../img/backgroundLogin.jpg");
