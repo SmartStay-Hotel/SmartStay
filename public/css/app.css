@@ -9281,6 +9281,16 @@ button.toast-close-button {
     margin-left: 2rem;
 }
 
+#language{
+    float: right;
+    line-height:30px;
+}
+
+#selectLanguage{
+    float: left;
+    margin-right: 5px;
+}
+
 /* login admin*/
 #bodyLogin{
     background-image: url("../img/backgroundLogin.jpg");

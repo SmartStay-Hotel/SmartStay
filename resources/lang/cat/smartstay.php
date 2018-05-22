@@ -13,6 +13,6 @@ return [
     guest login
     */
 
-    'login.submit' => 'Sign in',
+    'login.submit' => 'Accedir',
 
 ];
