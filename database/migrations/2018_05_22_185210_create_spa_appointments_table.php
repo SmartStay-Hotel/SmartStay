@@ -28,6 +28,10 @@ class CreateSpaAppointmentsTable extends Migration
 
 
 
+            //FK
+            //Revisar!! Es necesario crear FK en todos los servicios hacia guests??
+            //Para poner onCascade: ->onDelete('cascade'); Por defecto no lo aplica
+            $table->foreign('guest_id')->references('id')->on('guests');
         });
     }
 
