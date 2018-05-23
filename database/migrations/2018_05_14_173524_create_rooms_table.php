@@ -21,7 +21,7 @@ class CreateRoomsTable extends Migration
             $table->integer('capacity')->unsigned();
             $table->boolean('disabled_adapted');
             $table->boolean('jacuzzi');
-            $table->string('code', 6); //room code
+            $table->string('code', 6)->unique()->nullable(); //room code
             $table->tinyInteger('status')->nullable();
             $table->timestamps();
 

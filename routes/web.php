@@ -11,28 +11,53 @@
 |
 */
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
+Route::group(['middleware' => 'language'], function () {
+    /*------------ LANGUAGES ------------*/
+    Route::get('language/{lang}', function ($lang) {
+        Session::put('locale', $lang);
 
-Route::group(['middleware'=>'language'], function(){
-    Route::get('/', function () {
-        return view('loginGuest');
-    });
-    Auth::routes();
-    Route::get('language/{lang}', function($lang){
-        \Session::put('locale', $lang);
         return redirect()->back();
     });
 
-    Route::get('/admin', 'HomeController@index')->name('admin');
+    Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
 
-    Route::post('/', 'CodeController@login');
-
-    Route::get('dashboard', function () {
-        $services = \App\Services::all();
-        return view('guest.dashboard', compact('services'));
+    Route::group(['prefix' => 'admin'], function () {
+        //Route::auth();
+        Auth::routes();
     });
 
-    Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']);
+
+    /*------------ GUEST ------------*/
+    Route::get('/', function () {
+        if (Session::has('guest_id')) {
+            $services = \App\Services::all();
+            return view('guest.dashboard', compact('services'));
+        } else {
+            return view('loginGuest');
+        }
+    });
+
+    Route::get('/logout', 'CodeController@logout');
+
+
+    Route::post('/', 'CodeController@login');
+    //Route::get('/login', 'CodeController@login');
+
+    /*Route::get('dashboard', function () {
+        $services = \App\Services::all();
+
+        return view('guest.dashboard', compact('services'));
+    });*/
+    /*------------ END GUEST ------------*/
+
+
+    /*------------ ADMIN ------------*/
+    Route::get('/admin', 'HomeController@index')->name('admin');
+
+    /*------------ END ADMIN ------------*/
+
+
 });
