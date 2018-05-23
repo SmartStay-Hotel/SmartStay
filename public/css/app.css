@@ -9371,7 +9371,7 @@ button.toast-close-button {
 /* login admin*/
 #bodyLogin{
     background-image: url("../img/backgroundLogin.jpg");
-/*background-color: #232323;*/
+    /*background-color: #232323;*/
     overflow: auto;
     background-repeat: no-repeat;
     background-size: cover;
@@ -9417,5 +9417,4 @@ button.toast-close-button {
     background-color: #151515;
     color:white;
 }
-
 /*----------- END CSS APP ------------------*/

@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -56,7 +56,9 @@ Route::group(['middleware' => 'language'], function () {
 
     /*------------ ADMIN ------------*/
     Route::get('/admin', 'HomeController@index')->name('admin');
-
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    });
     /*------------ END ADMIN ------------*/
 
 
