@@ -17,6 +17,7 @@ class CreateSpaAppointmentsTable extends Migration
             //Columns
             $table->increments('id');
             $table->unsignedInteger('guest_id');
+            $table->integer('service_id');
             $table->date('order_date');
             $table->dateTime('day_hour');
             $table->string('treatment', 50);
