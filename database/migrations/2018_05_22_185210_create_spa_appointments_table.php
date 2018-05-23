@@ -26,8 +26,6 @@ class CreateSpaAppointmentsTable extends Migration
             $table->boolean('status');
             $table->timestamps();
 
-
-
             //FK
             //Revisar!! Es necesario crear FK en todos los servicios hacia guests??
             //Para poner onCascade: ->onDelete('cascade'); Por defecto no lo aplica
