@@ -32,25 +32,22 @@
     </div>
 
 </div>
-
-
-
-    <form method="POST" action="{{ url('/') }}" id="formLoginGuest">
-        {{ csrf_field() }}
-<p>Introduce your code</p>
-    <div class="passGroup">
-        <div id="passGroup1">
-        <input type="password" name="code[]" class="pass" maxlength="1" id="firstPass" onkeyup="nextPass(0)" autofocus>
-        <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(1)">
-        <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(2)">
+        <form method="POST" action="{{ url('/') }}" id="formLoginGuest">
+            {{ csrf_field() }}
+        <p>{{trans('smartstay.login.introduceCode')}}</p>
+        <div class="passGroup">
+            <div id="passGroup1">
+            <input type="password" name="code[]" class="pass" maxlength="1" id="firstPass" onkeyup="nextPass(0)" autofocus>
+            <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(1)">
+            <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(2)">
+            </div>
+            <div id="passGroup2">
+            <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(3)">
+            <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(4)">
+            <input type="password" name="code[]" class="pass" maxlength="1" >
+            </div>
         </div>
-        <div id="passGroup2">
-        <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(3)">
-        <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(4)">
-        <input type="password" name="code[]" class="pass" maxlength="1" >
-        </div>
-    </div>
-        <input type="submit" id="submit" value="{{trans('smartstay.login.submit')}}">
+            <input type="submit" id="submit" value="{{trans('smartstay.login.submit')}}">
 </form>
 
 

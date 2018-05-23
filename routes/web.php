@@ -29,6 +29,10 @@ Route::group(['middleware'=>'language'], function(){
 
     Route::post('/', 'CodeController@login');
 
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    });
+
     Route::get('dashboard', function () {
         $services = \App\Services::all();
         return view('guest.dashboard', compact('services'));
