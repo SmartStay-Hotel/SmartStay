@@ -14,5 +14,5 @@ return [
     */
 
     'login.submit' => 'Sign in',
-
+    'login.introduceCode' => 'Enter your password',
 ];

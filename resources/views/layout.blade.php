@@ -26,7 +26,7 @@
 
 <nav>
     <div id="nav1">
-    <h3><span style="font-size:1rem">SmartStay</span> Hotel Jaume Balmes</h3>
+        <h3><span style="font-size:1rem">SmartStay</span> Hotel Jaume Balmes</h3>
     </div>
     <div id="nav2">
         <p><i class="fas fa-door-closed" style="margin-right:5px"></i>147</p>

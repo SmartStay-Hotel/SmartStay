@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'password' => 'Ihre Passwort muss mindestens 6 Zeichen und zu die Bestätigung sein.',
-    'reset' => 'Ihre Passwort wurde züruckgesetz!',
+    'password' => 'Ihr Passwort muss mindestens 6 Zeichen und mit der Bestätigung übereinstimmen muss.',
+    'reset' => 'Ihr Passwort wurde züruckgesetz!',
     'sent' => 'Wir haben Ihnen einen E-mail, um Ihre Passwort züruckzugesetzen.',
     'token' => 'Die Kombination ist nicht gültig.',
-    'user' => 'Keine Benutzer würde mit dieser Passwort gefunden.',
+    'user' => 'Kein Benutzer wurde mit dieser Passwort gefunden.',
 
 ];

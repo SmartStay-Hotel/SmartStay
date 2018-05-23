@@ -14,6 +14,7 @@ return [
     */
 
     'login.submit' => 'Accedi',
+    'login.introduceCode' => 'Inserisci la password',
 
     /*
     guest dashboard
