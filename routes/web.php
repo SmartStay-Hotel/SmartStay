@@ -33,6 +33,14 @@ Route::group(['middleware'=>'language'], function(){
         return view('admin.dashboard');
     });
 
+    Route::get('/admin/checkinform', function () {
+        return view('admin.checkInForm');
+    });
+
+    Route::get('/admin/payments', function () {
+        return view('admin.payments');
+    });
+
     Route::get('dashboard', function () {
         $services = \App\Services::all();
         return view('guest.dashboard', compact('services'));

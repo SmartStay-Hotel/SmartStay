@@ -1,3 +1,5 @@
+/* dashboard admin*/
+
 @font-face {
     font-family: OpenSansLight;
     src: url(../fonts/OpenSans-Light.ttf) format("truetype");
@@ -66,7 +68,7 @@ body {
 }
 
  #card3{
-    margin-left: 400px;
+    margin-left: 300px;
     margin-top: 60px;
 
      max-height: 200px;
@@ -74,4 +76,65 @@ body {
 
 #card2, #card1{
     margin-top: 60px;
+
+}
+
+#orderBtn{
+    margin-left: 400px;
+    width: 600px;
+    height: 200px;
+    text-align: center;
+    font-size: 50px;
+    padding: auto;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    border: 1px solid #979898;
+    padding: 10px;
+    text-align: left;
+}
+
+
+#servicesList{
+    font-size: 8px;
+}
+
+#dashBtn{
+    width:320px;
+    padding: 20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-size: 30px;
+    box-sizing: border-box;
+    margin-left: 20px;
+    border-radius: 0px;
+}
+
+#groupDashBtn{
+    margin-left: 280px;
+    margin-top: 60px;
+
+}
+
+/* check-in form*/
+
+#checkInForm{
+    margin-left: 40%;
+    margin-top: 40px;
+}
+
+#checkInTitle{
+    margin-left: 40%;
+    margin-top: 40px;
+    color: black;
+}
+
+/* payment table*/
+
+#paymentsTable{
+    margin-left: 40%;
 }
