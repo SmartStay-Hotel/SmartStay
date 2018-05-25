@@ -14,7 +14,8 @@ class GuestController extends Controller
      */
     public function index()
     {
-        //
+        $guests = Guest::all();
+        return view('services.guest.index', compact('guests'));
     }
 
     /**

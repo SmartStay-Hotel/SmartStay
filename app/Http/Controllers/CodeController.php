@@ -43,7 +43,8 @@ class CodeController extends Controller
                 Session::forget('guest_id');
             }
         } else {
-            $return = view('guest.dashboard')->withErrors(['error' => 'Code does not exist']);
+            //$return = view('guest.dashboard')->withErrors(['error' => 'Code does not exist']);
+            $return = redirect('/');
         }
         //hacer login IF (code exists)
         //{

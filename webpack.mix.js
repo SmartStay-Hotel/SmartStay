@@ -24,3 +24,6 @@ mix.scripts([
         'resources/assets/css/toastr.css',
         'resources/assets/css/app.css'
     ], 'public/css/app.css');
+
+
+//-------------------ADMIN --------------------------

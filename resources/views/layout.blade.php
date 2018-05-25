@@ -29,13 +29,13 @@
         <h3><span style="font-size:1rem">SmartStay</span> Hotel Jaume Balmes</h3>
     </div>
     <div id="nav2">
-        <p><i class="fas fa-door-closed" style="margin-right:5px"></i>147</p>
+        <p><i class="fas fa-door-closed" style="margin-right:5px"></i>{{\App\Guest::find(Session::get('guest_id'))->rooms[0]->number}}</p>
     </div>
 
 </nav>
 <div id="subMenu">
     <div id="subMenu1">
-        <a href="{{url('/logout')}}"><i class="fas fa-power-off"></i></a>
+        <a href="{{url('logout')}}"><i class="fas fa-power-off"></i></a>
     </div>
     <div id="subMenu2">
 

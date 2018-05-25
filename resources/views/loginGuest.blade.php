@@ -17,7 +17,7 @@
 
 
 <form method="POST" action="{{ url('/') }}" id="formLoginGuest">
-
+<div id="app"></div>
     <div class="dropdown">
         <button class="dropbtn"><img src="{{ Config::get('languages')[App::getLocale()]['flag']}}"/></button>
         <div class="dropdown-content" id="language">

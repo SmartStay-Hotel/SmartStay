@@ -33,14 +33,14 @@ Route::group(['middleware' => 'language'], function () {
     /*------------ GUEST ------------*/
     Route::get('/', function () {
         if (Session::has('guest_id')) {
-            $services = \App\Services::all();
+            $services = \App\Services::where('is_active', 1)->get();
             return view('guest.dashboard', compact('services'));
         } else {
             return view('loginGuest');
         }
     });
 
-    Route::get('/logout', 'CodeController@logout');
+    Route::get('logout', 'CodeController@logout');
 
 
     Route::post('/', 'CodeController@login');
@@ -55,10 +55,12 @@ Route::group(['middleware' => 'language'], function () {
 
 
     /*------------ ADMIN ------------*/
-    Route::get('/admin', 'HomeController@index')->name('admin');
-    Route::get('/admin/dashboard', function () {
+    Route::get('admin', 'HomeController@index')->name('admin');
+    Route::get('admin/dashboard', function () {
         return view('admin.dashboard');
     });
+    Route::resource('admin/guests', 'GuestController');
+    Route::resource('admin/alarms', 'AlarmController');
     /*------------ END ADMIN ------------*/
 
 
