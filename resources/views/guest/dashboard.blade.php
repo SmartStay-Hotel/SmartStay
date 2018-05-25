@@ -15,12 +15,31 @@
 
         <div id="servicesHome">
             <div id="servicesTop">
-                <div id="bttnRestaurant" class="bttnServices"><p>Restaurants</p></div>
-                <div id="bttnSnackDrink" class="bttnServices"><p>Snacks and drinks</p></div>
+
+                <div id="bttnRestaurant" class="bttnServices">
+                        <div class="overlay">
+                            <div class="text">@{{ services[0].description }}</div>
+                        </div>
+                    <p>@{{ services[0].name }}</p>
+                </div>
+                <div id="bttnSnackDrink" class="bttnServices">
+                    <div class="overlay">
+                        <div class="text">@{{ services[1].description }}</div>
+                    </div>
+                    <p>@{{ services[1].name }}</p></div>
             </div>
             <div id="servicesBottom">
-                <div id="bttnSpa" class="bttnServices"><p>Spa</p></div>
-                <div id="bttnAlarm" class="bttnServices"><p>Alarms</p></div>
+                <div id="bttnSpa" class="bttnServices">
+                    <div class="overlay">
+                        <div class="text">@{{ services[2].description }}</div>
+                    </div><p>@{{ services[2].name }}</p>
+                </div>
+                <div id="bttnAlarm" class="bttnServices">
+                    <div class="overlay">
+                        <div class="text">@{{ services[3].description }}</div>
+                    </div>
+                    <p>@{{ services[3].name }}</p>
+                </div>
             </div>
         </div>
         <div id="bttnForward" class="bttnsDirection">

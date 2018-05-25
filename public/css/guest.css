@@ -34,7 +34,7 @@ body {
 }
 
 nav {
-    background-color: #252C4B;;
+    background-color: #252C4B;
     padding: 1rem;
     color: white;
     display: flex;
@@ -111,7 +111,7 @@ nav {
     align-items: flex-end;
     width: 20rem;
     height: 10rem;
-
+    position:relative;
     border-left: 8px solid black;
 }
 
@@ -122,6 +122,7 @@ nav {
 }
 
 #bttnRestaurant {
+
     background-image: url("../img/home_services/restaurant.jpg");
     background-size: cover;
     background-repeat: no-repeat;

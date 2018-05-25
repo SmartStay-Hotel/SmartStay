@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGuestsTable extends Migration
+class CreateAlarmsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateGuestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('guests', function (Blueprint $table) {
+        Schema::create('alarms', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('nie')->unique();
-            $table->string('email')->unique();
-            $table->string('telephone')->unique();
-            $table->double('balance')->default(0);
+            $table->integer('guest_id')->unsigned();
+            $table->integer('service_id')->unsigned();
+            $table->date('order_date');
+            $table->dateTime('day_hour');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateGuestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('guests');
+        Schema::dropIfExists('alarms');
     }
 }

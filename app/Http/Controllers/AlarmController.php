@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Guest;
+use App\Alarm;
 use Illuminate\Http\Request;
 
-class GuestController extends Controller
+class AlarmController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class GuestController extends Controller
      */
     public function index()
     {
-        $guests = Guest::all();
-        return view('services.guest.index', compact('guests'));
+        dd('CRUD Alarms');
+
     }
 
     /**
@@ -42,10 +42,10 @@ class GuestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Guest  $guest
+     * @param  \App\Alarm  $alarm
      * @return \Illuminate\Http\Response
      */
-    public function show(Guest $guest)
+    public function show(Alarm $alarm)
     {
         //
     }
@@ -53,10 +53,10 @@ class GuestController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Guest  $guest
+     * @param  \App\Alarm  $alarm
      * @return \Illuminate\Http\Response
      */
-    public function edit(Guest $guest)
+    public function edit(Alarm $alarm)
     {
         //
     }
@@ -65,10 +65,10 @@ class GuestController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Guest  $guest
+     * @param  \App\Alarm  $alarm
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Guest $guest)
+    public function update(Request $request, Alarm $alarm)
     {
         //
     }
@@ -76,10 +76,10 @@ class GuestController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Guest  $guest
+     * @param  \App\Alarm  $alarm
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Guest $guest)
+    public function destroy(Alarm $alarm)
     {
         //
     }
