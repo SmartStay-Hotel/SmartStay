@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('css/guest.css')}}">
+
     {{--<link rel="stylesheet" href="{{asset('css/tabletGuest.css')}}">--}}
     {{--<link rel="stylesheet" href="{{asset('css/phoneGuest.css')}}">--}}
     <script>
@@ -21,6 +22,35 @@
             }
         }
     </script>
+    <style>
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: black;
+            overflow: hidden;
+            width: 0;
+            height: 100%;
+            transition: .5s ease;
+        }
+
+        .bttnServices:hover .overlay {
+            width: 100%;
+        }
+
+        .text {
+            white-space: nowrap;
+            color: white;
+            font-size: 20px;
+            position: absolute;
+            overflow: hidden;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 <body onload="botones()">
 
@@ -45,7 +75,7 @@
     @yield('content')
 </div>
 
-
+<script type="text/javascript" src="{{asset('js/app.js') }}"></script>
 </body>
 </html>
 @else

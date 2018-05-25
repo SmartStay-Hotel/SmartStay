@@ -41,6 +41,13 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     Route::get('logout', 'CodeController@logout');
+    Route::get('services', function(){
+        $services =\App\Services::get();
+        return $services;
+    });
+
+
+    Route::get('/logout', 'CodeController@logout');
 
 
     Route::post('/', 'CodeController@login');

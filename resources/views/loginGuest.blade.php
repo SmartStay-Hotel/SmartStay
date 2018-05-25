@@ -9,11 +9,11 @@
 
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     {{--<link rel="stylesheet" href="{{asset('css/loginGuest.css')}}">--}}
-    <script type="text/javascript" src="{{asset('js/app.js') }}"></script>
+
 
 </head>
 
-<body id="body-index">
+<body id="body-index" onload="inPass()">
 
 
 <form method="POST" action="{{ url('/') }}" id="formLoginGuest">
@@ -36,14 +36,13 @@
         <p>{{trans('smartstay.login.introduceCode')}}</p>
         <div class="passGroup">
             <div id="passGroup1">
-                <input type="password" name="code[]" class="pass" maxlength="1" id="firstPass" onkeyup="nextPass(0)"
-                       autofocus>
-                <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(1)">
-                <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(2)">
+                <input type="password" name="code[]" class="pass" maxlength="1" id="firstPass" autofocus>
+                <input type="password" name="code[]" class="pass" maxlength="1">
+                <input type="password" name="code[]" class="pass" maxlength="1" id="thirdPass">
             </div>
             <div id="passGroup2">
-                <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(3)">
-                <input type="password" name="code[]" class="pass" maxlength="1" onkeyup="nextPass(4)">
+                <input type="password" name="code[]" class="pass" maxlength="1" id="fourthPass">
+                <input type="password" name="code[]" class="pass" maxlength="1">
                 <input type="password" name="code[]" class="pass" maxlength="1">
             </div>
         </div>
@@ -51,5 +50,46 @@
     </form>
 
 </form>
+<script type="text/javascript" src="{{asset('js/app.js') }}"></script>
+<script>
+    function inPass() {
+        var container = document.getElementsByClassName('passGroup')[0];
+        container.onkeyup = function (e) {
+            if(document.activeElement.id==="thirdPass"){
+                document.getElementById("fourthPass").focus();
+            }
+            var target = e.srcElement || e.target;
+            var maxLength = parseInt(target.attributes["maxlength"].value, 10);
+            var myLength = target.value.length;
+            if (myLength >= maxLength) {
+                var next = target;
+                while (next = next.nextElementSibling) {
+                    if (next == null)
+                        break;
+                    if (next.tagName.toLowerCase() === "input") {
+                        next.focus();
+                        break;
+                    }
+                }
+            }
+            // Move to previous field if empty (user pressed backspace)
+            else if (myLength === 0) {
+                if(document.activeElement.id==="fourthPass"){
+                    document.getElementById("thirdPass").focus();
+                }
+                var previous = target;
+                while (previous = previous.previousElementSibling) {
+                    if (previous == null)
+                        break;
+                    if (previous.tagName.toLowerCase() === "input") {
+                        previous.focus();
+                        break;
+                    }
+                }
+            }
+        }
+    }
+</script>
 </body>
+
 </html>
