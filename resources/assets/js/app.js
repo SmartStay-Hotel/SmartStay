@@ -1,22 +1,58 @@
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 
+/* ----------------------- REQUIRES ----------------------------------*/
+console.log("jejejeje");
 require('./bootstrap');
-
 window.Vue = require('vue');
+window.axios = require('axios');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+//
+// let token = document.head.querySelector('meta[name="csrf-token"]');
+//
+// if (token) {
+//     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+// } else {
+//     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+// }
 
-const app = new Vue({
-    el: '#app'
-});
+/* ----------------------------------------------------------------------------- */
+/*------------ LOGIN GUEST --------------------*/
+
+
+
+
+    function nextPass(num){
+        document.getElementsByClassName("pass")[num + 1].focus();
+    }
+
+    /*------------- DASHBOARD GUEST ------------------*/
+// require('./bootstrap');
+//
+// import Vue from 'vue';
+
+
+
+    var urlServices = 'services';
+
+    new Vue({
+        el: '#main_container',
+        created: function(){
+        this.getServices();
+        },
+        data:{
+            services:[]
+        },
+        methods:{
+            getServices: function(){
+                axios.get(urlServices).then(response=>{
+                    this.services = response.data
+                });
+            }
+        }
+    });
+
+//----------- END JS APP ------------------
+
+
+
