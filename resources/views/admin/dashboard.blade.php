@@ -44,9 +44,9 @@
             <p id="titleApp">SmartStay</p>
             <h5 id="hotelName">JAUME BALMES</h5>
         </div>
-        <a href="#services">Services</a>
+        <a href="#services" id="services">Services</a>
         <ul id="servicesList" class="list-group list-group-flush">
-           <li><a href="#alarm">Alarm</a></li>
+            <li><a href="#alarm">Alarm</a></li>
             <li><a href="#restaurant">Restaurant</a></li>
             <li><a href="#housekeeping">Housekeeping</a></li>
             <li><a href="#taxi">Taxi</a></li>
@@ -56,18 +56,12 @@
             <li><a href="#events">Events</a></li>
             <li><a href="#trips">Trips</a></li>
         </ul>
-
-        <a href="#customers">Customers</a>
-        <a href="#orders">Orders</a>
-        <a href="#events">Events</a>
-        <a href="#events">Taxi Companies</a>
-        <a href="#events">Employees Contact</a>
     </div>
 
     <div class="row">
         <div class="col-sm-10" id="groupDashBtn">
-            <a href="#" id="dashBtn" class="btn btn-outline-success">Check in<i class="fas fa-arrow-left"></i></a>
-            <a href="#" id="dashBtn" class="btn btn-outline-danger">Check out</a>
+            <a href="checkinform" id="dashBtn" class="btn btn-outline-success">Check in<i class="fas fa-arrow-left"></i></a>
+            <a href="payments" id="dashBtn" class="btn btn-outline-danger">Check out</a>
             <a href="#" id="dashBtn" class="btn btn-outline-info">Bookings</a>
             <a href="#" id="dashBtn" class="btn btn-outline-warning">New Booking</a>
         </div>
