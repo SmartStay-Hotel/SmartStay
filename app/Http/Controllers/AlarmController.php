@@ -14,7 +14,7 @@ class AlarmController extends Controller
      */
     public function index()
     {
-        dd('CRUD Alarms');
+       // dd('CRUD Alarms');
 
     }
 
