@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app()->getLocale() }}">
 <head>
     <title>SmartStay</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css"
@@ -32,7 +32,8 @@
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <form action="{{ route('logout') }}" method="POST" class="form-inline my-2 my-lg-0">
+            @csrf
             <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Log out <i class="fas fa-sign-out-alt"></i></button>
         </form>
     </div>
@@ -60,8 +61,8 @@
 
     <div class="row">
         <div class="col-sm-10" id="groupDashBtn">
-            <a href="checkinform" id="dashBtn" class="btn btn-outline-success">Check in<i class="fas fa-arrow-left"></i></a>
-            <a href="payments" id="dashBtn" class="btn btn-outline-danger">Check out</a>
+            <a href="{{ url('admin/checkinform') }}" id="dashBtn" class="btn btn-outline-success">Check in<i class="fas fa-arrow-left"></i></a>
+            <a href="{{ url('admin/payments') }}" id="dashBtn" class="btn btn-outline-danger">Check out</a>
             <a href="#" id="dashBtn" class="btn btn-outline-info">Bookings</a>
             <a href="#" id="dashBtn" class="btn btn-outline-warning">New Booking</a>
         </div>
