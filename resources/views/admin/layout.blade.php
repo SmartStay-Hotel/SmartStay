@@ -28,7 +28,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto"></ul>
         <a id="homeIcon" class="nav-link" href="#"><i class="fas fa-home fa-lg"></i></a>
-        <form class="form-inline my-2 my-lg-0">
+        <form action="{{ route('logout') }}" method="POST" class="form-inline my-2 my-lg-0">
+            @csrf
             <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Log out <i class="fas fa-sign-out-alt"></i></button>
         </form>
     </div>
@@ -41,10 +42,10 @@
             <h5 id="hotelName">JAUME BALMES</h5>
         </div>
         <hr id="separator">
-        <p id="guests">Guests</p>
+        <a href="{{ url('admin/guests') }}"><p id="guests">Guests</p></a>
         <p id="services">Services</p>
         <ul id="servicesList" class="list-group list-group-flush">
-            <li><a href="alarms">Alarm</a></li>
+            <li><a href="{{ url('admin/alarms') }}">Alarm</a></li>
             <li><a href="#restaurant">Restaurant</a></li>
             <li><a href="#housekeeping">Housekeeping</a></li>
             <li><a href="#taxi">Taxi</a></li>

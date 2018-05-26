@@ -68,10 +68,6 @@ Route::group(['middleware' => 'language'], function () {
         return view('admin.payments');
     });
 
-    Route::get('/admin/alarms', function () {
-        return view('admin.alarms');
-    });
-
 
     Route::resource('admin/guests', 'GuestController');
     Route::resource('admin/alarms', 'AlarmController');
