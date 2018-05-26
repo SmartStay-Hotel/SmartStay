@@ -61,7 +61,7 @@ Route::group(['middleware' => 'language'], function () {
 
 
     Route::get('admin/checkinform', function () {
-        return view('admin.checkInForm');
+        return view('admin.checkinform');
     });
 
     Route::get('admin/payments', function () {
