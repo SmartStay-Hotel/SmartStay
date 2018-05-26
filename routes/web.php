@@ -31,6 +31,9 @@ Route::group(['middleware' => 'language'], function () {
 
 
     /*------------ GUEST ------------*/
+    Route::get('dashboard', function () {
+        return redirect('/');
+    });
     Route::get('/', function () {
         if (Session::has('guest_id')) {
             $services = \App\Services::where('is_active', 1)->get();
