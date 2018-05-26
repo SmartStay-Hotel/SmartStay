@@ -26,7 +26,7 @@ class CreatePetCaresTable extends Migration
             $table->boolean('snacks');
             $table->double('price');
             //Revisar!! 0: cancelado, 1: solicitado, 2: Entregado (Mejor bool (solo dos estado)???)
-            $table->tinyInteger('status');
+            $table->enum('status',['0','1', '2']);
             $table->timestamps();
 
             //FK

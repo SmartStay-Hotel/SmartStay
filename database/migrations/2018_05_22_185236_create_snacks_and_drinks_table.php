@@ -23,7 +23,7 @@ class CreateSnacksAndDrinksTable extends Migration
             $table->double('price');
             $table->string('name');
             //Revisar!! 0: cancelado, 1: solicitado, 2: Entregado (Mejor bool (solo dos estado)???)
-            $table->tinyInteger('status');
+            $table->enum('status',['0','1', '2']);
             $table->timestamps();
 
             //FK

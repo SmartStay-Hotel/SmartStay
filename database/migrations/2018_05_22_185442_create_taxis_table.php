@@ -21,7 +21,7 @@ class CreateTaxisTable extends Migration
             $table->integer('service_id');
             $table->date('order_date');
             $table->dateTime('day_hour');
-            $table->boolean('status');
+            $table->enum('status',['0','1', '2']);
             $table->timestamps();
 
             //FK

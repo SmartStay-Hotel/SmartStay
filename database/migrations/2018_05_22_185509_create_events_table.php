@@ -24,7 +24,7 @@ class CreateEventsTable extends Migration
             $table->string('location');
             $table->integer('max_people_num');
             $table->double('price');
-            $table->boolean('status');
+            $table->enum('status',['0','1', '2']);
             $table->timestamps();
 
             //FK

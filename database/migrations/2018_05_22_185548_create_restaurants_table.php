@@ -23,7 +23,7 @@ class CreateRestaurantsTable extends Migration
             $table->date('order_date');
             $table->double('price');
             //Revisar si es necesario poner un tinyInt para informar más de 2 estados
-            $table->boolean('status');
+            $table->enum('status',['0','1', '2']);
             $table->timestamps();
 
             //FK

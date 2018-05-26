@@ -25,7 +25,7 @@ class CreateTripsTable extends Migration
             $table->integer('max_people_num');
             $table->double('price');
             //Revisar!! Es correcto definir aquí el status??
-            $table->boolean('status');
+            $table->enum('status',['0','1', '2']);
             $table->timestamps();
 
             //FK
