@@ -18,19 +18,18 @@ class CreatePetCaresTable extends Migration
             //Columns
             $table->increments('id');
             $table->unsignedInteger('guest_id');
-            $table->integer('service_id');
-            $table->date('order_date');
+            $table->unsignedInteger('service_id');
             $table->boolean('water');
             $table->boolean('standard_food');
             $table->boolean('premium_food');
             $table->boolean('snacks');
+            $table->date('order_date');
             $table->double('price');
-            //Revisar!! 0: cancelado, 1: solicitado, 2: Entregado (Mejor bool (solo dos estado)???)
-            $table->tinyInteger('status');
+            $table->enum('status', ['0', '1', '2']);
             $table->timestamps();
 
             //FK
-            $table->foreign('guest_id')->references('id')->on('guests');
+            $table->foreign('guest_id')->references('id')->on('guests')->onDelete('cascade');
         });
     }
 

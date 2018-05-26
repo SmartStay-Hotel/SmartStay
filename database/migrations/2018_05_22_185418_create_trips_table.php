@@ -18,18 +18,16 @@ class CreateTripsTable extends Migration
             //Columns
             $table->increments('id');
             $table->unsignedInteger('guest_id'); //FK
-            $table->integer('service_id');
-            $table->date('order_date');
+            $table->unsignedInteger('service_id');
+            $table->unsignedInteger('trip_type_id'); //pendiente de tabla
             $table->dateTime('day_hour');
-            $table->string('location');
-            $table->integer('max_people_num');
+            $table->date('order_date');
             $table->double('price');
-            //Revisar!! Es correcto definir aquí el status??
-            $table->boolean('status');
+            $table->enum('status', ['0', '1', '2']);
             $table->timestamps();
 
             //FK
-            $table->foreign('guest_id')->references('id')->on('guests');
+            $table->foreign('guest_id')->references('id')->on('guests')->onDelete('cascade');
         });
     }
 
