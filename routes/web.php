@@ -31,6 +31,9 @@ Route::group(['middleware' => 'language'], function () {
 
 
     /*------------ GUEST ------------*/
+    Route::get('dashboard', function () {
+        return redirect('/');
+    });
     Route::get('/', function () {
         if (Session::has('guest_id')) {
             $services = \App\Services::where('is_active', 1)->get();
@@ -46,31 +49,22 @@ Route::group(['middleware' => 'language'], function () {
         return $services;
     });
 
-
-    Route::get('/logout', 'CodeController@logout');
-
-
     Route::post('/', 'CodeController@login');
-    //Route::get('/login', 'CodeController@login');
-
-    /*Route::get('dashboard', function () {
-        $services = \App\Services::all();
-
-        return view('guest.dashboard', compact('services'));
-    });*/
     /*------------ END GUEST ------------*/
 
 
     /*------------ ADMIN ------------*/
-    Route::get('admin', 'HomeController@index')->name('admin');
-    Route::get('admin/dashboard', function () {
-        return view('admin.dashboard');
+    Route::get('admin', function () {
+        return redirect('admin/dashboard');
     });
-    Route::get('/admin/checkinform', function () {
+    Route::get('admin/dashboard', 'HomeController@index')->name('admin');
+
+
+    Route::get('admin/checkinform', function () {
         return view('admin.checkInForm');
     });
 
-    Route::get('/admin/payments', function () {
+    Route::get('admin/payments', function () {
         return view('admin.payments');
     });
 

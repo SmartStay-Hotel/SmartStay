@@ -18,14 +18,14 @@ class CreateTaxisTable extends Migration
             //Columns
             $table->increments('id');
             $table->unsignedInteger('guest_id'); //FK
-            $table->integer('service_id');
-            $table->date('order_date');
+            $table->unsignedInteger('service_id');
             $table->dateTime('day_hour');
-            $table->boolean('status');
+            $table->date('order_date');
+            $table->enum('status', ['0', '1', '2']);
             $table->timestamps();
 
             //FK
-            $table->foreign('guest_id')->references('id')->on('guests');
+            $table->foreign('guest_id')->references('id')->on('guests')->onDelete('cascade');
         });
     }
 
