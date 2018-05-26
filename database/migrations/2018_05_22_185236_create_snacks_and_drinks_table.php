@@ -27,6 +27,7 @@ class CreateSnacksAndDrinksTable extends Migration
 
             //FK
             $table->foreign('guest_id')->references('id')->on('guests')->onDelete('cascade');
+            $table->foreign('product_type_id')->references('id')->on('product_types')->onDelete('cascade');
         });
     }
 

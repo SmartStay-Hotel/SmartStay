@@ -20,7 +20,6 @@ class CreateTripsTable extends Migration
             $table->unsignedInteger('guest_id'); //FK
             $table->unsignedInteger('service_id');
             $table->unsignedInteger('trip_type_id'); //pendiente de tabla
-            $table->dateTime('day_hour');
             $table->date('order_date');
             $table->double('price');
             $table->enum('status', ['0', '1', '2']);
@@ -28,6 +27,7 @@ class CreateTripsTable extends Migration
 
             //FK
             $table->foreign('guest_id')->references('id')->on('guests')->onDelete('cascade');
+            $table->foreign('trip_type_id')->references('id')->on('trip_types');
         });
     }
 

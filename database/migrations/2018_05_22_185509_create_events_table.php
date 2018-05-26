@@ -20,14 +20,16 @@ class CreateEventsTable extends Migration
             $table->unsignedInteger('guest_id');
             $table->unsignedInteger('service_id');
             $table->unsignedInteger('event_type_id'); //pendiente de tabla
-            $table->dateTime('day_hour');
             $table->date('order_date');
-            $table->double('price');
             $table->enum('status', ['0', '1', '2']);
             $table->timestamps();
 
             //FK
             $table->foreign('guest_id')->references('id')->on('guests')->onDelete('cascade');
+
+            //FK event_types
+            $table->foreign('event_type_id')->references('id')->on('event_types');
+
         });
     }
 

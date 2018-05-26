@@ -19,7 +19,6 @@ class CreateSpaAppointmentsTable extends Migration
             $table->unsignedInteger('guest_id');
             $table->unsignedInteger('service_id');
             $table->unsignedInteger('treatment_type_id'); //pendiente de tabla
-            $table->integer('duration');
             $table->dateTime('day_hour');
             $table->date('order_date');
             $table->double('price');
@@ -27,9 +26,8 @@ class CreateSpaAppointmentsTable extends Migration
             $table->timestamps();
 
             //FK
-            //Revisar!! Es necesario crear FK en todos los servicios hacia guests??
-            //Para poner onCascade: ->onDelete('cascade'); Por defecto no lo aplica
             $table->foreign('guest_id')->references('id')->on('guests')->onDelete('cascade');
+            $table->foreign('treatment_type_id')->references('id')->on('spa_treatment_types')->onDelete('cascade');
         });
     }
 
