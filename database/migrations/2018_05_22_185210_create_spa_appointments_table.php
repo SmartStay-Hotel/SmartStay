@@ -23,7 +23,6 @@ class CreateSpaAppointmentsTable extends Migration
             $table->string('treatment', 50);
             $table->integer('duration');
             $table->double('price');
-            $table->tinyInteger('status');
             $table->enum('status',['0','1', '2']);
             $table->timestamps();
 
