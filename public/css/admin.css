@@ -9,6 +9,12 @@
     src: url(../fonts/OpenSans-SemiBold.ttf) format("truetype");
 }
 
+@media screen and (max-height: 450px) {
+    /*.sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+    #groupDashBtn > a {font-size: 18px;} */
+}
+
 body {
     font-family: OpenSansLight, sans-serif;
     overflow-x: hidden;
@@ -72,7 +78,7 @@ body {
     border-color: white;
 }
 
-#services{
+#services, #guests{
     font-size: 20px;
     color: #979898;
     padding-left: 14px;
@@ -92,12 +98,9 @@ body {
     border: 1px solid #979898;
     padding: 10px;
     text-align: left;
+    font-size: 1vw;
 }
 
-/*@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-}*/
 
  #pendingOrdersCard{
     margin-left: 25%;
@@ -144,7 +147,7 @@ body {
 #groupDashBtn > a{
     width:20%;
     padding: 40px 20px 40px 20px;
-    font-size: 30px;
+    font-size: 2vw;
     box-sizing: border-box;
     border-radius: 0px;
 }

@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>SmartStay</title>
+    <meta name="viewport" content="initial-scale=1">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css"
           rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
@@ -40,6 +41,7 @@
             <h5 id="hotelName">JAUME BALMES</h5>
         </div>
         <hr id="separator">
+        <p id="guests">Guests</p>
         <p id="services">Services</p>
         <ul id="servicesList" class="list-group list-group-flush">
             <li><a href="alarms">Alarm</a></li>
