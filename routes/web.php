@@ -68,6 +68,40 @@ Route::group(['middleware' => 'language'], function () {
         return view('admin.payments');
     });
 
+    /* llamadas a las vistas - luego irán en los controllers */
+    Route::get('admin/taxi', function () {
+        return view('admin.taxi');
+    });
+
+    Route::get('admin/spa', function () {
+        return view('admin.spa');
+    });
+
+    Route::get('admin/restaurant', function () {
+        return view('admin.restaurant');
+    });
+
+    Route::get('admin/housekeeping', function () {
+        return view('admin.housekeeping');
+    });
+
+    Route::get('admin/petCare', function () {
+        return view('admin.petCare');
+    });
+
+    Route::get('admin/snacks', function () {
+        return view('admin.snacks');
+    });
+
+    Route::get('admin/events', function () {
+        return view('admin.events');
+    });
+
+    Route::get('admin/trips', function () {
+        return view('admin.trips');
+    });
+
+    /* end llamadas a las vistas */
 
     Route::resource('admin/guests', 'GuestController');
     Route::resource('admin/alarms', 'AlarmController');
