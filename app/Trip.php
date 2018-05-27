@@ -7,9 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Trip extends Model
 {
     //
-    protected $fillable = ['trip_type_id',
+    protected $fillable = ['guest_id',
+        'trip_type_id',
         'service_id',
         'order_date',
-        'day_hour',
+        'price',
         'status'];
+    public function tripTypes()
+    {
+        return $this->belongTo('App\Trip_types');
+    }
 }
