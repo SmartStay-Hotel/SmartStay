@@ -81,7 +81,9 @@ Route::group(['middleware' => 'language'], function () {
 
 
     /*------------- SERVICES --------------*/
-    Route:
     Route::resource('service/taxi', 'TaxiController');
     Route::resource('service/housekeeping', 'HousekeepingController');
+    Route::resource('service/housekeeping', 'HousekeepingController');
+    Route::resource('service/trip', 'TripController');
+    Route::resource('service/event', 'EventController');
 });
