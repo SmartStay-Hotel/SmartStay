@@ -1,5 +1,5 @@
-@extends('layout')
- 
+@extends('layouts.app')
+
 @section('content')
         @if (Session::has('message'))
             <div class="alert alert-info">{{ Session::get('message') }}</div>
@@ -11,19 +11,21 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Taxi Date_hour</th>
+                <th scope="col">Guest_id</th>
+              <th scope="col">Taxi Date hour</th>
             </tr>
           </thead>
           <tbody>
             @foreach($taxis as $taxi)
             <tr>
-              <th scope="row">{{$taxi->id}}</th>
+              <th><a href="/service/taxi/{{$taxi->id}}">{{$taxi->id}}</a></th>
+              <th scope="row"> {{ $taxi->guest_id }} </th>
               <td>{{$taxi->day_hour}}</td>
               <td>
               <div class="btn-group" role="group" aria-label="Basic example">
                   <a href="{{ URL::to('/service/taxi/' . $taxi->id . '/edit') }}">
                    <button type="button" class="btn btn-warning">Edit</button>
-                  </a>&nbsp;               
+                  </a>&nbsp;
                 <form action="{{url('/service/taxi', [$taxi->id])}}" method="POST">
                      <input type="hidden" name="_method" value="DELETE">
                    <input type="hidden" name="_token" value="{{ csrf_token() }}">

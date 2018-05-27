@@ -17,17 +17,15 @@ class CreateEventsTable extends Migration
 
             //Columns
             $table->increments('id');
-            $table->unsignedInteger('guest_id'); //FK
-            $table->unsignedInteger('event_type_id'); //FK
-            $table->integer('service_id');
-            $table->dateTime('day_hour');
+            $table->unsignedInteger('guest_id');
+            $table->unsignedInteger('service_id');
+            $table->unsignedInteger('event_type_id'); //pendiente de tabla
             $table->date('order_date');
-            //Los tres campos se pasan a la tabla event_types
-            $table->enum('status',['0','1', '2']);
+            $table->enum('status', ['0', '1', '2']);
             $table->timestamps();
 
             //FK
-            $table->foreign('guest_id')->references('id')->on('guests');
+            $table->foreign('guest_id')->references('id')->on('guests')->onDelete('cascade');
 
             //FK event_types
             $table->foreign('event_type_id')->references('id')->on('event_types');

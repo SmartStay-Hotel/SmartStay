@@ -18,16 +18,16 @@ class CreateSnacksAndDrinksTable extends Migration
             //Columns
             $table->increments('id');
             $table->unsignedInteger('guest_id');
-            $table->integer('service_id');
+            $table->unsignedInteger('service_id');
+            $table->unsignedInteger('product_type_id'); //pendiente de tabla
             $table->date('order_date');
             $table->double('price');
-            $table->string('name');
-            //Revisar!! 0: cancelado, 1: solicitado, 2: Entregado (Mejor bool (solo dos estado)???)
-            $table->enum('status',['0','1', '2']);
+            $table->enum('status', ['0', '1', '2']);
             $table->timestamps();
 
             //FK
-            $table->foreign('guest_id')->references('id')->on('guests');
+            $table->foreign('guest_id')->references('id')->on('guests')->onDelete('cascade');
+            $table->foreign('product_type_id')->references('id')->on('product_types')->onDelete('cascade');
         });
     }
 

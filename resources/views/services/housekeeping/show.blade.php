@@ -1,14 +1,14 @@
-@extends('layout')
+@extends('layouts.app')
  
 @section('content')
-            <h1>Showing Task {{ $task->title }}</h1>
+            <h1>Showing Housekeeping order: {{ $housekeeping->id }}</h1>
    <div class="pull-right">
-        <a class="btn btn-primary" href="{{ route('tasks.index') }}"> Back</a>
+        <a class="btn btn-primary" href="{{ route('housekeeping.index') }}"> Back</a>
     </div>
     <div class="jumbotron text-center">
         <p>
-            <strong>Task Title:</strong> {{ $task->title }}<br>
-            <strong>Description:</strong> {{ $task->description }}
+            <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
+            <strong>Guest Phone: </strong> {{ $guest->telephone }}
         </p>
     </div>
 @endsection

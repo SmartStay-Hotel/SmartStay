@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Taxi;
-//use App\Guest;
+use App\Guest;
 use Illuminate\Http\Request;
 
 class TaxiController extends Controller
@@ -16,7 +16,8 @@ class TaxiController extends Controller
     public function index()
     {
         $taxis = Taxi::all();
-        return view('services.taxi.index', compact('taxis', $taxis));
+        //Quizás seria necesario mostrar el nombre del guest, en el metodo show()
+        return view('services.taxi.index', compact('taxis'));
     }
 
     /**
@@ -26,7 +27,8 @@ class TaxiController extends Controller
      */
     public function create()
     {
-        return view('services.taxi.create');
+        $guests = Guest::all();
+        return view('services.taxi.create', compact('guests'));
     }
 
     /**
@@ -40,16 +42,26 @@ class TaxiController extends Controller
         $request->validate([
             'day_hour' => 'required',]);
 
-        //Obtener id del guest para meterlo en el servicio
-        //$guest_id = Guest::all();
-
         $order_date = date('Y-m-d');
-        Taxi::create(['guest_id' => 1,
-            'service_id' => 1,
+        Taxi::create(['guest_id' => $request->guest,
+            'service_id' => 5,
             'order_date' => $order_date,
             'day_hour' => $request->day_hour,
             'status' => 1]);
         return redirect('/service/taxi');
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Taxi $taxi)
+    {
+        //Se consigue pasar el guest en función del guest_id del taxi
+        $guest = Guest::find($taxi->guest_id);
+        return view('services.taxi.show',compact('taxi'),
+            compact('guest'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -59,7 +71,11 @@ class TaxiController extends Controller
      */
     public function edit(Taxi $taxi)
     {
-        return view('services.taxi.edit',compact('taxi',$taxi));
+        //Pasarle el guest parar poder modificarlo
+        $guests = Guest::all();
+        //Falta que el select del edit.blade se quede seleccionado con el guest correcto
+        return view('services.taxi.edit',compact('taxi'),
+            compact('guests'));
     }
 
     /**
@@ -69,13 +85,18 @@ class TaxiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Taxi $taxi)
+    public function update(Request $request, $id)
     {
-        $request->validate(['day_hour' => 'required']);
+        $request->validate([
+            'day_hour' => 'required',]);
 
-        $taxi->day_hour = $request->day_hour;
-        $taxi->save();
-        //$request->session()->flash('message', 'Successfully modified the taxi!');
+        $order_date = date('Y-m-d');
+        Taxi::find($id)->update(['guest_id' => $request->guest,
+            'service_id' => 5,
+            'order_date' => $order_date,
+            'day_hour' => $request->day_hour,
+            'status' => 1]);
+
         return redirect('/service/taxi');
     }
 

@@ -18,7 +18,7 @@ class CreateHousekeepingsTable extends Migration
             //Columns
             $table->increments('id');
             $table->unsignedInteger('guest_id'); //FK
-            $table->integer('service_id');
+            $table->unsignedInteger('service_id');
             $table->date('order_date');
             $table->boolean('bed_sheets');
             $table->boolean('cleaning');
@@ -27,12 +27,11 @@ class CreateHousekeepingsTable extends Migration
             $table->boolean('toiletries');
             $table->boolean('pillow');
             $table->double('price');
-            //Revisar!! 0: cancelado, 1: solicitado, 2: Entregado (Mejor bool (solo dos estado)???)
-            $table->enum('status',['0','1', '2']);
+            $table->enum('status', ['0', '1', '2']);
             $table->timestamps();
 
             //FK
-            $table->foreign('guest_id')->references('id')->on('guests');
+            $table->foreign('guest_id')->references('id')->on('guests')->onDelete('cascade');
         });
     }
 

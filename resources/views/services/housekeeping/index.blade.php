@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
  
 @section('content')
         @if (Session::has('message'))
@@ -11,26 +11,40 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
+                <th scope="col">Guest_id</th>
               <th scope="col">Bed Sheets</th>
               <th scope="col">Cleaning</th>
               <th scope="col">Minibar</th>
               <th scope="col">Blanket</th>
               <th scope="col">Toiletries</th>
               <th scope="col">Pillow</th>
+              <th scope="col">Price</th>
             </tr>
           </thead>
           <tbody>
             @foreach($housekeepings as $housekeeping)
             <tr>
-              <th scope="row">{{$housekeeping->id}}</th>
-                <td>{{$housekeeping->bed_sheets}}</td>
-                <td>{{$housekeeping->cleaning}}</td>
-                <td>{{$housekeeping->minibar}}</td>
-                <td>{{$housekeeping->blanket}}</td>
-                <td>{{$housekeeping->toiletries}}</td>
-                <td>{{$housekeeping->pillow}}</td>
+              <th><a href="/service/housekeeping/{{$housekeeping->id}}">{{$housekeeping->id}}</a></th>
+              <th>{{ $housekeeping->guest_id }} </th>
+                <td>
+                    <input type="checkbox" class="form-control" id="bed_sheets"  name="bed_sheets"
+                            {{ ($housekeeping->bed_sheets) ? 'checked' : "" }} onclick="return false;"/></td>
+                <td>
+                    <input type="checkbox" class="form-control" id="bed_sheets"  name="bed_sheets"
+                           {{ ($housekeeping->cleaning) ? 'checked' : "" }} onclick="return false;"/></td></td>
+                <td>
+                    <input type="checkbox" class="form-control" id="bed_sheets"  name="bed_sheets"
+                           {{ ($housekeeping->minibar) ? 'checked' : "" }} onclick="return false;"/></td></td>
+                <td>
+                    <input type="checkbox" class="form-control" id="bed_sheets"  name="bed_sheets"
+                           {{ ($housekeeping->blanket) ? 'checked' : "" }} onclick="return false;"/></td></td>
+                <td>
+                    <input type="checkbox" class="form-control" id="bed_sheets"  name="bed_sheets"
+                           {{ ($housekeeping->toiletries) ? 'checked' : "" }} onclick="return false;"/></td></td>
+                <td>
+                    <input type="checkbox" class="form-control" id="bed_sheets"  name="bed_sheets"
+                           {{ ($housekeeping->pillow) ? 'checked' : "" }} onclick="return false;"/></td></td>
                 <td>{{$housekeeping->price}}</td>
-                <td>{{$housekeeping->bed_sheets}}</td>
               <td>
               <div class="btn-group" role="group" aria-label="Basic example">
                   <a href="{{ URL::to('/service/housekeeping/' . $housekeeping->id . '/edit') }}">

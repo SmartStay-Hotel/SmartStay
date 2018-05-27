@@ -9,13 +9,31 @@
     src: url(../fonts/OpenSans-SemiBold.ttf) format("truetype");
 }
 
+@media screen and (max-height: 450px) {
+    /*.sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+    #groupDashBtn > a {font-size: 18px;} */
+}
+
 body {
     font-family: OpenSansLight, sans-serif;
-    background-color: #F7F7F7;
+    overflow-x: hidden;
+
+}
+
+#main_container{
+     background-color:#ECEBE7;
+    position:absolute;
+    height:100%;
+    width:100%;
+}
+
+#homeIcon{
+    margin-right: 68%;
 }
 .sidenav {
     height: 100%;
-    width: 260px;
+    width: 20%;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -25,16 +43,17 @@ body {
 }
 
 .sidenav a {
-    padding: 6px 8px 6px 16px;
+    padding: 6px 6px 6px 16px;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
     display: block;
     color: #979898;
 }
 
 #titleAdmin{
-    background-color: #0069D9;
+    /*background-color: #0069D9;*/
     color: white;
+    padding: 2px;
 }
 
 #titleApp{
@@ -42,7 +61,7 @@ body {
     font-size: 16px;
 }
 #hotelName{
-    padding: 0px 8px 6px 16px;
+    padding: 0px 8px 0px 16px;
     font-size: 28px;
     font-family: OpenSansSemiBold, sans-serif;
     margin-bottom: 20px;
@@ -50,76 +69,139 @@ body {
 }
 
 .sidenav a:hover {
-
     text-decoration: none;
     color: white;
+}
+
+#separator{
+    border-width: 2px;
+    border-color: white;
+}
+
+#services, #guests{
+    font-size: 20px;
+    color: #979898;
+    padding-left: 14px;
+    padding-top: 10px;
+}
+
+#servicesList{
+    padding-left: 20px;
+    list-style-type: none;
+}
+
+#dispatchedOrdersList{
+    list-style-type: none;
+}
+
+#dispatchedOrdersList > li{
+    border: 1px solid #979898;
+    padding: 10px;
+    text-align: left;
+    font-size: 1vw;
+}
+
+
+ #pendingOrdersCard{
+    margin-left: 25%;
+    margin-top: 3%;
+     /*max-height: 200px;*/
+}
+
+#dispatchedOrdersCard{
+    margin-top: 3%;
 
 }
 
-.main {
-    margin-left: 160px; /* Same as the width of the sidenav */
-    font-size: 28px; /* Increased text to enable scrolling */
-    padding: 0px 10px;
+#pendingOrdersHeader{
+    background-color: #F39C12;
+    color: white;
 }
 
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
+#dispatchedOrdersHeader{
+    background-color: #218838;
+    color: white;
 }
 
- #card3{
-    margin-left: 300px;
-    margin-top: 60px;
-
-     max-height: 200px;
+#pendingOrdersBody{
+    border-style: solid;
+    border-color: #F39C12;
 }
 
-#card2, #card1{
-    margin-top: 60px;
-
+#dispatchedOrdersBody{
+    border-style: solid;
+    border-color: #218838;
 }
 
-#orderBtn{
-    margin-left: 400px;
-    width: 600px;
+/*#orderBtn{
+    margin-left: 25%;
+    width: 20%;
     height: 200px;
     text-align: center;
     font-size: 50px;
     padding: auto;
-}
+}*/
 
-ul {
-    list-style-type: none;
-}
 
-li {
-    border: 1px solid #979898;
-    padding: 10px;
-    text-align: left;
-}
 
-#services{
-    font-size: 20px;
-}
-
-#dashBtn{
-    width:280px;
-    padding: 20px;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    font-size: 30px;
+#groupDashBtn > a{
+    width:20%;
+    padding: 40px 20px 40px 20px;
+    font-size: 2vw;
     box-sizing: border-box;
-    margin-left: 20px;
     border-radius: 0px;
 }
 
 #groupDashBtn{
-    margin-left: 280px;
-    margin-top: 60px;
-
+    margin-left: 17%;
+    margin-top: 3%;
+    display: flex;
+    justify-content: center;
 }
 
-/* check-in form*/
+#checkOutBtn, #bookingsBtn, #newBookingBtn {
+    margin-left: 2%;
+}
+
+#bookingsBtn {
+    background-image: url("../img/admin/calendar.png");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    z-index: 1;
+    background-position: right center;
+    border-bottom: 20px solid #2160A6;
+}
+
+#checkInBtn {
+    background-image: url("../img/admin/leftArrow.png");
+    background-size: 70%;
+    background-repeat: no-repeat;
+    z-index: 1;
+    background-position: right center;
+    border-bottom: 20px solid #004101;
+}
+
+#checkOutBtn {
+    background-image: url("../img/admin/rightArrow.png");
+    background-size: 40%;
+    background-repeat: no-repeat;
+    z-index: 1;
+    background-position: center center;
+    border-bottom: 20px solid #880015;
+}
+
+#newBookingBtn{
+    background-image: url("../img/admin/plusCalendar.png");
+    background-size: 40%;
+    background-repeat: no-repeat;
+    z-index: 1;
+    background-position: right center;
+    border-bottom: 20px solid #272727;
+}
+
+
+
+/*CHECK-IN FORM*/
 
 #checkInForm{
     margin-left: 40%;
@@ -132,8 +214,12 @@ li {
     color: black;
 }
 
-/* payment table*/
+/*CHECK-OUT TABLE*/
 
 #paymentsTable{
     margin-left: 40%;
+}
+
+#iconBtn{
+    color: #0b2e13;
 }
