@@ -80,4 +80,7 @@ Route::group(['middleware' => 'language'], function () {
     /*------------ END ADMIN ------------*/
 
 
+    /*------------- SERVICES --------------*/
+    Route::resource('service/taxi', 'TaxiController');
+    Route::resource('service/housekeeping', 'HousekeepingController');
 });
