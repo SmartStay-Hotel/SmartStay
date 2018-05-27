@@ -60,7 +60,7 @@
     </style>
 
 </head>
-</html>
+<body>
 <div class="col-md-8 col-md-offset-2">
     <h2 class="text-center">Manage Guests</h2>
     <br/>
@@ -68,7 +68,7 @@
         <div class="panel-heading">
             <ul>
                 <li><i class="fa fa-file-text-o"></i> All the current Guests</li>
-                <a href="#" class="add-modal">
+                <a href="{{ route('guests.create') }}" class="add-modal">
                     <li>Add a Guest</li>
                 </a>
             </ul>
@@ -84,7 +84,7 @@
                     <th>NIE</th>
                     <th>E-mail</th>
                     <th>Telephone</th>
-                    <th>Balance</th>
+                    <th>Action</th>
                 </tr>
                 {{ csrf_field() }}
                 </thead>
