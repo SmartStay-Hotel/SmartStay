@@ -11,7 +11,6 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
-                <th scope="col">Guest_id</th>
               <th scope="col">Bed Sheets</th>
               <th scope="col">Cleaning</th>
               <th scope="col">Minibar</th>
@@ -25,7 +24,6 @@
             @foreach($housekeepings as $housekeeping)
             <tr>
               <th><a href="/service/housekeeping/{{$housekeeping->id}}">{{$housekeeping->id}}</a></th>
-              <th>{{ $housekeeping->guest_id }} </th>
                 <td>
                     <input type="checkbox" class="form-control" id="bed_sheets"  name="bed_sheets"
                             {{ ($housekeeping->bed_sheets) ? 'checked' : "" }} onclick="return false;"/></td>

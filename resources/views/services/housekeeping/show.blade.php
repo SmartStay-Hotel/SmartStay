@@ -7,6 +7,7 @@
     </div>
     <div class="jumbotron text-center">
         <p>
+            <strong>Guest_Id: </strong> {{$housekeeping->guest_id}}<br>
             <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
             <strong>Guest Phone: </strong> {{ $guest->telephone }}
         </p>
