@@ -1,7 +1,7 @@
 
 
 /* ----------------------- REQUIRES ----------------------------------*/
-console.log("jejejeje");
+
 require('./bootstrap');
 window.Vue = require('vue');
 window.axios = require('axios');
@@ -22,33 +22,64 @@ window.axios = require('axios');
 
 
 
-    function nextPass(num){
-        document.getElementsByClassName("pass")[num + 1].focus();
-    }
-
     /*------------- DASHBOARD GUEST ------------------*/
 // require('./bootstrap');
 //
 // import Vue from 'vue';
 
 
+    // Vue.component('serviceslider', require('./components/swipeServices.vue'));
+
+// var VueTinySlider = require('vue-tiny-slider');
+//
+// new Vue({
+//     el: '#app',
+//     components: {
+//         'tiny-slider': VueTinySlider
+//     }
+// })
+
+// import Vue from 'vue';
+// import VueCarousel from 'vue-carousel';
+//
+// Vue.use(VueCarousel);
+
+import VueTinySlider from 'vue-tiny-slider';
+// Vue.component('serviceshome', require('./components/servicesHome.vue'));
+
 
     var urlServices = 'services';
 
     new Vue({
-        el: '#main_container',
+        el: '#container',
         created: function(){
         this.getServices();
         },
+
         data:{
-            services:[]
+            services:[],
+            window: [false, false, false, false, false, false, false],
+            show: false,
+            guestOut:true,
+            showMenuOut: true
         },
         methods:{
             getServices: function(){
                 axios.get(urlServices).then(response=>{
                     this.services = response.data
                 });
+            },
+            showWindow: function(num){
+                this.show = !this.show
+                this.window[num]=!this.window[num]
+            },
+            showOut: function(){
+                this.guestOut = !this.guestOut
+                this.showMenuOut = !this.showMenuOut
             }
+        },
+        components: {
+            'tiny-slider': VueTinySlider
         }
     });
 

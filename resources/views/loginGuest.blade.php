@@ -19,7 +19,7 @@
 <form method="POST" action="{{ url('/') }}" id="formLoginGuest">
 <div id="app"></div>
     <div class="dropdown">
-        <button class="dropbtn"><img src="{{ Config::get('languages')[App::getLocale()]['flag']}}"/></button>
+        <div class="dropbtn"><img src="{{ Config::get('languages')[App::getLocale()]['flag']}}"/></div>
         <div class="dropdown-content" id="language">
 
             @foreach (Config::get('languages') as $lang => $language)

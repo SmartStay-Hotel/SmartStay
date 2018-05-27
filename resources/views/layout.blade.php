@@ -8,52 +8,17 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('css/guest.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.3.5/tiny-slider.css">
+
 
     {{--<link rel="stylesheet" href="{{asset('css/tabletGuest.css')}}">--}}
     {{--<link rel="stylesheet" href="{{asset('css/phoneGuest.css')}}">--}}
     <script>
-        function botones() {
-
-            if (window.innerWidth <= 600) {
-                document.getElementById('bttnsDirection').innerHTML = "<i class=\"fas fa-chevron-left\"></i>\n" +
-                    "    <i class=\"fas fa-chevron-right\"></i>";
-                document.getElementsByClassName('bttnsDirection')[0].innerHTML = "";
-                document.getElementsByClassName('bttnsDirection')[1].innerHTML = "";
-            }
-        }
     </script>
-    <style>
-        .overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: black;
-            overflow: hidden;
-            width: 0;
-            height: 100%;
-            transition: .5s ease;
-        }
 
-        .bttnServices:hover .overlay {
-            width: 100%;
-        }
-
-        .text {
-            white-space: nowrap;
-            color: white;
-            font-size: 20px;
-            position: absolute;
-            overflow: hidden;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-        }
-    </style>
 </head>
-<body onload="botones()">
-
+<body>
+<div id="container">
 <nav>
     <div id="nav1">
         <h3><span style="font-size:1rem">SmartStay</span> Hotel Jaume Balmes</h3>
@@ -68,13 +33,39 @@
         <a href="{{url('logout')}}"><i class="fas fa-power-off"></i></a>
     </div>
     <div id="subMenu2">
+        <div id="inOut"  >
 
+            <label class="switch">
+
+                <input type="checkbox" v-model="guestOut" @click="showOut" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        {{--<p>@{{guestOut}}</p>--}}
     </div>
 </div>
-<div id="main_container">
+<div id="main_container" v-bind:class="[!showMenuOut ? 'blur' : '']">
     @yield('content')
 </div>
 
+
+    <transition name="bounce">
+
+        <div id="out" v-if="!showMenuOut">
+            <div class="containerMenuOut">
+                <div class="menuOut"><input type="checkbox"> Sabanas limpias</div>
+                <div class="menuOut"><input type="checkbox"> Limpiar habitación</div>
+                <div class="menuOut"><input type="checkbox"> Rellenar habitación</div>
+                <div class="menuOut"><input type="checkbox"> Toallas</div>
+                <div class="menuOut"><input type="checkbox"> Manta</div>
+                <div class="menuOut"><input type="checkbox"> Almohadas</div>
+                <div class="menuOut"><input type="number" max="5" style="width:30px"> Número de almohadas</div>
+                <div class="menuOut"><input type="submit" value="Okay" @click="showMenuOut = !showMenuOut"></div>
+            </div>
+        </div>
+    </transition>
+
+</div>
 <script type="text/javascript" src="{{asset('js/app.js') }}"></script>
 </body>
 </html>

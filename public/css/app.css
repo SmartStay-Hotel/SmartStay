@@ -9239,7 +9239,6 @@ button.toast-close-button {
     flex-direction: column;
     margin: auto;
     position: absolute;
-    height:35%;
     width:30%;
     top:32.5%;
     left:35%;
@@ -9321,8 +9320,8 @@ button.toast-close-button {
     }
 
 
-
 }
+
 
 .dropbtn {
     background-color:white;

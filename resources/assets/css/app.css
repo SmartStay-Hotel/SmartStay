@@ -29,7 +29,6 @@
     flex-direction: column;
     margin: auto;
     position: absolute;
-    height:35%;
     width:30%;
     top:32.5%;
     left:35%;
@@ -111,8 +110,8 @@
     }
 
 
-
 }
+
 
 .dropbtn {
     background-color:white;
