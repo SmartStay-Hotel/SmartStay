@@ -27,7 +27,7 @@
          <select name="triptype">
              @foreach ($tripTypes as $tripType)
                  <option value="{{ $tripType->id }}"
-                         @if($trip->id == $tripType->guest_id)
+                         @if($trip->trip_type_id == $tripType->id)
                          selected
                          @endif>
                      {{ $tripType->name." - ".$tripType->location }}
