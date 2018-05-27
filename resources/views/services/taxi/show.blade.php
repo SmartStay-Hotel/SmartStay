@@ -8,6 +8,7 @@
     <div class="jumbotron text-center">
         <p>
             <strong>Date hour: </strong> {{ $taxi->day_hour }}<br>
+            <strong>Guest_Id: </strong> {{ $taxi->guest_id }}<br>
             <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
             <strong>Guest Phone: </strong> {{ $guest->telephone }}
         </p>

@@ -11,7 +11,6 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
-                <th scope="col">Guest_id</th>
               <th scope="col">Taxi Date hour</th>
             </tr>
           </thead>
@@ -19,7 +18,6 @@
             @foreach($taxis as $taxi)
             <tr>
               <th><a href="/service/taxi/{{$taxi->id}}">{{$taxi->id}}</a></th>
-              <th scope="row"> {{ $taxi->guest_id }} </th>
               <td>{{$taxi->day_hour}}</td>
               <td>
               <div class="btn-group" role="group" aria-label="Basic example">
