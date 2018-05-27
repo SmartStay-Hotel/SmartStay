@@ -9,16 +9,11 @@
     src: url(../fonts/OpenSans-SemiBold.ttf) format("truetype");
 }
 
-@media screen and (max-height: 450px) {
-    /*.sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-    #groupDashBtn > a {font-size: 18px;} */
-}
 
 body {
     font-family: OpenSansLight, sans-serif;
     overflow-x: hidden;
-
+    overflow-y: hidden;
 }
 
 #main_container{
@@ -28,9 +23,10 @@ body {
     width:100%;
 }
 
-#homeIcon{
+#homeIcon {
     margin-right: 68%;
 }
+
 .sidenav {
     height: 100%;
     width: 20%;
@@ -222,4 +218,43 @@ body {
 
 #iconBtn{
     color: #0b2e13;
+}
+
+/* ALARM */
+
+#alarmTableContainer{
+    margin-left: 23%;
+    margin-top: 3%;
+}
+
+#alarmTable{
+    border-style: solid;
+    border-color: #0056B3;
+    background-color: white;
+    font-size: 1vw;
+}
+
+#alarmTableHeader{
+    background-color: #0056B3;
+    color: white;
+}
+
+
+.alarmEditBtn{
+    background-color: orange;
+    color: white;
+    font-size: 1vw;
+}
+
+.alarmDeleteBtn{
+    background-color: red;
+    color: white;
+    font-size: 1vw;
+}
+
+
+@media  screen and (max-width: 1024px) {
+    #groupDashBtn > a {font-size: 18px;}
+    body {overflow-x: scroll;}
+    #homeIcon {margin-right: 66%;}
 }
