@@ -18,7 +18,7 @@ class TripController extends Controller
     {
         //Pasarle más información!!! Es posible?
         $trips = Trip::all();
-        return view('services.trip.index', compact('trips', $trips));
+        return view('services.trip.index', compact('trips'));
     }
 
     /**
@@ -41,7 +41,7 @@ class TripController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Trip $trip)
+    public function store(Request $request)
     {
         $order_date = date('Y-m-d');
         //Trip_types::find($trip->id); Obtener el precio de la tabla Tryp_types
