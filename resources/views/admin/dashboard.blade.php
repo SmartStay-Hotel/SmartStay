@@ -5,7 +5,7 @@
             <a href="{{ url('admin/checkinform') }}" id="checkInBtn" class="btn btn-success">Check in</a>
     <a href="{{ url('admin/payments') }}" id="checkOutBtn" class="btn btn-danger">Check out</a>
     <a href="#" id="bookingsBtn" class="btn btn-info">Bookings</a>
-    <a href="#" id="newBookingBtn" class="btn btn-secondary">New Booking</a>
+    <a href="{{ route('guests.create') }}" id="newBookingBtn" class="btn btn-secondary">New Booking</a>
     </div>
     </div>
 
