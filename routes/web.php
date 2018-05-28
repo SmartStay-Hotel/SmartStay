@@ -41,12 +41,19 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     Route::get('logout', 'CodeController@logout');
+
     Route::get('services', function(){
         $services =\App\Services::get();
         return $services;
     });
-
-
+    Route::get('trips', function(){
+        $trips =\App\Trip_types::get();
+        return $trips;
+    });
+    Route::get('events', function(){
+        $events =\App\Event::get();
+        return $events;
+    });
     Route::get('/logout', 'CodeController@logout');
 
 
