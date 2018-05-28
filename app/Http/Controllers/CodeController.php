@@ -19,7 +19,7 @@ class CodeController extends Controller
     {
         $guestCode = implode("", Input::get('code'));
         //$guestCode = '6ca36f';
-        $room      = Room::where("code", $guestCode)->first();
+        $room = Room::where("code", $guestCode)->first();
         if ($room['code']) {
             $checkOutDate = $room->guests[0]->pivot->checkout_date;
             $today        = Carbon::today();
@@ -41,6 +41,7 @@ class CodeController extends Controller
                     'status' => null,
                 ]);//valores pasarán a null porque la estancia ha caducado.
                 Session::forget('guest_id');
+                $return = redirect('/');
             }
         } else {
             //$return = view('guest.dashboard')->withErrors(['error' => 'Code does not exist']);
@@ -62,6 +63,7 @@ class CodeController extends Controller
     public function logout()
     {
         Session::forget('guest_id');
+
         return redirect('/');
     }
 }

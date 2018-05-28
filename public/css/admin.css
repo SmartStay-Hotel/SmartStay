@@ -330,3 +330,9 @@ body {
     #addGuestManage {padding-left: 50% !important;}
     #addGuest {padding-left: 70% !important;}
 }
+
+/* Guests */
+#guestTableContainer{
+    margin-left: 22.5%;
+    margin-top: 3%;
+}

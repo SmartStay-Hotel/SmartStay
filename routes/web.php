@@ -41,12 +41,19 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     Route::get('logout', 'CodeController@logout');
+
     Route::get('services', function(){
         $services =\App\Services::get();
         return $services;
     });
-
-
+    Route::get('trips', function(){
+        $trips =\App\Trip_types::get();
+        return $trips;
+    });
+    Route::get('events', function(){
+        $events =\App\Event::get();
+        return $events;
+    });
     Route::get('/logout', 'CodeController@logout');
 
 
@@ -110,6 +117,13 @@ Route::group(['middleware' => 'language'], function () {
     /* end llamadas a las vistas */
 
     Route::resource('admin/guests', 'GuestController');
+    //----Filtro de búsqueda para reservas ------
+    Route::get('admin/guests/roomType/{id}/adapted/{disabled_adapted}/jacuzzi/{jacuzzi}', 'GuestController@getAvailableRooms');
+    Route::get('admin/guests/roomType/{id}/adapted/{disabled_adapted}', 'GuestController@getAvailableRooms');
+    Route::get('admin/guests/roomType/{id}/jacuzzi/{jacuzzi}', 'GuestController@getAvailableRooms');
+    Route::get('admin/guests/roomType/{id}', 'GuestController@getAvailableRooms');
+    //-------------------------------------------
+
     Route::resource('admin/alarms', 'AlarmController');
     /*------------ END ADMIN ------------*/
 
