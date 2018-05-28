@@ -43,7 +43,7 @@
 
 
     <label>Check-in Date</label>
-    {!! Form::date('checkin_date', null, ['class' => 'form-control']) !!}
+    {!! Form::date('checkin_date', null, ['class' => 'form-control']) !!}{{-- Hacer fecha por defecto hoy--}}
     <label>Check-out Date</label>
     {!! Form::date('checkout_date', null, ['class' => 'form-control']) !!}
     <br/>
