@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="servicesBottom">
-                        <div class="bttnServices col-md-3" @click="showWindow(2)">
+                        <div class="bttnServices col-md-3 col-xs-6" @click="showWindow(2)">
                             <img v-bind:src="services[2].image" alt="">
                             <div class="serviceDescription">
                                 <div class="textDesc">@{{ services[2].description }}</div>
@@ -41,7 +41,7 @@
                                 <p>@{{ services[2].name }}</p>
                             </div>
                         </div>
-                        <div class="bttnServices col-md-3" @click="showWindow(3)">
+                        <div class="bttnServices col-md-3 col-xs-6" @click="showWindow(3)">
                             <img v-bind:src="services[3].image" alt="">
                             <div class="serviceDescription">
                                 <div class="textDesc">@{{ services[3].description }}</div>
@@ -58,7 +58,7 @@
                 <div class="servicesHome">
                     <div class="servicesTop">
 
-                        <div class="bttnServices col-md-3">
+                        <div class="bttnServices col-md-3 col-xs-6" v-on:click="showWindow(5)">
                             <img v-bind:src="services[0].image" alt="">
                             <div class="serviceDescription">
                                 <div class="textDesc">@{{ services[0].description }}</div>
@@ -68,7 +68,7 @@
                             </div>
 
                         </div>
-                        <div class="bttnServices col-md-3">
+                        <div class="bttnServices col-md-3 col-xs-6">
                             <img v-bind:src="services[1].image" alt="">
                             <div class="serviceDescription">
                                 <div class="textDesc">@{{ services[0].description }}</div>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="servicesBottom">
-                        <div class="bttnServices col-md-3">
+                        <div class="bttnServices col-md-3 col-xs-6">
                             <img v-bind:src="services[2].image" alt="">
                             <div class="serviceDescription">
                                 <div class="textDesc">@{{ services[0].description }}</div>
@@ -89,7 +89,7 @@
                                 <p>@{{ services[0].name }}</p>
                             </div>
                         </div>
-                        <div class="bttnServices col-md-3">
+                        <div class="bttnServices col-md-3 col-xs-6">
                             <img v-bind:src="services[3].image" alt="">
                             <div class="serviceDescription">
                                 <div class="textDesc">@{{ services[3].description }}</div>
@@ -169,9 +169,9 @@
             <div class="windowService" v-if="window[4]">
                 <div class="windowTitle">
                     <button class="returnWindow " v-if="show" @click="showWindow(4)"><i class="fas fa-long-arrow-alt-left"></i></button>
-                    <h2>@{{ services[4].name }}</h2>
+                    <h2>Pet care</h2>
                 </div>
-                <p class="windowDesc">@{{ services[4].description }}</p>
+                <p class="windowDesc">Pet care description</p>
                 <div class="windowContent">
                     <input type="checkbox"> Water
                     <input type="radio"> Standard food
@@ -182,12 +182,12 @@
             <div class="windowService" v-if="window[5]">
                 <div class="windowTitle">
                     <button class="returnWindow " v-if="show" @click="showWindow(5)"><i class="fas fa-long-arrow-alt-left"></i></button>
-                    <h2>@{{ services[5].name }}</h2>
+                    <h2>Trips</h2>
                 </div>
-                <p class="windowDesc">@{{ services[5].description }}</p>
+                <p class="windowDesc">Trip description</p>
                 <div class="windowContent">
                     Choose a trip: <select name="" id="">
-                        <option value=""></option>
+                        <option v-for="trip in trips">@{{ trip.name }}</option>
                     </select>
                     Number of persons: <input type="number">
                 </div>
@@ -207,7 +207,7 @@
     </div>
         </transition>
     </div>
-
+@{{$data}}
 <footer v-if="show"> </footer>
 
     {{-- ------------------ --}}

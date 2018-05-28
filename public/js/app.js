@@ -13930,15 +13930,18 @@ window.axios = __webpack_require__(5);
 
 
 var urlServices = 'services';
+var urlTrips = 'trips';
 
 new Vue({
     el: '#container',
     created: function created() {
         this.getServices();
+        this.getTrips();
     },
 
     data: {
         services: [],
+        trips: [],
         window: [false, false, false, false, false, false, false],
         show: false,
         guestOut: true,
@@ -13950,6 +13953,13 @@ new Vue({
 
             axios.get(urlServices).then(function (response) {
                 _this.services = response.data;
+            });
+        },
+        getTrips: function getTrips() {
+            var _this2 = this;
+
+            axios.get(urlTrips).then(function (response) {
+                _this2.trips = response.data;
             });
         },
         showWindow: function showWindow(num) {

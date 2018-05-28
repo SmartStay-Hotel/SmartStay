@@ -41,12 +41,19 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     Route::get('logout', 'CodeController@logout');
+
     Route::get('services', function(){
         $services =\App\Services::get();
         return $services;
     });
-
-
+    Route::get('trips', function(){
+        $trips =\App\Trip_types::get();
+        return $trips;
+    });
+    Route::get('events', function(){
+        $events =\App\Event::get();
+        return $events;
+    });
     Route::get('/logout', 'CodeController@logout');
 
 
@@ -66,9 +73,65 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin/dashboard', function () {
         return view('admin.dashboard');
     });
+    Route::get('/admin/checkinform', function () {
+        return view('admin.checkInForm');
+    });
+
+    Route::get('/admin/payments', function () {
+        return view('admin.payments');
+    });
+
+    /* llamadas a las vistas - luego irán en los controllers */
+    Route::get('admin/taxi', function () {
+        return view('admin.taxi');
+    });
+
+    Route::get('admin/spa', function () {
+        return view('admin.spa');
+    });
+
+    Route::get('admin/restaurant', function () {
+        return view('admin.restaurant');
+    });
+
+    Route::get('admin/housekeeping', function () {
+        return view('admin.housekeeping');
+    });
+
+    Route::get('admin/petCare', function () {
+        return view('admin.petCare');
+    });
+
+    Route::get('admin/snacks', function () {
+        return view('admin.snacks');
+    });
+
+    Route::get('admin/events', function () {
+        return view('admin.events');
+    });
+
+    Route::get('admin/trips', function () {
+        return view('admin.trips');
+    });
+
+    /* end llamadas a las vistas */
+
     Route::resource('admin/guests', 'GuestController');
+    //----Filtro de búsqueda para reservas ------
+    Route::get('admin/guests/roomType/{id}/adapted/{disabled_adapted}/jacuzzi/{jacuzzi}', 'GuestController@getAvailableRooms');
+    Route::get('admin/guests/roomType/{id}/adapted/{disabled_adapted}', 'GuestController@getAvailableRooms');
+    Route::get('admin/guests/roomType/{id}/jacuzzi/{jacuzzi}', 'GuestController@getAvailableRooms');
+    Route::get('admin/guests/roomType/{id}', 'GuestController@getAvailableRooms');
+    //-------------------------------------------
+
     Route::resource('admin/alarms', 'AlarmController');
     /*------------ END ADMIN ------------*/
 
 
+    /*------------- SERVICES --------------*/
+    Route::resource('service/taxi', 'TaxiController');
+    Route::resource('service/housekeeping', 'HousekeepingController');
+    Route::resource('service/restaurant', 'RestaurantController');
+    Route::resource('service/trip', 'TripController');
+    Route::resource('service/event', 'EventController');
 });

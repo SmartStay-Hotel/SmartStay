@@ -49,15 +49,18 @@ import VueTinySlider from 'vue-tiny-slider';
 
 
     var urlServices = 'services';
+    var urlTrips = 'trips';
 
     new Vue({
         el: '#container',
         created: function(){
         this.getServices();
+        this.getTrips();
         },
 
         data:{
             services:[],
+            trips:[],
             window: [false, false, false, false, false, false, false],
             show: false,
             guestOut:true,
@@ -68,6 +71,11 @@ import VueTinySlider from 'vue-tiny-slider';
                 axios.get(urlServices).then(response=>{
                     this.services = response.data
                 });
+            },
+            getTrips: function(){
+                axios.get(urlTrips).then(response=>{
+                    this.trips = response.data
+            });
             },
             showWindow: function(num){
                 this.show = !this.show

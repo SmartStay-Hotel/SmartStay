@@ -18,16 +18,15 @@ class CreateRestaurantsTable extends Migration
             //Columns
             $table->increments('id');
             $table->unsignedInteger('guest_id'); //FK
-            $table->unsignedInteger('menu_id'); //FK
-            $table->integer('service_id');
+            $table->unsignedInteger('service_id');
+            $table->integer('quantity');
+            $table->dateTime('day_hour');
             $table->date('order_date');
             $table->double('price');
-            //Revisar si es necesario poner un tinyInt para informar más de 2 estados
-            $table->boolean('status');
+            $table->enum('status',['0','1', '2']);
             $table->timestamps();
 
             //FK
-            $table->foreign('menu_id')->references('id')->on('menus');
             $table->foreign('guest_id')->references('id')->on('guests');
         });
     }

@@ -9,7 +9,7 @@
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('css/guest.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.3.5/tiny-slider.css">
-
+    <meta name="viewport" content="height=device-height, initial-scale=1.0">
 
     {{--<link rel="stylesheet" href="{{asset('css/tabletGuest.css')}}">--}}
     {{--<link rel="stylesheet" href="{{asset('css/phoneGuest.css')}}">--}}
@@ -17,7 +17,7 @@
     </script>
 
 </head>
-<body>
+<body onload="heightScreen()">
 <div id="container">
 <nav>
     <div id="nav1">
@@ -65,15 +65,15 @@
     </transition>
 
 </div>
-<script type="text/javascript" src="{{asset('js/app.js') }}"></script>
 <script>
-    function heightScreen() {
-
-        var newHeight = 20 * screen.height / 100;
-        console.log(newHeight);
-        document.getElementById("s").style.height = newHeight+"px";
-    }
+    // function heightScreen() {
+    //     var newHeight = 20 * screen.height / 100;
+    //     console.log(newHeight);
+    //     document.getElementById("main_container").style.height = newHeight+"px";
+    // }
 </script>
+<script type="text/javascript" src="{{asset('js/app.js') }}"></script>
+
 </body>
 </html>
 @else
