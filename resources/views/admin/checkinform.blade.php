@@ -29,7 +29,7 @@
         <div class="form-row">
             <div class="form-group col-md-2">
                 <label for="PeopleNumber">Nr people</label>
-                <input type="text" class="form-control" id="PeopleNumber" placeholder="Number of people">
+                <input type="number" class="form-control" id="PeopleNumber" placeholder="Number of people">
             </div>
             <div class="form-group col-md-4">
                 <label for="price">Price per Night</label>
