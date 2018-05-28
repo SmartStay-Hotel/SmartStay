@@ -57,15 +57,15 @@
         <p><a id="guests" href="{{ route('guests.index') }}">Guests</a></p>
         <p id="services">Services</p>
         <ul id="servicesList" class="list-group list-group-flush">
-            <li><a href="{{ route('alarms.index') }}">Alarm</a></li>
-            <li><a href="#restaurant">Restaurant</a></li>
-            <li><a href="#housekeeping">Housekeeping</a></li>
-            <li><a href="#taxi">Taxi</a></li>
-            <li><a href="#snacks">Snacks and Drinks</a></li>
-            <li><a href="#spa">Spa Appointments</a></li>
-            <li><a href="#pet">Pet care</a></li>
-            <li><a href="#events">Events</a></li>
-            <li><a href="#trips">Trips</a></li>
+            <li><a href="{{ route('admin.alarms') }}">Alarm</a></li>
+            <li><a href="{{ route('admin.restaurant') }}">Restaurant</a></li>
+            <li><a href="{{ route('admin.housekeeping') }}">Housekeeping</a></li>
+            <li><a href="{{ route('admin.taxi') }}">Taxi</a></li>
+            <li><a href="{{ route('admin.snacks') }}">Snacks and Drinks</a></li>
+            <li><a href="{{ route('admin.spa') }}">Spa Appointments</a></li>
+            <li><a href="{{ route('admin.petCare') }}">Pet care</a></li>
+            <li><a href="{{ route('admin.events') }}">Events</a></li>
+            <li><a href="{{ route('admin.trips') }}">Trips</a></li>
         </ul>
     </div>
     @yield('content')

@@ -26,7 +26,10 @@ body {
 #homeIcon {
     margin-right: 68%;
 }
-
+#previousIcon{
+    margin-left: 2%;
+    background-color: red;
+}
 .sidenav {
     height: 100%;
     width: 20%;
@@ -199,28 +202,81 @@ body {
 
 /*CHECK-IN FORM*/
 
+
 #checkInForm{
-    margin-left: 40%;
-    margin-top: 40px;
+    margin-left: 35%;
+    margin-top: 3%;
 }
 
 #checkInTitle{
-    margin-left: 40%;
-    margin-top: 40px;
-    color: black;
+    margin-left: 35%;
+    margin-right: 15%;
+    margin-top: 3%;
+    padding: 10px;
+    color: white;
+    background-color: #28A745;
 }
 
-/*CHECK-OUT TABLE*/
+
+
+
+/*CHECK-OUT*/
+
+
+#checkOutTitle{
+    margin-left: 35%;
+    margin-right: 15%;
+    margin-top: 3%;
+    padding: 10px;
+    color: white;
+    background-color: #DC3545;
+}
 
 #paymentsTable{
-    margin-left: 40%;
+    margin-left: 35%;
+    background-color: white;
+    padding: 0px;
+    border-bottom: #DC3545 20px solid;
+    font-size: 1vw;
 }
 
 #iconBtn{
     color: #0b2e13;
 }
 
+
+#exitBtn{
+    background-color: #DC3545;
+    color: white;
+}
+
+
+/* GUESTS*/
+
+#manageGuestsTitle {
+    margin-left: 25%;
+    margin-right: 8.5%;
+    margin-top: 3%;
+    padding: 10px;
+    color: white;
+    background-color: #FFA500;
+}
+
+#guestsTable{
+    margin-left: 25%;
+    background-color: white;
+    padding: 0px;
+    border-bottom: #FFA500 20px solid;
+    font-size: 1vw;
+}
+
 /* ALARM */
+
+#alarmTitle{
+    padding: 10px;
+    color: white;
+    background-color: #0056B3;
+}
 
 #alarmTableContainer{
     margin-left: 23%;
@@ -239,6 +295,11 @@ body {
     color: white;
 }
 
+.alarmAddBtn{
+    background-color: darkgreen;
+    color: white;
+    font-size: 1vw;
+}
 
 .alarmEditBtn{
     background-color: orange;
@@ -252,11 +313,22 @@ body {
     font-size: 1vw;
 }
 
+/* TAXI */
+
+#taxiTitle{
+    padding: 10px;
+    color: white;
+    background-color: #0056B3;
+}
+
 
 @media  screen and (max-width: 1024px) {
     #groupDashBtn > a {font-size: 18px;}
     body {overflow-x: scroll;}
+    body {overflow-y: scroll;}
     #homeIcon {margin-right: 66%;}
+    #addGuestManage {padding-left: 50% !important;}
+    #addGuest {padding-left: 70% !important;}
 }
 
 /* Guests */
