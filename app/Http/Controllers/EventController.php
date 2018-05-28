@@ -78,8 +78,8 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         $data = [
-            'guests'  => Guest::all(),
-            'eventTypes'   => Event_types::all(),
+            'guests'      => Guest::all(),
+            'eventTypes'  => Event_types::all(),
             'event' => $event
         ];
         return view('services.event.edit', $data);
@@ -97,7 +97,7 @@ class EventController extends Controller
         $order_date = date('Y-m-d');
         Event::find($id)->update(['guest_id' => $request->guest,
             'event_type_id' => $request->eventtype,
-            'service_id' => 7,
+            'service_id' => 8,
             'order_date' => $order_date,
             'status' => '1']);
 
