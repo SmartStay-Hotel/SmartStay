@@ -120,7 +120,6 @@ nav {
 
 .bttnServices{
     margin:10px;
-    max-width:250px;
     color:white;
     padding:0px;
     background-color:var(--colorSubMenu);
@@ -143,7 +142,10 @@ nav {
 .servicesBottom, .servicesTop{
     display:flex;
     justify-content: center;
+    align-items:center;
 }
+
+
 
 /*-------- DESCRIPCION SERVICIOS ------*/
 .serviceDescription {

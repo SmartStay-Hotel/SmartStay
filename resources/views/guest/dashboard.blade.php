@@ -10,7 +10,7 @@
                 <div class="servicesHome">
                     <div class="servicesTop">
 
-                        <div class="bttnServices col-md-3" v-on:click="showWindow(0)">
+                        <div class="bttnServices col-md-3 col-xs-6" v-on:click="showWindow(0)">
                             <img v-bind:src="services[0].image" alt="">
                             <div class="serviceDescription">
                                 <div class="textDesc">@{{ services[0].description }}</div>
@@ -20,7 +20,7 @@
                             </div>
 
                         </div>
-                        <div class="bttnServices col-md-3" @click="showWindow(1)">
+                        <div class="bttnServices col-md-3 col-xs-6" @click="showWindow(1)">
                             <img v-bind:src="services[1].image" alt="">
                             <div class="serviceDescription">
                                 <div class="textDesc">@{{ services[1].description }}</div>
@@ -118,8 +118,7 @@
 
                 <p class="windowDesc">@{{ services[0].description }}</p>
                 <div class="windowContent">
-                    Day: <input type="date" v-bind:value="actualDate">
-                    Hour: <input type="hour">
+                    Day: <input type="datetime-local" v-bind:value="actualDate">
                     Number of persons: <input type="number">
                     <p>Booking name: {{\App\Guest::find(Session::get('guest_id'))->rooms[0]->number}}</p>
                 </div>

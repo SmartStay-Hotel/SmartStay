@@ -53,13 +53,12 @@
 
         <div id="out" v-if="!showMenuOut">
             <div class="containerMenuOut">
-                <div class="menuOut"><input type="checkbox"> Sabanas limpias</div>
-                <div class="menuOut"><input type="checkbox"> Limpiar habitación</div>
-                <div class="menuOut"><input type="checkbox"> Rellenar habitación</div>
-                <div class="menuOut"><input type="checkbox"> Toallas</div>
-                <div class="menuOut"><input type="checkbox"> Manta</div>
-                <div class="menuOut"><input type="checkbox"> Almohadas</div>
-                <div class="menuOut"><input type="number" max="5" style="width:30px"> Número de almohadas</div>
+                <div class="menuOut"><input type="checkbox"> Bed Sheets</div>
+                <div class="menuOut"><input type="checkbox"> Cleaning </div>
+                <div class="menuOut"><input type="checkbox"> Minibar</div>
+                <div class="menuOut"><input type="checkbox"> Blanket</div>
+                <div class="menuOut"><input type="checkbox"> Toiletries</div>
+                <div class="menuOut"><input type="checkbox"> Pillow</div>
                 <div class="menuOut"><input type="submit" value="Okay" @click="showMenuOut = !showMenuOut"></div>
             </div>
         </div>
@@ -67,6 +66,14 @@
 
 </div>
 <script type="text/javascript" src="{{asset('js/app.js') }}"></script>
+<script>
+    function heightScreen() {
+
+        var newHeight = 20 * screen.height / 100;
+        console.log(newHeight);
+        document.getElementById("s").style.height = newHeight+"px";
+    }
+</script>
 </body>
 </html>
 @else
