@@ -258,3 +258,9 @@ body {
     body {overflow-x: scroll;}
     #homeIcon {margin-right: 66%;}
 }
+
+/* Guests */
+#guestTableContainer{
+    margin-left: 22.5%;
+    margin-top: 3%;
+}

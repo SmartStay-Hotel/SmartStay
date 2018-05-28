@@ -70,6 +70,13 @@ Route::group(['middleware' => 'language'], function () {
 
 
     Route::resource('admin/guests', 'GuestController');
+    //----Filtro de búsqueda para reservas ------
+    Route::get('admin/guests/roomType/{id}/adapted/{disabled_adapted}/jacuzzi/{jacuzzi}', 'GuestController@getAvailableRooms');
+    Route::get('admin/guests/roomType/{id}/adapted/{disabled_adapted}', 'GuestController@getAvailableRooms');
+    Route::get('admin/guests/roomType/{id}/jacuzzi/{jacuzzi}', 'GuestController@getAvailableRooms');
+    Route::get('admin/guests/roomType/{id}', 'GuestController@getAvailableRooms');
+    //-------------------------------------------
+
     Route::resource('admin/alarms', 'AlarmController');
     /*------------ END ADMIN ------------*/
 
