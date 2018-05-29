@@ -30,7 +30,7 @@
                 </thead>
                 <tbody>
                 @foreach($guests as $indexKey => $guest)
-                    <tr class="table-@if($guest->balance > 0)warning @endif">
+                    <tr>
                         <td class="col1">{{ ++$indexKey }}</td>
                         <td>{{ $guest->firstname . ' ' . $guest->lastname }}</td>
                         <td>{{ $guest->roomType }}</td>
