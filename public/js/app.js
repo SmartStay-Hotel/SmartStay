@@ -60,17 +60,161 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(1);
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_tiny_slider__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_tiny_slider___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_tiny_slider__);
+
+
+/* ----------------------- REQUIRES ----------------------------------*/
+
+__webpack_require__(14);
+window.Vue = __webpack_require__(36);
+window.axios = __webpack_require__(7);
+
+//
+// let token = document.head.querySelector('meta[name="csrf-token"]');
+//
+// if (token) {
+//     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+// } else {
+//     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+// }
+
+/* ----------------------------------------------------------------------------- */
+/*------------ LOGIN GUEST --------------------*/
+
+/*------------- DASHBOARD GUEST ------------------*/
+// require('./bootstrap');
+//
+// import Vue from 'vue';
+
+
+// Vue.component('serviceslider', require('./components/swipeServices.vue'));
+
+// var VueTinySlider = require('vue-tiny-slider');
+//
+// new Vue({
+//     el: '#app',
+//     components: {
+//         'tiny-slider': VueTinySlider
+//     }
+// })
+
+// import Vue from 'vue';
+// import VueCarousel from 'vue-carousel';
+//
+// Vue.use(VueCarousel);
+
+
+// Vue.component('serviceshome', require('./components/servicesHome.vue'));
+
+
+var urlServices = 'services';
+var urlTrips = 'trips';
+var changeStatusRoom = 'changeStatus';
+var urlGetStatusRoom = 'seeStatus';
+
+new Vue({
+    el: '#container',
+    created: function created() {
+        this.getServices();
+        this.getTrips();
+        this.getStatusRoom();
+        // this.setPriceTrip();
+
+    },
+
+    data: {
+        services: [],
+        trips: [],
+        window: [false, false, false, false, false, false, false],
+        show: false,
+        guestOut: true,
+        showMenuOut: true,
+        tripSelected: "",
+        numPersonsTrip: 1,
+        statusRoom: ""
+
+    },
+    methods: {
+        getServices: function getServices() {
+            var _this = this;
+
+            axios.get(urlServices).then(function (response) {
+                _this.services = response.data;
+            });
+        },
+        getStatusRoom: function getStatusRoom() {
+            var _this2 = this;
+
+            axios.get(urlGetStatusRoom).then(function (response) {
+                _this2.statusRoom = response.data;
+            });
+        },
+        getTrips: function getTrips() {
+            var _this3 = this;
+
+            axios.get(urlTrips).then(function (response) {
+                _this3.trips = response.data;
+            });
+        },
+
+        showWindow: function showWindow(num) {
+            this.show = !this.show;
+            this.window[num] = !this.window[num];
+        },
+        showOut: function showOut() {
+            this.guestOut = false;
+            this.showMenuOut = !this.showMenuOut;
+        },
+        setPriceTrip: function setPriceTrip(price) {
+            return this.numPersonsTrip * price;
+        },
+        actualDate: function actualDate() {
+            this.dataActual = Date.now();
+        }
+
+    },
+    computed: {
+        infoTrip: function infoTrip() {
+            var _this4 = this;
+
+            return this.trips.filter(function (trip) {
+                return trip.name.includes(_this4.tripSelected);
+            });
+        }
+
+    },
+    components: {
+        'tiny-slider': __WEBPACK_IMPORTED_MODULE_0_vue_tiny_slider___default.a
+    }
+});
+
+//----------- END JS APP ------------------
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
-var bind = __webpack_require__(6);
+var bind = __webpack_require__(8);
 var isBuffer = __webpack_require__(19);
 
 /*global toString:true*/
@@ -374,7 +518,7 @@ module.exports = {
 
 
 /***/ }),
-/* 1 */
+/* 3 */
 /***/ (function(module, exports) {
 
 var g;
@@ -401,7 +545,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2927,10 +3071,10 @@ Popper.Defaults = Defaults;
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
 //# sourceMappingURL=popper.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -13301,13 +13445,13 @@ return jQuery;
 
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(2);
 var normalizeHeaderName = __webpack_require__(21);
 
 var DEFAULT_CONTENT_TYPE = {
@@ -13324,10 +13468,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(8);
+    adapter = __webpack_require__(10);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(8);
+    adapter = __webpack_require__(10);
   }
   return adapter;
 }
@@ -13402,16 +13546,16 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(18);
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13429,7 +13573,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -13619,18 +13763,18 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(2);
 var settle = __webpack_require__(22);
 var buildURL = __webpack_require__(24);
 var parseHeaders = __webpack_require__(25);
 var isURLSameOrigin = __webpack_require__(26);
-var createError = __webpack_require__(9);
+var createError = __webpack_require__(11);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(27);
 
 module.exports = function xhrAdapter(config) {
@@ -13806,7 +13950,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13831,7 +13975,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13843,7 +13987,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13869,146 +14013,13 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(13);
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_tiny_slider__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_tiny_slider___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_tiny_slider__);
-
-
-/* ----------------------- REQUIRES ----------------------------------*/
-
-__webpack_require__(14);
-window.Vue = __webpack_require__(36);
-window.axios = __webpack_require__(5);
-
-//
-// let token = document.head.querySelector('meta[name="csrf-token"]');
-//
-// if (token) {
-//     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-// } else {
-//     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-// }
-
-/* ----------------------------------------------------------------------------- */
-/*------------ LOGIN GUEST --------------------*/
-
-/*------------- DASHBOARD GUEST ------------------*/
-// require('./bootstrap');
-//
-// import Vue from 'vue';
-
-
-// Vue.component('serviceslider', require('./components/swipeServices.vue'));
-
-// var VueTinySlider = require('vue-tiny-slider');
-//
-// new Vue({
-//     el: '#app',
-//     components: {
-//         'tiny-slider': VueTinySlider
-//     }
-// })
-
-// import Vue from 'vue';
-// import VueCarousel from 'vue-carousel';
-//
-// Vue.use(VueCarousel);
-
-
-// Vue.component('serviceshome', require('./components/servicesHome.vue'));
-
-
-var urlServices = 'services';
-var urlTrips = 'trips';
-
-new Vue({
-    el: '#container',
-    created: function created() {
-        this.getServices();
-        this.getTrips();
-        // this.setPriceTrip();
-
-    },
-
-    data: {
-        services: [],
-        trips: [],
-        window: [false, false, false, false, false, false, false],
-        show: false,
-        guestOut: true,
-        showMenuOut: true,
-        tripSelected: "",
-        numPersonsTrip: 1
-
-    },
-    methods: {
-        getServices: function getServices() {
-            var _this = this;
-
-            axios.get(urlServices).then(function (response) {
-                _this.services = response.data;
-            });
-        },
-        getTrips: function getTrips() {
-            var _this2 = this;
-
-            axios.get(urlTrips).then(function (response) {
-                _this2.trips = response.data;
-            });
-        },
-
-        showWindow: function showWindow(num) {
-            this.show = !this.show;
-            this.window[num] = !this.window[num];
-        },
-        showOut: function showOut() {
-            this.guestOut = false;
-            this.showMenuOut = !this.showMenuOut;
-        },
-        setPriceTrip: function setPriceTrip(price) {
-            return this.numPersonsTrip * price;
-        },
-        actualDate: function actualDate() {
-            this.dataActual = Date.now();
-        }
-
-    },
-    computed: {
-        infoTrip: function infoTrip() {
-            var _this3 = this;
-
-            return this.trips.filter(function (trip) {
-                return trip.name.includes(_this3.tripSelected);
-            });
-        }
-
-    },
-    components: {
-        'tiny-slider': __WEBPACK_IMPORTED_MODULE_0_vue_tiny_slider___default.a
-    }
-});
-
-//----------- END JS APP ------------------
-
-/***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 window._ = __webpack_require__(15);
-window.Popper = __webpack_require__(2).default;
+window.Popper = __webpack_require__(4).default;
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -14017,7 +14028,7 @@ window.Popper = __webpack_require__(2).default;
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(3);
+  window.$ = window.jQuery = __webpack_require__(5);
 
   __webpack_require__(17);
 } catch (e) {}
@@ -14033,7 +14044,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(5);
+window.axios = __webpack_require__(7);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -14058,7 +14069,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
-  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(3), __webpack_require__(2)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(3), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+  ( false ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? factory(exports, __webpack_require__(5), __webpack_require__(4)) :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(5), __webpack_require__(4)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : factory(global.bootstrap = {}, global.jQuery, global.Popper);
@@ -35080,7 +35091,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(16)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(16)(module)))
 
 /***/ }),
 /* 16 */
@@ -35120,7 +35131,7 @@ module.exports = function(module) {
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
-   true ? factory(exports, __webpack_require__(3), __webpack_require__(2)) :
+   true ? factory(exports, __webpack_require__(5), __webpack_require__(4)) :
   typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
   (factory((global.bootstrap = {}),global.jQuery,global.Popper));
 }(this, (function (exports,$,Popper) { 'use strict';
@@ -39050,10 +39061,10 @@ module.exports = function(module) {
 "use strict";
 
 
-var utils = __webpack_require__(0);
-var bind = __webpack_require__(6);
+var utils = __webpack_require__(2);
+var bind = __webpack_require__(8);
 var Axios = __webpack_require__(20);
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(6);
 
 /**
  * Create an instance of Axios
@@ -39086,9 +39097,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(11);
+axios.Cancel = __webpack_require__(13);
 axios.CancelToken = __webpack_require__(34);
-axios.isCancel = __webpack_require__(10);
+axios.isCancel = __webpack_require__(12);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -39136,8 +39147,8 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(4);
-var utils = __webpack_require__(0);
+var defaults = __webpack_require__(6);
+var utils = __webpack_require__(2);
 var InterceptorManager = __webpack_require__(29);
 var dispatchRequest = __webpack_require__(30);
 
@@ -39222,7 +39233,7 @@ module.exports = Axios;
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(2);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -39241,7 +39252,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(9);
+var createError = __webpack_require__(11);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -39302,7 +39313,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(2);
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -39375,7 +39386,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(2);
 
 // Headers whose duplicates are ignored by node
 // c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -39435,7 +39446,7 @@ module.exports = function parseHeaders(headers) {
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(2);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -39553,7 +39564,7 @@ module.exports = btoa;
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(2);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -39613,7 +39624,7 @@ module.exports = (
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(2);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -39672,10 +39683,10 @@ module.exports = InterceptorManager;
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(2);
 var transformData = __webpack_require__(31);
-var isCancel = __webpack_require__(10);
-var defaults = __webpack_require__(4);
+var isCancel = __webpack_require__(12);
+var defaults = __webpack_require__(6);
 var isAbsoluteURL = __webpack_require__(32);
 var combineURLs = __webpack_require__(33);
 
@@ -39765,7 +39776,7 @@ module.exports = function dispatchRequest(config) {
 "use strict";
 
 
-var utils = __webpack_require__(0);
+var utils = __webpack_require__(2);
 
 /**
  * Transform the data for a request or a response
@@ -39834,7 +39845,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(11);
+var Cancel = __webpack_require__(13);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -50889,7 +50900,7 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(37).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(37).setImmediate))
 
 /***/ }),
 /* 37 */
@@ -50959,7 +50970,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
 /* 38 */
@@ -51152,7 +51163,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(9)))
 
 /***/ }),
 /* 39 */

@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateSnacksAndDrinksTable extends Migration
 {
+
     /**
      * Run the migrations.
      *

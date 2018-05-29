@@ -226,8 +226,8 @@
     </div>
         </transition>
     </div>
-
-<footer v-if="show"> </footer>
+    @{{ $data }}
+<footer v-if="show">  </footer>
 
     {{-- ------------------ --}}
 

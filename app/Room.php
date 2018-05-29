@@ -23,15 +23,20 @@ class Room extends Model
 
     public static function getRoomsByType($id, $disabled_adapted = null, $jacuzzi = null)
     {
-        if ($disabled_adapted && $jacuzzi){
-            $rooms = Room::where(['type_id' => $id, 'status' => null, 'disabled_adapted' => $disabled_adapted, 'jacuzzi' => $jacuzzi])->get();
-        }elseif ($disabled_adapted){
+        if ($disabled_adapted && $jacuzzi) {
+            $rooms = Room::where(['type_id'          => $id,
+                                  'status'           => null,
+                                  'disabled_adapted' => $disabled_adapted,
+                                  'jacuzzi'          => $jacuzzi,
+            ])->get();
+        } elseif ($disabled_adapted) {
             $rooms = Room::where(['type_id' => $id, 'status' => null, 'disabled_adapted' => $disabled_adapted])->get();
-        }elseif ($jacuzzi){
+        } elseif ($jacuzzi) {
             $rooms = Room::where(['type_id' => $id, 'status' => null, 'jacuzzi' => $jacuzzi])->get();
-        }else{
+        } else {
             $rooms = Room::where(['type_id' => $id, 'status' => null])->get();
         }
+
         return $rooms;
     }
 }

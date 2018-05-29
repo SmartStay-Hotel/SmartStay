@@ -18,7 +18,7 @@ class HousekeepingController extends Controller
         $housekeepings = Housekeeping::all();
         //Para mostrar el guest_id en el index
         $guests = Guest::all();
-        return view('services.housekeeping.index', compact('housekeepings', compact('guests')));
+        return view('services.housekeeping.index', compact('housekeepings', 'guests'));
     }
 
     /**
@@ -46,17 +46,16 @@ class HousekeepingController extends Controller
 
         $order_date = date('Y-m-d');
         Housekeeping::create(['guest_id' => $request->guest,
-            'service_id' => 6,
             'order_date' => $order_date,
             'bed_sheets' => ($request->bed_sheets) ? true : false,
-            'cleaning' => ($request->cleaning) ? true : false,
-            'minibar' => ($request->minibar) ? true : false,
-            'blanket' => ($request->blanket) ? true : false,
+            'cleaning'   => ($request->cleaning) ? true : false,
+            'minibar'    => ($request->minibar) ? true : false,
+            'blanket'    => ($request->blanket) ? true : false,
             'toiletries' => ($request->toiletries) ? true : false,
             'toiletries' => ($request->toiletries) ? true : false,
-            'pillow' => ($request->pillow) ? true : false,
-            'price' => 120,
-            'status' => 1]);
+            'pillow'     => ($request->pillow) ? true : false,
+            'price'      => 120,
+            'status'     => '1']);
         return redirect('/service/housekeeping');
     }
     /**
@@ -83,8 +82,7 @@ class HousekeepingController extends Controller
         //Pasarle el guest parar poder modificarlo
         $guests = Guest::all();
         //Falta que el select del edit.blade se quede seleccionado con el guest correcto
-        return view('services.housekeeping.edit',compact('housekeeping'),
-            compact('guests'));
+        return view('services.housekeeping.edit',compact('housekeeping', 'guests'));
     }
 
     /**
@@ -101,17 +99,16 @@ class HousekeepingController extends Controller
 
         //recoger el valor del select de editar!!!
         Housekeeping::find($id)->update(['guest_id' => $request->guest,
-            'service_id' => 6,
             'order_date' => $order_date,
             'bed_sheets' => ($request->bed_sheets) ? true : false,
-            'cleaning' => ($request->cleaning) ? true : false,
-            'minibar' => ($request->minibar) ? true : false,
-            'blanket' => ($request->blanket) ? true : false,
+            'cleaning'   => ($request->cleaning) ? true : false,
+            'minibar'    => ($request->minibar) ? true : false,
+            'blanket'    => ($request->blanket) ? true : false,
             'toiletries' => ($request->toiletries) ? true : false,
             'toiletries' => ($request->toiletries) ? true : false,
-            'pillow' => ($request->pillow) ? true : false,
-            'price' => 120,
-            'status' => 1]);
+            'pillow'     => ($request->pillow) ? true : false,
+            'price'      => 120,
+            'status'     => '1']);
 
         return redirect('/service/housekeeping');
     }

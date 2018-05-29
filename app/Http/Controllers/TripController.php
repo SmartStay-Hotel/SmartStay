@@ -46,12 +46,11 @@ class TripController extends Controller
         $order_date = date('Y-m-d');
         //Trip_types::find($trip->id); Obtener el precio de la tabla Tryp_types
         Trip::create(['guest_id' => $request->guest,
-            'service_id' => 7,
             'order_date' => $order_date,
             'trip_type_id' => $request->triptype,
             //El precio se debe recuperar del tryp_type
             'price' => 20,
-            'status' => 1]);
+            'status' => '1']);
         return redirect('/service/trip');
     }
 
@@ -66,9 +65,9 @@ class TripController extends Controller
         //Se consigue pasar el guest en función del guest_id del taxi
 
         $data = [
-            'guest'  => Guest::find($trip->guest_id),
-            'tripType'   => Trip_types::find($trip->trip_type_id),
-            'trip' => $trip
+            'guest'     => Guest::find($trip->guest_id),
+            'tripType'  => Trip_types::find($trip->trip_type_id),
+            'trip'      => $trip
         ];
         return view('services.trip.show', $data);
     }
@@ -82,9 +81,9 @@ class TripController extends Controller
     public function edit(Trip $trip)
     {
         $data = [
-            'guests'  => Guest::all(),
-            'tripTypes'   => Trip_types::all(),
-            'trip' => $trip
+            'guests'    => Guest::all(),
+            'tripTypes' => Trip_types::all(),
+            'trip'      => $trip
         ];
 
         //return View::make('services.trip.edit')->with($data);
@@ -103,11 +102,10 @@ class TripController extends Controller
         $order_date = date('Y-m-d');
         trip::find($id)->update(['guest_id' => $request->guest,
             'trip_type_id' => $request->triptype,
-            'service_id' => 7,
-            'order_date' => $order_date,
+            'order_date'   => $order_date,
             //pasarle el precio del trip_type
-            'price' => 20,
-            'status' => 1]);
+            'price'        => 20,
+            'status'       => '1']);
 
         return redirect('/service/trip');
     }

@@ -44,10 +44,9 @@ class TaxiController extends Controller
 
         $order_date = date('Y-m-d');
         Taxi::create(['guest_id' => $request->guest,
-            'service_id' => 5,
             'order_date' => $order_date,
-            'day_hour' => $request->day_hour,
-            'status' => 1]);
+            'day_hour'   => $request->day_hour,
+            'status'     => '1']);
         return redirect('/service/taxi');
     }
     /**
@@ -92,10 +91,9 @@ class TaxiController extends Controller
 
         $order_date = date('Y-m-d');
         Taxi::find($id)->update(['guest_id' => $request->guest,
-            'service_id' => 5,
             'order_date' => $order_date,
-            'day_hour' => $request->day_hour,
-            'status' => 1]);
+            'day_hour'   => $request->day_hour,
+            'status'     => '1']);
 
         return redirect('/service/taxi');
     }

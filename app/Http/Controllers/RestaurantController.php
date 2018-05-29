@@ -44,12 +44,11 @@ class RestaurantController extends Controller
 
         $order_date = date('Y-m-d');
         Restaurant::create(['guest_id' => $request->guest,
-            'service_id' => 1,
             'order_date' => $order_date,
-            'quantity' => $request->quantity,
-            'day_hour' => $request->day_hour,
-            'price' => 20,
-            'status' => 1]);
+            'quantity'   => $request->quantity,
+            'day_hour'   => $request->day_hour,
+            'price'      => 20,
+            'status'     => '1']);
         return redirect('/service/restaurant');
     }
 
@@ -96,11 +95,10 @@ class RestaurantController extends Controller
 
         $order_date = date('Y-m-d');
         Restaurant::find($id)->update(['guest_id' => $request->guest,
-            'service_id' => 1,
             'order_date' => $order_date,
-            'quantity' => $request->quantity,
-            'day_hour' => $request->day_hour,
-            'status' => 1]);
+            'quantity'   => $request->quantity,
+            'day_hour'   => $request->day_hour,
+            'status'     => '1']);
 
         return redirect('/service/restaurant');
     }

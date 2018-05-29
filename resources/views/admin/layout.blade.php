@@ -66,6 +66,7 @@
             <li><a href="{{ url('admin/petCare') }}">Pet care</a></li>
             <li><a href="{{ url('admin/events') }}">Events</a></li>
             <li><a href="{{ url('admin/trips') }}">Trips</a></li>
+
         </ul>
     </div>
     @yield('content')

@@ -67,7 +67,9 @@
                     <tr>
                         <th valign="middle">#</th>
                         <th>Full name</th>
-                        <th>Telephone</th>
+                        <th>Room Nº</th>
+                        <th>Check-in Date</th>
+                        <th>Check-out Date</th>
                         <th>Action</th>
                     </tr>
                     {{ csrf_field() }}
@@ -76,8 +78,10 @@
                     @foreach($guests as $indexKey => $guest)
                         <tr class="item{{$guest->id}} @if($guest->balance > 0) warning @endif">
                             <td class="col1">{{ $indexKey+1 }}</td>
-                            <td>{{$guest->firstname . " ".$guest->lastname}}</td>
-                            <td>{{$guest->telephone}}</td>
+                            <td>{{$guest->firstname . " " . $guest->lastname}}</td>
+                            <td>{{$guest->rooms[0]->number}}</td>
+                            <td>{{$guest->rooms[0]->pivot->checkin_date}}</td>
+                            <td>{{$guest->rooms[0]->pivot->checkout_date}}</td>
                             <td>
                                 <a href="{{ route('guests.show', $guest->id) }}" class="show-modal btn btn-success">
                                     <span class="glyphicon glyphicon-eye-open"></span> Show

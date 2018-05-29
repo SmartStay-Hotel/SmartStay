@@ -50,6 +50,8 @@ import VueTinySlider from 'vue-tiny-slider';
 
     var urlServices = 'services';
     var urlTrips = 'trips';
+    var changeStatusRoom= 'changeStatus';
+    var urlGetStatusRoom ='seeStatus';
 
 
 
@@ -58,6 +60,7 @@ import VueTinySlider from 'vue-tiny-slider';
         created: function(){
         this.getServices();
         this.getTrips();
+        this.getStatusRoom();
         // this.setPriceTrip();
 
 
@@ -72,6 +75,7 @@ import VueTinySlider from 'vue-tiny-slider';
             showMenuOut: true,
             tripSelected:"",
             numPersonsTrip:1,
+            statusRoom:"",
 
 
         },
@@ -81,6 +85,11 @@ import VueTinySlider from 'vue-tiny-slider';
                     this.services = response.data
                 });
 
+            },
+            getStatusRoom:function(){
+                axios.get(urlGetStatusRoom).then(response=>{
+                    this.statusRoom = response.data
+                })
             },
             getTrips: function(){
                 axios.get(urlTrips).then(response=>{
