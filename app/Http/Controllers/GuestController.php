@@ -9,6 +9,7 @@ use Faker\Factory as Faker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class GuestController extends Controller
@@ -192,6 +193,14 @@ class GuestController extends Controller
         return redirect()->back()->with('status', 'Guest deleted successfully');
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
+     * @param null                     $disAdapted
+     * @param null                     $jacuzzi
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getAvailableRooms(Request $request, $id, $disAdapted = null, $jacuzzi = null)
     {
         if ($disAdapted && $jacuzzi) {
@@ -207,5 +216,29 @@ class GuestController extends Controller
         if ($request->ajax()) {
             return response()->json($availableRooms);
         }
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changeStatus()
+    {
+        $guestId      = Session::get('guest_id');
+        $guest        = Guest::findOrFail($guestId);
+        $room         = Room::findOrFail($guest->rooms[0]->id);
+        $room->status = ! $room->status;
+        $room->save();
+
+        return response()->json($room->status);
+    }
+
+    /**
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function seeStatusGuest($id)
+    {
+        return response()->json(Guest::findOrFail($id)->rooms[0]->status);
     }
 }

@@ -22,12 +22,14 @@ class CodeController extends Controller
         $room = Room::where("code", $guestCode)->first();
         if ($room['code']) {
             $checkOutDate = $room->guests[0]->pivot->checkout_date;
-            $today        = Carbon::today();
-            $checkOutDate = Carbon::parse($checkOutDate);
+            $today        = Carbon::now();
+            $checkOutDate = Carbon::parse($checkOutDate)->addHour(12);
 
             if ($today->lte($checkOutDate)) { //entrará si faltan días
                 $guestId = $room->guests[0]->id;
                 $minLeft = $today->diffInMinutes($checkOutDate);
+                //ultimo día!! 1h de session c/login
+                //$minLeft = ($minLeft < 1) ? intval(ceil($minLeft)) * 60 : $minLeft;
                 \config(['session.lifetime' => $minLeft]);
                 Session::put('guest_id', $guestId);
                 //dd(Session::get('guest_id'));
