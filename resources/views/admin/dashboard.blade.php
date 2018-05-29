@@ -2,8 +2,8 @@
 @section('content')
     <div class="row">
         <div class="col-sm-10" id="groupDashBtn">
-            <a href="{{ url('admin/checkinform') }}" id="checkInBtn" class="btn btn-success">Check in</a>
-    <a href="{{ url('admin/payments') }}" id="checkOutBtn" class="btn btn-danger">Check out</a>
+            <a href="{{ url('admin/checkin') }}" id="checkInBtn" class="btn btn-success">Check in</a>
+    <a href="{{ url('admin/checkout') }}" id="checkOutBtn" class="btn btn-danger">Check out</a>
     <a href="#" id="bookingsBtn" class="btn btn-info">Bookings</a>
     <a href="{{ route('guests.create') }}" id="newBookingBtn" class="btn btn-secondary">New Booking</a>
     </div>

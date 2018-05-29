@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -73,13 +74,9 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin/dashboard', function () {
         return view('admin.dashboard');
     });
-    Route::get('/admin/checkinform', function () {
-        return view('admin.checkInForm');
-    });
+    Route::get('admin/checkin', 'AdminDashboardController@checkin');
 
-    Route::get('/admin/payments', function () {
-        return view('admin.payments');
-    });
+    Route::get('admin/checkout', 'AdminDashboardController@checkout');
 
     /* llamadas a las vistas - luego irán en los controllers */
     Route::get('admin/taxi', function () {

@@ -209,14 +209,21 @@ body {
 }
 
 #checkInTitle{
-    margin-left: 35%;
-    margin-right: 15%;
+    margin-left: 30%;
+    margin-right: 11.7%;
     margin-top: 3%;
     padding: 10px;
     color: white;
     background-color: #28A745;
 }
 
+#checkInTable{
+    margin-left: 30%;
+    background-color: white;
+    padding: 0px;
+    border-bottom: #28A745 20px solid;
+    font-size: 1vw;
+}
 
 
 
@@ -224,8 +231,8 @@ body {
 
 
 #checkOutTitle{
-    margin-left: 35%;
-    margin-right: 15%;
+    margin-left: 30%;
+    margin-right: 11.7%;
     margin-top: 3%;
     padding: 10px;
     color: white;
@@ -233,7 +240,7 @@ body {
 }
 
 #paymentsTable{
-    margin-left: 35%;
+    margin-left: 30%;
     background-color: white;
     padding: 0px;
     border-bottom: #DC3545 20px solid;
