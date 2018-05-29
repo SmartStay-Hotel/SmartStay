@@ -2,11 +2,11 @@
  
 @section('content')
     <div class="pull-right">
-        <a class="btn btn-primary" href="{{ route('trip.index') }}"> Back</a>
+        <a class="btn btn-primary" href="{{ route('spa.index') }}"> Back</a>
     </div>
-    <h1>Edit Trip Order: {{ $trip->id }}</h1>
+    <h1>Edit Spa Appointment Order: {{ $spa->id }}</h1>
     <hr>
-     <form action="{{url('service/trip', [$trip->id])}}" method="POST">
+     <form action="{{url('service/spa', [$spa->id])}}" method="POST">
      <input type="hidden" name="_method" value="PUT">
      {{ csrf_field() }}
      <!--Guest_id-->
@@ -14,26 +14,28 @@
          <select name="guest">
              @foreach ($guests as $guest)
                  <option value="{{ $guest->id }}"
-                         @if($guest->id == $trip->guest_id)
+                         @if($guest->id == $spa->guest_id)
                          selected
                          @endif>
                      {{ $guest->firstname." ".$guest->lastname}}
                  </option>
-
              @endforeach
          </select><br/>
-         <!--Trip_type_id -->
+         <!--Spa_type_id -->
          <label for="guest">Trip: </label><br>
-         <select name="triptype">
-             @foreach ($tripTypes as $tripType)
-                 <option value="{{ $tripType->id }}"
-                         @if($trip->trip_type_id == $tripType->id)
+         <select name="spatype">
+             @foreach ($spaTypes as $spaType)
+                 <option value="{{ $spaType->id }}"
+                         @if($spa->treatment_type_id == $spaType->id)
                          selected
                          @endif>
-                     {{ $tripType->name." - ".$tripType->location }}
+                     {{ $spaType->name." - ".$spaType->duration }}
                  </option>
              @endforeach
          </select><br/>
+         <!--Day Hour-->
+         <label for="title">Spa Date: </label>
+         <input type="date" class="form-control datepicker" id="day_hour"  name="day_hour"/>
       @if ($errors->any())
         <div class="alert alert-danger">
             <ul>

@@ -5,7 +5,7 @@
             <div class="alert alert-info">{{ Session::get('message') }}</div>
         @endif
          <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('spa.create') }}"> New Trip Order</a>
+            <a class="btn btn-success" href="{{ route('spa.create') }}"> New Spa Order</a>
         </div>
         <table class="table">
           <thead class="thead-dark">
@@ -14,13 +14,15 @@
                 <th scope="col">Spa Treatment Type</th>
                 <th scope="col">Day Hour</th>
                 <th scope="col">Price</th>
+                <th></th>
+                <th></th>
             </tr>
           </thead>
           <tbody>
-            @foreach($spas as $spa)
+            @foreach($spaAppointments as $spa)
             <tr>
                 <th scope="row"><a href="/service/spa/{{$spa->id}}">{{$spa->id}}</a></th>
-                <td>{{ $spa->spa_treatment_id }}</td>
+                <td>{{ $spa->treatment_type_id }}</td>
                 <td>{{ $spa ->day_hour }}</td>
                 <td>{{ $spa ->price }}</td>
               <td>

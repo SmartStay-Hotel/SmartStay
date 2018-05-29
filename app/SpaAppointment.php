@@ -4,17 +4,22 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Spa_appointment extends Model
+class SpaAppointment extends Model
 {
     protected $fillable = ['guest_id',
-        'service_id',
         'treatment_type_id',
         'day_hour',
         'order_date',
         'price',
         'status'];
-    public function spa_Type()
+
+    protected $attributes
+        = [
+            'service_id' => 3,
+        ];
+
+    public function spaType()
     {
-        return $this->belongsTo('App\Spa_type');
+        return $this->belongsTo('App\SpaType');
     }
 }
