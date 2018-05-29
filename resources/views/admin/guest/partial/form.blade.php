@@ -43,9 +43,9 @@
 
 
     <label>Check-in Date</label>
-    {!! Form::date('checkin_date', null, ['class' => 'form-control']) !!}
+    {!! Form::date('checkin_date', \Carbon\Carbon::now(), ['class' => 'form-control', 'disabled']) !!}{{-- Hacer fecha por defecto hoy--}}
     <label>Check-out Date</label>
-    {!! Form::date('checkout_date', null, ['class' => 'form-control']) !!}
+    {!! Form::date('checkout_date', \Carbon\Carbon::tomorrow(), ['class' => 'form-control']) !!}
     <br/>
     <p>
         {{ Form::button('Save', ['type' => 'submit', 'class' => '']) }}

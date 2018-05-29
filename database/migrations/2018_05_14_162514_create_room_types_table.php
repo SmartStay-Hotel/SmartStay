@@ -1,11 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateRoomTypesTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -17,7 +18,7 @@ class CreateRoomTypesTable extends Migration
             //Columns
             $table->increments('id');
             $table->string('name', 50);
-            $table->string('description',250);
+            $table->string('description', 250);
             $table->timestamps();
         });
     }

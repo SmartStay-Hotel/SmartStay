@@ -4,11 +4,11 @@
     font-family: OpenSansLight;
     src: url(../fonts/OpenSans-Light.ttf) format("truetype");
 }
+
 @font-face {
     font-family: OpenSansSemiBold;
     src: url(../fonts/OpenSans-SemiBold.ttf) format("truetype");
 }
-
 
 body {
     font-family: OpenSansLight, sans-serif;
@@ -16,20 +16,22 @@ body {
     overflow-y: hidden;
 }
 
-#main_container{
-     background-color:#ECEBE7;
-    position:absolute;
-    height:100%;
-    width:100%;
+#main_container {
+    background-color: #ECEBE7;
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }
 
 #homeIcon {
     margin-right: 68%;
 }
-#previousIcon{
+
+#previousIcon {
     margin-left: 2%;
     background-color: red;
 }
+
 .sidenav {
     height: 100%;
     width: 20%;
@@ -49,17 +51,18 @@ body {
     color: #979898;
 }
 
-#titleAdmin{
+#titleAdmin {
     /*background-color: #0069D9;*/
     color: white;
     padding: 2px;
 }
 
-#titleApp{
+#titleApp {
     padding: 6px 8px 0px 16px;
     font-size: 16px;
 }
-#hotelName{
+
+#hotelName {
     padding: 0px 8px 0px 16px;
     font-size: 28px;
     font-family: OpenSansSemiBold, sans-serif;
@@ -72,62 +75,61 @@ body {
     color: white;
 }
 
-#separator{
+#separator {
     border-width: 2px;
     border-color: white;
 }
 
-#services, #guests{
+#services, #guests {
     font-size: 20px;
     color: #979898;
     padding-left: 14px;
     padding-top: 10px;
 }
 
-#servicesList{
+#servicesList {
     padding-left: 20px;
     list-style-type: none;
 }
 
-#dispatchedOrdersList{
+#dispatchedOrdersList {
     list-style-type: none;
 }
 
-#dispatchedOrdersList > li{
+#dispatchedOrdersList > li {
     border: 1px solid #979898;
     padding: 10px;
     text-align: left;
     font-size: 1vw;
 }
 
-
- #pendingOrdersCard{
+#pendingOrdersCard {
     margin-left: 25%;
     margin-top: 3%;
-     /*max-height: 200px;*/
+    /*max-height: 200px;*/
 }
 
-#dispatchedOrdersCard{
+#dispatchedOrdersCard {
     margin-top: 3%;
 
 }
 
-#pendingOrdersHeader{
+#pendingOrdersHeader {
     background-color: #F39C12;
     color: white;
 }
 
-#dispatchedOrdersHeader{
+#dispatchedOrdersHeader {
     background-color: #218838;
     color: white;
 }
 
-#pendingOrdersBody{
+#pendingOrdersBody {
     border-style: solid;
     border-color: #F39C12;
 }
 
-#dispatchedOrdersBody{
+#dispatchedOrdersBody {
     border-style: solid;
     border-color: #218838;
 }
@@ -141,17 +143,15 @@ body {
     padding: auto;
 }*/
 
-
-
-#groupDashBtn > a{
-    width:20%;
+#groupDashBtn > a {
+    width: 20%;
     padding: 40px 20px 40px 20px;
     font-size: 2vw;
     box-sizing: border-box;
     border-radius: 0px;
 }
 
-#groupDashBtn{
+#groupDashBtn {
     margin-left: 17%;
     margin-top: 3%;
     display: flex;
@@ -189,7 +189,7 @@ body {
     border-bottom: 20px solid #880015;
 }
 
-#newBookingBtn{
+#newBookingBtn {
     background-image: url("../img/admin/plusCalendar.png");
     background-size: 40%;
     background-repeat: no-repeat;
@@ -198,58 +198,57 @@ body {
     border-bottom: 20px solid #272727;
 }
 
-
-
 /*CHECK-IN FORM*/
 
-
-#checkInForm{
+#checkInForm {
     margin-left: 35%;
     margin-top: 3%;
 }
 
-#checkInTitle{
-    margin-left: 35%;
-    margin-right: 15%;
+#checkInTitle {
+    margin-left: 30%;
+    margin-right: 11.7%;
     margin-top: 3%;
     padding: 10px;
     color: white;
     background-color: #28A745;
 }
 
-
-
+#checkInTable {
+    margin-left: 30%;
+    background-color: white;
+    padding: 0px;
+    border-bottom: #28A745 20px solid;
+    font-size: 1vw;
+}
 
 /*CHECK-OUT*/
 
-
-#checkOutTitle{
-    margin-left: 35%;
-    margin-right: 15%;
+#checkOutTitle {
+    margin-left: 30%;
+    margin-right: 11.7%;
     margin-top: 3%;
     padding: 10px;
     color: white;
     background-color: #DC3545;
 }
 
-#paymentsTable{
-    margin-left: 35%;
+#paymentsTable {
+    margin-left: 30%;
     background-color: white;
     padding: 0px;
     border-bottom: #DC3545 20px solid;
     font-size: 1vw;
 }
 
-#iconBtn{
+#iconBtn {
     color: #0b2e13;
 }
 
-
-#exitBtn{
+#exitBtn {
     background-color: #DC3545;
     color: white;
 }
-
 
 /* GUESTS*/
 
@@ -262,7 +261,7 @@ body {
     background-color: #FFA500;
 }
 
-#guestsTable{
+#guestsTable {
     margin-left: 25%;
     background-color: white;
     padding: 0px;
@@ -272,42 +271,42 @@ body {
 
 /* ALARM */
 
-#alarmTitle{
+#alarmTitle {
     padding: 10px;
     color: white;
     background-color: #0056B3;
 }
 
-#alarmTableContainer{
+#alarmTableContainer {
     margin-left: 23%;
     margin-top: 3%;
 }
 
-#alarmTable{
+#alarmTable {
     border-style: solid;
     border-color: #0056B3;
     background-color: white;
     font-size: 1vw;
 }
 
-#alarmTableHeader{
+#alarmTableHeader {
     background-color: #0056B3;
     color: white;
 }
 
-.alarmAddBtn{
+.alarmAddBtn {
     background-color: darkgreen;
     color: white;
     font-size: 1vw;
 }
 
-.alarmEditBtn{
+.alarmEditBtn {
     background-color: orange;
     color: white;
     font-size: 1vw;
 }
 
-.alarmDeleteBtn{
+.alarmDeleteBtn {
     background-color: red;
     color: white;
     font-size: 1vw;
@@ -315,24 +314,40 @@ body {
 
 /* TAXI */
 
-#taxiTitle{
+#taxiTitle {
     padding: 10px;
     color: white;
     background-color: #0056B3;
 }
 
+@media screen and (max-width: 1024px) {
+    #groupDashBtn > a {
+        font-size: 18px;
+    }
 
-@media  screen and (max-width: 1024px) {
-    #groupDashBtn > a {font-size: 18px;}
-    body {overflow-x: scroll;}
-    body {overflow-y: scroll;}
-    #homeIcon {margin-right: 66%;}
-    #addGuestManage {padding-left: 50% !important;}
-    #addGuest {padding-left: 70% !important;}
+    body {
+        overflow-x: scroll;
+    }
+
+    body {
+        overflow-y: scroll;
+    }
+
+    #homeIcon {
+        margin-right: 66%;
+    }
+
+    #addGuestManage {
+        padding-left: 50% !important;
+    }
+
+    #addGuest {
+        padding-left: 70% !important;
+    }
 }
 
 /* Guests */
-#guestTableContainer{
+#guestTableContainer {
     margin-left: 22.5%;
     margin-top: 3%;
 }
