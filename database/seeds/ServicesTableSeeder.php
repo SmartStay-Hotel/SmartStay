@@ -34,8 +34,8 @@ class ServicesTableSeeder extends Seeder
 
         DB::table('services')->insert([
             'id'=> '3',
-            'name'=> 'Spa',
-            'description'=> 'Spa description',
+            'name'=> 'SpaAppointment',
+            'description'=> 'SpaAppointment description',
             'image'=> '/img/home_services/spa.jpg',
             'is_active'=> '1',
             'created_at' => new DateTime,

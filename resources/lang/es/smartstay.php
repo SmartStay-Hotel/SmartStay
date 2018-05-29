@@ -26,7 +26,7 @@ return [
     'dashboard.events' => 'Eventos',
     'dashboard.trips' => 'Excursiones',
     'dashboard.taxi' => 'Taxi',
-    'dashboard.spa' => 'Spa',
+    'dashboard.spa' => 'SpaAppointment',
     'dashboard.housekeeping' => 'Servicios de habitación',
 
 ];
