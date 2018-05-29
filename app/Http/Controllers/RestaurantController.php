@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Guest;
 use App\Restaurant;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class RestaurantController extends Controller
 {
@@ -16,6 +20,8 @@ class RestaurantController extends Controller
      */
     public function index()
     {
+        //FRONT
+        //session guest_id
         $restaurants = Restaurant::all();
 
         return view('services.restaurant.index', compact('restaurants'));
@@ -29,6 +35,10 @@ class RestaurantController extends Controller
     public function create()
     {
         $guests = Guest::all();
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests = $guests->pluck('guestRoomNumber', 'id');
 
         return view('services.restaurant.create', compact('guests'));
     }
@@ -39,57 +49,71 @@ class RestaurantController extends Controller
      * @param  \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'day_hour' => 'required',
-            'quantity' => 'digits_between:1,10',
-        ]);
+        //FRONT
+        //session guest_id
+        $input     = Input::all();
+        $rules     = [
+            'guest_id' => 'required|numeric',
+            'quantity' => 'required|numeric',
+            'day_hour' => 'required|date',
+        ];
+        $validator = Validator::make($input, $rules);
+        if ($validator->passes()) {
+            try {
+                DB::beginTransaction();
+                $input['order_date'] = Carbon::today();
+                $input['status']     = 1;
+                Restaurant::create($input);
+                DB::commit();
 
-        $order_date = date('Y-m-d');
-        Restaurant::create([
-            'guest_id'   => $request->guest,
-            'order_date' => $order_date,
-            'quantity'   => $request->quantity,
-            'day_hour'   => $request->day_hour,
-            'price'      => 20,
-            'status'     => '1',
-        ]);
+                $return = redirect()->route('restaurant.index')->with('status', 'Order added successfully.');
+            } catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        } else {
+            $return = redirect()->route('restaurant.create')->withErrors($validator->getMessageBag());
+        }
 
-        return redirect('/service/restaurant');
+        return $return;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param \App\Restaurant $restaurant
      *
      * @return \Illuminate\Http\Response
      */
     public function show(Restaurant $restaurant)
     {
+        //FRONT recoger id del pedido
+        //session guest_id
         $guest = Guest::find($restaurant->guest_id);
 
-        return view('services.restaurant.show', compact('restaurant'),
-            compact('guest'));
+        return view('services.restaurant.show', compact('restaurant', 'guest'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param \App\Restaurant $restaurant
      *
      * @return \Illuminate\Http\Response
      */
     public function edit(Restaurant $restaurant)
     {
-        //Pasarle el guest parar poder modificarlo
         $guests = Guest::all();
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests = $guests->pluck('guestRoomNumber', 'id');
 
-        //Falta que el select del edit.blade se quede seleccionado con el guest correcto
-        return view('services.restaurant.edit', compact('restaurant'),
-            compact('guests'));
+        return view('services.restaurant.edit', compact('guests', 'restaurant'));
     }
 
     /**
@@ -99,24 +123,35 @@ class RestaurantController extends Controller
      * @param  int                      $id
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'quantity' => 'digits_between:1,10',
-            'day_hour' => 'required',
-        ]);
+        $input     = Input::all();
+        $rules     = [
+            'quantity' => 'required|numeric',
+            'day_hour' => 'required|date',
+        ];
+        $validator = Validator::make($input, $rules);
+        if ($validator->passes()) {
+            try {
+                DB::beginTransaction();
+                //$input['order_date'] = Carbon::today();
+                //$input['status']     = 1;
+                $restaurant = Restaurant::find($id);
+                $restaurant->update($input);
+                DB::commit();
 
-        $order_date = date('Y-m-d');
-        Restaurant::find($id)->update([
-            'guest_id'   => $request->guest,
-            'order_date' => $order_date,
-            'quantity'   => $request->quantity,
-            'day_hour'   => $request->day_hour,
-            'status'     => '1',
-        ]);
+                $return = redirect()->route('restaurant.index')->with('status', 'Order updated successfully.');
+            } catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        } else {
+            $return = redirect()->route('restaurant.edit', $id)->withErrors($validator->getMessageBag());
+        }
 
-        return redirect('/service/restaurant');
+        return $return;
     }
 
     /**
@@ -130,6 +165,6 @@ class RestaurantController extends Controller
     {
         Restaurant::find($id)->delete();
 
-        return redirect('/service/restaurant');
+        return redirect()->back()->with('status', 'Guest deleted successfully');
     }
 }
