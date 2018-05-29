@@ -49,8 +49,8 @@ class PetCareController extends Controller
             'order_date'     => $order_date,
             'water'          => ($request->water) ? true : false,
             'snacks'         => ($request->snacks) ? true : false,
-            'standard_food'  => ($request->standardf) ? true : false,
-            'premium_food'   => ($request->premiumf) ? true : false,
+            'standard_food'  => ($request->food) ? true : false,
+            'premium_food'   => ($request->food) ? true : false,
             'price'          => 120,
             'status'         => '1']);
         return redirect('/service/petcare');
@@ -121,7 +121,7 @@ class PetCareController extends Controller
             'order_date'     => $order_date,
             'water'          => ($request->water) ? true : false,
             'snacks'         => ($request->snacks) ? true : false,
-            'standard_food'  => $standardFood,
+            'standard_food'  => ($request->food) ? true : false,
             'premium_food'   => ($request->food) ? true : false,
             'price'          => 120,
             'status'         => '1']);

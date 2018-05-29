@@ -36,10 +36,10 @@
 
           <!-- Standard_food -->
           <label class="radio-inline">
-              <input type="radio" name="food" value="0" {{ ($petcare->standard_food) ? "checked" : "" }}/>Standard Food: </label>
+              <input type="radio" name="food[]" value="0" {{ ($petcare->standard_food) ? "checked" : "" }}/>Standard Food: </label>
           <!-- Premium food-->
           <label class="radio-inline">
-              <input type="radio" name="food" value="1" {{ ($petcare->premium_food) ? "checked" : "" }}/>Premium Food: </label>
+              <input type="radio" name="food[]" value="1" {{ ($petcare->premium_food) ? "checked" : "" }}/>Premium Food: </label>
       </div>
       @if ($errors->any())
         <div class="alert alert-danger">

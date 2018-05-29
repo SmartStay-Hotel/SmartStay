@@ -21,8 +21,8 @@
           <input type="checkbox" class="form-control" id="water"  name="water"/>
           <label for="title">Snacks: </label>
           <input type="checkbox" class="form-control" id="snacks"  name="snacks"/>
-          <label class="radio-inline"><input type="radio" name="standardf">Standard Food</label>
-          <label class="radio-inline"><input type="radio" name="premiumf">Premium Food</label>
+          <label class="radio-inline"><input type="radio" name="food[]">Standard Food</label>
+          <label class="radio-inline"><input type="radio" name="food[]">Premium Food</label>
       </div>
       @if ($errors->any())
         <div class="alert alert-danger">
