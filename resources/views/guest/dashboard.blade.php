@@ -5,7 +5,7 @@
 
     <transition name="fade">
         <div id="sliderServices" v-if="!show">
-            <tiny-slider :mouse-drag="true" :loop="true" items="1" gutter="100">
+            <tiny-slider :mouse-drag="true" :loop="false" items="1" gutter="100">
 
                 <div class="servicesHome">
                     <div class="servicesTop">
@@ -117,10 +117,19 @@
                 </div>
 
                 <p class="windowDesc">@{{ services[0].description }}</p>
-                <div class="windowContent">
-                    Day: <input type="datetime-local" v-bind:value="actualDate">
-                    Number of persons: <input type="number">
-                    <p>Booking name: {{\App\Guest::find(Session::get('guest_id'))->rooms[0]->number}}</p>
+                <div class="windowContent row">
+                    <form class="attribOrder col-md-7">
+                        <label for="dateRestaurant"> Day and hour: </label>
+                        <input type="datetime-local" name="dateRestaurant"><br>
+                        <label for="numPersonRest"> Number of persons: </label> <input type="number" name="numPersonRest">
+                        <br>
+                        <input type="submit" name="enviar">
+                    </form>
+                    <div class="resultOrder col-md-5">
+                        <p>Booking name: <strong>{{\App\Guest::find(Session::get('guest_id'))->rooms[0]->number}}</strong></p>
+                    </div>
+
+
                 </div>
             </div>
             <div class="windowService" v-if="window[1]">
@@ -186,10 +195,20 @@
                 </div>
                 <p class="windowDesc">Trip description</p>
                 <div class="windowContent">
-                    Choose a trip: <select name="" id="">
+
+                    Choose a trip: <select name="" id="" v-model="tripSelected">
                         <option v-for="trip in trips">@{{ trip.name }}</option>
+
                     </select>
-                    Number of persons: <input type="number">
+                    Number of persons: <input type="number" min="1" v-model="numPersonsTrip">
+
+                    <div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">
+                        <p>Location: @{{ item.location }}</p>
+                        <p>Day: @{{ item.day_week }}</p>
+                        <p>Price: @{{  setPriceTrip(item.price) }}</p>
+
+                    </div>
+
                 </div>
             </div>
             <div class="windowService" v-if="window[6]">

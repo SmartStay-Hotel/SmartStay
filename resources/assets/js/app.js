@@ -51,11 +51,16 @@ import VueTinySlider from 'vue-tiny-slider';
     var urlServices = 'services';
     var urlTrips = 'trips';
 
+
+
     new Vue({
         el: '#container',
         created: function(){
         this.getServices();
         this.getTrips();
+        // this.setPriceTrip();
+
+
         },
 
         data:{
@@ -64,27 +69,47 @@ import VueTinySlider from 'vue-tiny-slider';
             window: [false, false, false, false, false, false, false],
             show: false,
             guestOut:true,
-            showMenuOut: true
+            showMenuOut: true,
+            tripSelected:"",
+            numPersonsTrip:1,
+
+
         },
         methods:{
             getServices: function(){
                 axios.get(urlServices).then(response=>{
                     this.services = response.data
                 });
+
             },
             getTrips: function(){
                 axios.get(urlTrips).then(response=>{
                     this.trips = response.data
             });
+
             },
+
             showWindow: function(num){
                 this.show = !this.show
                 this.window[num]=!this.window[num]
             },
             showOut: function(){
-                this.guestOut = !this.guestOut
+                this.guestOut = false
                 this.showMenuOut = !this.showMenuOut
+            },
+            setPriceTrip: function(price){
+                return this.numPersonsTrip * price
+            },
+            actualDate: function(){
+                this.dataActual =  Date.now()
             }
+
+        },
+        computed:{
+            infoTrip: function(){
+                return this.trips.filter((trip) => trip.name.includes(this.tripSelected));
+            },
+
         },
         components: {
             'tiny-slider': VueTinySlider

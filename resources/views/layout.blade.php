@@ -44,14 +44,14 @@
         {{--<p>@{{guestOut}}</p>--}}
     </div>
 </div>
-<div id="main_container" v-bind:class="[!showMenuOut ? 'blur' : '']">
+<div id="main_container" v-bind:class="[!showMenuOut && !guestOut ? 'blur' : '']">
     @yield('content')
 </div>
 
 
     <transition name="bounce">
 
-        <div id="out" v-if="!showMenuOut">
+        <div id="out" v-if="!showMenuOut && !guestOut">
             <div class="containerMenuOut">
                 <div class="menuOut"><input type="checkbox"> Bed Sheets</div>
                 <div class="menuOut"><input type="checkbox"> Cleaning </div>

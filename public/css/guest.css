@@ -50,6 +50,7 @@ nav {
     color: black;
     display: flex;
     font-weight:600;
+
 }
 
 #subMenu {
@@ -120,7 +121,11 @@ nav {
 }
 /*-----------------------------*/
 
-
+.sliderServices{
+    display:flex;
+    height:100%;
+    align-items: center;
+}
 .bttnServices{
     margin:10px;
     color:white;
@@ -146,7 +151,7 @@ nav {
 .servicesBottom, .servicesTop{
     display:flex;
     justify-content: center;
-    align-items:center;
+
 }
 
 
@@ -165,10 +170,10 @@ nav {
 
 }
 
-.bttnServices:hover .serviceDescription {
-    bottom: 0;
-    height: 100%;
-}
+/*.bttnServices:hover .serviceDescription {*/
+    /*bottom: 0;*/
+    /*height: 100%;*/
+/*}*/
 
 .textDesc {
     white-space: nowrap;
@@ -291,7 +296,18 @@ nav {
     padding:10px;
     color:white;
 }
+.windowContent{
+    padding:2%;
+}
+.windowContent label{
+    width:150px;
+}
+input[type="submit"]{
+    border:none;
+    padding:5px;
+    display:flex
 
+}
 /*.servicesTop, .servicesBottom {*/
     /*display: flex;*/
     /*justify-content: center;*/

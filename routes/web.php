@@ -34,6 +34,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('/', function () {
         if (Session::has('guest_id')) {
             $services = \App\Services::where('is_active', 1)->get();
+//            dd($services);
             return view('guest.dashboard', compact('services'));
         } else {
             return view('loginGuest');

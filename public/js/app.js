@@ -13937,6 +13937,8 @@ new Vue({
     created: function created() {
         this.getServices();
         this.getTrips();
+        // this.setPriceTrip();
+
     },
 
     data: {
@@ -13945,7 +13947,10 @@ new Vue({
         window: [false, false, false, false, false, false, false],
         show: false,
         guestOut: true,
-        showMenuOut: true
+        showMenuOut: true,
+        tripSelected: "",
+        numPersonsTrip: 1
+
     },
     methods: {
         getServices: function getServices() {
@@ -13962,14 +13967,32 @@ new Vue({
                 _this2.trips = response.data;
             });
         },
+
         showWindow: function showWindow(num) {
             this.show = !this.show;
             this.window[num] = !this.window[num];
         },
         showOut: function showOut() {
-            this.guestOut = !this.guestOut;
+            this.guestOut = false;
             this.showMenuOut = !this.showMenuOut;
+        },
+        setPriceTrip: function setPriceTrip(price) {
+            return this.numPersonsTrip * price;
+        },
+        actualDate: function actualDate() {
+            this.dataActual = Date.now();
         }
+
+    },
+    computed: {
+        infoTrip: function infoTrip() {
+            var _this3 = this;
+
+            return this.trips.filter(function (trip) {
+                return trip.name.includes(_this3.tripSelected);
+            });
+        }
+
     },
     components: {
         'tiny-slider': __WEBPACK_IMPORTED_MODULE_0_vue_tiny_slider___default.a
