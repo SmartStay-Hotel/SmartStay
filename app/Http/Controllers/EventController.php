@@ -46,7 +46,6 @@ class EventController extends Controller
         $order_date = date('Y-m-d');
         //Trip_types::find($trip->id); Obtener el precio de la tabla Tryp_types
         Event::create(['guest_id' => $request->guest,
-            'service_id' => 8,
             'order_date' => $order_date,
             'event_type_id' => $request->eventtype,
             'status' => '1']);
@@ -97,7 +96,6 @@ class EventController extends Controller
         $order_date = date('Y-m-d');
         Event::find($id)->update(['guest_id' => $request->guest,
             'event_type_id' => $request->eventtype,
-            'service_id' => 8,
             'order_date' => $order_date,
             'status' => '1']);
 

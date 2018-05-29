@@ -46,7 +46,6 @@ class HousekeepingController extends Controller
 
         $order_date = date('Y-m-d');
         Housekeeping::create(['guest_id' => $request->guest,
-            'service_id' => 6,
             'order_date' => $order_date,
             'bed_sheets' => ($request->bed_sheets) ? true : false,
             'cleaning'   => ($request->cleaning) ? true : false,
@@ -100,7 +99,6 @@ class HousekeepingController extends Controller
 
         //recoger el valor del select de editar!!!
         Housekeeping::find($id)->update(['guest_id' => $request->guest,
-            'service_id' => 6,
             'order_date' => $order_date,
             'bed_sheets' => ($request->bed_sheets) ? true : false,
             'cleaning'   => ($request->cleaning) ? true : false,

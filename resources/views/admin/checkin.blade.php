@@ -25,6 +25,7 @@
                     <th scope="col">Check-in Day</th>
                     <th scope="col">Check-out Day</th>
                     <th scope="col">Room Nº</th>
+                    <th scope="col">Info</th>
                     <th scope="col">Check in</th>
                 </tr>
                 </thead>
@@ -37,6 +38,11 @@
                         <td>{{ $guest->checkin_date }}</td>
                         <td>{{ $guest->checkout_date }}</td>
                         <td>{{ $guest->number }}</td>
+                        <td>
+                            <a href="{{ route('guests.show', $guest->id) }}" class="show-modal btn btn-success">
+                                <span class="glyphicon glyphicon-eye-open"></span> Show
+                            </a>
+                        </td>
                         <td>
                             <button>Check in</button>
                             {{--{!! Form::open(['method' => 'DELETE','route' => ['guests.destroy', $guest->id], 'style'=>'display:inline']) !!}

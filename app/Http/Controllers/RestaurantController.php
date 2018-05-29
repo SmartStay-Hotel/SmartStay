@@ -44,7 +44,6 @@ class RestaurantController extends Controller
 
         $order_date = date('Y-m-d');
         Restaurant::create(['guest_id' => $request->guest,
-            'service_id' => 1,
             'order_date' => $order_date,
             'quantity'   => $request->quantity,
             'day_hour'   => $request->day_hour,
@@ -96,7 +95,6 @@ class RestaurantController extends Controller
 
         $order_date = date('Y-m-d');
         Restaurant::find($id)->update(['guest_id' => $request->guest,
-            'service_id' => 1,
             'order_date' => $order_date,
             'quantity'   => $request->quantity,
             'day_hour'   => $request->day_hour,

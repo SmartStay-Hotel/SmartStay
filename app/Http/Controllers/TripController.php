@@ -46,7 +46,6 @@ class TripController extends Controller
         $order_date = date('Y-m-d');
         //Trip_types::find($trip->id); Obtener el precio de la tabla Tryp_types
         Trip::create(['guest_id' => $request->guest,
-            'service_id' => 7,
             'order_date' => $order_date,
             'trip_type_id' => $request->triptype,
             //El precio se debe recuperar del tryp_type
@@ -103,7 +102,6 @@ class TripController extends Controller
         $order_date = date('Y-m-d');
         trip::find($id)->update(['guest_id' => $request->guest,
             'trip_type_id' => $request->triptype,
-            'service_id'   => 7,
             'order_date'   => $order_date,
             //pasarle el precio del trip_type
             'price'        => 20,
