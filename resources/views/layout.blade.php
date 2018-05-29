@@ -19,34 +19,35 @@
 </head>
 <body onload="heightScreen()">
 <div id="container">
-<nav>
-    <div id="nav1">
-        <h3><span style="font-size:1rem">SmartStay</span> Hotel Jaume Balmes</h3>
-    </div>
-    <div id="nav2">
-        <p><i class="fas fa-door-closed" style="margin-right:5px"></i>{{\App\Guest::find(Session::get('guest_id'))->rooms[0]->number}}</p>
-    </div>
-
-</nav>
-<div id="subMenu">
-    <div id="subMenu1">
-        <a href="{{url('logout')}}"><i class="fas fa-power-off"></i></a>
-    </div>
-    <div id="subMenu2">
-        <div id="inOut"  >
-
-            <label class="switch">
-
-                <input type="checkbox" v-model="guestOut" @click="showOut" checked>
-                <span class="slider"></span>
-            </label>
+    <nav>
+        <div id="nav1">
+            <h3><span style="font-size:1rem">SmartStay</span> Hotel Jaume Balmes</h3>
         </div>
-        {{--<p>@{{guestOut}}</p>--}}
+        <div id="nav2">
+            <p><i class="fas fa-door-closed"
+                  style="margin-right:5px"></i>{{\App\Guest::find(Session::get('guest_id'))->rooms[0]->number}}</p>
+        </div>
+
+    </nav>
+    <div id="subMenu">
+        <div id="subMenu1">
+            <a href="{{url('logout')}}"><i class="fas fa-power-off"></i></a>
+        </div>
+        <div id="subMenu2">
+            <div id="inOut">
+
+                <label class="switch">
+
+                    <input type="checkbox" v-model="guestOut" @click="showOut" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            {{--<p>@{{guestOut}}</p>--}}
+        </div>
     </div>
-</div>
-<div id="main_container" v-bind:class="[!showMenuOut ? 'blur' : '']">
-    @yield('content')
-</div>
+    <div id="main_container" v-bind:class="[!showMenuOut ? 'blur' : '']">
+        @yield('content')
+    </div>
 
 
     <transition name="bounce">
@@ -54,7 +55,7 @@
         <div id="out" v-if="!showMenuOut">
             <div class="containerMenuOut">
                 <div class="menuOut"><input type="checkbox"> Bed Sheets</div>
-                <div class="menuOut"><input type="checkbox"> Cleaning </div>
+                <div class="menuOut"><input type="checkbox"> Cleaning</div>
                 <div class="menuOut"><input type="checkbox"> Minibar</div>
                 <div class="menuOut"><input type="checkbox"> Blanket</div>
                 <div class="menuOut"><input type="checkbox"> Toiletries</div>

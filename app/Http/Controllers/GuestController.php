@@ -219,7 +219,7 @@ class GuestController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     *
      */
     public function changeStatus()
     {
@@ -229,7 +229,7 @@ class GuestController extends Controller
         $room->status = ! $room->status;
         $room->save();
 
-        return response()->json($room->status);
+        //return response()->json($room->status);
     }
 
     /**
@@ -237,8 +237,12 @@ class GuestController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function seeStatusGuest($id)
+    public function seeStatusGuest($id = null)
     {
-        return response()->json(Guest::findOrFail($id)->rooms[0]->status);
+        if ($id !== null){
+            return response()->json(Guest::findOrFail($id)->rooms[0]->status);
+        } else {
+            return response()->json(Guest::findOrFail(Session::get('guest_id'))->rooms[0]->status);
+        }
     }
 }

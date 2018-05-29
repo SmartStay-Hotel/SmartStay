@@ -43,7 +43,7 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     Route::get('changeStatus', 'GuestController@changeStatus');
-    Route::get('seeStatus/{id}', 'GuestController@seeStatusGuest');
+    Route::get('seeStatus/{id?}', 'GuestController@seeStatusGuest');
 
     Route::get('logout', 'CodeController@logout');
 
@@ -136,7 +136,7 @@ Route::group(['middleware' => 'language'], function () {
     /*------------- SERVICES --------------*/
     Route::resource('service/taxi', 'TaxiController');
     Route::resource('service/housekeeping', 'HousekeepingController');
-    Route::resource('service/restaurant', 'RestaurantController');
+    Route::resource('admin/service/restaurant', 'RestaurantController');
     Route::resource('service/trip', 'TripController');
     Route::resource('service/event', 'EventController');
 });
