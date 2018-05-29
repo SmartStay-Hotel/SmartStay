@@ -1,49 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                @if(Auth::user()->name == "Admin")
-                    <div class="card">
-                        <div class="card-header">
-                            <ul class="nav nav-pills card-header-pills">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{route('cv.index')}}">Dashboard</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link disabled" href="">Create New CV</a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="w3-container">
-                                <h2>CV Form</h2>
-                                <p>Fill the form to create a new CV.</p>
-                                <br/>
-                                @if (count($errors) > 0)
-                                    <div class="alert alert-danger">
-                                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-
-                                {!! Form::open(['route' => 'cv.store', 'files' => true, 'method'=>'POST']) !!}
-                                @include('cv.partial.form')
-                                {!! Form::close() !!}
-                            </div>
-                        </div>
-                    </div>
-                @else
-                    <h4>You don't have admin permission</h4>
-                @endif
-            </div>
-        </div>
+    <div class="pull-right">
+        <a class="btn btn-primary" href="{{ route('alarm.index') }}"> Back</a>
     </div>
-
+    <h1>Add New Alarm order</h1>
+    <hr>
+    <form action="/service/alarm" method="post">
+        {{ csrf_field() }}
+        <div class="form-group">
+            <label for="guest">Guest: </label>
+            <select name="guest">
+                @foreach ($guests as $guest)
+                    <option value="{{ $guest->id }}">{{ $guest->firstname." ".$guest->lastname}}</option>
+                @endforeach
+            </select><br/>
+            <label for="title">Alarm Date: </label>
+            <input type="datetime-local" class="form-control datepicker" id="day_hour" name="day_hour"/>
+        </div>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 @endsection

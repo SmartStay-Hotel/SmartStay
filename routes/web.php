@@ -139,4 +139,9 @@ Route::group(['middleware' => 'language'], function () {
     Route::resource('admin/service/restaurant', 'RestaurantController');
     Route::resource('service/trip', 'TripController');
     Route::resource('service/event', 'EventController');
+    Route::resource('service/petcare', 'PetcareController');
+    Route::resource('service/spa', 'SpaAppointmentController');
+    Route::resource('service/alarm', 'AlarmController');
+    //Route::resource('service/snackdrink', 'SnackDrinkController');
+
 });
