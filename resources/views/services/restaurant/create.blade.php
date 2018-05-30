@@ -53,4 +53,21 @@
 @endsection
 
 @section('scripts')
+    <script>
+        /*
+        console.log("test-page");
+        $(document).ready(function (e) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+            var url = "http://127.0.0.1:8000/admin/service/restaurant";
+            var data = {quantity: 10, day_hour: "2018-11-02T23:59"};
+            $.post(url, data, function (result) {
+                console.log(result);
+            })
+        });
+        */
+    </script>
 @endsection

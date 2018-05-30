@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Guest;
+use App\Restaurant;
 use App\RoomType;
+use App\Services;
 
 class AdminDashboardController extends Controller
 {
@@ -15,7 +17,23 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        //
+        $restaurants = Restaurant::all();
+        $serviceName = Services::getServiceName($restaurants[0]->id);
+        foreach ($restaurants as $key => $restaurant) {
+            $restaurant->serviceName = $serviceName;
+        }
+
+        return view('admin.dashboard', compact('restaurants'));
+    }
+
+    public function pendingOrders()
+    {
+
+    }
+
+    public function dispatchedOrders()
+    {
+
     }
 
     public function checkout()
