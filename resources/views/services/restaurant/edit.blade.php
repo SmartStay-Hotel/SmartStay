@@ -57,11 +57,10 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $('#change').change(function() {
+            $('#change').change(function () {
                 if ($(this).is(':checked')) {
-                    this.checked = confirm("Are you sure?");
-                    $('#selectGuest').prop('disabled', false);
-                }
+                    this.checked = (confirm("Are you sure?")) ? $('#selectGuest').prop('disabled', false) : false;
+                }else{$('#selectGuest').prop('disabled', true)}
             });
         });
     </script>

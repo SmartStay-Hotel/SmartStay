@@ -64,12 +64,13 @@
             $(':checkbox').change(function (event) {
                 var route = 'statusRestaurant/' + event.target.name + '';
                 if ($(this).is(':checked')) {
-                    this.checked = confirm("Is it already completed?");
-                    //console.log(route);
-                    $.get(route, function (response, state) {
-                        console.log("Completed " + response);
-                        //
-                    });
+                    if (confirm("Is it already completed?")) {
+                        $.get(route, function (response, state) {
+                            console.log("Completed " + response);
+                        });
+                    } else {
+                        this.checked = false;
+                    }
                 } else {
                     $.get(route, function (response, state) {
                         console.log("In process " + response);
