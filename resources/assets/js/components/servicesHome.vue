@@ -50,7 +50,14 @@
 
 <script>
     export default {
-        props:['nserv','servs','services']
+        props:['nserv','servs','services'],
+
+        methods: {
+            showWindow: function (num) {
+                this.show = !this.show
+                this.window[num] = !this.window[num]
+            }
+        }
         // name: "services-home"
     }
 </script>
