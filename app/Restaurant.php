@@ -13,7 +13,6 @@ class Restaurant extends Model
             'quantity',
             'day_hour',
             'order_date',
-            'price',
             'status',
         ];
 
@@ -21,4 +20,9 @@ class Restaurant extends Model
         = [
             'service_id' => 1,
         ];
+
+    public function guest()
+    {
+        return $this->belongsTo(Guest::class);
+    }
 }

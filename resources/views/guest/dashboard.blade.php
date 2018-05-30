@@ -64,7 +64,7 @@
                 </div>
 
 
-                {{----}}
+
                 <div class="servicesHome">
                     <div class="servicesTop">
 
@@ -127,15 +127,18 @@
 
                 <p class="windowDesc">@{{ services[0].description }}</p>
                 <div class="windowContent row">
-                    <form class="attribOrder col-md-7">
+                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertRestaurant">
                         <label for="dateRestaurant"> Day and hour: </label>
-                        <input type="datetime-local" name="dateRestaurant"><br>
-                        <label for="numPersonRest"> Number of persons: </label> <input type="number" name="numPersonRest">
+                        <input type="datetime-local" name="dateRestaurant" v-model="dayHourServ"><br>
+                        <label for="numPersonRest"> Number of persons: </label> <input type="number" v-model="quantityServ" name="numPersonRest">
                         <br>
                         <input type="submit" name="enviar">
                     </form>
                     <div class="resultOrder col-md-5">
                         <p>Booking name: <strong>{{\App\Guest::find(Session::get('guest_id'))->rooms[0]->number}}</strong></p>
+                        <div v-if="showRestaurant">
+                            <p>Hora: @{{dayHourServ}}</p>
+                        </div>
                     </div>
 
 

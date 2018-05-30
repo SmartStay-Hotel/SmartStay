@@ -50,8 +50,10 @@
 
 <script>
     export default {
-        props:['nserv','servs','services'],
-
+        props:['nserv','servs','services', 'window'],
+        // data(){
+        //     return this.window
+        // }
         methods: {
             showWindow: function (num) {
                 this.show = !this.show

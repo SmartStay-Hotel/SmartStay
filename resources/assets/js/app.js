@@ -81,6 +81,9 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
             numPersonsTrip:1,
             statusRoom:"",
             showModal:false,
+            dayHourServ:'',
+            quantityServ:'',
+            showRestaurant:false,
 
 
         },
@@ -121,6 +124,16 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
             },
             actualDate: function(){
                 this.dataActual =  Date.now()
+            },
+            insertRestaurant: function(){
+                var urlInsRest ='admin/service/restaurant';
+                axios.post(urlInsRest,{
+
+                    day_hour: this.dayHourServ,
+                    quantity: this.quantityServ
+                }).then(response=>{
+                    this.showRestaurant = true;
+                })
             }
 
         },

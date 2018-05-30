@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{asset('css/guest.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.3.5/tiny-slider.css">
     <meta name="viewport" content="height=device-height, initial-scale=1.0">
+    <meta name="csrf-token" content="{{csrf_token()}}">
     <script>
     </script>
 

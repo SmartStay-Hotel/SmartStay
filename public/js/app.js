@@ -14377,7 +14377,10 @@ new Vue({
         tripSelected: "",
         numPersonsTrip: 1,
         statusRoom: "",
-        showModal: false
+        showModal: false,
+        dayHourServ: '',
+        quantityServ: '',
+        showRestaurant: false
 
     },
     methods: {
@@ -14421,15 +14424,27 @@ new Vue({
         },
         actualDate: function actualDate() {
             this.dataActual = Date.now();
+        },
+        insertRestaurant: function insertRestaurant() {
+            var _this4 = this;
+
+            var urlInsRest = 'admin/service/restaurant';
+            axios.post(urlInsRest, {
+
+                day_hour: this.dayHourServ,
+                quantity: this.quantityServ
+            }).then(function (response) {
+                _this4.showRestaurant = true;
+            });
         }
 
     },
     computed: {
         infoTrip: function infoTrip() {
-            var _this4 = this;
+            var _this5 = this;
 
             return this.trips.filter(function (trip) {
-                return trip.name.includes(_this4.tripSelected);
+                return trip.name.includes(_this5.tripSelected);
             });
         }
 
@@ -14483,14 +14498,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * a simple convenience so we don't have to attach every token manually.
  */
 
-// let token = document.head.querySelector('meta[name="csrf-token"]');
-//
-// if (token) {
-//     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-// } else {
-//     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-// }
+var token = document.head.querySelector('meta[name="csrf-token"]');
 
+if (token) {
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
 
 /*!
   * Bootstrap v4.1.1 (https://getbootstrap.com/)
@@ -51955,7 +51969,7 @@ exports = module.exports = __webpack_require__(12)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -52018,8 +52032,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['nserv', 'servs', 'services'],
-
+    props: ['nserv', 'servs', 'services', 'window'],
+    // data(){
+    //     return this.window
+    // }
     methods: {
         showWindow: function showWindow(num) {
             this.show = !this.show;

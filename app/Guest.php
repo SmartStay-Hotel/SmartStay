@@ -16,6 +16,11 @@ class Guest extends Model
             ->withTimestamps();
     }
 
+    public function restaurants()
+    {
+        return $this->hasMany(Restaurant::class);
+    }
+
     public static function getGuestsByCheckoutDate()
     {
         $guests = Guest::whereHas('rooms', function ($q) {
