@@ -12,8 +12,6 @@
 
 @section('content')
 
-
-
         <h2 id="alarmTitle"><i class="far fa-clock" style="padding: 5px;"></i>Alarm<a href="#"><i id="addGuest" class="fas fa-user-plus" style=""></i></a></h2>
         <div class="flex-grid">
     <table class="table table-sm table-hover text-center" id="alarmTable">

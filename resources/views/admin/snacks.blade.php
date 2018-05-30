@@ -1,4 +1,16 @@
 @extends('admin.layout')
+
+
+@section('breadcrumb')
+    <nav aria-label="breadcrumb" style="background-color: #F5F5F5; flex: 8;">
+        <ol class="breadcrumb" style="background-color: #F5F5F5">
+            <li class="breadcrumb-item"><a href="{{ route('admin') }}"><i class="fas fa-home"></i></a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('admin') }}">Snacks</a></li>
+        </ol>
+
+    </nav>
+@endsection
+
 @section('content')
 
 
