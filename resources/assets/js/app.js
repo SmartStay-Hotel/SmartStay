@@ -51,6 +51,7 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
 //     template: '#hola'
 // })
 
+// import servicesHome from './components/servicesHome.vue'
 
     var urlServices = 'services';
     var urlTrips = 'trips';
@@ -128,7 +129,6 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
             insertRestaurant: function(){
                 var urlInsRest ='admin/service/restaurant';
                 axios.post(urlInsRest,{
-
                     day_hour: this.dayHourServ,
                     quantity: this.quantityServ
                 }).then(response=>{
@@ -144,7 +144,8 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
 
         },
         components: {
-            'tiny-slider': VueTinySlider
+            'tiny-slider': VueTinySlider,
+            // 'serviceshome': serviceshome
         }
     });
 

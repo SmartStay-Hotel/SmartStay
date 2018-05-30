@@ -14351,6 +14351,7 @@ Vue.component('serviceshome', __webpack_require__(49));
 //     template: '#hola'
 // })
 
+// import servicesHome from './components/servicesHome.vue'
 
 var urlServices = 'services';
 var urlTrips = 'trips';
@@ -14430,7 +14431,6 @@ new Vue({
 
             var urlInsRest = 'admin/service/restaurant';
             axios.post(urlInsRest, {
-
                 day_hour: this.dayHourServ,
                 quantity: this.quantityServ
             }).then(function (response) {
@@ -14451,6 +14451,7 @@ new Vue({
     },
     components: {
         'tiny-slider': __WEBPACK_IMPORTED_MODULE_0_vue_tiny_slider___default.a
+        // 'serviceshome': serviceshome
     }
 });
 
@@ -51969,7 +51970,7 @@ exports = module.exports = __webpack_require__(12)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -52032,10 +52033,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['nserv', 'servs', 'services', 'window'],
-    // data(){
-    //     return this.window
-    // }
+    props: ['nserv', 'servs', 'services'],
+    data: function data() {
+        return {
+            window: [false, false, false, false, false, false, false],
+            show: false
+        };
+    },
     methods: {
         showWindow: function showWindow(num) {
             this.show = !this.show;

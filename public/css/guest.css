@@ -1,10 +1,10 @@
 /*---------------------FONTS-------------------------*/
 :root {
-    --colorBody: #E1E1E1 /*#2B2B2B*/;
+    --colorBody: #E1E1E1 /*#2B2B2B*/; /*E1E1E1*/
     --colorNav: #36A7FC/*#252C4B*/;
-    --colorSecond: #46CE90;
+    --colorSecond: #E1E1E1 /*#46CE90*/;
 
-    --colorSubMenu: #151515 ; /*#E1E1E1*/
+    --colorSubMenu: black /*#151515*/ ; /*#E1E1E1*/
     --shadows: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 @font-face {
@@ -60,6 +60,7 @@ nav {
     padding-left: 50px;
     padding-right: 50px;
     width: 100%;
+
 
 
 }
@@ -222,12 +223,12 @@ nav {
 .tns-controls{
     display:flex;
     justify-content: space-around;
-    background-color:var(--colorSecond);
+    background-color:var(--colorSubMenu);
     position:fixed;
     bottom: 0;
     width: 100%;
     height: 50px;
-    color: black;
+    color: white;
     border: none !important;
 }
 
