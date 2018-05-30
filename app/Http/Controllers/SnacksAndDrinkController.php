@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Guest;
+use App\ProductType;
 use App\SnacksAndDrink;
+use Illuminate\Http\Request;
 
-class SnackDrinkController extends Controller
+class SnacksAndDrinkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,20 +16,8 @@ class SnackDrinkController extends Controller
      */
     public function index()
     {
-        //
-        $snackanddrinks = SnacksAndDrink::all();
-        return view('services.snackdrink.index', compact('snackanddrinks'));
-        /*
-        $snacksDrinks = SnacksAndDrink::all();
-        dd($snacksDrinks);
-        $productTypes = ProductType::all();
-        foreach ($snacksDrinks as $key => $snacksDrink){
-            $snacksDrink->name = $productTypes[$key]->name;
-            $snacksDrink->price = $productTypes[$key]->price;
-        }
-        //dd($snacksDrinks);
-        return view('services.snackdrink.index', compact('snacksDrinks'));
-        */
+        $snacks = SnacksAndDrink::all();
+        return view('services.snackdrink.index', compact('snacks'));
     }
 
     /**
@@ -37,7 +27,10 @@ class SnackDrinkController extends Controller
      */
     public function create()
     {
-        //
+        $guests = Guest::all();
+        $productTypes = ProductType::all();
+
+        return view('services.snackdrink.create', compact('guests', 'productTypes'));
     }
 
     /**

@@ -142,7 +142,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::resource('service/petcare', 'PetcareController');
     Route::resource('service/spa', 'SpaAppointmentController');
     Route::resource('service/alarm', 'AlarmController');
-    //Route::resource('service/snackdrink', 'SnackDrinkController');
+    Route::resource('service/snackdrink', 'SnacksAndDrinkController');
 
     /* --->   ------------- STATUS SERVICES --------------   */
     Route::get('admin/service/statusRestaurant/{id}', 'RestaurantController@changeStatus');

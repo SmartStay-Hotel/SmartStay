@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductType extends Model
 {
-    public function snackAndDrinks()
+    public function SnackAndDrink()
     {
         return $this->hasMany('App\SnacksAndDrink');
     }

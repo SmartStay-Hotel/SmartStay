@@ -2,11 +2,11 @@
  
 @section('content')
     <div class="pull-right">
-        <a class="btn btn-primary" href="{{ route('event.index') }}"> Back</a>
+        <a class="btn btn-primary" href="{{ route('snackdrink.index') }}"> Back</a>
     </div>
-    <h1>Add New Event Order</h1>
+    <h1>Add New Snack And Drink Order</h1>
     <hr>
-     <form action="/service/event" method="post">
+     <form action="/service/snackdrink" method="post">
      {{ csrf_field() }}
       <div class="form-group">
           <!--Guest-->
@@ -16,13 +16,28 @@
                   <option value="{{ $guest->id }}">{{ $guest->firstname." ".$guest->lastname}}</option>
               @endforeach
           </select><br/>
-          <!-- Trip Type -->
-          <label for="guest">Event: </label>
-          <select name="eventtype">
-              @foreach ($eventTypes as $event)
-                  <option value="{{ $event->id }}">{{ $event->name." - ".$event->location}}</option>
+          <!-- Product Type (Snacks)-->
+          <label for="guest">Snacks: </label>
+          <select name="producttype1">
+              @foreach ($productTypes as $productType)
+                  @if($productType->type_id == 1)
+                  <option value="{{ $productType->id }}">{{ $productType->name }}</option>
+                  @endif
               @endforeach
           </select><br/>
+          <label>Quantity: </label>
+          <input type="number" class="form-control" name="quanity1">
+          <!-- Product Type (Drinks)-->
+          <label for="guest">Drinks: </label>
+          <select name="producttype2">
+              @foreach ($productTypes as $productType)
+                  @if($productType->type_id == 2)
+                      <option value="{{ $productType->id }}">{{ $productType->name }}</option>
+                  @endif
+              @endforeach
+          </select><br/>
+          <label>Quantity: </label>
+          <input type="number" class="form-control" name="quanity2">
       </div>
       @if ($errors->any())
         <div class="alert alert-danger">
