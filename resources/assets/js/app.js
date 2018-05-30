@@ -46,6 +46,7 @@ window.axios = require('axios');
 
 import VueTinySlider from 'vue-tiny-slider';
 Vue.component('housekeeping', require('./components/menuHousekeeping.vue'));
+Vue.component('serviceshome', require('./components/servicesHome.vue'));
 // Vue.component('modal', {
 //     template: '#hola'
 // })
