@@ -16,66 +16,95 @@ body {
     overflow-y: hidden;
 }
 
-#main_container{
-     background-color:#ECEBE7;
-    position:absolute;
-    height:100%;
-    width:100%;
+
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-#homeIcon {
-    margin-right: 68%;
-}
-#previousIcon{
-    margin-left: 2%;
-    background-color: red;
-}
-.sidenav {
+html, body {
     height: 100%;
-    width: 20%;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
+}
+
+body {
+    font: 15px/1 'Open Sans', sans-serif;
+    color: #777;
+}
+
+
+
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font: 15px/1 'Open Sans', sans-serif;
+    color: #777;
+}
+
+
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font: 15px/1 'Open Sans', sans-serif;
+    color: #777;
+}
+
+
+#main_container {
+    display: flex;
+    min-height: 100%;
+}
+
+nav {
+    width: 200px;
     background-color: #2C2E2F;
-    overflow-x: hidden;
+    min-width: 180px;
 }
 
-.sidenav a {
-    padding: 6px 6px 6px 16px;
-    text-decoration: none;
+nav header {
+    position: relative;
+    height: 120px;
+    padding: 20px 0 0 15px;
     font-size: 16px;
-    display: block;
-    color: #979898;
+    color: #fff;
+    background-color: #2C2E2F;
+    vertical-align: middle;
 }
 
-#titleAdmin{
-    /*background-color: #0069D9;*/
-    color: white;
-    padding: 2px;
+
+#separator{
+    padding-top: 0px;
+    margin-top: 0px;
+    border-width: 2px;
+    border-color: white;
 }
 
-#titleApp{
-    padding: 6px 8px 0px 16px;
-    font-size: 16px;
+#separator2{
+    margin: 40px -20px 60px -20px;
+    border-width: 40px;
+    border-color: white;
 }
-#hotelName{
-    padding: 0px 8px 0px 16px;
-    font-size: 28px;
-    font-family: OpenSansSemiBold, sans-serif;
-    margin-bottom: 20px;
-    margin-left: 10px;
-}
-
 .sidenav a:hover {
     text-decoration: none;
     color: white;
 }
 
-#separator{
-    border-width: 2px;
-    border-color: white;
-}
 
 #services, #guests{
     font-size: 20px;
@@ -85,82 +114,62 @@ body {
 }
 
 #servicesList{
-    padding-left: 20px;
     list-style-type: none;
-}
-
-#dispatchedOrdersList{
-    list-style-type: none;
-}
-
-#dispatchedOrdersList > li{
-    border: 1px solid #979898;
-    padding: 10px;
-    text-align: left;
-    font-size: 1vw;
-}
-
-
- #pendingOrdersCard{
-    margin-left: 25%;
-    margin-top: 3%;
-     /*max-height: 200px;*/
-}
-
-#dispatchedOrdersCard{
-    margin-top: 3%;
+    background-color: #2C2E2F;
 
 }
 
-#pendingOrdersHeader{
-    background-color: #F39C12;
+
+#itemDropdown:hover {
+    background-color: #2C2E2F;
     color: white;
 }
 
-#dispatchedOrdersHeader{
-    background-color: #218838;
-    color: white;
+#itemDropdown{
+    color: #979898;
+    position: relative;
+    display: block;
+
 }
 
-#pendingOrdersBody{
-    border-style: solid;
-    border-color: #F39C12;
+main {
+    flex: 1;
+    padding: 20px;
+    background: #f5f5f5;
 }
 
-#dispatchedOrdersBody{
-    border-style: solid;
-    border-color: #218838;
+
+main > a {
+
+    margin: -25px -25px 25px -25px;
+    padding: 0 25px;
+    line-height: 60px;
+    font-size: 14px;
+    font-weight: 400;
+    z-index: 0;
+    position: absolute;
 }
 
-/*#orderBtn{
-    margin-left: 25%;
-    width: 20%;
-    height: 200px;
-    text-align: center;
-    font-size: 50px;
-    padding: auto;
-}*/
+main #formLayout{
+    flex: 1;
+
+}
+
+.flex-grid, #flexNavbar{
+    display: flex;
+}
 
 
-
-#groupDashBtn > a{
-    width:20%;
+.flex-grid > a, .flex-grid > div{
+    flex: 1;
+    margin: 0 20px 20px 0;
+    border: 1px solid #ddd;
+    background: #fff;
     padding: 40px 20px 40px 20px;
     font-size: 2vw;
-    box-sizing: border-box;
     border-radius: 0px;
 }
 
-#groupDashBtn{
-    margin-left: 17%;
-    margin-top: 3%;
-    display: flex;
-    justify-content: center;
-}
-
-#checkOutBtn, #bookingsBtn, #newBookingBtn {
-    margin-left: 2%;
-}
 
 #bookingsBtn {
     background-image: url("../img/admin/calendar.png");
@@ -199,6 +208,48 @@ body {
 }
 
 
+
+#dispatchedOrdersList{
+    list-style-type: none;
+}
+
+#dispatchedOrdersList > li{
+    border: 1px solid #979898;
+    padding: 10px;
+    text-align: left;
+    font-size: 1vw;
+}
+
+
+#pendingOrdersCard{
+    margin-left: 25%;
+    margin-top: 3%;
+    /*max-height: 200px;*/
+}
+
+#dispatchedOrdersCard{
+    margin-top: 3%;
+}
+
+#pendingOrdersHeader{
+    background-color: #F39C12;
+    color: white;
+}
+
+#dispatchedOrdersHeader{
+    background-color: #218838;
+    color: white;
+}
+
+#pendingOrdersBody{
+    border-style: solid;
+    border-color: #F39C12;
+}
+
+#dispatchedOrdersBody{
+    border-style: solid;
+    border-color: #218838;
+}
 
 /*CHECK-IN FORM*/
 
@@ -260,14 +311,15 @@ body {
 
 /* GUESTS*/
 
+/*
 #manageGuestsTitle {
     margin-left: 25%;
     margin-right: 8.5%;
     margin-top: 3%;
     padding: 10px;
     color: white;
-    background-color: #FFA500;
-}
+    background-color: #6C757D;
+}*/
 
 #guestsTable{
     margin-left: 25%;
@@ -285,21 +337,29 @@ body {
     background-color: #0056B3;
 }
 
-#alarmTableContainer{
-    margin-left: 23%;
-    margin-top: 3%;
-}
 
 #alarmTable{
     border-style: solid;
     border-color: #0056B3;
-    background-color: white;
-    font-size: 1vw;
+    flex: 1;
+}
+
+#formLayout{
+    float: right;
+    line-height: 40px;
+    z-index: 1;
 }
 
 #alarmTableHeader{
     background-color: #0056B3;
     color: white;
+}
+
+#addGuest{
+float: right;
+line-height: 120%;
+color: white;
+z-index: 1;
 }
 
 .alarmAddBtn{
@@ -330,12 +390,9 @@ body {
 
 
 @media  screen and (max-width: 1024px) {
-    #groupDashBtn > a {font-size: 18px;}
-    body {overflow-x: scroll;}
-    body {overflow-y: scroll;}
     #homeIcon {margin-right: 66%;}
     #addGuestManage {padding-left: 50% !important;}
-    #addGuest {padding-left: 70% !important;}
+    #addGuest {line-height: 70% !important;}
 }
 
 /* Guests */

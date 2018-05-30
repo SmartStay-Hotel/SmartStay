@@ -22,7 +22,7 @@
                 <td>2018-05-29 7:00:00</td>
                 <td>Niagara Falls</td>
                 <td><button class="alarmAddBtn"><i class="far fa-eye"></i></button></td>
-                <td><button class="alarmEditBtn"><i class="fas fa-edit"></i></button></td>
+                <td><button class="alarmEditBtn"><a href="{{ url('services/trip/edit') }}"><i class="fas fa-edit"></i></a></button></td>
                 <td><button class="alarmDeleteBtn"><i class="fas fa-times"></i></button></td>
             </tr>
             <tr>

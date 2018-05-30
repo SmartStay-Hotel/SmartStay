@@ -53,15 +53,29 @@
 
         body {
             overflow-y: auto !important;
+            background-color: #ECEBE7 !important;
         }
+
+        #manageGuestsTitle {
+            margin-left: 15%;
+            padding: 10px;
+            color: white;
+            background-color: #6C757D;
+        }
+
+        #panel{
+            margin-left: 15%;
+            border-bottom: #6C757D 20px solid;
+        }
+
     </style>
 @endsection
 @section('content')
 
     <div class="col-md-8 col-md-offset-2" id="guestTableContainer">
-        <h2 class="text-center">Manage Guests</h2>
+        <h2 id="manageGuestsTitle">Manage Guests</h2>
         <br/>
-        <div class="panel panel-default">
+        <div id="panel" class="panel panel-default">
             <div class="panel-heading">
                 <ul>
                     <li><i class="fa fa-file-text-o"></i><a href="{{ route('guests.index') }}"> All the current
