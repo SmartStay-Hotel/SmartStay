@@ -16,7 +16,7 @@
               @endforeach
           </select><br/>
         <label for="title">Taxi Date: </label>
-        <input type="text" class="form-control datepicker" id="day_hour"  name="day_hour"/>
+        <input type="date" class="form-control datepicker" id="day_hour"  name="day_hour"/>
       </div>
       @if ($errors->any())
         <div class="alert alert-danger">

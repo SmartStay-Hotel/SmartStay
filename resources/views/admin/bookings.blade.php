@@ -2,7 +2,7 @@
 @section('content')
 
 
-<h2 id="manageGuestsTitle">MANAGE GUESTS<a href="{{ url('admin/checkinform') }}"><i id="addGuestManage" class="fas fa-user-plus" style="padding-left: 65%; color: white;"></i></a></h2>
+<h2 id="manageGuestsTitle">MANAGE BOOKINGS<a href="{{ url('admin/bookings') }}"><i id="addGuestManage" class="fas fa-user-plus" style="padding-left: 65%; color: white;"></i></a></h2>
 
 <div class="col-sm-8" id="guestsTable" >
     <table class="table table-bordered table-hover text-center">

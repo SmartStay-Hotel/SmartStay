@@ -101,7 +101,7 @@ class GuestController extends Controller
      */
     public function show($id)
     {
-        $guest = Guest::find($id);
+        $guest       = Guest::find($id);
         $guest->code = $guest->rooms[0]->code;
 
         return view('admin.guest.show', compact('guest'));
@@ -188,7 +188,8 @@ class GuestController extends Controller
         $guest->rooms()->sync([]);
         $guest->delete();
 
-        return redirect()->route('guests.index')->with('status', 'Guest deleted successfully');
+        //return redirect()->route('guests.index')->with('status', 'Guest deleted successfully');
+        return redirect()->back()->with('status', 'Guest deleted successfully');
     }
 
     public function getAvailableRooms(Request $request, $id, $disAdapted = null, $jacuzzi = null)
