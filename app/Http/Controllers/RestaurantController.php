@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class RestaurantController extends Controller
@@ -53,9 +54,17 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
-        //FRONT
-        //session guest_id
-        $input     = Input::all();
+        //dd($request->request);
+        Session::put('guest_id', '19');
+        //Session::forget('guest_id');
+        $input = Input::all();
+        if ($request->ajax()) {
+            if (Session::exists('guest_id')) {
+                $input['guest_id'] = Session::get('guest_id');
+            } else {
+                return response()->json(['status' => false]);
+            }
+        }
         $rules     = [
             'guest_id' => 'required|numeric',
             'quantity' => 'required|numeric',
@@ -70,13 +79,22 @@ class RestaurantController extends Controller
                 Restaurant::create($input);
                 DB::commit();
 
-                $return = redirect()->route('restaurant.index')->with('status', 'Order added successfully.');
+                if ($request->ajax()) {
+                    $return = ['status' => true];
+                } else {
+                    $return = redirect()->route('restaurant.index')->with('status', 'Order added successfully.');
+                }
             } catch (\Exception $e) {
                 DB::rollback();
                 throw $e;
             }
         } else {
-            $return = redirect()->route('restaurant.create')->withErrors($validator->getMessageBag());
+            // No pasó el validador
+            if ($request->ajax()) {
+                $return = ['status' => false];
+            } else {
+                $return = redirect()->route('restaurant.create')->withErrors($validator->getMessageBag());
+            }
         }
 
         return $return;

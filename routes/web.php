@@ -76,9 +76,7 @@ Route::group(['middleware' => 'language'], function () {
 
     /*------------ ADMIN ------------*/
     Route::get('admin', 'HomeController@index')->name('admin');
-    Route::get('admin/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('admin/dashboard','AdminDashboardController@index');
     Route::get('admin/checkin', 'AdminDashboardController@checkin');
 
     Route::get('admin/checkout', 'AdminDashboardController@checkout');
