@@ -29,6 +29,9 @@
 
 </nav>
 <div id="subMenu">
+{{---------}}
+
+    {{--------------}}
     <div id="subMenu1">
         <a href="{{url('logout')}}"><i class="fas fa-power-off"></i></a>
     </div>
@@ -37,7 +40,7 @@
 
             <label class="switch">
 
-                <input type="checkbox" v-model="guestOut" @click="showOut" checked>
+                <input type="checkbox" v-model="statusRoom" @click="showModal = true" checked>
                 <span class="slider"></span>
             </label>
         </div>
@@ -49,20 +52,25 @@
 </div>
 
 
-    <transition name="bounce">
+    {{--<transition name="bounce">--}}
 
-        <div id="out" v-if="!showMenuOut && !guestOut">
-            <div class="containerMenuOut">
-                <div class="menuOut"><input type="checkbox"> Bed Sheets</div>
-                <div class="menuOut"><input type="checkbox"> Cleaning </div>
-                <div class="menuOut"><input type="checkbox"> Minibar</div>
-                <div class="menuOut"><input type="checkbox"> Blanket</div>
-                <div class="menuOut"><input type="checkbox"> Toiletries</div>
-                <div class="menuOut"><input type="checkbox"> Pillow</div>
-                <div class="menuOut"><input type="submit" value="Okay" @click="showMenuOut = !showMenuOut"></div>
-            </div>
-        </div>
-    </transition>
+        {{--<div id="out" v-if="!showMenuOut && !guestOut">--}}
+            {{--<div class="containerMenuOut">--}}
+                {{--<div class="menuOut"><input type="checkbox"> Bed Sheets</div>--}}
+                {{--<div class="menuOut"><input type="checkbox"> Cleaning </div>--}}
+                {{--<div class="menuOut"><input type="checkbox"> Minibar</div>--}}
+                {{--<div class="menuOut"><input type="checkbox"> Blanket</div>--}}
+                {{--<div class="menuOut"><input type="checkbox"> Toiletries</div>--}}
+                {{--<div class="menuOut"><input type="checkbox"> Pillow</div>--}}
+                {{--<div class="menuOut"><input type="submit" value="Okay" @click="showOut2"></div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</transition>--}}
+
+    <!-- use the modal component, pass in the prop -->
+    <housekeeping v-if="showModal" @close="showModal = false">
+
+    </housekeeping>
 
 </div>
 <script>

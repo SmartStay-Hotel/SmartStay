@@ -17,7 +17,7 @@
 
 
 <form method="POST" action="{{ url('/') }}" id="formLoginGuest">
-<div id="app"></div>
+    <div id="app"></div>
     <div class="dropdown">
         <div class="dropbtn"><img src="{{ Config::get('languages')[App::getLocale()]['flag']}}"/></div>
         <div class="dropdown-content" id="language">
@@ -55,7 +55,7 @@
     function inPass() {
         var container = document.getElementsByClassName('passGroup')[0];
         container.onkeyup = function (e) {
-            if(document.activeElement.id==="thirdPass"){
+            if (document.activeElement.id === "thirdPass") {
                 document.getElementById("fourthPass").focus();
             }
             var target = e.srcElement || e.target;
@@ -74,7 +74,7 @@
             }
             // Move to previous field if empty (user pressed backspace)
             else if (myLength === 0) {
-                if(document.activeElement.id==="fourthPass"){
+                if (document.activeElement.id === "fourthPass") {
                     document.getElementById("thirdPass").focus();
                 }
                 var previous = target;

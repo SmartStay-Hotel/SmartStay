@@ -1,8 +1,8 @@
 @extends('layouts.app')
- 
+
 @section('content')
-            <h1>Showing Restaurant order: {{ $restaurant->id }}</h1>
-   <div class="pull-right">
+    <h1>Showing Restaurant order: {{ $restaurant->id }}</h1>
+    <div class="pull-right">
         <a class="btn btn-primary" href="{{ route('restaurant.index') }}"> Back</a>
     </div>
     <div class="jumbotron text-center">

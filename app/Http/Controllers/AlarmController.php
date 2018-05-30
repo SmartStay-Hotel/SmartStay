@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class AlarmController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +15,7 @@ class AlarmController extends Controller
      */
     public function index()
     {
-       // dd('CRUD Alarms');
+        // dd('CRUD Alarms');
         return view('admin.alarms');
     }
 
@@ -31,7 +32,8 @@ class AlarmController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -42,7 +44,8 @@ class AlarmController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Alarm  $alarm
+     * @param  \App\Alarm $alarm
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Alarm $alarm)
@@ -53,7 +56,8 @@ class AlarmController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Alarm  $alarm
+     * @param  \App\Alarm $alarm
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Alarm $alarm)
@@ -64,8 +68,9 @@ class AlarmController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Alarm  $alarm
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Alarm               $alarm
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Alarm $alarm)
@@ -76,7 +81,8 @@ class AlarmController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Alarm  $alarm
+     * @param  \App\Alarm $alarm
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Alarm $alarm)

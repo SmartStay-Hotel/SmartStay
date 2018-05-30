@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
+
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -43,6 +44,7 @@ class LoginController extends Controller
     {
         Auth::logout();
         Session::flush();
+
         return redirect('admin/login');
     }
 }

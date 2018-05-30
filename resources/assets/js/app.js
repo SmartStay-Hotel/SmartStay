@@ -45,12 +45,15 @@ window.axios = require('axios');
 // Vue.use(VueCarousel);
 
 import VueTinySlider from 'vue-tiny-slider';
-// Vue.component('serviceshome', require('./components/servicesHome.vue'));
+Vue.component('housekeeping', require('./components/menuHousekeeping.vue'));
+// Vue.component('modal', {
+//     template: '#hola'
+// })
 
 
     var urlServices = 'services';
     var urlTrips = 'trips';
-    var changeStatusRoom= 'changeStatus';
+    var urlChangeStatusRoom= 'changeStatus';
     var urlGetStatusRoom ='seeStatus';
 
 
@@ -76,6 +79,7 @@ import VueTinySlider from 'vue-tiny-slider';
             tripSelected:"",
             numPersonsTrip:1,
             statusRoom:"",
+            showModal:false,
 
 
         },
@@ -103,7 +107,12 @@ import VueTinySlider from 'vue-tiny-slider';
                 this.window[num]=!this.window[num]
             },
             showOut: function(){
-                this.guestOut = false
+                axios.get(urlChangeStatusRoom)
+                this.guestOut = !this.guestOut
+                this.showMenuOut = !this.showMenuOut
+            },
+            showOut2:function(){
+                this.guestOut = !this.guestOut
                 this.showMenuOut = !this.showMenuOut
             },
             setPriceTrip: function(price){
