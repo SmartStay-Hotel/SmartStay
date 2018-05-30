@@ -66,7 +66,7 @@ class RestaurantController extends Controller
             try {
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
-                $input['status']     = 1;
+                $input['status']     = '1';
                 Restaurant::create($input);
                 DB::commit();
 
@@ -166,5 +166,19 @@ class RestaurantController extends Controller
         Restaurant::find($id)->delete();
 
         return redirect()->back()->with('status', 'Guest deleted successfully');
+    }
+
+    /**
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changeStatus($id)
+    {
+        $restaurant         = Restaurant::findOrFail($id);
+        $restaurant->status = ($restaurant->status === '2') ? '1' : '2';
+        $restaurant->save();
+
+        return response()->json($restaurant->status);
     }
 }

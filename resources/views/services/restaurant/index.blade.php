@@ -26,6 +26,7 @@
                 <th scope="col">Room Nº</th>
                 <th scope="col">Day and Time</th>
                 <th scope="col">People Nº</th>
+                <th scope="col">Completed?</th>
                 <th scope="col" colspan="3">Actions</th>
             </tr>
             </thead>
@@ -37,6 +38,8 @@
                     <td> {{ $restaurant->guest->rooms[0]->number }} </td>
                     <td>{{ $restaurant->day_hour }}</td>
                     <td> {{ $restaurant->quantity }} </td>
+                    <td class="text-center"><input type="checkbox" name="{{ $restaurant->id }}" id="completed"
+                                                   @if ($restaurant->status == '2') checked @endif></td>
                     <td>
                         <a href="{{ route('restaurant.show', $restaurant->id) }}" class="show-modal btn btn-success">
                             <span class="glyphicon glyphicon-eye-open"></span> Show
@@ -56,4 +59,23 @@
 @endsection
 
 @section('scripts')
+    <script>
+        $(document).ready(function () {
+            $(':checkbox').change(function (event) {
+                var route = 'statusRestaurant/' + event.target.name + '';
+                if ($(this).is(':checked')) {
+                    this.checked = confirm("Is it already completed?");
+                    //console.log(route);
+                    $.get(route, function (response, state) {
+                        console.log("Completed " + response);
+                        //
+                    });
+                } else {
+                    $.get(route, function (response, state) {
+                        console.log("In process " + response);
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

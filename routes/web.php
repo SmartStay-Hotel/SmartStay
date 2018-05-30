@@ -144,4 +144,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::resource('service/alarm', 'AlarmController');
     //Route::resource('service/snackdrink', 'SnackDrinkController');
 
+    /* --->   ------------- STATUS SERVICES --------------   */
+    Route::get('admin/service/statusRestaurant/{id}', 'RestaurantController@changeStatus');
+
 });

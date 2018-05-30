@@ -63,6 +63,6 @@
                     $('#selectGuest').prop('disabled', false);
                 }
             });
-        })
+        });
     </script>
 @endsection
