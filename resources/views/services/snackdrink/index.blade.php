@@ -13,6 +13,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Guest_id</th>
                 <th scope="col">Product_id</th>
+                <th scope="col">Quantity</th>
                 <th scope="col">Price</th>
                 <th></th>
                 <th></th>
@@ -24,7 +25,8 @@
                     <th scope="row"><a href="/service/event/{{ $snack->id }}">{{ $snack->id }}</a></th>
                     <td>{{ $snack->guest_id }}</td>
                     <td>{{ $snack->product_type_id }}</td>
-                <td>{{ $snack->order_date }}</td>
+                    <td>{{ $snack->quantity }}</td>
+                    <td>{{ $snack->order_date }}</td>
               <td>
                   <div class="btn-group" role="group" aria-label="Basic example">
                       <a href="{{ URL::to('service/snackdrink/' . $snack->id . '/edit') }}">

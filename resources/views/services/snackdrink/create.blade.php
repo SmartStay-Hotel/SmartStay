@@ -26,7 +26,8 @@
               @endforeach
           </select><br/>
           <label>Quantity: </label>
-          <input type="number" class="form-control" name="quanity1">
+          <input type="number" class="form-control" name="quantity1">
+
           <!-- Product Type (Drinks)-->
           <label for="guest">Drinks: </label>
           <select name="producttype2">
@@ -37,7 +38,7 @@
               @endforeach
           </select><br/>
           <label>Quantity: </label>
-          <input type="number" class="form-control" name="quanity2">
+          <input type="number" class="form-control" name="quantity2">
       </div>
       @if ($errors->any())
         <div class="alert alert-danger">

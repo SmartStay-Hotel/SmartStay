@@ -2,11 +2,11 @@
  
 @section('content')
     <div class="pull-right">
-        <a class="btn btn-primary" href="{{ route('event.index') }}"> Back</a>
+        <a class="btn btn-primary" href="{{ route('snackdrink.index') }}"> Back</a>
     </div>
-    <h1>Edit Event Order: {{ $event->id }}</h1>
+    <h1>Edit Snack and Drink Order: {{ $snackdrinks->id }}</h1>
     <hr>
-     <form action="{{url('service/event', [$event->id])}}" method="POST">
+     <form action="{{url('service/snackdrink', [$snackdrinks->id])}}" method="POST">
      <input type="hidden" name="_method" value="PUT">
      {{ csrf_field() }}
 
@@ -15,7 +15,7 @@
          <select name="guest">
              @foreach ($guests as $guest)
                  <option value="{{ $guest->id }}"
-                         @if($guest->id == $event->guest_id)
+                         @if($guest->id == $snackdrinks->guest_id)
                          selected
                          @endif>
                      {{ $guest->firstname." ".$guest->lastname}}
@@ -24,15 +24,15 @@
              @endforeach
          </select><br/>
 
-         <!--Event_type_id -->
+         <!--Product_id -->
          <label for="guest">Event: </label><br>
-         <select name="eventtype">
-             @foreach ($eventTypes as $eventType)
-                 <option value="{{ $eventType->id }}"
-                         @if($event->event_type_id == $eventType->id)
+         <select name="productttype1">
+             @foreach ($snackdrinks as $snackdrink)
+                 <option value="{{ $snackdrink->id }}"
+                         @if($snackdrink->event_type_id == $productType->id)
                          selected
                          @endif>
-                     {{ $eventType->name." - ".$eventType->location }}
+                     {{ $snackdrink->name}}
                  </option>
              @endforeach
          </select><br/>
