@@ -6,10 +6,10 @@
 
 @section('content')
 
-        <h2 id="alarmTitle"><i class="far fa-clock" style="padding: 5px;"></i>Alarm<a href="#"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
+        <h2 id="serviceTitle"><i class="far fa-clock" style="padding: 5px;"></i>Alarm<a href="#"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
         <div class="flex-grid">
-    <table class="table table-sm table-hover text-center" id="alarmTable">
-        <thead id="alarmTableHeader">
+    <table class="table table-sm table-hover text-center" id="serviceTable">
+        <thead id="serviceTableHeader">
         <tr>
             <th scope="col">Guest Id</th>
             <th scope="col">Bedroom Nr</th>
@@ -22,33 +22,33 @@
             <th scope="row">1</th>
             <td>311</td>
             <td>2018-05-29 7:00:00</td>
-            <td><button class="alarmAddBtn"><i class="far fa-eye"></i></button></td>
-            <td><button class="alarmEditBtn"><a href="{{ url('services/alarm/edit') }}"><i class="fas fa-edit"></i></a></button></td>
-            <td><button class="alarmDeleteBtn"><i class="fas fa-times"></i></button></td>
+            <td><button class="serviceAddBtn"><i class="far fa-eye"></i></button></td>
+            <td><button class="serviceEditBtn"><a href="{{ url('services/alarm/edit') }}"><i class="fas fa-edit"></i></a></button></td>
+            <td><button class="serviceDeleteBtn"><i class="fas fa-times"></i></button></td>
         </tr>
         <tr>
             <th scope="row">2</th>
             <td>209</td>
             <td>2018-05-29 5:30:00</td>
-            <td><button class="alarmAddBtn"><i class="far fa-eye"></i></button></td>
-            <td><button class="alarmEditBtn"><i class="fas fa-edit"></i></button></td>
-            <td><button class="alarmDeleteBtn"><i class="fas fa-times"></i></button></td>
+            <td><button class="serviceAddBtn"><i class="far fa-eye"></i></button></td>
+            <td><button class="serviceEditBtn"><i class="fas fa-edit"></i></button></td>
+            <td><button class="serviceDeleteBtn"><i class="fas fa-times"></i></button></td>
         </tr>
         <tr>
             <th scope="row">3</th>
             <td>207</td>
             <td>2018-05-30 5:00:00</td>
-            <td><button class="alarmAddBtn"><i class="far fa-eye"></i></button></td>
-            <td><button class="alarmEditBtn"><i class="fas fa-edit"></i></button></td>
-            <td><button class="alarmDeleteBtn"><i class="fas fa-times"></i></button></td>
+            <td><button class="serviceAddBtn"><i class="far fa-eye"></i></button></td>
+            <td><button class="serviceEditBtn"><i class="fas fa-edit"></i></button></td>
+            <td><button class="serviceDeleteBtn"><i class="fas fa-times"></i></button></td>
         </tr>
         <tr>
             <th scope="row">4</th>
             <td>305</td>
             <td>2018-05-29 9:00:00</td>
-            <td><button class="alarmAddBtn"><i class="far fa-eye"></i></button></td>
-            <td><button class="alarmEditBtn"><i class="fas fa-edit"></i></button></td>
-            <td><button class="alarmDeleteBtn"><i class="fas fa-times"></i></button></td>
+            <td><button class="serviceAddBtn"><i class="far fa-eye"></i></button></td>
+            <td><button class="serviceEditBtn"><i class="fas fa-edit"></i></button></td>
+            <td><button class="serviceDeleteBtn"><i class="fas fa-times"></i></button></td>
         </tr>
         </tbody>
     </table>
