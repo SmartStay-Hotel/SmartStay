@@ -20,13 +20,13 @@
 
 </head>
 <body id="bodyLogin">
-    <div id="app" >
+<div id="app">
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <main class="py-4">
+        @yield('content')
+    </main>
+</div>
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

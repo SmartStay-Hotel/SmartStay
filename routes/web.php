@@ -35,24 +35,31 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('/', function () {
         if (Session::has('guest_id')) {
             $services = \App\Services::where('is_active', 1)->get();
+
             return view('guest.dashboard', compact('services'));
         } else {
             return view('loginGuest');
         }
     });
 
+    Route::get('changeStatus', 'GuestController@changeStatus');
+    Route::get('seeStatus/{id?}', 'GuestController@seeStatusGuest');
+
     Route::get('logout', 'CodeController@logout');
 
-    Route::get('services', function(){
-        $services =\App\Services::get();
+    Route::get('services', function () {
+        $services = \App\Services::get();
+
         return $services;
     });
-    Route::get('trips', function(){
-        $trips =\App\Trip_types::get();
+    Route::get('trips', function () {
+        $trips = \App\Trip_types::get();
+
         return $trips;
     });
-    Route::get('events', function(){
-        $events =\App\Event::get();
+    Route::get('events', function () {
+        $events = \App\Event::get();
+
         return $events;
     });
     Route::get('/logout', 'CodeController@logout');
@@ -71,9 +78,7 @@ Route::group(['middleware' => 'language'], function () {
 
     /*------------ ADMIN ------------*/
     Route::get('admin', 'HomeController@index')->name('admin');
-    Route::get('admin/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('admin/dashboard','AdminDashboardController@index');
     Route::get('admin/checkin', 'AdminDashboardController@checkin');
 
     Route::get('admin/checkout', 'AdminDashboardController@checkout');
@@ -115,7 +120,8 @@ Route::group(['middleware' => 'language'], function () {
 
     Route::resource('admin/guests', 'GuestController');
     //----Filtro de búsqueda para reservas ------
-    Route::get('admin/guests/roomType/{id}/adapted/{disabled_adapted}/jacuzzi/{jacuzzi}', 'GuestController@getAvailableRooms');
+    Route::get('admin/guests/roomType/{id}/adapted/{disabled_adapted}/jacuzzi/{jacuzzi}',
+        'GuestController@getAvailableRooms');
     Route::get('admin/guests/roomType/{id}/adapted/{disabled_adapted}', 'GuestController@getAvailableRooms');
     Route::get('admin/guests/roomType/{id}/jacuzzi/{jacuzzi}', 'GuestController@getAvailableRooms');
     Route::get('admin/guests/roomType/{id}', 'GuestController@getAvailableRooms');
@@ -128,7 +134,15 @@ Route::group(['middleware' => 'language'], function () {
     /*------------- SERVICES --------------*/
     Route::resource('service/taxi', 'TaxiController');
     Route::resource('service/housekeeping', 'HousekeepingController');
-    Route::resource('service/restaurant', 'RestaurantController');
+    Route::resource('admin/service/restaurant', 'RestaurantController');
     Route::resource('service/trip', 'TripController');
     Route::resource('service/event', 'EventController');
+    Route::resource('service/petcare', 'PetcareController');
+    Route::resource('service/spa', 'SpaAppointmentController');
+    Route::resource('service/alarm', 'AlarmController');
+    //Route::resource('service/snackdrink', 'SnackDrinkController');
+
+    /* --->   ------------- STATUS SERVICES --------------   */
+    Route::get('admin/service/statusRestaurant/{id}', 'RestaurantController@changeStatus');
+
 });

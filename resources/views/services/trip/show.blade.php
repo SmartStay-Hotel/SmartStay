@@ -1,8 +1,8 @@
 @extends('layouts.app')
- 
+
 @section('content')
-            <h1>Showing Trip Order: {{ $trip->id }}</h1>
-   <div class="pull-right">
+    <h1>Showing Trip Order: {{ $trip->id }}</h1>
+    <div class="pull-right">
         <a class="btn btn-primary" href="{{ route('trip.index') }}"> Back</a>
     </div>
     <div class="jumbotron text-center">

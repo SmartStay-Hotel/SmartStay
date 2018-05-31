@@ -66,7 +66,12 @@
     <main>
 
         <div id="flexNavbar">
-            @yield('breadcrumb')
+            <nav aria-label="breadcrumb" id="breadNav">
+                <ol class="breadcrumb" style="background-color: #F5F5F5">
+                    <li class="breadcrumb-item"><a href="{{ route('admin') }}"><i class="fas fa-home"></i></a></li>
+                    @yield('breadcrumb')
+                </ol>
+            </nav>
 
         <form action="{{ route('logout') }}" method="POST" class="form-inline my-2 my-lg-0" id="formLayout">
             @csrf

@@ -37,9 +37,6 @@
             vertical-align: baseline;
         }
 
-        body {
-            overflow-y: auto !important;
-        }
     </style>
 @endsection
 

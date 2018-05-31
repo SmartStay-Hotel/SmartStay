@@ -16,18 +16,26 @@ class Guest extends Model
             ->withTimestamps();
     }
 
+    public function restaurants()
+    {
+        return $this->hasMany(Restaurant::class);
+    }
+
     public static function getGuestsByCheckoutDate()
     {
         $guests = Guest::whereHas('rooms', function ($q) {
             $q->where('checkout_date', '=', \Carbon\Carbon::today()->toDateString());
         })->get();
+
         return $guests;
     }
 
-    public static function getGuestsByCheckinDate(){
+    public static function getGuestsByCheckinDate()
+    {
         $guests = Guest::whereHas('rooms', function ($q) {
             $q->where('checkin_date', '=', \Carbon\Carbon::today()->toDateString());
         })->get();
+
         return $guests;
     }
 }

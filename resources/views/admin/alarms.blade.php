@@ -1,18 +1,12 @@
 @extends('admin.layout')
 
 @section('breadcrumb')
-    <nav aria-label="breadcrumb" style="background-color: #F5F5F5; flex: 8;">
-        <ol class="breadcrumb" style="background-color: #F5F5F5">
-            <li class="breadcrumb-item"><a href="{{ route('admin') }}"><i class="fas fa-home"></i></a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('admin') }}">Alarm</a></li>
-        </ol>
-
-    </nav>
+    <li class="breadcrumb-item active" aria-current="page">Alarm</li>
 @endsection
 
 @section('content')
 
-        <h2 id="alarmTitle"><i class="far fa-clock" style="padding: 5px;"></i>Alarm<a href="#"><i id="addGuest" class="fas fa-user-plus" style=""></i></a></h2>
+        <h2 id="alarmTitle"><i class="far fa-clock" style="padding: 5px;"></i>Alarm<a href="#"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
         <div class="flex-grid">
     <table class="table table-sm table-hover text-center" id="alarmTable">
         <thead id="alarmTableHeader">

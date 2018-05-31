@@ -1,21 +1,21 @@
 @media (min-width: 1366px) {
 
-
-
     nav {
         padding: 2rem;
-        font-size:2rem;
+        font-size: 2rem;
     }
-    nav h3{
-        font-size:3.5rem;
+
+    nav h3 {
+        font-size: 3.5rem;
     }
-    nav span{
-        font-size:2rem!important;
+
+    nav span {
+        font-size: 2rem !important;
     }
 
     #subMenu {
         padding: 1.5rem;
-        margin-bottom:2rem;
+        margin-bottom: 2rem;
     }
 
     #main_container {
@@ -26,11 +26,13 @@
         width: 60%;
 
     }
-    #servicesTop{
-        margin-bottom:2rem;
+
+    #servicesTop {
+        margin-bottom: 2rem;
     }
-    #servicesTop > div:first-child, #servicesBottom > div:first-child{
-        margin-right:2rem;
+
+    #servicesTop > div:first-child, #servicesBottom > div:first-child {
+        margin-right: 2rem;
     }
 
     .bttnDirection {
@@ -44,16 +46,15 @@
 
     .bttnServices p {
         padding: 1rem;
-        font-size:2rem;
+        font-size: 2rem;
 
     }
-
-
 
     /*--------------TOGGLE BUTTON----------------*/
-    .slider{
-        font-size:40px;
+    .slider {
+        font-size: 40px;
     }
+
     .switch {
         width: 160px;
         height: 70px;
@@ -68,7 +69,7 @@
 
     }
 
-    input:checked + .slider:before{
+    input:checked + .slider:before {
         content: "IN";
     }
 

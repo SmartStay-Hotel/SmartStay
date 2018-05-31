@@ -1,20 +1,14 @@
 @extends('admin.layout')
 
 @section('breadcrumb')
-    <nav aria-label="breadcrumb" style="background-color: #F5F5F5; flex: 8;">
-        <ol class="breadcrumb" style="background-color: #F5F5F5">
-            <li class="breadcrumb-item"><a href="{{ route('admin') }}"><i class="fas fa-home"></i></a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('admin') }}">Pet care</a></li>
-        </ol>
-
-    </nav>
+    <li class="breadcrumb-item active" aria-current="page">Pet care</li>
 @endsection
 
 @section('content')
 
-        <table class="table table-sm table-hover text-center" id="alarmTable">
+    <h2 id="alarmTitle"><i class="fas fa-paw" style="padding: 5px;"></i>Pet Care<a href="#"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
+     <table class="table table-sm table-hover text-center" id="alarmTable">
             <thead id="alarmTableHeader">
-            <tr><h2 id="alarmTitle"><i class="fas fa-paw" style="padding: 5px;"></i>Pets<a href="#"><i id="addGuest" class="fas fa-user-plus" style="padding-left: 80%; color: white; z-index: 1;"></i></a></h2></tr>
             <tr>
                 <th scope="col">Guest Id</th>
                 <th scope="col">Bedroom Nr</th>
@@ -35,9 +29,15 @@
                 <td>X</td>
                 <td></td>
                 <td></td>
-                <td><button class="alarmAddBtn"><i class="far fa-eye"></i></button></td>
-                <td><button class="alarmEditBtn"><i class="fas fa-edit"></i></button></td>
-                <td><button class="alarmDeleteBtn"><i class="fas fa-times"></i></button></td>
+                <td>
+                    <button class="alarmAddBtn"><i class="far fa-eye"></i></button>
+                </td>
+                <td>
+                    <button class="alarmEditBtn"><i class="fas fa-edit"></i></button>
+                </td>
+                <td>
+                    <button class="alarmDeleteBtn"><i class="fas fa-times"></i></button>
+                </td>
             </tr>
             <tr>
                 <th scope="row">2</th>
@@ -47,9 +47,15 @@
                 <td></td>
                 <td>X</td>
                 <td></td>
-                <td><button class="alarmAddBtn"><i class="far fa-eye"></i></button></td>
-                <td><button class="alarmEditBtn"><i class="fas fa-edit"></i></button></td>
-                <td><button class="alarmDeleteBtn"><i class="fas fa-times"></i></button></td>
+                <td>
+                    <button class="alarmAddBtn"><i class="far fa-eye"></i></button>
+                </td>
+                <td>
+                    <button class="alarmEditBtn"><i class="fas fa-edit"></i></button>
+                </td>
+                <td>
+                    <button class="alarmDeleteBtn"><i class="fas fa-times"></i></button>
+                </td>
             </tr>
             <tr>
                 <th scope="row">3</th>
@@ -59,9 +65,15 @@
                 <td>X</td>
                 <td>X</td>
                 <td>X</td>
-                <td><button class="alarmAddBtn"><i class="far fa-eye"></i></button></td>
-                <td><button class="alarmEditBtn"><i class="fas fa-edit"></i></button></td>
-                <td><button class="alarmDeleteBtn"><i class="fas fa-times"></i></button></td>
+                <td>
+                    <button class="alarmAddBtn"><i class="far fa-eye"></i></button>
+                </td>
+                <td>
+                    <button class="alarmEditBtn"><i class="fas fa-edit"></i></button>
+                </td>
+                <td>
+                    <button class="alarmDeleteBtn"><i class="fas fa-times"></i></button>
+                </td>
             </tr>
             <tr>
                 <th scope="row">4</th>
@@ -71,9 +83,15 @@
                 <td>X</td>
                 <td></td>
                 <td></td>
-                <td><button class="alarmAddBtn"><i class="far fa-eye"></i></button></td>
-                <td><button class="alarmEditBtn"><i class="fas fa-edit"></i></button></td>
-                <td><button class="alarmDeleteBtn"><i class="fas fa-times"></i></button></td>
+                <td>
+                    <button class="alarmAddBtn"><i class="far fa-eye"></i></button>
+                </td>
+                <td>
+                    <button class="alarmEditBtn"><i class="fas fa-edit"></i></button>
+                </td>
+                <td>
+                    <button class="alarmDeleteBtn"><i class="fas fa-times"></i></button>
+                </td>
             </tr>
             </tbody>
         </table>

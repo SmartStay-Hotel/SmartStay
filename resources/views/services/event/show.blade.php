@@ -1,8 +1,8 @@
 @extends('layouts.app')
- 
+
 @section('content')
-            <h1>Showing Event Order: {{ $event->id }}</h1>
-   <div class="pull-right">
+    <h1>Showing Event Order: {{ $event->id }}</h1>
+    <div class="pull-right">
         <a class="btn btn-primary" href="{{ route('event.index') }}"> Back</a>
     </div>
     <div class="jumbotron text-center">

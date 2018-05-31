@@ -1,40 +1,82 @@
-@extends('layouts.app')
+@extends('admin.layout')
+
+@section('css')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+@endsection
 
 @section('content')
-        @if (Session::has('message'))
-            <div class="alert alert-info">{{ Session::get('message') }}</div>
-        @endif
-         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('restaurant.create') }}"> New Restaurant Order</a>
-        </div>
-        <table class="table">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Date hour</th>
+
+    <div class="col-sm-9 table-responsive" id="alarmTableContainer">
+
+        <table class="table table-sm table-hover text-center" id="alarmTable">
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+            <thead id="alarmTableHeader">
+            <tr><h2 id="alarmTitle"><i class="fas fa-utensils fa-xs" style="padding: 5px;"></i>Restaurant<a
+                            href="{{ route('restaurant.create') }}"><i
+                                id="addGuest" class="fas fa-user-plus fa-xs"
+                                style="padding-left: 70%; color: white; z-index: 1;"></i></a></h2>
             </tr>
-          </thead>
-          <tbody>
-            @foreach($restaurants as $restaurant)
             <tr>
-              <th><a href="/service/restaurant/{{$restaurant->id}}">{{$restaurant->id}}</a></th>
-              <td> {{ $restaurant->quantity }} </td>
-              <td>{{$restaurant->day_hour}}</td>
-              <td>
-              <div class="btn-group" role="group" aria-label="Basic example">
-                  <a href="{{ URL::to('/service/restaurant/' . $restaurant->id . '/edit') }}">
-                   <button type="button" class="btn btn-warning">Edit</button>
-                  </a>&nbsp;
-                <form action="{{url('/service/restaurant', [$restaurant->id])}}" method="POST">
-                     <input type="hidden" name="_method" value="DELETE">
-                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                   <input type="submit" class="btn btn-danger" value="Delete"/>
-                </form>
-              </div>
- </td>
+                <th scope="col">#</th>
+                <th scope="col">Guest Name</th>
+                <th scope="col">Room Nº</th>
+                <th scope="col">Day and Time</th>
+                <th scope="col">People Nº</th>
+                <th scope="col">Completed?</th>
+                <th scope="col" colspan="3">Actions</th>
             </tr>
+            </thead>
+            <tbody>
+            @foreach($restaurants as $indexKey => $restaurant)
+                <tr>
+                    <td>{{ ++$indexKey }}</td>
+                    <td>{{ $restaurant->guest->firstname . ' ' . $restaurant->guest->lastname }}</td>
+                    <td> {{ $restaurant->guest->rooms[0]->number }} </td>
+                    <td>{{ $restaurant->day_hour }}</td>
+                    <td> {{ $restaurant->quantity }} </td>
+                    <td class="text-center"><input type="checkbox" name="{{ $restaurant->id }}" id="completed"
+                                                   @if ($restaurant->status == '2') checked @endif></td>
+                    <td>
+                        <a href="{{ route('restaurant.show', $restaurant->id) }}" class="show-modal btn btn-success">
+                            <span class="glyphicon glyphicon-eye-open"></span> Show
+                        </a>
+                        <a href="{{ route('restaurant.edit', $restaurant->id) }}" class="edit-modal btn btn-info">
+                            <span class="glyphicon glyphicon-edit"></span> Edit
+                        </a>
+                        {!! Form::open(['method' => 'DELETE','route' => ['restaurant.destroy', $restaurant->id], 'style'=>'display:inline']) !!}
+                        {!! Form::button('<span class="glyphicon glyphicon-trash"></span> Delete', array('type' => 'submit', 'class' => 'delete-modal btn btn-danger')) !!}
+                        {!! Form::close() !!}
+                    </td>
+                </tr>
             @endforeach
-          </tbody>
+            </tbody>
         </table>
+    </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $(':checkbox').change(function (event) {
+                var route = 'statusRestaurant/' + event.target.name + '';
+                if ($(this).is(':checked')) {
+                    if (confirm("Is it already completed?")) {
+                        $.get(route, function (response, state) {
+                            console.log("Completed " + response);
+                        });
+                    } else {
+                        this.checked = false;
+                    }
+                } else {
+                    $.get(route, function (response, state) {
+                        console.log("In process " + response);
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

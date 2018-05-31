@@ -1,4 +1,4 @@
-/* dashboard admin*/
+/* LAYOUT ADMIN*/
 
 @font-face {
     font-family: OpenSansLight;
@@ -12,8 +12,6 @@
 
 body {
     font-family: OpenSansLight, sans-serif;
-    overflow-x: hidden;
-    overflow-y: hidden;
 }
 
 
@@ -27,43 +25,6 @@ html, body {
     height: 100%;
 }
 
-body {
-    font: 15px/1 'Open Sans', sans-serif;
-    color: #777;
-}
-
-
-
-*, *:before, *:after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html, body {
-    height: 100%;
-}
-
-body {
-    font: 15px/1 'Open Sans', sans-serif;
-    color: #777;
-}
-
-
-*, *:before, *:after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html, body {
-    height: 100%;
-}
-
-body {
-    font: 15px/1 'Open Sans', sans-serif;
-    color: #777;
-}
 
 
 #main_container {
@@ -96,13 +57,9 @@ nav header {
 }
 
 #separator2{
-    margin: 40px -20px 60px -20px;
+    margin: 0px -20px 60px -20px;
     border-width: 40px;
     border-color: white;
-}
-.sidenav a:hover {
-    text-decoration: none;
-    color: white;
 }
 
 
@@ -116,13 +73,6 @@ nav header {
 #servicesList{
     list-style-type: none;
     background-color: #2C2E2F;
-
-}
-
-
-#itemDropdown:hover {
-    background-color: #2C2E2F;
-    color: white;
 }
 
 #itemDropdown{
@@ -132,15 +82,19 @@ nav header {
 
 }
 
+#itemDropdown:hover, #guests:hover  {
+    background-color: #2C2E2F;
+    color: white;
+    text-decoration: none;
+}
+
 main {
     flex: 1;
     padding: 20px;
     background: #f5f5f5;
 }
 
-
 main > a {
-
     margin: -25px -25px 25px -25px;
     padding: 0 25px;
     line-height: 60px;
@@ -152,15 +106,21 @@ main > a {
 
 main #formLayout{
     flex: 1;
-
+    padding-bottom: 20px;
 }
 
 .flex-grid, #flexNavbar{
     display: flex;
 }
 
+#breadNav{
+    background-color: #F5F5F5;
+    flex: 8;
+}
 
-.flex-grid > a, .flex-grid > div{
+/* ADMIN DASHBOARD */
+
+.flex-grid > div{
     flex: 1;
     margin: 0 20px 20px 0;
     border: 1px solid #ddd;
@@ -170,6 +130,14 @@ main #formLayout{
     border-radius: 0px;
 }
 
+.flex-grid > a{
+    flex: 1;
+    margin: 0 20px 20px 0;
+    border: 1px solid #ddd;
+    padding: 40px 20px 40px 20px;
+    font-size: 2vw;
+    border-radius: 0px;
+}
 
 #bookingsBtn {
     background-image: url("../img/admin/calendar.png");
@@ -182,16 +150,16 @@ main #formLayout{
 
 #checkInBtn {
     background-image: url("../img/admin/leftArrow.png");
-    background-size: 70%;
+    background-size: 77%;
     background-repeat: no-repeat;
     z-index: 1;
-    background-position: right center;
+    background-position: center center;
     border-bottom: 20px solid #004101;
 }
 
 #checkOutBtn {
     background-image: url("../img/admin/rightArrow.png");
-    background-size: 40%;
+    background-size: 50%;
     background-repeat: no-repeat;
     z-index: 1;
     background-position: center center;
@@ -207,8 +175,6 @@ main #formLayout{
     border-bottom: 20px solid #272727;
 }
 
-
-
 #dispatchedOrdersList{
     list-style-type: none;
 }
@@ -218,17 +184,6 @@ main #formLayout{
     padding: 10px;
     text-align: left;
     font-size: 1vw;
-}
-
-
-#pendingOrdersCard{
-    margin-left: 25%;
-    margin-top: 3%;
-    /*max-height: 200px;*/
-}
-
-#dispatchedOrdersCard{
-    margin-top: 3%;
 }
 
 #pendingOrdersHeader{
@@ -251,82 +206,128 @@ main #formLayout{
     border-color: #218838;
 }
 
-/*CHECK-IN FORM*/
 
-
-#checkInForm{
-    margin-left: 35%;
-    margin-top: 3%;
-}
+/*CHECK-IN*/
 
 #checkInTitle{
-    margin-left: 30%;
-    margin-right: 11.7%;
-    margin-top: 3%;
     padding: 10px;
     color: white;
     background-color: #28A745;
 }
 
-#checkInTable{
-    margin-left: 30%;
-    background-color: white;
-    padding: 0px;
-    border-bottom: #28A745 20px solid;
-    font-size: 1vw;
+#checkInTableHeader{
+    background-color: #28A745;
+    color: white;
 }
 
+#checkInTable{
+    flex: 1;
+    background-color: white;
+    padding: 0px;
+    border-style: solid;
+    border-color: #28A745;
+    border-bottom: #28A745 20px solid;
+    font-size: 1vw;
+
+}
 
 
 /*CHECK-OUT*/
 
-
 #checkOutTitle{
-    margin-left: 30%;
-    margin-right: 11.7%;
-    margin-top: 3%;
     padding: 10px;
     color: white;
     background-color: #DC3545;
 }
 
-#paymentsTable{
-    margin-left: 30%;
+#checkOutTableHeader{
+    background-color: #DC3545;
+    color: white;
+}
+
+#checkOutTable{
+    flex: 1;
     background-color: white;
     padding: 0px;
+    border-style: solid;
+    border-color: #DC3545;
     border-bottom: #DC3545 20px solid;
     font-size: 1vw;
 }
-
-#iconBtn{
-    color: #0b2e13;
-}
-
 
 #exitBtn{
     background-color: #DC3545;
     color: white;
 }
 
+/* NEW BOOKING*/
 
-/* GUESTS*/
-
-/*
-#manageGuestsTitle {
-    margin-left: 25%;
-    margin-right: 8.5%;
-    margin-top: 3%;
+#newBookingTitle{
     padding: 10px;
     color: white;
-    background-color: #6C757D;
-}*/
+    background-color: #5A6268;
+}
 
-#guestsTable{
-    margin-left: 25%;
+#newBookingPanel{
+    flex: 1;
     background-color: white;
-    padding: 0px;
-    border-bottom: #FFA500 20px solid;
-    font-size: 1vw;
+    border-style: solid;
+    border-color: #5A6268;
+    border-bottom: #5A6268 20px solid;
+
+}
+
+.panel-heading {
+    padding: 0;
+}
+
+.panel-heading ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.panel-heading li {
+    float: left;
+    border-right: 1px solid #bbb;
+    display: block;
+    padding: 14px 16px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.panel-heading li:first-child:hover {
+    background-color: #ccc;
+}
+
+.panel-heading li:last-child {
+    border-right: none;
+}
+
+.panel-heading li a:hover {
+    text-decoration: none;
+}
+
+.table.table-bordered tbody td {
+    vertical-align: baseline;
+}
+
+fieldset {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    -webkit-box-shadow: 0px 0px 0px 0px #000;
+    box-shadow: 0px 0px 0px 0px #000;
+}
+
+fieldset > label {
+    font-size: 14px;
+}
+
+legend {
+    font-size: 18px !important;
+    font-weight: bold;
+    text-align: left;
 }
 
 /* ALARM */
@@ -344,11 +345,11 @@ main #formLayout{
     flex: 1;
 }
 
-#formLayout{
+/*#formLayout{
     float: right;
-    line-height: 40px;
+    line-height: 20%;
     z-index: 1;
-}
+}*/
 
 #alarmTableHeader{
     background-color: #0056B3;
@@ -380,23 +381,14 @@ z-index: 1;
     font-size: 1vw;
 }
 
-/* TAXI */
-
-#taxiTitle{
-    padding: 10px;
-    color: white;
-    background-color: #0056B3;
-}
-
-
-@media  screen and (max-width: 1024px) {
-    #homeIcon {margin-right: 66%;}
-    #addGuestManage {padding-left: 50% !important;}
-    #addGuest {line-height: 70% !important;}
-}
-
 /* Guests */
 #guestTableContainer{
     margin-left: 22.5%;
     margin-top: 3%;
 }
+
+@media  screen and (max-width: 1024px) {
+    #addGuestManage {padding-left: 50% !important;}
+    #addGuest {line-height: 100% !important;}
+}
+

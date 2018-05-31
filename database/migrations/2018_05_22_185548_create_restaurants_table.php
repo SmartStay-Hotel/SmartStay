@@ -1,11 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateRestaurantsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -23,7 +24,7 @@ class CreateRestaurantsTable extends Migration
             $table->dateTime('day_hour');
             $table->date('order_date');
             $table->double('price');
-            $table->enum('status',['0','1', '2']);
+            $table->enum('status', ['0', '1', '2']);
             $table->timestamps();
 
             //FK

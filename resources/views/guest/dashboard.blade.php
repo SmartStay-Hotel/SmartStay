@@ -112,7 +112,8 @@
             <div class="windowService" v-if="window[0]">
 
                 <div class="windowTitle">
-                    <button class="returnWindow " v-if="show" @click="showWindow(0)"><i class="fas fa-long-arrow-alt-left"></i></button>
+                    <button class="returnWindow " v-if="show" @click="showWindow(0)"><i
+                                class="fas fa-long-arrow-alt-left"></i></button>
                     <h2>@{{ services[0].name }}</h2>
                 </div>
 
@@ -125,7 +126,8 @@
             </div>
             <div class="windowService" v-if="window[1]">
                 <div class="windowTitle">
-                    <button class="returnWindow " v-if="show" @click="showWindow(1)"><i class="fas fa-long-arrow-alt-left"></i></button>
+                    <button class="returnWindow " v-if="show" @click="showWindow(1)"><i
+                                class="fas fa-long-arrow-alt-left"></i></button>
                     <h2>@{{ services[1].name }}</h2>
                 </div>
                 <p class="windowDesc">@{{ services[1].description }}</p>
@@ -143,32 +145,35 @@
             </div>
             <div class="windowService" v-if="window[2]">
                 <div class="windowTitle">
-                    <button class="returnWindow " v-if="show" @click="showWindow(2)"><i class="fas fa-long-arrow-alt-left"></i></button>
+                    <button class="returnWindow " v-if="show" @click="showWindow(2)"><i
+                                class="fas fa-long-arrow-alt-left"></i></button>
                     <h2>@{{ services[2].name }}</h2>
                 </div>
                 <p class="windowDesc">@{{ services[2].description }}</p>
                 <div class="windowContent">
-                Day: <input type="date">
-                Hour: <input type="hour">
-                Type: <select name="" id=""></select>
-                Booking name: <input type="text">
+                    Day: <input type="date">
+                    Hour: <input type="hour">
+                    Type: <select name="" id=""></select>
+                    Booking name: <input type="text">
                 </div>
 
             </div>
             <div class="windowService" v-if="window[3]">
                 <div class="windowTitle">
-                    <button class="returnWindow " v-if="show" @click="showWindow(3)"><i class="fas fa-long-arrow-alt-left"></i></button>
+                    <button class="returnWindow " v-if="show" @click="showWindow(3)"><i
+                                class="fas fa-long-arrow-alt-left"></i></button>
                     <h2>@{{ services[3].name }}</h2>
                 </div>
                 <p class="windowDesc">@{{ services[3].description }}</p>
                 <div class="windowContent">
-                Day: <input type="date">
-                Hour: <input type="hour">
+                    Day: <input type="date">
+                    Hour: <input type="hour">
                 </div>
             </div>
             <div class="windowService" v-if="window[4]">
                 <div class="windowTitle">
-                    <button class="returnWindow " v-if="show" @click="showWindow(4)"><i class="fas fa-long-arrow-alt-left"></i></button>
+                    <button class="returnWindow " v-if="show" @click="showWindow(4)"><i
+                                class="fas fa-long-arrow-alt-left"></i></button>
                     <h2>Pet care</h2>
                 </div>
                 <p class="windowDesc">Pet care description</p>
@@ -181,7 +186,8 @@
             </div>
             <div class="windowService" v-if="window[5]">
                 <div class="windowTitle">
-                    <button class="returnWindow " v-if="show" @click="showWindow(5)"><i class="fas fa-long-arrow-alt-left"></i></button>
+                    <button class="returnWindow " v-if="show" @click="showWindow(5)"><i
+                                class="fas fa-long-arrow-alt-left"></i></button>
                     <h2>Trips</h2>
                 </div>
                 <p class="windowDesc">Trip description</p>
@@ -193,22 +199,23 @@
                 </div>
             </div>
             <div class="windowService" v-if="window[6]">
-            <div class="windowTitle">
-                <button class="returnWindow " @click="showWindow(6)"><i class="fas fa-long-arrow-alt-left"></i></button>
-                <h2>@{{ services[6].name }}</h2>
-            </div>
-            <p class="windowDesc">@{{ services[6].description }}</p>
-            <div class="windowContent">
-                Select a event: <select name="" id="">
-                    <option value=""></option>
-                </select>
+                <div class="windowTitle">
+                    <button class="returnWindow " @click="showWindow(6)"><i class="fas fa-long-arrow-alt-left"></i>
+                    </button>
+                    <h2>@{{ services[6].name }}</h2>
+                </div>
+                <p class="windowDesc">@{{ services[6].description }}</p>
+                <div class="windowContent">
+                    Select a event: <select name="" id="">
+                        <option value=""></option>
+                    </select>
 
+                </div>
             </div>
-    </div>
         </transition>
     </div>
 
-<footer v-if="show"> </footer>
+    <footer v-if="show"></footer>
 
     {{-- ------------------ --}}
 

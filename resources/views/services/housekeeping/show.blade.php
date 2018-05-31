@@ -1,8 +1,8 @@
 @extends('layouts.app')
- 
+
 @section('content')
-            <h1>Showing Housekeeping order: {{ $housekeeping->id }}</h1>
-   <div class="pull-right">
+    <h1>Showing Housekeeping order: {{ $housekeeping->id }}</h1>
+    <div class="pull-right">
         <a class="btn btn-primary" href="{{ route('housekeeping.index') }}"> Back</a>
     </div>
     <div class="jumbotron text-center">
