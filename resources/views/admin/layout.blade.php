@@ -34,43 +34,71 @@
 
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-light">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto"></ul>
-        <a id="homeIcon" class="nav-link" href="{{ route('admin') }}"><i class="fas fa-home fa-lg"></i></a>
-        <form action="{{ route('logout') }}" method="POST" class="form-inline my-2 my-lg-0">
-            @csrf
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Log out <i
-                        class="fas fa-sign-out-alt"></i></button>
-        </form>
-    </div>
-</nav>
-
 <div id="main_container">
-    <div class="sidenav">
-        <div id="titleAdmin">
+    <nav class="sidenav">
+        <header id="titleAdmin">
             <p id="titleApp">SmartStay</p>
             <h5 id="hotelName">JAUME BALMES</h5>
-        </div>
+        </header>
         <hr id="separator">
         <p><a id="guests" href="{{ route('guests.index') }}">Guests</a></p>
-        <p id="services">Services</p>
-        <ul id="servicesList" class="list-group list-group-flush">
-            <li><a href="{{ url('admin/alarms') }}">Alarm</a></li>
-            <li><a href="{{ route('restaurant.index') }}">Restaurant</a></li>
-            <li><a href="{{ url('admin/housekeeping') }}">Housekeeping</a></li>
-            <li><a href="{{ url('admin/taxi') }}">Taxi</a></li>
-            <li><a href="{{ url('admin/snacks') }}">Snacks and Drinks</a></li>
-            <li><a href="{{ url('admin/spa') }}">Spa Appointments</a></li>
-            <li><a href="{{ url('admin/petCare') }}">Pet care</a></li>
-            <li><a href="{{ url('admin/events') }}">Events</a></li>
-            <li><a href="{{ url('admin/trips') }}">Trips</a></li>
 
-        </ul>
-    </div>
-    @yield('content')
+        <div class="dropdown show">
+            <p class="btn dropdown-toggle" href="#" role="button" id="services" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="myFunction()">
+                Services
+            </p>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="servicesList" style="border: none; box-shadow: none; display: block">
+                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/alarms') }}"><i class="far fa-clock" style="padding: 5px;"></i>Alarm</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/restaurant') }}"><i class="fas fa-utensils" style="padding: 5px;"></i>Restaurant</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/housekeeping') }}"><i class="fas fa-broom" style="padding: 5px;"></i>Housekeeping</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/taxi') }}"><i class="fas fa-taxi" style="padding: 5px;"></i>Taxi</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/snacks') }}"><i class="fas fa-glass-martini" style="padding: 5px;"></i>Snacks</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/spa') }}"><i class="fas fa-sun" style="padding: 5px;"></i>Spa</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/petCare') }}"><i class="fas fa-paw" style="padding: 5px;"></i>Pet care</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/events') }}"><i class="fas fa-music" style="padding: 5px;"></i>Events</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/trips') }}"><i class="fas fa-suitcase" style="padding: 5px;"></i>Trips</a>
+            </div>
+        </div>
+
+    </nav>
+
+    <main>
+
+        <div id="flexNavbar">
+            <nav aria-label="breadcrumb" id="breadNav">
+                <ol class="breadcrumb" style="background-color: #F5F5F5">
+                    <li class="breadcrumb-item"><a href="{{ route('admin') }}"><i class="fas fa-home"></i></a></li>
+                    @yield('breadcrumb')
+                </ol>
+            </nav>
+
+        <form action="{{ route('logout') }}" method="POST" class="form-inline my-2 my-lg-0" id="formLayout">
+            @csrf
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" id="logOutBtn">Log out <i
+                        class="fas fa-sign-out-alt"></i></button>
+        </form>
+
+        </div>
+        <hr id="separator2">
+
+@yield('content')
+
+    </main>
 </div>
+
+<script>
+
+    function myFunction() {
+        var x = document.getElementById("servicesList");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+</script>
 
 @yield('scripts')
 </body>

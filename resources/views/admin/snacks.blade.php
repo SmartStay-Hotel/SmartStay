@@ -1,14 +1,14 @@
 @extends('admin.layout')
+
+@section('breadcrumb')
+    <li class="breadcrumb-item active" aria-current="page">Snacks and Drinks</li>
+@endsection
+
 @section('content')
 
-
-    <div class="col-sm-9 table-responsive" id="alarmTableContainer">
-
-        <table class="table table-sm table-hover text-center" id="alarmTable">
+    <h2 id="alarmTitle"><i class="fas fa-glass-martini" style="padding: 5px;"></i>Snacks and Drinks<a href="#"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
+    <table class="table table-sm table-hover text-center" id="alarmTable">
             <thead id="alarmTableHeader">
-            <tr><h2 id="alarmTitle"><i class="fas fa-glass-martini" style="padding: 5px;"></i>Snacks<a href="#"><i
-                                id="addGuest" class="fas fa-user-plus"
-                                style="padding-left: 80%; color: white; z-index: 1;"></i></a></h2></tr>
             <tr>
                 <th scope="col">Guest Id</th>
                 <th scope="col">Bedroom Nr</th>
@@ -80,7 +80,6 @@
             </tr>
             </tbody>
         </table>
-    </div>
 
 
 @endsection

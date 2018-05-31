@@ -1,15 +1,17 @@
 @extends('admin.layout')
+
+
+@section('breadcrumb')
+    <li class="breadcrumb-item active" aria-current="page">Restaurant</li>
+@endsection
+
 @section('content')
 
 
-    <div class="col-sm-9 table-responsive" id="alarmTableContainer">
 
+    <h2 id="alarmTitle"><i class="fas fa-utensils" style="padding: 5px;"></i>Restaurant<a href="#"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
         <table class="table table-sm table-hover text-center" id="alarmTable">
             <thead id="alarmTableHeader">
-            <tr><h2 id="alarmTitle"><i class="fas fa-utensils fa-xs" style="padding: 5px;"></i>Restaurant<a href="#"><i
-                                id="addGuest" class="fas fa-user-plus fa-xs"
-                                style="padding-left: 70%; color: white; z-index: 1;"></i></a></h2></tr>
-            <tr>
                 <th scope="col">Guest Id</th>
                 <th scope="col">Bedroom Nr</th>
                 <th scope="col">Day and Time</th>
@@ -80,7 +82,6 @@
             </tr>
             </tbody>
         </table>
-    </div>
 
 
 @endsection
