@@ -18,6 +18,7 @@
             <div class="card-body" id="pendingOrdersBody">
                 <h5 class="card-title">Orders ready to be dispatched</h5>
                 <ul class="card-text" id="dispatchedOrdersList">
+
                         @foreach($restaurants as $restaurant)
                             @if($restaurant->status == '1')
                                 <li>
