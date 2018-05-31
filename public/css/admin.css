@@ -57,9 +57,9 @@ nav header {
 }
 
 #separator2{
-    margin: 0px -20px 60px -20px;
+    margin: 0px -20px 20px -20px;
     border-width: 40px;
-    border-color: white;
+    border-color: dimgrey;
 }
 
 
@@ -332,16 +332,15 @@ legend {
 
 /* ALARM */
 
-#alarmTitle{
+#serviceTitle{
     padding: 10px;
     color: white;
     background-color: #0056B3;
 }
 
 
-#alarmTable{
-    border-style: solid;
-    border-color: #0056B3;
+#serviceTable{
+
     flex: 1;
 }
 
@@ -351,7 +350,7 @@ legend {
     z-index: 1;
 }*/
 
-#alarmTableHeader{
+#serviceTableHeader{
     background-color: #0056B3;
     color: white;
 }
@@ -363,19 +362,19 @@ color: white;
 z-index: 1;
 }
 
-.alarmAddBtn{
+.serviceAddBtn{
     background-color: darkgreen;
     color: white;
     font-size: 1vw;
 }
 
-.alarmEditBtn{
+.serviceEditBtn{
     background-color: orange;
     color: white;
     font-size: 1vw;
 }
 
-.alarmDeleteBtn{
+.serviceDeleteBtn{
     background-color: red;
     color: white;
     font-size: 1vw;
@@ -385,6 +384,10 @@ z-index: 1;
 #guestTableContainer{
     margin-left: 22.5%;
     margin-top: 3%;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 @media  screen and (max-width: 1024px) {

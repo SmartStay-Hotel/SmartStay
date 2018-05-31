@@ -5,21 +5,16 @@
 @endsection
 
 @section('content')
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
 
-    <div class="col-sm-9 table-responsive" id="alarmTableContainer">
-
-        <table class="table table-sm table-hover text-center" id="alarmTable">
+    <h2 id="serviceTitle"><i class="fas fa-utensils" style="padding: 5px;"></i>Restaurant<a href="{{ route('restaurant.create') }}"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
+    <table class="table table-sm table-hover text-center" id="serviceTable">
             @if (session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}
                 </div>
             @endif
-            <thead id="alarmTableHeader">
-            <tr><h2 id="alarmTitle"><i class="fas fa-utensils fa-xs" style="padding: 5px;"></i>Restaurant<a
-                            href="{{ route('restaurant.create') }}"><i
-                                id="addGuest" class="fas fa-user-plus fa-xs"
-                                style="padding-left: 70%; color: white; z-index: 1;"></i></a></h2>
-            </tr>
+            <thead id="serviceTableHeader">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Guest Name</th>
@@ -42,13 +37,13 @@
                                                    @if ($restaurant->status == '2') checked @endif></td>
                     <td>
                         <a href="{{ route('restaurant.show', $restaurant->id) }}" class="show-modal btn btn-success">
-                            <span class="glyphicon glyphicon-eye-open"></span> Show
+                            <span class="glyphicon glyphicon-eye-open"></span>
                         </a>
                         <a href="{{ route('restaurant.edit', $restaurant->id) }}" class="edit-modal btn btn-info">
-                            <span class="glyphicon glyphicon-edit"></span> Edit
+                            <span class="glyphicon glyphicon-edit"></span>
                         </a>
                         {!! Form::open(['method' => 'DELETE','route' => ['restaurant.destroy', $restaurant->id], 'style'=>'display:inline']) !!}
-                        {!! Form::button('<span class="glyphicon glyphicon-trash"></span> Delete', array('type' => 'submit', 'class' => 'delete-modal btn btn-danger')) !!}
+                        {!! Form::button('<span class="glyphicon glyphicon-trash"></span>', array('type' => 'submit', 'class' => 'delete-modal btn btn-danger')) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>
