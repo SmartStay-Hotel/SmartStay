@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="{{ route('admin/restaurant') }}">Restaurant</a></li>
+<li class="breadcrumb-item"><a href="{{ route('restaurant.index') }}">Restaurant</a></li>
 @endsection
 
 @section('css')

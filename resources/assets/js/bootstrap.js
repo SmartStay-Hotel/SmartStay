@@ -17,7 +17,7 @@ try {
  * We'll add Toastr
  */
 
-// window.toastr = require('toastr')
+window.toastr = require('toastr');
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -3970,3 +3970,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 })));
 //# sourceMappingURL=bootstrap.js.map
+
+// PUSHER-----
+import Echo from "laravel-echo"
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: 'd4313af143d783c51d79',
+    cluster: 'eu',
+    encrypted: false
+});

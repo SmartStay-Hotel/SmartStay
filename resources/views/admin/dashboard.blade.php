@@ -64,7 +64,7 @@
                                 <li>
                                     <a href="{{ route('restaurant.show', $restaurant->id) }}">
                                         <span>{{ $restaurant->serviceName }}</span>
-                                        <span>{{ $restaurant->guest->firstname }}<span>
+                                        <span>{{ $restaurant->guest->firstname }}</span>
                                         <span>{{ $restaurant->guest->rooms[0]->number }}</span>
                                         <input type="checkbox" name="{{ $restaurant->serviceName .'/'.$restaurant->id  }}" id="pending"
                                                @if ($restaurant->status == '2') checked @endif style="float:right">
@@ -90,9 +90,27 @@
     </div>
 @endsection
 @section('scripts')
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+    <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('d4313af143d783c51d79', {
+            cluster: 'eu',
+            encrypted: false
+        });
+
+        var channel = pusher.subscribe('smartstay-services');
+        channel.bind('App\\Events\\NewOrderRequest', function(data) {
+            //alert(data.message);
+            toastr.success(data.message);
+        });
+    </script>
     <script>
         //ask for confirmation before changing/deleting orders from table
         $(document).ready(function () {
+            // for success - green box
+            toastr.success('Welcome Eduardo!');
             $(':checkbox').change(function (event) {
                 var route = 'service/status' + event.target.name + '';
                 if ($(this).is(':checked')) {
@@ -112,5 +130,41 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        /*
+        function notifyMe() {
+            // Let's check if the browser supports notifications
+            if (!("Notification" in window)) {
+                console.log("This browser does not support desktop notification");
+            }
+
+            // Let's check whether notification permissions have alredy been granted
+            else if (Notification.permission === "granted") {
+                // If it's okay let's create a notification
+                var notification = new Notification("Hi there!");
+            }
+
+            // Otherwise, we need to ask the user for permission
+            else if (Notification.permission !== 'denied' || Notification.permission === "default") {
+                Notification.requestPermission(function (permission) {
+                    // If the user accepts, let's create a notification
+                    if (permission === "granted") {
+                        var notification = new Notification("Hi there!");
+                    }
+                });
+            }
+
+            // At last, if the user has denied notifications, and you
+            // want to be respectful there is no need to bother them any more.
+        }
+        notifyMe();
+        if (window.Notification) {
+            console.log('Notifications are supported!');
+        } else {
+            alert('Notifications aren\'t supported on your browser! :(');
+        }
+        */
     </script>
 @endsection
