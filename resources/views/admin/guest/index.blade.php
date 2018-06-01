@@ -45,7 +45,7 @@
 
 @section('content')
     <div class="col-md-9 table-responsive" id="guestTableContainer">
-        <h2 class="text-center">Manage Guests</h2>
+        <h2 class="text-center" id="manageGuestTitle">Manage Guests</h2>
         <br/>
         <div class="panel panel-default">
             <div class="panel-heading">

@@ -1,4 +1,7 @@
 @extends('admin.layout')
+@section('breadcrumb')
+    <li class="breadcrumb-item active" aria-current="page">Check out</li>
+@endsection
 @section('css')
     <style>
         body {
@@ -8,16 +11,15 @@
 @endsection
 @section('content')
 
-    <h2 id="checkOutTitle">CHECK OUT</h2>
-    <div class="col-sm-7" id="paymentsTable">
-        <div class="panel-body">
+    <h2 id="checkOutTitle"><i class="fas fa-sign-out-alt" style="padding: 5px;"></i>Check out<a href="#"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
+    <div class="flex-grid">
             @if (session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}
                 </div>
             @endif
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
+                <table class="table table-sm table-hover text-center" id="checkOutTable">
+                    <thead id="checkOutTableHeader">
                 <tr>
                     <th valign="middle">#</th>
                     <th scope="col">Name</th>
@@ -48,7 +50,6 @@
                 @endforeach
                 </tbody>
             </table>
-        </div>
     </div>
 @endsection
 @section('scripts')
