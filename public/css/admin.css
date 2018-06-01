@@ -146,6 +146,7 @@ main #formLayout{
     z-index: 1;
     background-position: right center;
     border-bottom: 20px solid #2160A6;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1.9), 0 6px 20px 0 rgba(0, 0, 0, 1.19);
 }
 
 #checkInBtn {
@@ -155,6 +156,7 @@ main #formLayout{
     z-index: 1;
     background-position: center center;
     border-bottom: 20px solid #004101;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1.9), 0 6px 20px 0 rgba(0, 0, 0, 1.19);
 }
 
 #checkOutBtn {
@@ -164,6 +166,7 @@ main #formLayout{
     z-index: 1;
     background-position: center center;
     border-bottom: 20px solid #880015;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1.9), 0 6px 20px 0 rgba(0, 0, 0, 1.19);
 }
 
 #newBookingBtn{
@@ -173,6 +176,7 @@ main #formLayout{
     z-index: 1;
     background-position: right center;
     border-bottom: 20px solid #272727;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1.9), 0 6px 20px 0 rgba(0, 0, 0, 1.19);
 }
 
 #dispatchedOrdersList{
@@ -189,21 +193,25 @@ main #formLayout{
 #pendingOrdersHeader{
     background-color: #F39C12;
     color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #dispatchedOrdersHeader{
     background-color: #218838;
     color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #pendingOrdersBody{
     border-style: solid;
     border-color: #F39C12;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #dispatchedOrdersBody{
     border-style: solid;
     border-color: #218838;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 
@@ -213,11 +221,13 @@ main #formLayout{
     padding: 10px;
     color: white;
     background-color: #28A745;
+
 }
 
 #checkInTableHeader{
     background-color: #28A745;
     color: white;
+
 }
 
 #checkInTable{
@@ -228,6 +238,7 @@ main #formLayout{
     border-color: #28A745;
     border-bottom: #28A745 20px solid;
     font-size: 1vw;
+
 
 }
 
