@@ -38,5 +38,4 @@ mix.js(['resources/assets/js/jquery.js',
     .styles([
         'resources/assets/css/bootstrap.css',
         'resources/assets/css/toastr.css',
-        'resources/assets/css/app.css'
     ], 'public/css/admin/app.css');
