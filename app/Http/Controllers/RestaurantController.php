@@ -55,7 +55,7 @@ class RestaurantController extends Controller
     public function store(Request $request)
     {
         //dd($request->request);
-        Session::put('guest_id', '19');
+        //Session::put('guest_id', '19');
         //Session::forget('guest_id');
         $input = Input::all();
         if ($request->ajax()) {

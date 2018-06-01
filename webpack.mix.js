@@ -28,3 +28,15 @@ mix.js('resources/assets/js/app.js', 'public/js')
 
 
 //-------------------ADMIN --------------------------
+mix.js(['resources/assets/js/jquery.js',
+        'resources/assets/js/bootstrap.js',
+        'resources/assets/js/toastr.js',
+        'resources/assets/js/vue.js',
+        'resources/assets/js/axios.js'
+    ],
+    'public/js/admin/app.js')
+    .styles([
+        'resources/assets/css/bootstrap.css',
+        'resources/assets/css/toastr.css',
+        'resources/assets/css/app.css'
+    ], 'public/css/admin/app.css');
