@@ -59,8 +59,8 @@ class SnacksAndDrinkController extends Controller
             //Otra solución, permitir en product_type_id, guardar más de un tipo de producto y en quantity las dos cantidades juntas.
             //Ser capaces de hacer la relación con product_types.
             //Seria interesante que se puedieran pedir más de dos productos en una misma orden, los que el guest desee. Guardar en la base de datos una lista de productos y cantidades.
-            'quantity'        => $request->quantity1.$request->quantity2,
-            'product_type_id' => $request->producttype1.$request->producttype2,
+            'quantity'        => $request->quantity1,//.$request->quantity2,
+            'product_type_id' => $request->producttype1,//.$request->producttype2,
             'price'           =>5.5,
             'status'          => '1',
         ]);
