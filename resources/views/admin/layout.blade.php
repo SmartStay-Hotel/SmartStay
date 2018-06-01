@@ -9,23 +9,12 @@
     <meta name="author" content="SmartStay Team">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-
-    @yield('css')
-
-    <link rel="stylesheet" href="{{asset('css/admin.css')}}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css"
-          rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-            crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('css/admin/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+
+    @yield('css')
 </head>
 <body>
 <div id="main_container">
@@ -44,7 +33,7 @@
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="servicesList" style="border: none; box-shadow: none; display: block">
                 <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/alarms') }}"><i class="far fa-clock" style="padding: 5px;"></i>Alarm</a>
-                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/restaurant') }}"><i class="fas fa-utensils" style="padding: 5px;"></i>Restaurant</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ route('restaurant.index') }}"><i class="fas fa-utensils" style="padding: 5px;"></i>Restaurant</a>
                 <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/housekeeping') }}"><i class="fas fa-broom" style="padding: 5px;"></i>Housekeeping</a>
                 <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/taxi') }}"><i class="fas fa-taxi" style="padding: 5px;"></i>Taxi</a>
                 <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/snacks') }}"><i class="fas fa-glass-martini" style="padding: 5px;"></i>Snacks</a>
