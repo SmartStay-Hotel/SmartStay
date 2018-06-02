@@ -79,7 +79,7 @@ class RestaurantController extends Controller
                 $input['status']     = '1';
                 $restaurant = Restaurant::create($input);
                 DB::commit();
-                event(new NewOrderRequest($restaurant->service_id, $input['guest_id']));
+                event(new NewOrderRequest($restaurant->service_id, $input['guest_id'], $restaurant->id));
 
                 if ($request->ajax()) {
                     $return = ['status' => true];

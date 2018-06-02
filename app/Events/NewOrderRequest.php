@@ -20,16 +20,18 @@ class NewOrderRequest implements ShouldBroadcast
     public $serviceName;
     public $roomNumber;
     public $message;
+    public $goToShow;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($serviceId, $guestId)
+    public function __construct($serviceId, $guestId, $orderId)
     {
         $this->serviceName = Services::getServiceName($serviceId);
         $this->roomNumber = Guest::getRoomByGuestId($guestId)->number;
-        $this->message = "New order: {$this->serviceName} from {$this->roomNumber} room";
+        $this->message = "{$this->serviceName} from {$this->roomNumber} room";
+        $this->goToShow = "service/{$this->serviceName}/{$orderId}";
     }
 
     /**

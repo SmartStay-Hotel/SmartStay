@@ -107,14 +107,41 @@
         var channel = pusher.subscribe('smartstay-services');
         channel.bind('App\\Events\\NewOrderRequest', function (data) {
             //alert(data.message);
-            toastr.success(data.message);
+            toastr.options.onclick = function () {
+                window.location = data.goToShow.toLowerCase();
+            };
+            toastr.success(data.message, 'New Order:');
         });
     </script>
     <script>
         //ask for confirmation before changing/deleting orders from table
         $(document).ready(function () {
+            //Toastr configuration:
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": false,
+                "extendedTimeOut": "3000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "closeOnHover": false
+            };
             // for success - green box
-            toastr.success('Welcome Eduardo!');
+            toastr.options.onclick = function () {
+                alert('You can perform some custom action after a toast goes away');
+            };
+
+            toastr.success('Welcome Isabella!');
+
+            //Change status services:
             $(':checkbox').change(function (event) {
                 var route = 'service/status' + event.target.name + '';
                 if ($(this).is(':checked')) {
@@ -134,41 +161,5 @@
                 }
             });
         });
-    </script>
-
-    <script>
-        /*
-        function notifyMe() {
-            // Let's check if the browser supports notifications
-            if (!("Notification" in window)) {
-                console.log("This browser does not support desktop notification");
-            }
-
-            // Let's check whether notification permissions have alredy been granted
-            else if (Notification.permission === "granted") {
-                // If it's okay let's create a notification
-                var notification = new Notification("Hi there!");
-            }
-
-            // Otherwise, we need to ask the user for permission
-            else if (Notification.permission !== 'denied' || Notification.permission === "default") {
-                Notification.requestPermission(function (permission) {
-                    // If the user accepts, let's create a notification
-                    if (permission === "granted") {
-                        var notification = new Notification("Hi there!");
-                    }
-                });
-            }
-
-            // At last, if the user has denied notifications, and you
-            // want to be respectful there is no need to bother them any more.
-        }
-        notifyMe();
-        if (window.Notification) {
-            console.log('Notifications are supported!');
-        } else {
-            alert('Notifications aren\'t supported on your browser! :(');
-        }
-        */
     </script>
 @endsection
