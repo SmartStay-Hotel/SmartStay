@@ -144,6 +144,7 @@ Route::group(['middleware' => 'language'], function () {
 
     /* --->   ------------- STATUS SERVICES --------------   */
     Route::get('admin/service/statusRestaurant/{id}', 'RestaurantController@changeStatus');
+    Route::get('admin/service/statusTaxi/{id}', 'TaxiController@changeStatus');
     Route::get('test', function () {
         event(new App\Events\NewOrderRequest(1, 18));
         return "Order has been sent!";

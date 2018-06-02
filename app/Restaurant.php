@@ -25,4 +25,21 @@ class Restaurant extends Model
     {
         return $this->belongsTo(Guest::class);
     }
+
+    public static function getAllRestaurantOrders()
+    {
+        $restaurants = Restaurant::all();
+        if (count($restaurants) > 0) {
+            $serviceName = Services::getServiceName($restaurants[0]->service_id);
+            foreach ($restaurants as $key => $restaurant) {
+                $restaurant->serviceName = $serviceName;
+                $restaurant->roomNumber  = ($restaurant->guest->rooms[0]->number) ? $restaurant->guest->rooms[0]->number
+                    : 'Restautant id:' . $restaurant->id;
+            }
+        } else {
+            $restaurants = [];
+        }
+
+        return $restaurants;
+    }
 }

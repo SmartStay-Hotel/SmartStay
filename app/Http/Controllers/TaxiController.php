@@ -130,4 +130,18 @@ class TaxiController extends Controller
 
         return redirect('/service/taxi');
     }
+
+    /**
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changeStatus($id)
+    {
+        $taxi         = Taxi::findOrFail($id);
+        $taxi->status = ($taxi->status === '2') ? '1' : '2';
+        $taxi->save();
+
+        return response()->json($taxi->status);
+    }
 }
