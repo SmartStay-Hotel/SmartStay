@@ -14357,6 +14357,7 @@ var urlServices = 'services';
 var urlTrips = 'trips';
 var urlChangeStatusRoom = 'changeStatus';
 var urlGetStatusRoom = 'seeStatus';
+var urlSpaTypes = '';
 
 new Vue({
     el: '#container',
@@ -14371,11 +14372,13 @@ new Vue({
     data: {
         services: [],
         trips: [],
+        spaTypes: [],
         window: [false, false, false, false, false, false, false],
         show: false,
         guestOut: true,
         showMenuOut: true,
         tripSelected: "",
+        spaSelected: "",
         numPersonsTrip: 1,
         statusRoom: "",
         showModal: false,
@@ -14406,6 +14409,13 @@ new Vue({
                 _this3.trips = response.data;
             });
         },
+        getSpaTypes: function getSpaTypes() {
+            var _this4 = this;
+
+            axios.get(urlSpaTypes).then(function (response) {
+                _this4.spaTypes = response.data;
+            });
+        },
 
         showWindow: function showWindow(num) {
             this.show = !this.show;
@@ -14427,24 +14437,24 @@ new Vue({
             this.dataActual = Date.now();
         },
         insertRestaurant: function insertRestaurant() {
-            var _this4 = this;
+            var _this5 = this;
 
             var urlInsRest = 'admin/service/restaurant';
             axios.post(urlInsRest, {
                 day_hour: this.dayHourServ,
                 quantity: this.quantityServ
             }).then(function (response) {
-                _this4.showRestaurant = true;
+                _this5.showRestaurant = true;
             });
         }
 
     },
     computed: {
         infoTrip: function infoTrip() {
-            var _this5 = this;
+            var _this6 = this;
 
             return this.trips.filter(function (trip) {
-                return trip.name.includes(_this5.tripSelected);
+                return trip.name.includes(_this6.tripSelected);
             });
         }
 

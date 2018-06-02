@@ -1,10 +1,10 @@
 /*---------------------FONTS-------------------------*/
 :root {
     --colorBody: #E1E1E1 /*#2B2B2B*/; /*E1E1E1*/
-    --colorNav: #36A7FC/*#252C4B*/;
-    --colorSecond: #E1E1E1 /*#46CE90*/;
+    --colorSecond: #36A7FC/*#252C4B*/;
+    --colorNav: /*#E1E1E1*/ #46CE90 /*#CF4946*/;
 
-    --colorSubMenu: black /*#151515*/ ; /*#E1E1E1*/
+    --colorSubMenu: #151515; /*#E1E1E1*/
     --shadows: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 @font-face {
@@ -42,122 +42,238 @@ select{
 body {
     background-color: var(--colorBody);
 }
-
-nav {
-    background-color: var(--colorSecond);
-    padding: 1%;
-    padding-left:2%;
-    color: black;
-    display: flex;
-    font-weight:600;
-
-}
-
-#subMenu {
-    display: flex;
-    background-color: var(--colorSubMenu) /*#E1E1E1*/;
-    padding-top:10px;
-    padding-left: 50px;
-    padding-right: 50px;
-    width: 100%;
-
-
-
-}
-#nav1 {
-    width: 93%;
-    font-weight: bolder;
-}
-
-#subMenu1 {
-    padding-top:6px;
-    margin-left: 1rem;
-    width:93%;
-
-}
-#subMenu1 > a{
-    color:white;
-}
-#subMenu1 > a:hover{
-    color:red;
-}
-#inOut {
-    width: 100%;
-    text-align: center;
-
-}
-
-#main_container {
-    padding-top: 1rem;
-    color: white;
-}
-/*-----------------------------------*/
-#out{
-    position:absolute;
-    width:100%;
-    background: transparent;
-    color:black;
-
-    top:25%;
-    min-height:90px;
-    padding:50px;
-    display:flex;
-    justify-content: center;
-
-
-}
-.blur {
-    filter: blur(1px);
-    opacity: 0.4;
-}
-.containerMenuOut{
-    box-shadow: var(--shadows);
-    max-height:100%;
-    padding:20px;
-    border-radius: 10px;
-    width:20%;
-    min-width:200px;
-    background-color:white;
-
-}
-/*-----------------------------*/
-
-.sliderServices{
-    display:flex;
+#container{
     height:100%;
+    width:100%;
+
+    position:fixed;
+}
+#header{
+    position:relative;
+    height:25%;
+    width:100%;
+}
+nav{
+    background-color: var(--colorNav);
+    position:absolute;
+    height:60%;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:2%;
+}
+#nav1>h3{
+    font-size:150%;
+    font-weight: bold;
+}
+
+#nav1 > h3 > span{
+    font-size:70%;
+    font-weight: normal;
+}
+
+#subMenu{
+    position:absolute;
+    top:60%;
+    width:100%;
+    height:40%;
+    background: var(--colorSubMenu);
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding-left:3%;
+    padding-right:3%;
+}
+#inOut{
+
+    display:flex;
     align-items: center;
 }
-.bttnServices{
-    margin:10px;
-    color:white;
-    padding:0px;
+/*img{*/
+    /*width:200px;*/
+/*}*/
+#main_container {
+    position: fixed;
 
-    background-color:var(--colorSubMenu);
-    box-shadow: var(--shadows);
+    height: 100%;
+    width: 100%;
+    margin-top:1%;
+    display: flex;
+
+
+
 }
+
+#sliderServices{
+    position:absolute;
+
+  /*height:95%;*/
+    width:100%;
+    display:flex;
+    align-items: center;
+}
+
+.servicesHome{
+
+    /*display:flex;*/
+    /*align-items: center;*/
+
+    /*display:flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: space-around;*/
+}
+.servicesTop, .servicesBottom{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bttnServices{
+    background-color:var(--colorSubMenu);
+    padding:0px;
+    margin-bottom: 1%;
+    margin-right:1%;
+    color:white;
+
+}
+
 .bttnServices img{
     width:100%;
-    height:140px;
-    object-fit:cover;
-}
-.serviceName{
-    text-align: center;
-    padding:0px;
-}
-
-.servicesTop{
-    width:100%;
-    position:relative;
-}
-.servicesBottom, .servicesTop{
-    display:flex;
-    justify-content: center;
-
+    height:100%
 }
 
 
 
-/*-------- DESCRIPCION SERVICIOS ------*/
+
+/*nav {*/
+    /*background-color: var(--colorSecond);*/
+    /*padding: 1%;*/
+    /*padding-left:2%;*/
+    /*color: black;*/
+    /*display: flex;*/
+    /*font-weight:600;*/
+    /*height:60%;*/
+    /*position:absolute;*/
+    /*width:100%;*/
+
+/*}*/
+
+/*#subMenu {*/
+    /*display: flex;*/
+    /*background-color: var(--colorSubMenu) !*#E1E1E1*!;*/
+    /*padding-top:10px;*/
+    /*padding-left: 50px;*/
+    /*padding-right: 50px;*/
+    /*width: 100%;*/
+    /*height:40%;*/
+    /*position:absolute;*/
+    /*top:60%;*/
+
+
+
+/*}*/
+/*#nav1 {*/
+    /*width: 93%;*/
+    /*font-weight: bolder;*/
+/*}*/
+
+/*#subMenu1 {*/
+    /*padding-top:6px;*/
+    /*margin-left: 1rem;*/
+    /*width:93%;*/
+
+/*}*/
+/*#subMenu1 > a{*/
+    /*color:white;*/
+/*}*/
+/*#subMenu1 > a:hover{*/
+    /*color:red;*/
+/*}*/
+/*#inOut {*/
+    /*width: 100%;*/
+    /*text-align: center;*/
+
+/*}*/
+/*#container{*/
+
+    /*height:100%;*/
+    /*position:absolute;*/
+/*}*/
+/*#main_container {*/
+    /*top:20%;*/
+    /*padding-top: 1rem;*/
+    /*color: white;*/
+    /*position:absolute;*/
+    /*height:100%;*/
+/*}*/
+/*!*-----------------------------------*!*/
+/*#out{*/
+    /*position:absolute;*/
+    /*width:100%;*/
+    /*background: transparent;*/
+    /*color:black;*/
+
+    /*top:25%;*/
+    /*min-height:90px;*/
+    /*padding:50px;*/
+    /*display:flex;*/
+    /*justify-content: center;*/
+
+
+/*}*/
+/*.blur {*/
+    /*filter: blur(1px);*/
+    /*opacity: 0.4;*/
+/*}*/
+/*.containerMenuOut{*/
+    /*box-shadow: var(--shadows);*/
+    /*max-height:100%;*/
+    /*padding:20px;*/
+    /*border-radius: 10px;*/
+    /*width:20%;*/
+    /*min-width:200px;*/
+    /*background-color:white;*/
+
+/*}*/
+/*!*-----------------------------*!*/
+
+/*.sliderServices{*/
+    /*display:flex;*/
+
+    /*align-items: center;*/
+/*}*/
+/*.bttnServices{*/
+    /*margin:10px;*/
+    /*color:white;*/
+    /*padding:0px;*/
+
+    /*background-color:var(--colorSubMenu);*/
+    /*box-shadow: var(--shadows);*/
+/*}*/
+/*.bttnServices img{*/
+    /*width:100%;*/
+
+    /*object-fit:cover;*/
+/*}*/
+/*.serviceName{*/
+    /*text-align: center;*/
+    /*padding:0px;*/
+/*}*/
+
+/*.servicesTop{*/
+    /*width:100%;*/
+    /*position:relative;*/
+/*}*/
+/*.servicesBottom, .servicesTop{*/
+    /*display:flex;*/
+    /*justify-content: center;*/
+
+/*}*/
+
+
+
+/*!*-------- DESCRIPCION SERVICIOS ------*!*/
 .serviceDescription {
     position: absolute;
     bottom: 100%;
@@ -177,12 +293,13 @@ nav {
 }
 
 .textDesc {
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     color: black;
-    font-size: 20px;
+    font-size: 90%;
     position: absolute;
     overflow: hidden;
     top: 50%;
+    width:100%;
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
@@ -191,14 +308,14 @@ nav {
 
 /*----- SLIDER -------*/
 .tns-item{
-    padding-right:100px!important;
+    /*padding-right:100px!important;*/
     font-size: 120%;
     text-align: center;
     width:100%;
 }
 .tns-controls{
     color:white;
-    font-size:30px;
+    font-size:200%;
 }
 .tns-controls > button:first-child{
     visibility:hidden;
@@ -223,11 +340,11 @@ nav {
 .tns-controls{
     display:flex;
     justify-content: space-around;
-    background-color:var(--colorSubMenu);
+    background-color:var(--colorNav);
     position:fixed;
     bottom: 0;
     width: 100%;
-    height: 50px;
+    height: 10%;
     color: white;
     border: none !important;
 }
@@ -262,18 +379,43 @@ nav {
 
 
 /*-----------------*/
+
+.windows{
+    position:absolute;
+    /*background-color: red;*/
+    /*height:100%;*/
+    /*height:95%;*/
+    width:100%;
+    /*display:flex;*/
+    /*align-items: center;*/
+}
 .windowService{
     width:60%;
-    background: white;
-    color: black;
-    position: absolute;
+    background-color:white;
+    margin:auto;
     box-shadow: var(--shadows);
 }
-.windows{
-    display:flex;
-    justify-content:center;
-
+.windowTitle{
+display:flex;
+flex-direction: row;
+justify-content: space-between;
+background: white;
+color:black;
+padding:20px;
 }
+
+/*.windowService{*/
+    /*width:60%;*/
+    /*background: white;*/
+    /*color: black;*/
+    /*position: absolute;*/
+    /*box-shadow: var(--shadows);*/
+/*}*/
+/*.windows{*/
+    /*display:flex;*/
+    /*justify-content:center;*/
+
+/*}*/
 .returnWindow{
     color:black;
     left:-500px;
@@ -325,7 +467,7 @@ input[type="submit"]{
 
 
 footer{
-    background-color:var(--colorSecond);
+    background-color:var(--colorNav);
     position:fixed;
     bottom: 0;
     width: 100%;

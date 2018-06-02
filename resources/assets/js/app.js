@@ -57,6 +57,7 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
     var urlTrips = 'trips';
     var urlChangeStatusRoom= 'changeStatus';
     var urlGetStatusRoom ='seeStatus';
+    var urlSpaTypes='';
 
 
 
@@ -74,11 +75,13 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
         data:{
             services:[],
             trips:[],
+            spaTypes:[],
             window: [false, false, false, false, false, false, false],
             show: false,
             guestOut:true,
             showMenuOut: true,
             tripSelected:"",
+            spaSelected:"",
             numPersonsTrip:1,
             statusRoom:"",
             showModal:false,
@@ -105,6 +108,11 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
                     this.trips = response.data
             });
 
+            },
+            getSpaTypes: function(){
+                axios.get(urlSpaTypes).then(response=>{
+                    this.spaTypes= response.data
+                });
             },
 
             showWindow: function(num){
