@@ -25,7 +25,7 @@
                     <h5 class="card-title">Orders ready to be dispatched</h5>
                     <ul class="card-text" id="dispatchedOrdersList">
 
-                        @foreach($services as $service)
+                        @foreach($services->sortBy('updated_at') as $service)
                             @if($service->status == '1')
                                 <li>
                                     <a href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
@@ -62,7 +62,7 @@
                     <h5 class="card-title">Dispatched orders</h5>
                     <ul class="card-text" id="dispatchedOrdersList">
 
-                        @foreach($services as $service)
+                        @foreach($services->sortByDesc('updated_at') as $service)
                             @if($service->status == 2)
                                 <li>
                                     <a href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">

@@ -68,7 +68,7 @@
 
                     $('#okBtn').click(function () {
                         $.get(route, function (response, state) {
-                            location.reload();
+                            $this.checked = true;
                             console.log("Completed " + response);
                         });
                     });
@@ -80,7 +80,6 @@
 
                 } else {
                     $.get(route, function (response, state) {
-                        location.reload();
                         console.log("In process " + response);
                     });
                 }
