@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use App\Guest;
 use App\Trip;
 use App\Trip_types;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class TripController extends Controller
 {
@@ -17,9 +22,7 @@ class TripController extends Controller
      */
     public function index()
     {
-        //Pasarle más información!!! Es posible?
         $trips = Trip::all();
-
         return view('services.trip.index', compact('trips'));
     }
 
@@ -30,12 +33,15 @@ class TripController extends Controller
      */
     public function create()
     {
-        $guests    = Guest::all();
+        $guests = Guest::all();
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests = $guests->pluck('guestRoomNumber', 'id');
+
         $tripTypes = Trip_types::all();
 
-        return view('services.trip.create',
-            compact('guests'),
-            compact('tripTypes'));
+        return view('services.trip.create', compact('guests', 'tripTypes'));
     }
 
     /**
@@ -47,7 +53,29 @@ class TripController extends Controller
      */
     public function store(Request $request)
     {
-        $order_date = date('Y-m-d');
+        $input = Input::all();
+
+        if ($request->ajax()) {
+            if (Session::exists('guest_id')) {
+                $input['guest_id'] = Session::get('guest_id');
+            } else {
+                return response()->json(['status' => false]);
+            }
+        }
+
+        $rules = [
+            'guest_id'      => 'required|numeric',
+            'day_hour'      => 'required|date',
+            'trip_type_id'  =>'required|numeric',
+        ];
+        $validator = Validator::make($input, $rules);
+
+        if ($validator->passes()) {
+            DB::beginTransaction();
+            DB::commit();
+        }
+/////////////////////// OLD Code //////////////////////////
+        $order_date = Carbon::today();
         //Trip_types::find($trip->id); Obtener el precio de la tabla Tryp_types
         Trip::create([
             'guest_id'     => $request->guest,

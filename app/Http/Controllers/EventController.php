@@ -6,6 +6,10 @@ use App\Event;
 use App\Event_types;
 use App\Guest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
 {
@@ -19,7 +23,6 @@ class EventController extends Controller
     {
         //Pasarle más información!!! Es posible?
         $events = Event::all();
-
         return view('services.event.index', compact('events'));
     }
 
@@ -30,12 +33,14 @@ class EventController extends Controller
      */
     public function create()
     {
-        $guests     = Guest::all();
+        $guests = Guest::all();
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests = $guests->pluck('guestRoomNumber', 'id');
         $eventTypes = Event_types::all();
 
-        return view('services.event.create',
-            compact('guests'),
-            compact('eventTypes'));
+        return view('services.event.create', compact('guests', 'eventTypes'));
     }
 
     /**
@@ -47,6 +52,28 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        $input = Input::all();
+
+        if ($request->ajax()) {
+            if (Session::exists('guest_id')) {
+                $input['guest_id'] = Session::get('guest_id');
+            } else {
+                return response()->json(['status' => false]);
+            }
+        }
+
+        $rules = [
+            'guest_id'      => 'required|numeric',
+            'day_hour'      => 'required|date',
+            'event_type_id'  =>'required|numeric',
+        ];
+        $validator = Validator::make($input, $rules);
+
+        if ($validator->passes()) {
+            DB::beginTransaction();
+            DB::commit();
+        }
+/////////////////////// OLD Code //////////////////////////
         $order_date = date('Y-m-d');
         //Trip_types::find($trip->id); Obtener el precio de la tabla Tryp_types
         Event::create([
