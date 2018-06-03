@@ -126,16 +126,15 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin/guests/roomType/{id}/jacuzzi/{jacuzzi}', 'GuestController@getAvailableRooms');
     Route::get('admin/guests/roomType/{id}', 'GuestController@getAvailableRooms');
     //-------------------------------------------
-
-    Route::resource('admin/alarms', 'AlarmController');
     /*------------ END ADMIN ------------*/
 
 
     /*------------- SERVICES --------------*/
 
-    Route::resource('service/housekeeping', 'HousekeepingController');
     Route::resource('admin/service/restaurant', 'RestaurantController');
     Route::resource('admin/service/taxi', 'TaxiController');
+    Route::resource('admin/service/alarm', 'AlarmController');
+    Route::resource('service/housekeeping', 'HousekeepingController');
     Route::resource('service/trip', 'TripController');
     Route::resource('service/event', 'EventController');
     Route::resource('service/petcare', 'PetcareController');
@@ -146,6 +145,8 @@ Route::group(['middleware' => 'language'], function () {
     /* --->   ------------- STATUS SERVICES --------------   */
     Route::get('admin/service/statusRestaurant/{id}', 'RestaurantController@changeStatus');
     Route::get('admin/service/statusTaxi/{id}', 'TaxiController@changeStatus');
+    Route::get('admin/service/statusAlarm/{id}', 'AlarmController@changeStatus');
+
     Route::get('test', function () {
         event(new App\Events\NewOrderRequest(1, 4, 2));
         return "Order has been sent!";

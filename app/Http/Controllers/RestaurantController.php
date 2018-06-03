@@ -194,11 +194,11 @@ class RestaurantController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function changeStatus($id)
-    {
-        $restaurant         = Restaurant::findOrFail($id);
-        $restaurant->status = ($restaurant->status === '2') ? '1' : '2';
-        $restaurant->save();
+{
+    $restaurant         = Restaurant::findOrFail($id);
+    $restaurant->status = ($restaurant->status === '2') ? '1' : '2';
+    $restaurant->save();
 
-        return response()->json($restaurant->status);
-    }
+    return response()->json($restaurant->status);
+}
 }
