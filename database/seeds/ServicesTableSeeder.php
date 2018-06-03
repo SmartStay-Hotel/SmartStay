@@ -45,7 +45,7 @@ class ServicesTableSeeder extends Seeder
 
         DB::table('services')->insert([
             'id'          => '4',
-            'name'        => 'Alarms',
+            'name'        => 'Alarm',
             'description' => 'Alarm description',
             'image'       => '/img/home_services/alarm.jpg',
             'is_active'   => '1',

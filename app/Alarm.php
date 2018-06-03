@@ -21,6 +21,9 @@ class Alarm extends Model
         return $this->belongsTo(Guest::class);
     }
 
+    /**
+     * @return \___PHPSTORM_HELPERS\static|array|mixed
+     */
     public static function getAllAlarmOrders()
     {
         $alarms = Alarm::all();
@@ -32,9 +35,9 @@ class Alarm extends Model
                     : 'Alarm id:' . $alarm->id;
             }
         } else {
-            $alarm = [];
+            $alarms = [];
         }
 
-        return $alarm;
+        return $alarms;
     }
 }
