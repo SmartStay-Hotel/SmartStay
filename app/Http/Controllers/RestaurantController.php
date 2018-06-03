@@ -24,7 +24,7 @@ class RestaurantController extends Controller
     {
         //FRONT
         //session guest_id
-        $restaurants = Restaurant::all();
+        $restaurants = Restaurant::orderBy('updated_at', 'desc')->get();
 
         return view('services.restaurant.index', compact('restaurants'));
     }
@@ -77,7 +77,7 @@ class RestaurantController extends Controller
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '1';
-                $restaurant = Restaurant::create($input);
+                $restaurant          = Restaurant::create($input);
                 DB::commit();
                 event(new NewOrderRequest($restaurant->service_id, $input['guest_id'], $restaurant->id));
 
@@ -194,11 +194,11 @@ class RestaurantController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function changeStatus($id)
-{
-    $restaurant         = Restaurant::findOrFail($id);
-    $restaurant->status = ($restaurant->status === '2') ? '1' : '2';
-    $restaurant->save();
+    {
+        $restaurant         = Restaurant::findOrFail($id);
+        $restaurant->status = ($restaurant->status === '2') ? '1' : '2';
+        $restaurant->save();
 
-    return response()->json($restaurant->status);
-}
+        return response()->json($restaurant->status);
+    }
 }

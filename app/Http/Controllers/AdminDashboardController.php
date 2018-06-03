@@ -21,8 +21,8 @@ class AdminDashboardController extends Controller
         $restaurants = Restaurant::getAllRestaurantOrders();
         $taxis       = Taxi::getAllTaxiOrders();
         $alarms      = Alarm::getAllAlarmOrders();
-        $services    = array_collapse([$restaurants, $taxis, $alarms]);
-
+        $services    = collect(array_collapse([$restaurants, $taxis, $alarms]));
+//dd($services);
         //$services = (is_array($services) && count($services) > 0) ? $services : [];
 
         return view('admin.dashboard', compact('services'));
