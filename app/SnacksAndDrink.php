@@ -22,4 +22,29 @@ class SnacksAndDrink extends Model
     {
         return $this->belongsTo('App\ProductType');
     }
+
+    public function guest()
+    {
+        return $this->belongsTo(Guest::class);
+    }
+
+    /**
+     * @return \___PHPSTORM_HELPERS\static|array|mixed
+     */
+    public static function getAllSnackAndDrinkOrders()
+    {
+        $snackDrinks = SnacksAndDrink::all();
+        if (count($snackDrinks) > 0) {
+            $serviceName = Services::getServiceName($snackDrinks[0]->service_id);
+            foreach ($snackDrinks as $key => $snackDrink) {
+                $snackDrink->serviceName = $serviceName;
+                $snackDrink->roomNumber  = ($snackDrink->guest->rooms[0]->number) ? $snackDrink->guest->rooms[0]->number
+                    : 'Snack and Drink id:' . $snackDrink->id;
+            }
+        } else {
+            $snackDrinks = [];
+        }
+
+        return $snackDrinks;
+    }
 }
