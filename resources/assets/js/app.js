@@ -141,6 +141,7 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
                     quantity: this.quantityServ
                 }).then(response=>{
                     this.showRestaurant = true;
+                    toastr.success("holas");
                 })
             }
 
