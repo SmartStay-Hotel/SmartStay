@@ -132,9 +132,10 @@ Route::group(['middleware' => 'language'], function () {
 
 
     /*------------- SERVICES --------------*/
-    Route::resource('service/taxi', 'TaxiController');
+
     Route::resource('service/housekeeping', 'HousekeepingController');
     Route::resource('admin/service/restaurant', 'RestaurantController');
+    Route::resource('admin/service/taxi', 'TaxiController');
     Route::resource('service/trip', 'TripController');
     Route::resource('service/event', 'EventController');
     Route::resource('service/petcare', 'PetcareController');
@@ -144,6 +145,7 @@ Route::group(['middleware' => 'language'], function () {
 
     /* --->   ------------- STATUS SERVICES --------------   */
     Route::get('admin/service/statusRestaurant/{id}', 'RestaurantController@changeStatus');
+    Route::get('admin/service/statusTaxi/{id}', 'TaxiController@changeStatus');
     Route::get('test', function () {
         event(new App\Events\NewOrderRequest(1, 18));
         return "Order has been sent!";

@@ -19,4 +19,9 @@ class Taxi extends Model
         = [
             'service_id' => 5,
         ];
+
+    public function guest()
+    {
+        return $this->belongsTo(Guest::class);
+    }
 }
