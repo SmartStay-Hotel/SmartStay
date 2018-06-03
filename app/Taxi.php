@@ -24,4 +24,21 @@ class Taxi extends Model
     {
         return $this->belongsTo(Guest::class);
     }
+
+    public static function getAllTaxiOrders()
+    {
+        $taxis = Taxi::all();
+        if (count($taxis) > 0) {
+            $serviceName = Services::getServiceName($taxis[0]->service_id);
+            foreach ($taxis as $key => $taxi) {
+                $taxi->serviceName = $serviceName;
+                $taxi->roomNumber  = ($taxi->guest->rooms[0]->number) ? $taxi->guest->rooms[0]->number
+                    : 'Taxi id:' . $taxi->id;
+            }
+        } else {
+            $taxis = [];
+        }
+
+        return $taxis;
+    }
 }

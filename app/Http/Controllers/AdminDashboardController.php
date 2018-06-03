@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Guest;
 use App\Restaurant;
 use App\RoomType;
-use App\Services;
+use App\Taxi;
 
 class AdminDashboardController extends Controller
 {
@@ -17,13 +17,12 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        $restaurants = Restaurant::all();
-        $serviceName = Services::getServiceName($restaurants[0]->id);
-        foreach ($restaurants as $key => $restaurant) {
-            $restaurant->serviceName = $serviceName;
-        }
+        $restaurants = Restaurant::getAllRestaurantOrders();
+        $taxi        = Taxi::getAllTaxiOrders();
+        $services    = array_collapse([$restaurants, $taxi]);
+        //$services = (is_array($services) && count($services) > 0) ? $services : [];
 
-        return view('admin.dashboard', compact('restaurants'));
+        return view('admin.dashboard', compact('services'));
     }
 
     public function pendingOrders()
