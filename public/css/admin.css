@@ -59,7 +59,7 @@ nav header {
 #separator2{
     margin: 0px -20px 20px -20px;
     border-width: 40px;
-    border-color: dimgrey;
+    border-color: white;
 }
 
 
@@ -146,6 +146,11 @@ main #formLayout{
     z-index: 1;
     background-position: right center;
     border-bottom: 20px solid #2160A6;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
+}
+
+#bookingsBtn:active, #newBookingBtn:active, #checkOutBtn:active, #checkInBtn:active{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
 #checkInBtn {
@@ -155,6 +160,7 @@ main #formLayout{
     z-index: 1;
     background-position: center center;
     border-bottom: 20px solid #004101;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
 }
 
 #checkOutBtn {
@@ -164,6 +170,7 @@ main #formLayout{
     z-index: 1;
     background-position: center center;
     border-bottom: 20px solid #880015;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
 }
 
 #newBookingBtn{
@@ -173,6 +180,7 @@ main #formLayout{
     z-index: 1;
     background-position: right center;
     border-bottom: 20px solid #272727;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
 }
 
 #dispatchedOrdersList{
@@ -189,23 +197,45 @@ main #formLayout{
 #pendingOrdersHeader{
     background-color: #F39C12;
     color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #dispatchedOrdersHeader{
     background-color: #218838;
     color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #pendingOrdersBody{
     border-style: solid;
     border-color: #F39C12;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #dispatchedOrdersBody{
     border-style: solid;
     border-color: #218838;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.pagination a {
+    color: black;
+    font-size: 12px;
+}
+
+.pagination a:active {
+    color: blue;
+}
+
+.pagination a:visited {
+    color: #979898;
+}
+
+.pagination li {
+    display:inline-block;
+    padding:5px;
+
+}
 
 /*CHECK-IN*/
 
@@ -213,11 +243,13 @@ main #formLayout{
     padding: 10px;
     color: white;
     background-color: #28A745;
+
 }
 
 #checkInTableHeader{
     background-color: #28A745;
     color: white;
+
 }
 
 #checkInTable{
@@ -228,6 +260,7 @@ main #formLayout{
     border-color: #28A745;
     border-bottom: #28A745 20px solid;
     font-size: 1vw;
+
 
 }
 
