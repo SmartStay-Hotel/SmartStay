@@ -146,7 +146,11 @@ main #formLayout{
     z-index: 1;
     background-position: right center;
     border-bottom: 20px solid #2160A6;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1.9), 0 6px 20px 0 rgba(0, 0, 0, 1.19);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
+}
+
+#bookingsBtn:active, #newBookingBtn:active, #checkOutBtn:active, #checkInBtn:active{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
 #checkInBtn {
@@ -156,7 +160,7 @@ main #formLayout{
     z-index: 1;
     background-position: center center;
     border-bottom: 20px solid #004101;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1.9), 0 6px 20px 0 rgba(0, 0, 0, 1.19);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
 }
 
 #checkOutBtn {
@@ -166,7 +170,7 @@ main #formLayout{
     z-index: 1;
     background-position: center center;
     border-bottom: 20px solid #880015;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1.9), 0 6px 20px 0 rgba(0, 0, 0, 1.19);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
 }
 
 #newBookingBtn{
@@ -176,7 +180,7 @@ main #formLayout{
     z-index: 1;
     background-position: right center;
     border-bottom: 20px solid #272727;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1.9), 0 6px 20px 0 rgba(0, 0, 0, 1.19);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
 }
 
 #dispatchedOrdersList{
@@ -214,6 +218,24 @@ main #formLayout{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.pagination a {
+    color: black;
+    font-size: 12px;
+}
+
+.pagination a:active {
+    color: blue;
+}
+
+.pagination a:visited {
+    color: #979898;
+}
+
+.pagination li {
+    display:inline-block;
+    padding:5px;
+
+}
 
 /*CHECK-IN*/
 

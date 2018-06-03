@@ -6,7 +6,7 @@
 @endsection
 @section('content')
 
-    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px; margin-bottom: 20px;">
         <div class="flex-grid">
             <a href="{{ url('admin/checkin') }}" id="checkInBtn" class="btn btn-success">Check in</a>
 
@@ -22,7 +22,8 @@
             <h5 class="card-header" id="pendingOrdersHeader">PENDING ORDERS</h5>
             <div class="card-body" id="pendingOrdersBody">
                 <h5 class="card-title">Orders ready to be dispatched</h5>
-                <ul class="card-text" id="dispatchedOrdersList">
+                <div id="test-list">
+                <ul class="list" id="dispatchedOrdersList">
 
                         @foreach($restaurants as $restaurant)
                             @if($restaurant->status == '1')
@@ -49,8 +50,83 @@
                             <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
                         </li>
 
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
+                            </li>
+
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
+                            </li>
+
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
+                            </li>
+
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
+                            </li>
+
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
+                            </li>
+
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
+                            </li>
+
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
+                            </li>
+
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
 
                     </ul>
+                    <ul class="pagination"></ul>
+                </div>
                 </div>
             </div>
 
@@ -58,7 +134,8 @@
             <h5 class="card-header" id="dispatchedOrdersHeader">DISPATCHED ORDERS</h5>
             <div class="card-body" id="dispatchedOrdersBody">
                 <h5 class="card-title">Dispatched orders</h5>
-                <ul class="card-text" id="dispatchedOrdersList">
+                <div id="test-list2">
+                <ul class="list" id="dispatchedOrdersList">
 
                         @foreach($restaurants as $restaurant)
                             @if($restaurant->status == 2)
@@ -82,9 +159,54 @@
                         <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
                             <button style="float:right"><i class="fas fa-times"></i></button>
                         </li>
-
-
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
                     </ul>
+                    <ul class="pagination"></ul>
+                </div>
                 </div>
             </div>
         </div>
@@ -92,6 +214,22 @@
 @endsection
 @section('scripts')
     <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+
+    <script>
+        var firstList = new List('test-list', {
+            valueNames: ['name'],
+            page: 10,
+            pagination: true
+        });
+
+        var secondList = new List('test-list2', {
+            valueNames: ['name'],
+            page: 10,
+            pagination: true
+        });
+    </script>
     <script>
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
