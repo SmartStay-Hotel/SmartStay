@@ -96,6 +96,24 @@
 @section('scripts')
     <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     <script>
+        //Toastr configuration:
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": false,
+            "extendedTimeOut": "3000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut",
+            "closeOnHover": false
+        };
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
 
@@ -116,45 +134,30 @@
     <script>
         //ask for confirmation before changing/deleting orders from table
         $(document).ready(function () {
-            //Toastr configuration:
-            toastr.options = {
-                "closeButton": true,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": false,
-                "positionClass": "toast-top-right",
-                "preventDuplicates": false,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": false,
-                "extendedTimeOut": "3000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut",
-                "closeOnHover": false
-            };
-            // for success - green box
-            toastr.options.onclick = function () {
-                alert('You can perform some custom action after a toast goes away');
-            };
-
-            toastr.success('Welcome Isabella!');
+            //toastr.success('Welcome Isabella!');
 
             //Change status services:
             $(':checkbox').change(function (event) {
+                var $this = this;
                 var route = 'service/status' + event.target.name + '';
-                if ($(this).is(':checked')) {
-                    if (confirm("Is it already completed?")) {
-                        $.get(route, function (response, state) {
+                if ($($this).is(':checked')) {
+
+                    toastr.options = {'closeButton': false, 'timeOut': false, 'closeOnHover': false};
+                    toastr.warning('<div><button type="button" id="cancelBtn" class="btn btn-primary">Cancel</button><button type="button" id="okBtn" class="btn" style="margin: 0 8px 0 8px">Ok</button></div>', 'Is it already completed?');
+
+                    $('#okBtn').click(function () {
+                        $.get(route, function (response, status) {
                             location.reload();
                             console.log("Completed " + response);
                         });
-                    } else {
-                        this.checked = false;
-                    }
+                    });
+
+                    $('#cancelBtn, #toast-container').click(function () {
+                        $this.checked = false;
+                    });
+
                 } else {
-                    $.get(route, function (response, state) {
+                    $.get(route, function (response, status) {
                         location.reload();
                         console.log("In process " + response);
                     });
