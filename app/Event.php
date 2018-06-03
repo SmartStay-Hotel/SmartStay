@@ -40,9 +40,9 @@ class Event extends Model
                     : 'Event id:' . $event->id;
             }
         } else {
-            $event = [];
+            $events = [];
         }
 
-        return $event;
+        return $events;
     }
 }

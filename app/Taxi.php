@@ -25,6 +25,9 @@ class Taxi extends Model
         return $this->belongsTo(Guest::class);
     }
 
+    /**
+     * @return \___PHPSTORM_HELPERS\static|array|mixed
+     */
     public static function getAllTaxiOrders()
     {
         $taxis = Taxi::all();

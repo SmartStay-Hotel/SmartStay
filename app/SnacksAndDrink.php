@@ -28,6 +28,9 @@ class SnacksAndDrink extends Model
         return $this->belongsTo(Guest::class);
     }
 
+    /**
+     * @return \___PHPSTORM_HELPERS\static|array|mixed
+     */
     public static function getAllSnackAndDrinkOrders()
     {
         $snackDrinks = SnacksAndDrink::all();
@@ -39,9 +42,9 @@ class SnacksAndDrink extends Model
                     : 'Snack and Drink id:' . $snackDrink->id;
             }
         } else {
-            $snackDrink = [];
+            $snackDrinks = [];
         }
 
-        return $snackDrink;
+        return $snackDrinks;
     }
 }

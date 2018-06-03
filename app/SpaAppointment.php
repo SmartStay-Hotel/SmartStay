@@ -28,6 +28,9 @@ class SpaAppointment extends Model
         return $this->belongsTo(Guest::class);
     }
 
+    /**
+     * @return \___PHPSTORM_HELPERS\static|array|mixed
+     */
     public static function getAllSpaAppointmentOrders()
     {
         $spaAppointments = SpaAppointment::all();
@@ -39,9 +42,9 @@ class SpaAppointment extends Model
                     : 'Spa Appointment id:' . $spaAppointment->id;
             }
         } else {
-            $spaAppointment = [];
+            $spaAppointments = [];
         }
 
-        return $spaAppointment;
+        return $spaAppointments;
     }
 }

@@ -26,6 +26,9 @@ class Restaurant extends Model
         return $this->belongsTo(Guest::class);
     }
 
+    /**
+     * @return \___PHPSTORM_HELPERS\static|array|mixed
+     */
     public static function getAllRestaurantOrders()
     {
         $restaurants = Restaurant::all();
@@ -34,7 +37,7 @@ class Restaurant extends Model
             foreach ($restaurants as $key => $restaurant) {
                 $restaurant->serviceName = $serviceName;
                 $restaurant->roomNumber  = ($restaurant->guest->rooms[0]->number) ? $restaurant->guest->rooms[0]->number
-                    : 'Restautant id:' . $restaurant->id;
+                    : 'Restaurant id:' . $restaurant->id;
             }
         } else {
             $restaurants = [];

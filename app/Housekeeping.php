@@ -30,6 +30,9 @@ class Housekeeping extends Model
         return $this->belongsTo(Guest::class);
     }
 
+    /**
+     * @return \___PHPSTORM_HELPERS\static|array|mixed
+     */
     public static function getAllHousekeepingOrders()
     {
         $housekeepings = Housekeeping::all();
@@ -41,9 +44,9 @@ class Housekeeping extends Model
                     : 'Housekeeping id:' . $housekeeping->id;
             }
         } else {
-            $housekeeping = [];
+            $housekeepings = [];
         }
 
-        return $housekeeping;
+        return $housekeepings;
     }
 }

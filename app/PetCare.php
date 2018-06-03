@@ -26,6 +26,9 @@ class PetCare extends Model
         return $this->belongsTo(Guest::class);
     }
 
+    /**
+     * @return \___PHPSTORM_HELPERS\static|array|mixed
+     */
     public static function getAllPetCareOrders()
     {
         $petCares = PetCare::all();
@@ -37,9 +40,9 @@ class PetCare extends Model
                     : 'Pet Care id:' . $petCare->id;
             }
         } else {
-            $petCare = [];
+            $petCares = [];
         }
 
-        return $petCare;
+        return $petCares;
     }
 }

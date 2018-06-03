@@ -31,6 +31,9 @@ class Trip extends Model
         return $this->belongsTo(Guest::class);
     }
 
+    /**
+     * @return \___PHPSTORM_HELPERS\static|array|mixed
+     */
     public static function getAllTripOrders()
     {
         $trips = Trip::all();
@@ -42,9 +45,9 @@ class Trip extends Model
                     : 'Trip id:' . $trip->id;
             }
         } else {
-            $trip = [];
+            $trips = [];
         }
 
-        return $trip;
+        return $trips;
     }
 }
