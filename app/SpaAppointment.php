@@ -22,4 +22,26 @@ class SpaAppointment extends Model
     {
         return $this->belongsTo('App\SpaType');
     }
+
+    public function guest()
+    {
+        return $this->belongsTo(Guest::class);
+    }
+
+    public static function getAllSpaAppointmentOrders()
+    {
+        $spaAppointments = SpaAppointment::all();
+        if (count($spaAppointments) > 0) {
+            $serviceName = Services::getServiceName($spaAppointments[0]->service_id);
+            foreach ($spaAppointments as $key => $spaAppointment) {
+                $spaAppointment->serviceName = $serviceName;
+                $spaAppointment->roomNumber  = ($spaAppointment->guest->rooms[0]->number) ? $spaAppointment->guest->rooms[0]->number
+                    : 'Spa Appointment id:' . $spaAppointment->id;
+            }
+        } else {
+            $spaAppointment = [];
+        }
+
+        return $spaAppointment;
+    }
 }
