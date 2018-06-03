@@ -36,7 +36,7 @@
                         <a href="{{ route('alarm.show', $alarm->id) }}" class="show-modal btn btn-success">
                             <span class="glyphicon glyphicon-eye-open"></span>
                         </a>
-                        <a href="{{ route('alarm', $alarm->id) }}" class="edit-modal btn btn-info">
+                        <a href="{{ route('alarm.edit', $alarm->id) }}" class="edit-modal btn btn-info">
                             <span class="glyphicon glyphicon-edit"></span>
                         </a>
                         {!! Form::open(['method' => 'DELETE','route' => ['alarm.destroy', $alarm->id], 'style'=>'display:inline']) !!}
