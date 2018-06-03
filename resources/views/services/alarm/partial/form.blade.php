@@ -13,7 +13,7 @@
     @if(empty($alarm))
         {!! Form::datetimeLocal('day_hour', null, ['class' => 'form-control']) !!}
     @else
-        {!! Form::datetimeLocal('day_hour', \Carbon\Carbon::parse($alarm->day_hour)->format('Y-m-d\Th:m'), ['class' => 'form-control']) !!}
+        {!! Form::datetimeLocal('day_hour', \Carbon\Carbon::parse($alarm->day_hour), ['class' => 'form-control']) !!}
     @endif
 
     <br/>
