@@ -414,11 +414,6 @@ z-index: 1;
 }
 
 /* Guests */
-#guestTableContainer{
-    margin-left: 22.5%;
-    margin-top: 3%;
-}
-
 ::-webkit-scrollbar {
     display: none;
 }

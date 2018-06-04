@@ -16,6 +16,16 @@ class RestaurantController extends Controller
 {
 
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -24,7 +34,7 @@ class RestaurantController extends Controller
     {
         //FRONT
         //session guest_id
-        $restaurants = Restaurant::orderBy('updated_at', 'desc')->get();
+        $restaurants = Restaurant::paginate(3); //->orderBy('updated_at', 'desc')->get();
 
         return view('services.restaurant.index', compact('restaurants'));
     }
@@ -181,11 +191,22 @@ class RestaurantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        sleep(2);
+        abort(500);
         Restaurant::find($id)->delete();
+        $totalOrders = Restaurant::all()->count();
+        if ($request->ajax()) {
+            $return = response()->json([
+                'total'   => $totalOrders,
+                'message' => 'Order number: ' . $id . ' was deleted',
+            ]);
+        } else {
+            $return = redirect()->back()->with('status', 'Guest deleted successfully');
+        }
 
-        return redirect()->back()->with('status', 'Guest deleted successfully');
+        return $return;
     }
 
     /**
