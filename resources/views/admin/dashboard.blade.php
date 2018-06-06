@@ -22,7 +22,7 @@
             <div class="card-body" id="pendingOrdersBody">
                 <h5 class="card-title">Orders ready to be dispatched</h5>
                 <div id="test-list">
-                <ul class="list" id="dispatchedOrdersList">
+                <ul class="list" id="pendingOrdersList">
 
                         @foreach($services->sortBy('updated_at') as $service)
                             @if($service->status == '1')
@@ -32,7 +32,7 @@
                                         <span>{{ $service->guest->firstname }}</span>
                                         <span>{{ $service->roomNumber }}</span>
                                         <input type="checkbox"
-                                               name="{{ $service->serviceName .'/'.$service->id }}" id="pending"
+                                               name="{{ $service->serviceName .'/'.$service->id }}"
                                                @if ($service->status == '2') checked @endif style="float:right">
                                     </a>
                                 </li>
@@ -40,89 +40,7 @@
                             @endif
                         @endforeach
 
-                        <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                            <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                        </li>
-                        <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                            <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                        </li>
-                        <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                            <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                        </li>
 
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                            </li>
-
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                            </li>
-
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                            </li>
-
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                            </li>
-
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                            </li>
-
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                            </li>
-
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                            </li>
-
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
 
                     </ul>
                     <ul class="pagination"></ul>
@@ -145,7 +63,7 @@
                                         <span>{{ $service->guest->firstname }}</span>
                                         <span>{{ $service->roomNumber }}</span>
                                         <input type="checkbox"
-                                               name="{{ $service->serviceName .'/'.$service->id  }}" id="pending"
+                                               name="{{ $service->serviceName .'/'.$service->id  }}"
                                                @if ($service->status == '2') checked @endif style="float:right">
                                     </a>
                                 </li>
@@ -265,6 +183,17 @@
                 window.location = data.goToShow.toLowerCase();
             };
             toastr.success(data.message, 'New Order:');
+
+            var li = $('<li>\n' +
+                        '<a href="' + data.goToShow.toLowerCase() + '">\n' +
+                        '<span>' + data.serviceName + '</span>\n' +
+                        '<span>' + data.roomNumber + '</span>\n' +
+                        '<input type="checkbox"\n' + 'name="'+ data.serviceName + '/' + data.orderId +'" style="float:right">\n' +
+                        '</a>\n' + '</li>').hide();
+
+            $('#pendingOrdersList').prepend(li);
+            li.fadeIn('slow');
+
         });
     </script>
     <script>
@@ -277,25 +206,39 @@
                 var $this = this;
                 var route = 'service/status' + event.target.name + '';
                 if ($($this).is(':checked')) {
+                    var li = $($this).parents('li');
 
                     toastr.options = {'closeButton': false, 'timeOut': false, 'closeOnHover': false};
                     toastr.warning('<div><button type="button" id="cancelBtn" class="btn btn-primary">Cancel</button><button type="button" id="okBtn" class="btn" style="margin: 0 8px 0 8px">Ok</button></div>', 'Is it already completed?');
 
-                    $('#okBtn').click(function () {
+                    $('#okBtn').click(function (e) {
+                        e.preventDefault();
+                        $(li).hide().prependTo('#dispatchedOrdersList').fadeIn('slow');
                         $.get(route, function (response, status) {
-                            location.reload();
+                            $this.checked = true;
                             console.log("Completed " + response);
+                        }).fail(function () {
+                            $(li).hide().appendTo('#pendingOrdersList').fadeIn('slow');
+                            toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                            toastr.warning('Something went wront', 'Alert!');
                         });
                     });
 
-                    $('#cancelBtn, #toast-container').click(function () {
+                    $('#cancelBtn, #toast-container').click(function (e) {
+                        e.preventDefault();
                         $this.checked = false;
                     });
 
                 } else {
+                    var li = $($this).parents('li');
+                    $(li).hide().appendTo('#pendingOrdersList').fadeIn('slow');
                     $.get(route, function (response, status) {
-                        location.reload();
                         console.log("In process " + response);
+                    }).fail(function () {
+                        $(li).hide().prependTo('#dispatchedOrdersList').fadeIn('slow');
+                        $this.checked = true;
+                        toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                        toastr.warning('Something went wront', 'Alert!');
                     });
                 }
             });

@@ -183,6 +183,17 @@ main #formLayout{
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
 }
 
+#pendingOrdersList{
+    list-style-type: none;
+}
+
+#pendingOrdersList > li{
+    border: 1px solid #979898;
+    padding: 10px;
+    text-align: left;
+    font-size: 1vw;
+}
+
 #dispatchedOrdersList{
     list-style-type: none;
 }

@@ -74,6 +74,9 @@
                         $.get(route, function (response, state) {
                             $this.checked = true;
                             console.log("Completed " + response);
+                        }).fail(function () {
+                            toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                            toastr.warning('Something went wront', 'Alert!');
                         });
                     });
 
@@ -85,6 +88,10 @@
                 } else {
                     $.get(route, function (response, state) {
                         console.log("In process " + response);
+                    }).fail(function () {
+                        $this.checked = true;
+                        toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                        toastr.warning('Something went wront', 'Alert!');
                     });
                 }
             });

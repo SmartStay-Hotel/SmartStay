@@ -148,7 +148,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin/service/statusAlarm/{id}', 'AlarmController@changeStatus');
 
     Route::get('test', function () {
-        event(new App\Events\NewOrderRequest(1, 4, 2));
+        event(new App\Events\NewOrderRequest(1, 4, 15));
         return "Order has been sent!";
     });
 

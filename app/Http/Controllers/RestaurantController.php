@@ -121,8 +121,6 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
-        //FRONT recoger id del pedido
-        //session guest_id
         $guest = Guest::find($restaurant->guest_id);
 
         return view('services.restaurant.show', compact('restaurant', 'guest'));
@@ -187,14 +185,13 @@ class RestaurantController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param \Illuminate\Http\Request $request
+     * @param  int                     $id
      *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
     {
-        sleep(2);
-        abort(500);
         Restaurant::find($id)->delete();
         $totalOrders = Restaurant::all()->count();
         if ($request->ajax()) {

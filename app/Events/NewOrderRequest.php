@@ -3,24 +3,23 @@
 namespace App\Events;
 
 use App\Guest;
-use App\Restaurant;
 use App\Services;
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class NewOrderRequest implements ShouldBroadcast
 {
+
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $serviceName;
     public $roomNumber;
     public $message;
     public $goToShow;
+    public $orderId;
+
     /**
      * Create a new event instance.
      *
@@ -29,9 +28,10 @@ class NewOrderRequest implements ShouldBroadcast
     public function __construct($serviceId, $guestId, $orderId)
     {
         $this->serviceName = Services::getServiceName($serviceId);
-        $this->roomNumber = Guest::getRoomByGuestId($guestId)->number;
-        $this->message = "{$this->serviceName} from {$this->roomNumber} room";
-        $this->goToShow = "service/{$this->serviceName}/{$orderId}";
+        $this->roomNumber  = Guest::getRoomByGuestId($guestId)->number;
+        $this->message     = "{$this->serviceName} from {$this->roomNumber} room";
+        $this->goToShow    = "service/{$this->serviceName}/{$orderId}";
+        $this->orderId     = $orderId;
     }
 
     /**
