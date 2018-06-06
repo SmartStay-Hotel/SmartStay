@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('css')
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
     <style>
         .panel-heading {
             padding: 0;
@@ -51,25 +51,12 @@
             text-align: left !important;
         }
 
-        body {
-            overflow-y: auto !important;
-        }
-
-
-        #manageGuestTitle{
-            margin-left: 30%;
-            margin-right: 11.7%;
-            margin-top: 3%;
-            padding: 10px;
-            color: white;
-            background-color: #DC3545;
-        }
     </style>
 @endsection
 @section('content')
 
-    <div class="col-md-8 col-md-offset-2" id="guestTableContainer">
-        <h2 class="text-center">Manage Guests</h2>
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
+        <h2 id="newBookingTitle">Edit Guest</h2>
         <br/>
         <div class="panel panel-default">
             <div class="panel-heading">

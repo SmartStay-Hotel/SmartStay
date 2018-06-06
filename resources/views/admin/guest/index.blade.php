@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('css')
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
     <style>
         .panel-heading {
             padding: 0;
@@ -37,15 +37,13 @@
             vertical-align: baseline;
         }
 
-        body {
-            overflow-y: auto !important;
-        }
     </style>
 @endsection
 
 @section('content')
-    <div class="col-md-9 table-responsive" id="guestTableContainer">
-        <h2 class="text-center" id="manageGuestTitle">Manage Guests</h2>
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
+        <h2 id="newBookingTitle">Manage guests</h2>
+
         <br/>
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -82,15 +80,15 @@
                             <td>{{$guest->rooms[0]->number}}</td>
                             <td>{{$guest->rooms[0]->pivot->checkin_date}}</td>
                             <td>{{$guest->rooms[0]->pivot->checkout_date}}</td>
-                            <td>
+                            <td class="text-center">
                                 <a href="{{ route('guests.show', $guest->id) }}" class="show-modal btn btn-success">
-                                    <span class="glyphicon glyphicon-eye-open"></span> Show
+                                    <span style="padding: 5px;"><i class="far fa-eye"></i></span>
                                 </a>
                                 <a href="{{ route('guests.edit', $guest->id) }}" class="edit-modal btn btn-info">
-                                    <span class="glyphicon glyphicon-edit"></span> Edit
+                                    <span style="padding: 5px;"><i class="fas fa-edit"></i></span>
                                 </a>
                                 {!! Form::open(['method' => 'DELETE','route' => ['guests.destroy', $guest->id], 'style'=>'display:inline']) !!}
-                                {!! Form::button('<span class="glyphicon glyphicon-trash"></span> Delete', array('type' => 'submit', 'class' => 'delete-modal btn btn-danger')) !!}
+                                {!! Form::button('<span style="padding: 8px;"><i class="fas fa-trash-alt"></i></span>', array('type' => 'submit', 'class' => 'delete-modal btn btn-danger')) !!}
                                 {!! Form::close() !!}
                             </td>
                         </tr>

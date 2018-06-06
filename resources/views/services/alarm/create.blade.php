@@ -20,7 +20,7 @@
 
 @section('content')
 
-    <div class="col-sm-9 table-responsive" id="alarmTableContainer">
+    <div class="col-sm-9 table-responsive" id="serviceTableContainer">
         <table class="table table-sm table-hover text-center" id="serviceTable">
             @if (session('status'))
                 <div class="alert alert-success">

@@ -20,7 +20,7 @@
         <div class="card text-center">
             <h5 class="card-header" id="pendingOrdersHeader">PENDING ORDERS</h5>
             <div class="card-body" id="pendingOrdersBody">
-                <h5 class="card-title">Orders ready to be dispatched</h5>
+                <h5 class="card-title text-left">Service - Customer - Room Nr</h5>
                 <div id="test-list">
                 <ul class="list" id="dispatchedOrdersList">
 
@@ -219,6 +219,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 
     <script>
+        //add pagination to order's tables
         var firstList = new List('test-list', {
             valueNames: ['name'],
             page: 10,

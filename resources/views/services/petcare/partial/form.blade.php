@@ -114,6 +114,6 @@
 
 
     <p>
-        {{ Form::button('Save', ['type' => 'submit', 'class' => 'w3-btn w3-teal']) }}
+        {{ Form::button('Save', ['type' => 'submit', 'class' => 'btn btn-primary']) }}
     </p>
 </div>
