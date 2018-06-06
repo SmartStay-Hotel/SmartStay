@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use App\PetCare;
 use App\Guest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class PetCareController extends Controller
 {
@@ -39,6 +42,10 @@ class PetCareController extends Controller
     public function create()
     {
         $guests = Guest::all();
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests = $guests->pluck('guestRoomNumber', 'id');
         return view('services.petcare.create', compact('guests'));
     }
 

@@ -6,6 +6,10 @@ use App\Guest;
 use App\ProductType;
 use App\SnacksAndDrink;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class SnacksAndDrinkController extends Controller
 {
@@ -39,6 +43,10 @@ class SnacksAndDrinkController extends Controller
     public function create()
     {
         $guests = Guest::all();
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests = $guests->pluck('guestRoomNumber', 'id');
         $productTypes = ProductType::all();
 
         return view('services.snackdrink.create', compact('guests', 'productTypes'));
@@ -52,6 +60,29 @@ class SnacksAndDrinkController extends Controller
      */
     public function store(Request $request)
     {
+        $input = Input::all();
+
+        if ($request->ajax()) {
+            if (Session::exists('guest_id')) {
+                $input['guest_id'] = Session::get('guest_id');
+            } else {
+                return response()->json(['status' => false]);
+            }
+        }
+
+        $rules = [
+            'guest_id'           => 'required|numeric',
+            'day_hour'           => 'required|date',
+            'quantity1'          => 'required|numeric',
+            'product_type_id'  =>'required|numeric',
+        ];
+        $validator = Validator::make($input, $rules);
+
+        if ($validator->passes()) {
+            DB::beginTransaction();
+            DB::commit();
+        }
+/////////////////////// OLD Code //////////////////////////
         $request->validate([
             'quantity1' => 'required',
             'quantity2' => 'required',
