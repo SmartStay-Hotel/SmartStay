@@ -34,7 +34,7 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="servicesList" style="border: none; box-shadow: none; display: block">
                 <a class="dropdown-item" id="itemDropdown" href="{{ route('alarm.index') }}"><i class="far fa-clock" style="padding: 5px;"></i>Alarm</a>
                 <a class="dropdown-item" id="itemDropdown" href="{{ route('restaurant.index') }}"><i class="fas fa-utensils" style="padding: 5px;"></i>Restaurant</a>
-                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/housekeeping') }}"><i class="fas fa-broom" style="padding: 5px;"></i>Housekeeping</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ url('housekeeping.index') }}"><i class="fas fa-broom" style="padding: 5px;"></i>Housekeeping</a>
                 <a class="dropdown-item" id="itemDropdown" href="{{ route('taxi.index') }}"><i class="fas fa-taxi" style="padding: 5px;"></i>Taxi</a>
                 <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/snacks') }}"><i class="fas fa-glass-martini" style="padding: 5px;"></i>Snacks</a>
                 <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/spa') }}"><i class="fas fa-sun" style="padding: 5px;"></i>Spa</a>

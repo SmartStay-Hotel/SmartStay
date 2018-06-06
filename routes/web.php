@@ -134,7 +134,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::resource('admin/service/restaurant', 'RestaurantController');
     Route::resource('admin/service/taxi', 'TaxiController');
     Route::resource('admin/service/alarm', 'AlarmController');
-    Route::resource('service/housekeeping', 'HousekeepingController');
+    Route::resource('admin/service/housekeeping', 'HousekeepingController');
     Route::resource('service/trip', 'TripController');
     Route::resource('service/event', 'EventController');
     Route::resource('service/petcare', 'PetcareController');

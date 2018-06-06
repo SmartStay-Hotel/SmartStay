@@ -27,10 +27,8 @@ class HousekeepingController extends Controller
     public function index()
     {
         $housekeepings = Housekeeping::all();
-        //Para mostrar el guest_id en el index
-        $guests = Guest::all();
 
-        return view('services.housekeeping.index', compact('housekeepings', 'guests'));
+        return view('services.housekeeping.index', compact('housekeepings'));
     }
 
     /**
@@ -89,11 +87,9 @@ class HousekeepingController extends Controller
      */
     public function show(Housekeeping $housekeeping)
     {
-        //Se consigue pasar el guest en función del guest_id del taxi
         $guest = Guest::find($housekeeping->guest_id);
 
-        return view('services.housekeeping.show', compact('housekeeping'),
-            compact('guest'));
+        return view('services.housekeeping.show', compact('housekeeping', 'guest'));
     }
 
     /**
