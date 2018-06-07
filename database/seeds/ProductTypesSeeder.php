@@ -70,8 +70,8 @@ class ProductTypesSeeder extends Seeder
 
         DB::table('product_types')->insert([
             'id'         => 8,
-            'name'       => 'Hydrotherapy',
-            'price'      => 6,
+            'name'       => 'Coca-Cola',
+            'price'      => 1,
             'created_at' => new DateTime,
             'updated_at' => new DateTime,
         ]);

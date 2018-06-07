@@ -78,7 +78,7 @@ Route::group(['middleware' => 'language'], function () {
 
     /*------------ ADMIN ------------*/
     Route::get('admin', 'HomeController@index')->name('admin');
-    Route::get('admin/dashboard','AdminDashboardController@index');
+    Route::get('admin/dashboard', 'AdminDashboardController@index');
     Route::get('admin/checkin', 'AdminDashboardController@checkin');
 
     Route::get('admin/checkout', 'AdminDashboardController@checkout');
@@ -120,8 +120,7 @@ Route::group(['middleware' => 'language'], function () {
 
     Route::resource('admin/guests', 'GuestController');
     //----Filtro de búsqueda para reservas ------
-    Route::get('admin/guests/roomType/{id}/adapted/{disabled_adapted}/jacuzzi/{jacuzzi}',
-        'GuestController@getAvailableRooms');
+    Route::get('admin/guests/roomType/{id}/adapted/{disabled_adapted}/jacuzzi/{jacuzzi}', 'GuestController@getAvailableRooms');
     Route::get('admin/guests/roomType/{id}/adapted/{disabled_adapted}', 'GuestController@getAvailableRooms');
     Route::get('admin/guests/roomType/{id}/jacuzzi/{jacuzzi}', 'GuestController@getAvailableRooms');
     Route::get('admin/guests/roomType/{id}', 'GuestController@getAvailableRooms');
@@ -139,7 +138,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::resource('service/event', 'EventController');
     Route::resource('service/petcare', 'PetcareController');
     Route::resource('service/spa', 'SpaAppointmentController');
-    Route::resource('service/snackdrink', 'SnacksAndDrinkController');
+    Route::resource('admin/service/snackdrink', 'SnacksAndDrinkController');
 
     /* --->   ------------- STATUS SERVICES --------------   */
     Route::get('admin/service/statusRestaurant/{id}', 'RestaurantController@changeStatus');
@@ -148,6 +147,7 @@ Route::group(['middleware' => 'language'], function () {
 
     Route::get('test', function () {
         event(new App\Events\NewOrderRequest(1, 4, 15));
+
         return "Order has been sent!";
     });
 

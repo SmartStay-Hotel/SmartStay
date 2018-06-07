@@ -6,12 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class SnacksAndDrink extends Model
 {
-    protected $fillable =
-        ['guest_id',
-        'product_type_id',
-        'order_date',
-        'price',
-        'quantity'];
+
+    protected $fillable
+        = [
+            'guest_id',
+            'product_type_id',
+            'order_date',
+            'price',
+            'quantity',
+            'status',
+        ];
 
     protected $attributes
         = [

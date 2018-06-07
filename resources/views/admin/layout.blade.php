@@ -36,7 +36,7 @@
                 <a class="dropdown-item" id="itemDropdown" href="{{ route('restaurant.index') }}"><i class="fas fa-utensils" style="padding: 5px;"></i>Restaurant</a>
                 <a class="dropdown-item" id="itemDropdown" href="{{ url('housekeeping.index') }}"><i class="fas fa-broom" style="padding: 5px;"></i>Housekeeping</a>
                 <a class="dropdown-item" id="itemDropdown" href="{{ route('taxi.index') }}"><i class="fas fa-taxi" style="padding: 5px;"></i>Taxi</a>
-                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/snacks') }}"><i class="fas fa-glass-martini" style="padding: 5px;"></i>Snacks</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ route('snackdrink.index') }}"><i class="fas fa-glass-martini" style="padding: 5px;"></i>Snacks</a>
                 <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/spa') }}"><i class="fas fa-sun" style="padding: 5px;"></i>Spa</a>
                 <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/petCare') }}"><i class="fas fa-paw" style="padding: 5px;"></i>Pet care</a>
                 <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/events') }}"><i class="fas fa-music" style="padding: 5px;"></i>Events</a>

@@ -32,6 +32,7 @@ class SnacksAndDrinkController extends Controller
     public function index()
     {
         $snacks = SnacksAndDrink::all();
+
         return view('services.snackdrink.index', compact('snacks'));
     }
 
@@ -46,8 +47,8 @@ class SnacksAndDrinkController extends Controller
         foreach ($guests as $guest) {
             $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
         }
-        $guests = $guests->pluck('guestRoomNumber', 'id');
-        $productTypes = ProductType::all();
+        $guests       = $guests->pluck('guestRoomNumber', 'id');
+        $productTypes = ProductType::pluck('name', 'id');
 
         return view('services.snackdrink.create', compact('guests', 'productTypes'));
     }
@@ -55,7 +56,8 @@ class SnacksAndDrinkController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -70,11 +72,11 @@ class SnacksAndDrinkController extends Controller
             }
         }
 
-        $rules = [
-            'guest_id'           => 'required|numeric',
-            'day_hour'           => 'required|date',
-            'quantity1'          => 'required|numeric',
-            'product_type_id'  =>'required|numeric',
+        $rules     = [
+            'guest_id'        => 'required|numeric',
+            'day_hour'        => 'required|date',
+            'quantity1'       => 'required|numeric',
+            'product_type_id' => 'required|numeric',
         ];
         $validator = Validator::make($input, $rules);
 
@@ -82,7 +84,7 @@ class SnacksAndDrinkController extends Controller
             DB::beginTransaction();
             DB::commit();
         }
-/////////////////////// OLD Code //////////////////////////
+        /////////////////////// OLD Code //////////////////////////
         $request->validate([
             'quantity1' => 'required',
             'quantity2' => 'required',
@@ -101,9 +103,11 @@ class SnacksAndDrinkController extends Controller
             //Otra solución, permitir en product_type_id, guardar más de un tipo de producto y en quantity las dos cantidades juntas.
             //Ser capaces de hacer la relación con product_types.
             //Seria interesante que se puedieran pedir más de dos productos en una misma orden, los que el guest desee. Guardar en la base de datos una lista de productos y cantidades.
-            'quantity'        => $request->quantity1,//.$request->quantity2,
-            'product_type_id' => $request->producttype1,//.$request->producttype2,
-            'price'           =>5.5,
+            'quantity'        => $request->quantity1,
+            //.$request->quantity2,
+            'product_type_id' => $request->producttype1,
+            //.$request->producttype2,
+            'price'           => 5.5,
             'status'          => '1',
         ]);
 
@@ -113,7 +117,8 @@ class SnacksAndDrinkController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -124,15 +129,16 @@ class SnacksAndDrinkController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(SnacksAndDrink $snacksAndDrink)
     {
         $data = [
-            'guests'     => Guest::find($snacksAndDrink->guest_id),
+            'guests'       => Guest::find($snacksAndDrink->guest_id),
             'productTypes' => ProductType::find($snacksAndDrink->product_type_id),
-            'snackdrinks'     => $snacksAndDrink,
+            'snackdrinks'  => $snacksAndDrink,
         ];
 
         return view('services.snackdrink.edit', $data);
@@ -141,8 +147,9 @@ class SnacksAndDrinkController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -153,7 +160,8 @@ class SnacksAndDrinkController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

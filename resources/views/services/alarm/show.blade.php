@@ -24,7 +24,8 @@
 
 @section('content')
 
-    <div class="col-sm-9 table-responsive" id="alarmTableContainer">
+    <div class="card"
+         style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
         <table class="table table-sm table-hover text-center" id="serviceTable">
             <thead id="serviceTableHeader">
             <tr><h2 id="serviceTitle"><i class="fas fa-time fa-xs" style="padding: 5px;"></i>Alarm<a

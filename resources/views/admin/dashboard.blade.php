@@ -191,7 +191,7 @@
                         '<input type="checkbox"\n' + 'name="'+ data.serviceName + '/' + data.orderId +'" style="float:right">\n' +
                         '</a>\n' + '</li>').hide();
 
-            $('#pendingOrdersList').prepend(li);
+            $('#pendingOrdersList').append(li);
             li.fadeIn('slow');
 
         });
