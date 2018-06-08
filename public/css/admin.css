@@ -183,6 +183,12 @@ main #formLayout{
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
 }
 
+#newOrdersHeader{
+    background-color: red;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 #dispatchedOrdersList{
     list-style-type: none;
 }
@@ -192,7 +198,17 @@ main #formLayout{
     padding: 10px;
     text-align: left;
     font-size: 1vw;
+
 }
+
+#dispatchedOrdersList a{
+    color: black;
+}
+
+#dispatchedOrdersList a:hover {
+    text-decoration: none;
+}
+
 
 #pendingOrdersHeader{
     background-color: #F39C12;

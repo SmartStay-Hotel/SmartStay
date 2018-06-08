@@ -16,21 +16,71 @@
     </div>
 
     <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
+    <div id="accordion">
+        <div class="card">
+            <div id="headingOne">
+                <h5 class="card-header text-center" id="pendingOrdersHeader" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        NEW ORDERS
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <h5 class="card-title text-center">
+                        <span style="padding: 10px;">Service</span>
+                        <span>-</span>
+                        <span style="padding: 10px;">Customer</span>
+                        <span>-</span>
+                        <span style="padding: 10px;">Room Nr</span>
+                    </h5>
+
+                    <div id="test-list3">
+                        <ul class="list" id="dispatchedOrdersList">
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
+                            </li>
+
+                        </ul>
+                        <!--<ul class="pagination3"></ul>-->
+                    </div>
+                </div>
+            </div>
+
+                </div>
+            </div>
+        </div>
+
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
     <div class="flex-grid">
         <div class="card text-center">
             <h5 class="card-header" id="pendingOrdersHeader">PENDING ORDERS</h5>
             <div class="card-body" id="pendingOrdersBody">
-                <h5 class="card-title text-left">Service - Customer - Room Nr</h5>
-                <div id="test-list">
+                <h5 class="card-title text-center">
+                    <span style="padding: 10px;">Service</span>
+                    <span>-</span>
+                    <span style="padding: 10px;">Customer</span>
+                    <span>-</span>
+                    <span style="padding: 10px;">Room Nr</span>
+
+                </h5>
+                <div id="test-list" >
                 <ul class="list" id="dispatchedOrdersList">
 
                         @foreach($services->sortBy('updated_at') as $service)
                             @if($service->status == '1')
-                                <li>
-                                    <a href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
-                                        <span>{{ $service->serviceName }}</span>
-                                        <span>{{ $service->guest->firstname }}</span>
-                                        <span>{{ $service->roomNumber }}</span>
+                                <li class="text-center">
+                                    <a style="" href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
+                                        <span style="padding: 10px;">{{ $service->serviceName }}</span>
+                                        <span style="padding: 10px;">-</span>
+                                        <span style="padding: 10px;">{{ $service->guest->firstname }}</span>
+                                        <span style="padding: 10px;">-</span>
+                                        <span style="padding: 10px;">{{ $service->roomNumber }}</span>
                                         <input type="checkbox"
                                                name="{{ $service->serviceName .'/'.$service->id }}" id="pending"
                                                @if ($service->status == '2') checked @endif style="float:right">
@@ -133,17 +183,26 @@
         <div class="card text-center">
             <h5 class="card-header" id="dispatchedOrdersHeader">DISPATCHED ORDERS</h5>
             <div class="card-body" id="dispatchedOrdersBody">
-                <h5 class="card-title">Dispatched orders</h5>
+                <h5 class="card-title text-cnter">
+                    <span style="padding: 10px;">Service</span>
+                    <span>-</span>
+                    <span style="padding: 10px;">Customer</span>
+                    <span>-</span>
+                    <span style="padding: 10px;">Room Nr</span>
+
+                </h5>
                 <div id="test-list2">
                 <ul class="list" id="dispatchedOrdersList">
 
                         @foreach($services->sortByDesc('updated_at') as $service)
                             @if($service->status == 2)
-                                <li>
+                                <li class="text-center">
                                     <a href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
-                                        <span>{{ $service->serviceName }}</span>
-                                        <span>{{ $service->guest->firstname }}</span>
-                                        <span>{{ $service->roomNumber }}</span>
+                                        <span style="padding: 10px;">{{ $service->serviceName }}</span>
+                                        <span style="padding: 10px;">-</span>
+                                        <span style="padding: 10px;">{{ $service->guest->firstname }}</span>
+                                        <span style="padding: 10px;">-</span>
+                                        <span style="padding: 10px;">{{ $service->roomNumber }}</span>
                                         <input type="checkbox"
                                                name="{{ $service->serviceName .'/'.$service->id  }}" id="pending"
                                                @if ($service->status == '2') checked @endif style="float:right">
