@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Guest;
 use App\Taxi;
+use Carbon\Carbon;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 
 class TaxiController extends Controller
 {
@@ -17,8 +22,6 @@ class TaxiController extends Controller
     public function index()
     {
         $taxis = Taxi::all();
-
-        //Quizás seria necesario mostrar el nombre del guest, en el metodo show()
         return view('services.taxi.index', compact('taxis'));
     }
 
@@ -30,6 +33,10 @@ class TaxiController extends Controller
     public function create()
     {
         $guests = Guest::all();
+        foreach ($guests as $guest){
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests = $guests->pluck('guestRoomNumber', 'id');
 
         return view('services.taxi.create', compact('guests'));
     }
@@ -43,19 +50,46 @@ class TaxiController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'day_hour' => 'required',
-        ]);
+        $input = Input::all();
+        if ($request->ajax()){
+            if (Session::exists('guest_id')){
+                $input['guest_id'] = Session::get('guest_id');
+            }else{
+                return response()->json(['status' => false]);
+            }
+        }
+        $rules = [
+            'guest_id' => 'required|numeric',
+            'day_hour' => 'required|date'
+        ];
+        $validator = Validator::make($input, $rules);
 
-        $order_date = date('Y-m-d');
-        Taxi::create([
-            'guest_id'   => $request->guest,
-            'order_date' => $order_date,
-            'day_hour'   => $request->day_hour,
-            'status'     => '1',
-        ]);
+        if ($validator->passes()){
+            try{
+                DB::beginTransaction();
+                $input['order_date'] = Carbon::today();
+                $input['status'] = '1';
+                Taxi::create($input);
+                DB::commit();
 
-        return redirect('/service/taxi');
+                if ($request->ajax()){
+                    $return = ['status' => true];
+                }else{
+                    $return = redirect()->route('taxi.index')->with('status', 'Order added successfully');
+                }
+            }catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        }else {
+            if ($request->ajax()){
+                $return = ['status' => false];
+            }else{
+                $return = redirect()->route('restaurant.create')->withErrors($validator->getMessageBag());
+            }
+        }
+
+        return $return;
     }
 
     /**
@@ -67,11 +101,8 @@ class TaxiController extends Controller
      */
     public function show(Taxi $taxi)
     {
-        //Se consigue pasar el guest en función del guest_id del taxi
         $guest = Guest::find($taxi->guest_id);
-
-        return view('services.taxi.show', compact('taxi'),
-            compact('guest'));
+        return view('services.taxi.show', compact('taxi', 'guest'));
     }
 
     /**
@@ -86,9 +117,12 @@ class TaxiController extends Controller
         //Pasarle el guest parar poder modificarlo
         $guests = Guest::all();
 
-        //Falta que el select del edit.blade se quede seleccionado con el guest correcto
-        return view('services.taxi.edit', compact('taxi'),
-            compact('guests'));
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests = $guests->pluck('guestRoomNumber', 'id');
+
+        return view('services.taxi.edit', compact('guests', 'taxi'));
     }
 
     /**
@@ -101,19 +135,30 @@ class TaxiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'day_hour' => 'required',
-        ]);
+        $input     = Input::all();
+        $rules     = [
+            'day_hour' => 'required|date',
+        ];
 
-        $order_date = date('Y-m-d');
-        Taxi::find($id)->update([
-            'guest_id'   => $request->guest,
-            'order_date' => $order_date,
-            'day_hour'   => $request->day_hour,
-            'status'     => '1',
-        ]);
+        $validator = Validator::make($input, $rules);
 
-        return redirect('/service/taxi');
+        if ($validator->passes()){
+            try{
+                DB::beginTransaction();
+                $taxi = Taxi::find($id);
+                $taxi->update($input);
+                DB::commit();
+
+                $return = redirect()->route('taxi.index')->with('status', 'Order updated successfully.');
+            }catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        }else{
+            $return = redirect()->route('taxi.edit', $id)->withErrors($validator->getMessageBag());
+        }
+
+        return $return;
     }
 
     /**
@@ -125,9 +170,16 @@ class TaxiController extends Controller
      */
     public function destroy($id)
     {
-        //
         Taxi::find($id)->delete();
+        return redirect()->back()->with('status', 'Order deleted successfully');
+    }
 
-        return redirect('/service/taxi');
+    public function changeStatus($id)
+    {
+        $taxi         = Taxi::findOrFail($id);
+        $taxi->status = ($taxi->status === '2') ? '1' : '2';
+        $taxi->save();
+
+        return response()->json($taxi->status);
     }
 }

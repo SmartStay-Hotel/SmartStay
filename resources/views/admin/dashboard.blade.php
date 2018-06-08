@@ -5,31 +5,36 @@
     </style>
 @endsection
 @section('content')
-    <div class="row">
-        <div class="col-sm-10" id="groupDashBtn">
+
+    <div class="card"
+         style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
+        <div class="flex-grid">
             <a href="{{ url('admin/checkin') }}" id="checkInBtn" class="btn btn-success">Check in</a>
             <a href="{{ url('admin/checkout') }}" id="checkOutBtn" class="btn btn-danger">Check out</a>
             <a href="#" id="bookingsBtn" class="btn btn-info">Bookings</a>
-            <a href="{{ route('guests.create') }}" id="newBookingBtn" class="btn btn-secondary">New Booking</a>
+            <a href="{{ route('guests.create') }}" class="btn btn-secondary" id="newBookingBtn">New Booking</a>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm-4" id="pendingOrdersCard">
+    <div class="card"
+         style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
+        <div class="flex-grid">
             <div class="card text-center">
                 <h5 class="card-header" id="pendingOrdersHeader">PENDING ORDERS</h5>
                 <div class="card-body" id="pendingOrdersBody">
                     <h5 class="card-title">Orders ready to be dispatched</h5>
                     <ul class="card-text" id="dispatchedOrdersList">
-                        @foreach($restaurants as $restaurant)
-                            @if($restaurant->status == '1')
+
+                        @foreach($services as $service)
+                            @if($service->status == '1')
                                 <li>
-                                    <a href="{{ route('restaurant.show', $restaurant->id) }}">
-                                        <span>{{ $restaurant->serviceName }}</span>
-                                        <span>{{ $restaurant->guest->firstname }}</span>
-                                        <span>{{ $restaurant->guest->rooms[0]->number }}</span>
-                                        <input type="checkbox" name="{{ $restaurant->serviceName .'/'.$restaurant->id }}" id="pending"
-                                               @if ($restaurant->status == '2') checked @endif style="float:right">
+                                    <a href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
+                                        <span>{{ $service->serviceName }}</span>
+                                        <span>{{ $service->guest->firstname }}</span>
+                                        <span>{{ $service->roomNumber }}</span>
+                                        <input type="checkbox"
+                                               name="{{ $service->serviceName .'/'.$service->id }}" id="pending"
+                                               @if ($service->status == '2') checked @endif style="float:right">
                                     </a>
                                 </li>
 
@@ -50,24 +55,23 @@
                     </ul>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-4" id="dispatchedOrdersCard">
+
             <div class="card text-center">
                 <h5 class="card-header" id="dispatchedOrdersHeader">DISPATCHED ORDERS</h5>
                 <div class="card-body" id="dispatchedOrdersBody">
                     <h5 class="card-title">Dispatched orders</h5>
                     <ul class="card-text" id="dispatchedOrdersList">
 
-
-                        @foreach($restaurants as $restaurant)
-                            @if($restaurant->status == 2)
+                        @foreach($services as $service)
+                            @if($service->status == 2)
                                 <li>
-                                    <a href="{{ route('restaurant.show', $restaurant->id) }}">
-                                        <span>{{ $restaurant->serviceName }}</span>
-                                        <span>{{ $restaurant->guest->firstname }}<span>
-                                        <span>{{ $restaurant->guest->rooms[0]->number }}</span>
-                                        <input type="checkbox" name="{{ $restaurant->serviceName .'/'.$restaurant->id  }}" id="pending"
-                                               @if ($restaurant->status == '2') checked @endif style="float:right">
+                                    <a href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
+                                        <span>{{ $service->serviceName }}</span>
+                                        <span>{{ $service->guest->firstname }}</span>
+                                        <span>{{ $service->roomNumber }}</span>
+                                        <input type="checkbox"
+                                               name="{{ $service->serviceName .'/'.$service->id  }}" id="pending"
+                                               @if ($service->status == '2') checked @endif style="float:right">
                                     </a>
                                 </li>
                             @endif
@@ -90,8 +94,54 @@
     </div>
 @endsection
 @section('scripts')
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('d4313af143d783c51d79', {
+            cluster: 'eu',
+            encrypted: false
+        });
+
+        var channel = pusher.subscribe('smartstay-services');
+        channel.bind('App\\Events\\NewOrderRequest', function (data) {
+            //alert(data.message);
+            toastr.options.onclick = function () {
+                window.location = data.goToShow.toLowerCase();
+            };
+            toastr.success(data.message, 'New Order:');
+        });
+    </script>
+    <script>
+        //ask for confirmation before changing/deleting orders from table
         $(document).ready(function () {
+            //Toastr configuration:
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": false,
+                "extendedTimeOut": "3000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "closeOnHover": false
+            };
+            // for success - green box
+            toastr.options.onclick = function () {
+                alert('You can perform some custom action after a toast goes away');
+            };
+
+            toastr.success('Welcome Isabella!');
+
+            //Change status services:
             $(':checkbox').change(function (event) {
                 var route = 'service/status' + event.target.name + '';
                 if ($(this).is(':checked')) {

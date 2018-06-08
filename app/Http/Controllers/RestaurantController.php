@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewOrderRequest;
 use App\Guest;
 use App\Restaurant;
 use Carbon\Carbon;
@@ -76,8 +77,9 @@ class RestaurantController extends Controller
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '1';
-                Restaurant::create($input);
+                $restaurant = Restaurant::create($input);
                 DB::commit();
+                event(new NewOrderRequest($restaurant->service_id, $input['guest_id'], $restaurant->id));
 
                 if ($request->ajax()) {
                     $return = ['status' => true];
@@ -192,11 +194,11 @@ class RestaurantController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function changeStatus($id)
-    {
-        $restaurant         = Restaurant::findOrFail($id);
-        $restaurant->status = ($restaurant->status === '2') ? '1' : '2';
-        $restaurant->save();
+{
+    $restaurant         = Restaurant::findOrFail($id);
+    $restaurant->status = ($restaurant->status === '2') ? '1' : '2';
+    $restaurant->save();
 
-        return response()->json($restaurant->status);
-    }
+    return response()->json($restaurant->status);
+}
 }

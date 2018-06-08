@@ -66,7 +66,9 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
         created: function(){
         this.getServices();
         this.getTrips();
+        this.getEvents();
         this.getStatusRoom();
+        // this.bttnMas();
         // this.setPriceTrip();
 
 
@@ -75,19 +77,26 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
         data:{
             services:[],
             trips:[],
+            events:[],
             spaTypes:[],
             window: [false, false, false, false, false, false, false],
             show: false,
             guestOut:true,
             showMenuOut: true,
             tripSelected:"",
+            eventSelected:"",
             spaSelected:"",
             numPersonsTrip:1,
             statusRoom:"",
             showModal:false,
             dayHourServ:'',
             quantityServ:'',
-            showRestaurant:false,
+            showResult:false,
+            numSnacks:['1'],
+            numDrinks:['1'],
+            showSnack:['true'],
+            pruebaOrder:[],
+
 
 
         },
@@ -108,6 +117,13 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
                     this.trips = response.data
             });
 
+            },
+            getEvents:function(){
+
+                var urlEvents = 'events';
+                axios.get(urlEvents).then(response=> {
+                    this.events = response.data
+            });
             },
             getSpaTypes: function(){
                 axios.get(urlSpaTypes).then(response=>{
@@ -140,15 +156,48 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
                     day_hour: this.dayHourServ,
                     quantity: this.quantityServ
                 }).then(response=>{
-                    this.showRestaurant = true;
-                    toastr.success("holas");
+                    this.showResult = true;
+
+                    toastr.success("jeje");
                 })
-            }
+                // this.pruebaOrder=response.data;
+            },
+            insertAlarm: function(){
+                var urlInsAlarm ='admin/service/alarm';
+                axios.post(urlInsAlarm,{
+                    day_hour: this.dayHourServ
+
+                }).then(response=>{
+                    this.showResult = true;
+                    toastr.success("adios");
+            })
+            },
+            bttnMas: function(tipo){
+                if(tipo=='snack'){
+                    this.numSnacks.push("1");
+                }else if(tipo=='drink'){
+                    this.numDrinks.push("1");
+                }
+
+            },
+            bttnMenos: function(tipo){
+                if(tipo=='snack'){
+                    this.numSnacks.pop();
+                }else if(tipo=='drink'){
+                    this.numDrinks.pop();
+                }
+
+
+            },
+
 
         },
         computed:{
             infoTrip: function(){
-                return this.trips.filter((trip) => trip.name.includes(this.tripSelected));
+                return this.trips.filter((trip) => trip.id==this.tripSelected);
+            },
+            infoEvent: function(){
+                return this.events.filter((event) => event.name.includes(this.eventSelected));
             },
 
         },

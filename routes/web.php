@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -34,6 +35,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('/', function () {
         if (Session::has('guest_id')) {
             $services = \App\Services::where('is_active', 1)->get();
+
             return view('guest.dashboard', compact('services'));
         } else {
             return view('loginGuest');
@@ -56,7 +58,7 @@ Route::group(['middleware' => 'language'], function () {
         return $trips;
     });
     Route::get('events', function () {
-        $events = \App\Event::get();
+        $events = \App\Event_types::get();
 
         return $events;
     });
@@ -124,23 +126,30 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin/guests/roomType/{id}/jacuzzi/{jacuzzi}', 'GuestController@getAvailableRooms');
     Route::get('admin/guests/roomType/{id}', 'GuestController@getAvailableRooms');
     //-------------------------------------------
-
-    Route::resource('admin/alarms', 'AlarmController');
     /*------------ END ADMIN ------------*/
 
 
     /*------------- SERVICES --------------*/
-    Route::resource('service/taxi', 'TaxiController');
-    Route::resource('service/housekeeping', 'HousekeepingController');
+
     Route::resource('admin/service/restaurant', 'RestaurantController');
+    Route::resource('admin/service/taxi', 'TaxiController');
+    Route::resource('admin/service/alarm', 'AlarmController');
+    Route::resource('service/housekeeping', 'HousekeepingController');
     Route::resource('service/trip', 'TripController');
     Route::resource('service/event', 'EventController');
     Route::resource('service/petcare', 'PetcareController');
     Route::resource('service/spa', 'SpaAppointmentController');
     Route::resource('service/alarm', 'AlarmController');
-    //Route::resource('service/snackdrink', 'SnackDrinkController');
+    Route::resource('service/snackdrink', 'SnacksAndDrinkController');
 
     /* --->   ------------- STATUS SERVICES --------------   */
     Route::get('admin/service/statusRestaurant/{id}', 'RestaurantController@changeStatus');
+    Route::get('admin/service/statusTaxi/{id}', 'TaxiController@changeStatus');
+    Route::get('admin/service/statusAlarm/{id}', 'AlarmController@changeStatus');
+
+    Route::get('test', function () {
+        event(new App\Events\NewOrderRequest(1, 4, 2));
+        return "Order has been sent!";
+    });
 
 });

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Alarm;
+use App\Events\NewOrderRequest;
 use App\Guest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 class AlarmController extends Controller
 {
@@ -28,6 +32,10 @@ class AlarmController extends Controller
     public function create()
     {
         $guests = Guest::all();
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests = $guests->pluck('guestRoomNumber', 'id');
 
         return view('services.alarm.create', compact('guests'));
     }
@@ -41,19 +49,48 @@ class AlarmController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'day_hour' => 'required',
-        ]);
+        $input = Input::all();
+        if ($request->ajax()) {
+            if (Session::exists('guest_id')) {
+                $input['guest_id'] = Session::get('guest_id');
+            } else {
+                return response()->json(['status' => false]);
+            }
+        }
 
-        $order_date = date('Y-m-d');
-        Alarm::create([
-            'guest_id'   => $request->guest,
-            'order_date' => $order_date,
-            'day_hour'   => $request->day_hour,
-            'status'     => '1',
-        ]);
+        $rules = [
+            'guest_id' => 'required|numeric',
+            'day_hour' => 'required|date',
+        ];
+        $validator = Validator::make($input, $rules);
 
-        return redirect('/service/alarm');
+        if ($validator->passes()) {
+            try{
+                DB::beginTransaction();
+                $input['order_date'] = Carbon::today();
+                $input['status'] = '1';
+                $alarm = Alarm::create($input);
+                DB::commit();
+                event(new NewOrderRequest($alarm->service_id, $input['guest_id'], $alarm->id));
+
+                if ($request->ajax()){
+                    $return =['status' => true];
+                }else{
+                    $return = redirect()->route('alarm.index')->with('status', 'Order added successfully.');
+                }
+            }catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        } else {
+            if ($request->ajax()) {
+                $return = ['status' => false];
+            } else {
+                $return = redirect()->route('alarm.create')->withErrors($validator->getMessageBag());
+            }
+        }
+
+        return $return;
     }
 
     /**
@@ -81,6 +118,10 @@ class AlarmController extends Controller
     public function edit(Alarm $alarm)
     {
         $guests = Guest::all();
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests = $guests->pluck('guestRoomNumber', 'id');
 
         //Falta que el select del edit.blade se quede seleccionado con el guest correcto
         return view('services.alarm.edit', compact('alarm', 'guests'));
@@ -96,18 +137,31 @@ class AlarmController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'day_hour' => 'required',
-        ]);
+        $input     = Input::all();
+        $rules     = [
+            'day_hour' => 'required|date',
+        ];
+        $validator = Validator::make($input, $rules);
 
-        $order_date = date('Y-m-d');
-        Alarm::find($id)->update([
-            'guest_id'   => $request->guest,
-            'order_date' => $order_date,
-            'day_hour'   => $request->day_hour,
-            'status'     => '1',
-        ]);
-        return redirect('/service/alarm');
+        if ($validator->passes()){
+            try{
+                DB::beginTransaction();
+                //$input['order_date'] = Carbon::today();
+                //$input['status']     = 1;
+                $alarm = Alarm::find($id);
+                $alarm->update($input);
+                DB::commit();
+                $return = redirect()->route('alarm.index')->with('status', 'Order updated successfully.');
+
+            } catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        } else {
+            $return = redirect()->route('alarm.edit', $id)->withErrors($validator->getMessageBag());
+        }
+
+        return $return;
     }
 
     /**
@@ -120,6 +174,15 @@ class AlarmController extends Controller
     public function destroy($id)
     {
         Alarm::find($id)->delete();
-        return redirect('/service/alarm');
+        return redirect()->back()->with('status', 'Order deleted successfully');
+    }
+
+    public function changeStatus($id)
+    {
+        $alarm         = Alarm::findOrFail($id);
+        $alarm->status = ($alarm->status === '2') ? '1' : '2';
+        $alarm->save();
+
+        return response()->json($alarm->status);
     }
 }

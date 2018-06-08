@@ -14364,7 +14364,9 @@ new Vue({
     created: function created() {
         this.getServices();
         this.getTrips();
+        this.getEvents();
         this.getStatusRoom();
+        // this.bttnMas();
         // this.setPriceTrip();
 
     },
@@ -14372,19 +14374,25 @@ new Vue({
     data: {
         services: [],
         trips: [],
+        events: [],
         spaTypes: [],
         window: [false, false, false, false, false, false, false],
         show: false,
         guestOut: true,
         showMenuOut: true,
         tripSelected: "",
+        eventSelected: "",
         spaSelected: "",
         numPersonsTrip: 1,
         statusRoom: "",
         showModal: false,
         dayHourServ: '',
         quantityServ: '',
-        showRestaurant: false
+        showResult: false,
+        numSnacks: ['1'],
+        numDrinks: ['1'],
+        showSnack: ['true'],
+        pruebaOrder: []
 
     },
     methods: {
@@ -14409,11 +14417,19 @@ new Vue({
                 _this3.trips = response.data;
             });
         },
-        getSpaTypes: function getSpaTypes() {
+        getEvents: function getEvents() {
             var _this4 = this;
 
+            var urlEvents = 'events';
+            axios.get(urlEvents).then(function (response) {
+                _this4.events = response.data;
+            });
+        },
+        getSpaTypes: function getSpaTypes() {
+            var _this5 = this;
+
             axios.get(urlSpaTypes).then(function (response) {
-                _this4.spaTypes = response.data;
+                _this5.spaTypes = response.data;
             });
         },
 
@@ -14437,25 +14453,60 @@ new Vue({
             this.dataActual = Date.now();
         },
         insertRestaurant: function insertRestaurant() {
-            var _this5 = this;
+            var _this6 = this;
 
             var urlInsRest = 'admin/service/restaurant';
             axios.post(urlInsRest, {
                 day_hour: this.dayHourServ,
                 quantity: this.quantityServ
             }).then(function (response) {
-                _this5.showRestaurant = true;
-                toastr.success("holas");
+                _this6.showResult = true;
+
+                toastr.success("jeje");
             });
+            // this.pruebaOrder=response.data;
+        },
+        insertAlarm: function insertAlarm() {
+            var _this7 = this;
+
+            var urlInsAlarm = 'admin/service/alarm';
+            axios.post(urlInsAlarm, {
+                day_hour: this.dayHourServ
+
+            }).then(function (response) {
+                _this7.showResult = true;
+                toastr.success("adios");
+            });
+        },
+        bttnMas: function bttnMas(tipo) {
+            if (tipo == 'snack') {
+                this.numSnacks.push("1");
+            } else if (tipo == 'drink') {
+                this.numDrinks.push("1");
+            }
+        },
+        bttnMenos: function bttnMenos(tipo) {
+            if (tipo == 'snack') {
+                this.numSnacks.pop();
+            } else if (tipo == 'drink') {
+                this.numDrinks.pop();
+            }
         }
 
     },
     computed: {
         infoTrip: function infoTrip() {
-            var _this6 = this;
+            var _this8 = this;
 
             return this.trips.filter(function (trip) {
-                return trip.name.includes(_this6.tripSelected);
+                return trip.id == _this8.tripSelected;
+            });
+        },
+        infoEvent: function infoEvent() {
+            var _this9 = this;
+
+            return this.events.filter(function (event) {
+                return event.name.includes(_this9.eventSelected);
             });
         }
 

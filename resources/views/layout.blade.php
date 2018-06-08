@@ -47,10 +47,10 @@
             </div>
         </div>
     </div>
-    <div id="main_container" v-bind:class="[!showMenuOut && !guestOut ? 'blur' : '']">
+    <div id="main_container" ><!-- v-bind:class="[!showMenuOut && !guestOut ? 'blur' : '']" -->
         @yield('content')
     </div>
-
+{{--@{{ $data }}--}}
 
     <housekeeping v-if="showModal" @close="showModal = false">
 

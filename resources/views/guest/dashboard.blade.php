@@ -11,16 +11,17 @@
                 {{-- services: Es el array de services. Siempre se ha de poner --}}
 
                 {{--<div class="containerServices">--}}
-                    {{--<serviceshome v-bind:nserv="0" v-bind:servs="[1,1,1,1]" v-bind:services="services"></serviceshome>--}}
+                {{--<serviceshome v-bind:nserv="0" v-bind:servs="[1,1,1,1]" v-bind:services="services"></serviceshome>--}}
                 {{--</div>--}}
                 {{--<div class="containerServices">--}}
-                    {{--<serviceshome v-bind:nserv="4" v-bind:servs="[1,1,1,0]" v-bind:services="services"></serviceshome>--}}
+                {{--<serviceshome v-bind:nserv="4" v-bind:servs="[1,1,1,0]" v-bind:services="services"></serviceshome>--}}
                 {{--</div>--}}
 
                 <div class="servicesHome">
                     <div class="servicesTop row">
 
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" v-on:click="showWindow(0)">
+                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3"
+                             v-on:click="showWindow(0)">
                             <img v-bind:src="services[0].image" alt="">
                             <div class="serviceDescription">
                                 <div class="textDesc">@{{ services[0].description }}</div>
@@ -63,12 +64,11 @@
                     </div>
                 </div>
 
-
-
                 <div class="servicesHome">
                     <div class="servicesTop row">
 
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" v-on:click="showWindow(0)">
+                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3"
+                             v-on:click="showWindow(4)">
                             <img v-bind:src="services[0].image" alt="">
                             <div class="serviceDescription">
                                 <div class="textDesc">@{{ services[0].description }}</div>
@@ -78,7 +78,7 @@
                             </div>
 
                         </div>
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(1)">
+                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(5)">
                             <img v-bind:src="services[1].image" alt="">
                             <div class="serviceDescription">
                                 <div class="textDesc">@{{ services[1].description }}</div>
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                     <div class="servicesBottom row">
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(2)">
+                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(6)">
                             <img v-bind:src="services[2].image" alt="">
                             <div class="serviceDescription">
                                 <div class="textDesc">@{{ services[2].description }}</div>
@@ -99,7 +99,7 @@
                                 <p>@{{ services[2].name }}</p>
                             </div>
                         </div>
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(3)">
+                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(7)">
                             <img v-bind:src="services[3].image" alt="">
                             <div class="serviceDescription">
                                 <div class="textDesc">@{{ services[3].description }}</div>
@@ -121,7 +121,8 @@
             <div class="windowService" v-if="window[0]">
 
                 <div class="windowTitle">
-                    <button class="returnWindow " v-if="show" @click="showWindow(0)"><i class="fas fa-long-arrow-alt-left"></i></button>
+                    <button class="returnWindow " v-if="show" @click="showWindow(0)"><i
+                                class="fas fa-long-arrow-alt-left"></i></button>
                     <h2>@{{ services[0].name }}</h2>
                 </div>
 
@@ -130,13 +131,16 @@
                     <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertRestaurant">
                         <label for="dateRestaurant"> Day and hour: </label>
                         <input type="datetime-local" name="dateRestaurant" v-model="dayHourServ"><br>
-                        <label for="numPersonRest"> Number of persons: </label> <input type="number" v-model="quantityServ" name="numPersonRest">
+                        <label for="numPersonRest"> Number of persons: </label> <input type="number"
+                                                                                       v-model="quantityServ"
+                                                                                       name="numPersonRest">
                         <br>
                         <input type="submit" name="enviar">
                     </form>
                     <div class="resultOrder col-md-5">
-                        <p>Booking name: <strong>{{\App\Guest::find(Session::get('guest_id'))->rooms[0]->number}}</strong></p>
-                        <div v-if="showRestaurant">
+                        <p>Booking name:
+                            <strong>{{\App\Guest::find(Session::get('guest_id'))->rooms[0]->number}}</strong></p>
+                        <div v-if="showResult">
                             <p>Hora: @{{dayHourServ}}</p>
                         </div>
                     </div>
@@ -146,50 +150,125 @@
             </div>
             <div class="windowService" v-if="window[1]">
                 <div class="windowTitle">
-                    <button class="returnWindow " v-if="show" @click="showWindow(1)"><i class="fas fa-long-arrow-alt-left"></i></button>
+                    <button class="returnWindow " v-if="show" @click="showWindow(1)"><i
+                                class="fas fa-long-arrow-alt-left"></i></button>
                     <h2>@{{ services[1].name }}</h2>
                 </div>
-                <p class="windowDesc">@{{ services[1].description }}</p>
-                <div class="windowContent">
-                    Snack: <select name="snackOrder" id="snackOrder">
-                        <option>Select a snack</option>
-                        <option value="">Select a snack</option>
+                <p class="windowDesc" style="margin-bottom:0px;">@{{ services[1].description }}</p>
+                <div class="windowNav">
+                    <ul>
+                        <li @click="showSnack=true" v-bind:class="[showSnack ? 'windowNavSelected' : '']">Snack</li>
+                        <li style="border-left:1px solid gray;" @click="showSnack=false" v-bind:class="[!showSnack ? 'windowNavSelected' : '']">Drink</li>
+                    </ul>
+                </div>
+                <div class="windowContent row">
+                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertRestaurant">
+                        <div class="row" style="margin-bottom:5%;">
+                            <transition name="fade">
+                            <div v-if="showSnack">
+                                <label for="orderSnack" class="col-md-4">Snack</label>
+                                <div class="selSnackDrinks col-md-8">
 
-                    </select>
-                    Drink: <select name="drinkOrder" id="drinkOrder">
-                        <option value="">Select a drink</option>
-                    </select>
+                                    <select name="orderSnakc" id="snackOrder" v-for="numS in numSnacks">
+                                        <option>Select a snack</option>
+                                        <option value="">Select a snack</option>
+                                    </select>
+                                    <div class="bttnSnackDrinks row">
+                                        <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5 col-xl-5" style="padding:0px">
+                                            <button @click="bttnMas('snack')" v-if="this.numSnacks.length<3"><i
+                                                        class="fas fa-plus"></i></button>
+                                        </div>
+                                        <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5 col-xl-5" style="padding:0px">
+                                            <button @click="bttnMenos('snack')" v-if="this.numSnacks.length>1"><i
+                                                        class="fas fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            </transition>
+                            <transition name="fade">
+                            <div v-if="!showSnack">
+                                <label for="orderDrink" class="col-md-4">Drink</label>
+                                <div class="selSnackDrinks col-md-8">
+
+                                    <select name="orderDrink" id="drinkOrder" v-for="numD in numDrinks">
+                                        <option>Select a drink</option>
+                                        <option value="">Select a drink</option>
+                                    </select>
+                                    <div class="bttnSnackDrinks row">
+                                        <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5 col-xl-5" style="padding:0px">
+                                            <button @click="bttnMas('drink')" v-if="this.numDrinks.length<3"><i
+                                                        class="fas fa-plus"></i></button>
+                                        </div>
+                                        <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5 col-xl-5" style="padding:0px">
+                                            <button @click="bttnMenos('drink')" v-if="this.numDrinks.length>1"><i
+                                                        class="fas fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </transition>
+
+
+                        </div>
+
+                        <input type="submit" name="enviar">
+                    </form>
+
                 </div>
 
             </div>
             <div class="windowService" v-if="window[2]">
                 <div class="windowTitle">
-                    <button class="returnWindow " v-if="show" @click="showWindow(2)"><i class="fas fa-long-arrow-alt-left"></i></button>
+                    <button class="returnWindow " v-if="show" @click="showWindow(2)"><i
+                                class="fas fa-long-arrow-alt-left"></i></button>
                     <h2>@{{ services[2].name }}</h2>
                 </div>
                 <p class="windowDesc">@{{ services[2].description }}</p>
-                <div class="windowContent">
-                Day: <input type="date">
-                Hour: <input type="hour">
-                Type: <select name="" id=""></select>
-                Booking name: <input type="text">
+                <div class="windowContent row">
+                    <div class="col-md-6" id="attrSpa">
+                        <div><label for="dateSpa">Day and hour</label><input type="datetime-local" name="dateSpa"></div>
+                        <div><label for="bookingSpa">Booking name</label><input type="text" name="bookingSpa"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="typeSpa">Type</label> <select name="typeSpa" id="">
+
+                        </select>
+                        <div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">
+                            <p>Location: @{{ item.location }}</p>
+                            <p>Day: @{{ item.day_week }}</p>
+                            <p>Price: @{{ setPriceTrip(item.price) }}</p>
+
+                        </div>
+                    </div>
                 </div>
 
             </div>
             <div class="windowService" v-if="window[3]">
                 <div class="windowTitle">
-                    <button class="returnWindow " v-if="show" @click="showWindow(3)"><i class="fas fa-long-arrow-alt-left"></i></button>
+                    <button class="returnWindow " v-if="show" @click="showWindow(3)"><i
+                                class="fas fa-long-arrow-alt-left"></i></button>
                     <h2>@{{ services[3].name }}</h2>
                 </div>
                 <p class="windowDesc">@{{ services[3].description }}</p>
-                <div class="windowContent">
-                Day: <input type="date">
-                Hour: <input type="hour">
+                <div class="windowContent row">
+                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertAlarm">
+                        <label for="dateAlarm"> Day and hour: </label>
+                        <input type="datetime-local" name="dateAlarm" v-model="dayHourServ"><br>
+                        <p>@{{ dayHourServ }}</p>
+                        <br>
+                        <input type="submit" name="enviar">
+                    </form>
+                    <div v-if="showResult">
+                        <p>Hora: @{{dayHourServ}}</p>
+                    </div>
                 </div>
             </div>
             <div class="windowService" v-if="window[4]">
                 <div class="windowTitle">
-                    <button class="returnWindow " v-if="show" @click="showWindow(4)"><i class="fas fa-long-arrow-alt-left"></i></button>
+                    <button class="returnWindow " v-if="show" @click="showWindow(4)"><i
+                                class="fas fa-long-arrow-alt-left"></i></button>
                     <h2>Pet care</h2>
                 </div>
                 <p class="windowDesc">Pet care description</p>
@@ -202,14 +281,15 @@
             </div>
             <div class="windowService" v-if="window[5]">
                 <div class="windowTitle">
-                    <button class="returnWindow " v-if="show" @click="showWindow(5)"><i class="fas fa-long-arrow-alt-left"></i></button>
+                    <button class="returnWindow " v-if="show" @click="showWindow(5)"><i
+                                class="fas fa-long-arrow-alt-left"></i></button>
                     <h2>Trips</h2>
                 </div>
                 <p class="windowDesc">Trip description</p>
                 <div class="windowContent">
 
-                    Choose a trip: <select name="" id="" v-model="tripSelected">
-                        <option v-for="trip in trips">@{{ trip.name }}</option>
+                    Choose a trip: <select name="selTrips" id="" v-model="tripSelected">
+                        <option v-for="trip in trips" v-bind:value="trip.id">@{{ trip.name }}</option>
 
                     </select>
                     Number of persons: <input type="number" min="1" v-model="numPersonsTrip">
@@ -217,30 +297,45 @@
                     <div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">
                         <p>Location: @{{ item.location }}</p>
                         <p>Day: @{{ item.day_week }}</p>
-                        <p>Price: @{{  setPriceTrip(item.price) }}</p>
+                        <p>Price: @{{ setPriceTrip(item.price) }}</p>
 
                     </div>
 
                 </div>
             </div>
             <div class="windowService" v-if="window[6]">
-            <div class="windowTitle">
-                <button class="returnWindow " @click="showWindow(6)"><i class="fas fa-long-arrow-alt-left"></i></button>
-                <h2>@{{ services[6].name }}</h2>
+                <div class="windowTitle">
+                    <button class="returnWindow " @click="showWindow(6)"><i class="fas fa-long-arrow-alt-left"></i>
+                    </button>
+                    <h2>@{{ services[5].name }}</h2>
+                </div>
+                <p class="windowDesc">@{{ services[5].description }}</p>
+                <div class="windowContent">
+                    Select a event: <select name="selEvent" v-model="eventSelected">
+                        <option v-for="event in events">@{{ event.name }}</option>
+                    </select>
+                    <div class="windowInfo" v-for="item in infoEvent" v-if="eventSelected != ''">
+                        <p>Location: @{{ item.location }}</p>
+                        <p>Day: @{{ item.day_week }}</p>
+                    </div>
+                </div>
             </div>
-            <p class="windowDesc">@{{ services[6].description }}</p>
-            <div class="windowContent">
-                Select a event: <select name="" id="">
-                    <option value=""></option>
-                </select>
-
+            <div class="windowService" v-if="window[7]">
+                <div class="windowTitle">
+                    <button class="returnWindow " @click="showWindow(7)"><i class="fas fa-long-arrow-alt-left"></i>
+                    </button>
+                    <h2>Taxi</h2>
+                </div>
+                <p class="windowDesc">Taxi description</p>
+                <div class="windowContent">
+                    Hour <input type="time">
+                </div>
             </div>
-    </div>
         </transition>
     </div>
 
 
-<footer v-if="show">  </footer>
+    <footer v-if="show"></footer>
 
     {{-- ------------------ --}}
 
