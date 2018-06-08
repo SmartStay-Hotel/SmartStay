@@ -7,70 +7,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Guest App and Hotel Manager">
     <meta name="author" content="SmartStay Team">
-    <meta name="_token" content="{{ csrf_token() }}"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/admin/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 
     @yield('css')
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css"
-          rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{asset('css/admin.css')}}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-            crossorigin="anonymous"></script>
-
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-light">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto"></ul>
-        <a id="homeIcon" class="nav-link" href="{{ route('admin') }}"><i class="fas fa-home fa-lg"></i></a>
-        <form action="{{ route('logout') }}" method="POST" class="form-inline my-2 my-lg-0">
-            @csrf
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Log out <i
-                        class="fas fa-sign-out-alt"></i></button>
-        </form>
-    </div>
-</nav>
-
 <div id="main_container">
-    <div class="sidenav">
-        <div id="titleAdmin">
+    <nav class="sidenav">
+        <header id="titleAdmin">
             <p id="titleApp">SmartStay</p>
             <h5 id="hotelName">JAUME BALMES</h5>
-        </div>
+        </header>
         <hr id="separator">
         <p><a id="guests" href="{{ route('guests.index') }}">Guests</a></p>
-        <p id="services">Services</p>
-        <ul id="servicesList" class="list-group list-group-flush">
-            <li><a href="{{ url('admin/alarms') }}">Alarm</a></li>
-            <li><a href="{{ route('restaurant.index') }}">Restaurant</a></li>
-            <li><a href="{{ url('admin/housekeeping') }}">Housekeeping</a></li>
-            <li><a href="{{ url('admin/taxi') }}">Taxi</a></li>
-            <li><a href="{{ url('admin/snacks') }}">Snacks and Drinks</a></li>
-            <li><a href="{{ url('admin/spa') }}">Spa Appointments</a></li>
-            <li><a href="{{ url('admin/petCare') }}">Pet care</a></li>
-            <li><a href="{{ url('admin/events') }}">Events</a></li>
-            <li><a href="{{ url('admin/trips') }}">Trips</a></li>
 
-        </ul>
-    </div>
-    @yield('content')
+        <div class="dropdown show">
+            <p class="btn dropdown-toggle" href="#" role="button" id="services" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="myFunction()">
+                Services
+            </p>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="servicesList" style="border: none; box-shadow: none; display: block">
+                <a class="dropdown-item" id="itemDropdown" href="{{ route('alarm.index') }}"><i class="far fa-clock" style="padding: 5px;"></i>Alarm</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ route('restaurant.index') }}"><i class="fas fa-utensils" style="padding: 5px;"></i>Restaurant</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ url('housekeeping.index') }}"><i class="fas fa-broom" style="padding: 5px;"></i>Housekeeping</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ route('taxi.index') }}"><i class="fas fa-taxi" style="padding: 5px;"></i>Taxi</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ route('snackdrink.index') }}"><i class="fas fa-glass-martini" style="padding: 5px;"></i>Snacks</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/spa') }}"><i class="fas fa-sun" style="padding: 5px;"></i>Spa</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/petCare') }}"><i class="fas fa-paw" style="padding: 5px;"></i>Pet care</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/events') }}"><i class="fas fa-music" style="padding: 5px;"></i>Events</a>
+                <a class="dropdown-item" id="itemDropdown" href="{{ url('admin/trips') }}"><i class="fas fa-suitcase" style="padding: 5px;"></i>Trips</a>
+            </div>
+        </div>
+
+    </nav>
+
+    <main>
+
+        <div id="flexNavbar">
+            <nav aria-label="breadcrumb" id="breadNav">
+                <ol class="breadcrumb" style="background-color: #F5F5F5">
+                    <li class="breadcrumb-item"><a href="{{ route('admin') }}"><i class="fas fa-home"></i></a></li>
+                    @yield('breadcrumb')
+                </ol>
+            </nav>
+
+        <form action="{{ route('logout') }}" method="POST" class="form-inline my-2 my-lg-0" id="formLayout">
+            @csrf
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" id="logOutBtn">Log out <i
+                        class="fas fa-sign-out-alt"></i></button>
+        </form>
+
+        </div>
+        <hr id="separator2">
+
+@yield('content')
+
+    </main>
 </div>
+<script src="{{ asset('js/admin/app.js') }}"></script>
+
+
+<script>
+
+    function myFunction() {
+        var x = document.getElementById("servicesList");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+</script>
 
 @yield('scripts')
 </body>

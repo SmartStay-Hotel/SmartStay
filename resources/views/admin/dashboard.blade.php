@@ -6,8 +6,7 @@
 @endsection
 @section('content')
 
-    <div class="card"
-         style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px; margin-bottom: 20px;">
         <div class="flex-grid">
             <a href="{{ url('admin/checkin') }}" id="checkInBtn" class="btn btn-success">Check in</a>
             <a href="{{ url('admin/checkout') }}" id="checkOutBtn" class="btn btn-danger">Check out</a>
@@ -16,16 +15,16 @@
         </div>
     </div>
 
-    <div class="card"
-         style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
-        <div class="flex-grid">
-            <div class="card text-center">
-                <h5 class="card-header" id="pendingOrdersHeader">PENDING ORDERS</h5>
-                <div class="card-body" id="pendingOrdersBody">
-                    <h5 class="card-title">Orders ready to be dispatched</h5>
-                    <ul class="card-text" id="dispatchedOrdersList">
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
+    <div class="flex-grid">
+        <div class="card text-center">
+            <h5 class="card-header" id="pendingOrdersHeader">PENDING ORDERS</h5>
+            <div class="card-body" id="pendingOrdersBody">
+                <h5 class="card-title">Orders ready to be dispatched</h5>
+                <div id="test-list">
+                <ul class="list" id="pendingOrdersList">
 
-                        @foreach($services as $service)
+                        @foreach($services->sortBy('updated_at') as $service)
                             @if($service->status == '1')
                                 <li>
                                     <a href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
@@ -33,7 +32,7 @@
                                         <span>{{ $service->guest->firstname }}</span>
                                         <span>{{ $service->roomNumber }}</span>
                                         <input type="checkbox"
-                                               name="{{ $service->serviceName .'/'.$service->id }}" id="pending"
+                                               name="{{ $service->serviceName .'/'.$service->id }}"
                                                @if ($service->status == '2') checked @endif style="float:right">
                                     </a>
                                 </li>
@@ -41,28 +40,22 @@
                             @endif
                         @endforeach
 
-                        <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                            <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                        </li>
-                        <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                            <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                        </li>
-                        <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                            <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                        </li>
 
 
                     </ul>
+                    <ul class="pagination"></ul>
+                </div>
                 </div>
             </div>
 
-            <div class="card text-center">
-                <h5 class="card-header" id="dispatchedOrdersHeader">DISPATCHED ORDERS</h5>
-                <div class="card-body" id="dispatchedOrdersBody">
-                    <h5 class="card-title">Dispatched orders</h5>
-                    <ul class="card-text" id="dispatchedOrdersList">
+        <div class="card text-center">
+            <h5 class="card-header" id="dispatchedOrdersHeader">DISPATCHED ORDERS</h5>
+            <div class="card-body" id="dispatchedOrdersBody">
+                <h5 class="card-title">Dispatched orders</h5>
+                <div id="test-list2">
+                <ul class="list" id="dispatchedOrdersList">
 
-                        @foreach($services as $service)
+                        @foreach($services->sortByDesc('updated_at') as $service)
                             @if($service->status == 2)
                                 <li>
                                     <a href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
@@ -70,7 +63,7 @@
                                         <span>{{ $service->guest->firstname }}</span>
                                         <span>{{ $service->roomNumber }}</span>
                                         <input type="checkbox"
-                                               name="{{ $service->serviceName .'/'.$service->id  }}" id="pending"
+                                               name="{{ $service->serviceName .'/'.$service->id  }}"
                                                @if ($service->status == '2') checked @endif style="float:right">
                                     </a>
                                 </li>
@@ -85,9 +78,54 @@
                         <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
                             <button style="float:right"><i class="fas fa-times"></i></button>
                         </li>
-
-
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
                     </ul>
+                    <ul class="pagination"></ul>
+                </div>
                 </div>
             </div>
         </div>
@@ -95,7 +133,41 @@
 @endsection
 @section('scripts')
     <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+
     <script>
+        var firstList = new List('test-list', {
+            valueNames: ['name'],
+            page: 10,
+            pagination: true
+        });
+
+        var secondList = new List('test-list2', {
+            valueNames: ['name'],
+            page: 10,
+            pagination: true
+        });
+    </script>
+    <script>
+        //Toastr configuration:
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": false,
+            "extendedTimeOut": "3000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut",
+            "closeOnHover": false
+        };
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
 
@@ -111,52 +183,62 @@
                 window.location = data.goToShow.toLowerCase();
             };
             toastr.success(data.message, 'New Order:');
+
+            var li = $('<li>\n' +
+                        '<a href="' + data.goToShow.toLowerCase() + '">\n' +
+                        '<span>' + data.serviceName + '</span>\n' +
+                        '<span>' + data.roomNumber + '</span>\n' +
+                        '<input type="checkbox"\n' + 'name="'+ data.serviceName + '/' + data.orderId +'" style="float:right">\n' +
+                        '</a>\n' + '</li>').hide();
+
+            $('#pendingOrdersList').append(li);
+            li.fadeIn('slow');
+
         });
     </script>
     <script>
         //ask for confirmation before changing/deleting orders from table
         $(document).ready(function () {
-            //Toastr configuration:
-            toastr.options = {
-                "closeButton": true,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": false,
-                "positionClass": "toast-top-right",
-                "preventDuplicates": false,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": false,
-                "extendedTimeOut": "3000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut",
-                "closeOnHover": false
-            };
-            // for success - green box
-            toastr.options.onclick = function () {
-                alert('You can perform some custom action after a toast goes away');
-            };
-
-            toastr.success('Welcome Isabella!');
+            //toastr.success('Welcome Isabella!');
 
             //Change status services:
             $(':checkbox').change(function (event) {
+                var $this = this;
                 var route = 'service/status' + event.target.name + '';
-                if ($(this).is(':checked')) {
-                    if (confirm("Is it already completed?")) {
-                        $.get(route, function (response, state) {
-                            location.reload();
+                if ($($this).is(':checked')) {
+                    var li = $($this).parents('li');
+
+                    toastr.options = {'closeButton': false, 'timeOut': false, 'closeOnHover': false};
+                    toastr.warning('<div><button type="button" id="cancelBtn" class="btn btn-primary">Cancel</button><button type="button" id="okBtn" class="btn" style="margin: 0 8px 0 8px">Ok</button></div>', 'Is it already completed?');
+
+                    $('#okBtn').click(function (e) {
+                        e.preventDefault();
+                        $(li).hide().prependTo('#dispatchedOrdersList').fadeIn('slow');
+                        $.get(route, function (response, status) {
+                            $this.checked = true;
                             console.log("Completed " + response);
+                        }).fail(function () {
+                            $(li).hide().appendTo('#pendingOrdersList').fadeIn('slow');
+                            toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                            toastr.warning('Something went wront', 'Alert!');
                         });
-                    } else {
-                        this.checked = false;
-                    }
+                    });
+
+                    $('#cancelBtn, #toast-container').click(function (e) {
+                        e.preventDefault();
+                        $this.checked = false;
+                    });
+
                 } else {
-                    $.get(route, function (response, state) {
-                        location.reload();
+                    var li = $($this).parents('li');
+                    $(li).hide().appendTo('#pendingOrdersList').fadeIn('slow');
+                    $.get(route, function (response, status) {
                         console.log("In process " + response);
+                    }).fail(function () {
+                        $(li).hide().prependTo('#dispatchedOrdersList').fadeIn('slow');
+                        $this.checked = true;
+                        toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                        toastr.warning('Something went wront', 'Alert!');
                     });
                 }
             });

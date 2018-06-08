@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Alarm;
 use App\Guest;
 use App\Restaurant;
 use App\RoomType;
@@ -9,17 +10,27 @@ use App\Taxi;
 
 class AdminDashboardController extends Controller
 {
-
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    /**
+     * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $restaurants = Restaurant::getAllRestaurantOrders();
-        $taxi        = Taxi::getAllTaxiOrders();
-        $services    = array_collapse([$restaurants, $taxi]);
+        $taxis       = Taxi::getAllTaxiOrders();
+        $alarms      = Alarm::getAllAlarmOrders();
+        $services    = collect(array_collapse([$restaurants, $taxis, $alarms]));
+//dd($services);
         //$services = (is_array($services) && count($services) > 0) ? $services : [];
 
         return view('admin.dashboard', compact('services'));

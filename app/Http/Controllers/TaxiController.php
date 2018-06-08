@@ -2,17 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewOrderRequest;
 use App\Guest;
 use App\Taxi;
 use Carbon\Carbon;
-use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class TaxiController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -47,14 +58,15 @@ class TaxiController extends Controller
      * @param  \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function store(Request $request)
     {
         $input = Input::all();
-        if ($request->ajax()){
-            if (Session::exists('guest_id')){
+        if ($request->ajax()) {
+            if (Session::exists('guest_id')) {
                 $input['guest_id'] = Session::get('guest_id');
-            }else{
+            } else {
                 return response()->json(['status' => false]);
             }
         }
@@ -69,8 +81,9 @@ class TaxiController extends Controller
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
                 $input['status'] = '1';
-                Taxi::create($input);
+                $taxi = Taxi::create($input);
                 DB::commit();
+                event(new NewOrderRequest($taxi->service_id, $input['guest_id'], $taxi->id));
 
                 if ($request->ajax()){
                     $return = ['status' => true];
@@ -95,7 +108,7 @@ class TaxiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  \App\Taxi $taxi
      *
      * @return \Illuminate\Http\Response
      */
@@ -108,13 +121,12 @@ class TaxiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  \App\Taxi $taxi
      *
      * @return \Illuminate\Http\Response
      */
     public function edit(Taxi $taxi)
     {
-        //Pasarle el guest parar poder modificarlo
         $guests = Guest::all();
 
         foreach ($guests as $guest) {
@@ -129,9 +141,10 @@ class TaxiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param                           $id
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function update(Request $request, $id)
     {

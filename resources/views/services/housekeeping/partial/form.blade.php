@@ -1,119 +1,52 @@
-<div class="w3-row-padding w3-card-1">
-    {{-- BASIC INFORMATION --}}
     <fieldset>
-        <legend>Basic information:</legend>
-        <label>First Name</label>
-        {!! Form::text('name', null, ['class' => 'form-control w3-input w3-border-teal']) !!}
-        <label>Last Name</label>
-        {!! Form::text('lastname', null, ['class' => 'form-control w3-input w3-border-teal']) !!}
-
-        <label>Address</label>
-        {!! Form::text('address', null, ['class' => 'form-control w3-input w3-border-teal']) !!}
-
-        <label>Email</label>
-        {!! Form::email('email', null, ['class' => 'form-control w3-input w3-border-teal']) !!}
-
-        <label>Phone</label>
-        {!! Form::tel('phone', null, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        <legend>New reservation:</legend>
+        @if(empty($housekeeping))
+            {!! Form::select('guest_id', $guests, ['class' => 'form-control'], ['placeholder' => '--- Choose an option ---']) !!}
+        @else
+            {!! Form::select('guest_id', $guests, $housekeeping->guest_id, ['class' => 'form-control', 'id' => 'selectGuest', 'disabled']) !!}
+            <label>Change </label>
+            {{ Form::checkbox('checkbox', 1, null, ['id' => 'change']) }}
+        @endif
         <br/>
-        <label>Avatar</label>
-        <p>{{ Form::file('avatar') }}</p><br/>
-    </fieldset>
-    {{-- SKILLS --}}
-    <fieldset>
-        <legend>Skills:</legend>
-        @if(empty($employee))
-            <label>Skill </label>
-            {!! Form::select('skill', $selectSkills, null,['class' => 'form-control w3-input w3-border-teal', 'placeholder' => '--- Choose an option ---']); !!}
-            <br/>
-            <label>Percentage</label>
-            {!! Form::number('percentage_skill', null, ['class' => 'form-control w3-input w3-border-teal', 'required']) !!}
-            <br/>
+        <label>Bed Sheets</label>
+        @if(empty($housekeeping->bed_sheets))
+            {!! Form::checkbox('bed_sheets',0, false, ['class' => 'form-control w3-input w3-border-teal']) !!}
         @else
-            @foreach($selectSkills as $key => $skill)
-                <label>Skill </label>
-                {!! Form::select('skill[]', [$key => $skill], $key, ['class' => 'form-control w3-input w3-border-teal']); !!}
-                <br/>
-                <label>Percentage</label>
-                {!! Form::number('percentage_skill[]', $percentageSkills[$key], ['class' => 'form-control w3-input w3-border-teal', 'required']) !!}
-                <br/>
-            @endforeach
-            {{--    ADD SKILL   --}}
-            {{--<div id="skillsDiv">
-                <div id="skillsHidden" style="display: none">
-                    <label>Skill </label>
-                    {!! Form::select('skill[]', $selectSkillsHidden, null,['class' => 'form-control w3-input w3-border-teal', 'placeholder' => '--- Choose an option ---']); !!}
-                    <br/>
-                    <label>Percentage</label>
-                    {!! Form::number('percentage[]', null, ['class' => 'form-control w3-input w3-border-teal']) !!}
-                    <br />
-                </div>
-                <a onclick="document.getElementById('skillsHidden').style.display = 'initial';"
-                        class="w3-button w3-white w3-border w3-border-teal">Add Skill
-                </a>
-            </div>--}}
+            {!! Form::checkbox('bed_sheets',1, true, ['class' => 'form-control w3-input w3-border-teal']) !!}
         @endif
-    </fieldset>
+        <label>Cleaning</label>
+        @if(empty($housekeeping->cleaning))
+            {!! Form::checkbox('cleaning', 0, false, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        @else
+            {!! Form::checkbox('cleaning', 1, true, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        @endif
 
-    {{-- LANGUAGES --}}
-    <fieldset>
-        <legend>Languages:</legend>
-        @if(empty($employee))
-            <label>Language </label>
-            {!! Form::select('language', $selectLanguages, null,['class' => 'form-control w3-input w3-border-teal', 'placeholder' => '--- Choose an option ---']); !!}
-            <br/>
-            <label>Percentage</label>
-            {!! Form::number('percentage_lang', null, ['class' => 'form-control w3-input w3-border-teal', 'required']) !!}
+        <label>Minibar</label>
+        @if(empty($housekeeping->minibar))
+            {!! Form::checkbox('minibar',0, false, ['class' => 'form-control w3-input w3-border-teal']) !!}
         @else
-            @foreach($selectLanguages as $key => $language)
-                <label>Language </label>
-                {!! Form::select('language[]', [$key => $language], $key, ['class' => 'form-control w3-input w3-border-teal']); !!}
-                <br/>
-                <label>Percentage</label>
-                {!! Form::number('percentage_lang[]', $percentageLanguages[$key], ['class' => 'form-control w3-input w3-border-teal', 'required']) !!}
-                <br/>
-            @endforeach
+            {!! Form::checkbox('minibar', 1, true, ['class' => 'form-control w3-input w3-border-teal']) !!}
         @endif
-    </fieldset>
+        <label>Blanket</label>
+        @if(empty($housekeeping->blanket))
+            {!! Form::checkbox('blanket',0, false, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        @else
+            {!! Form::checkbox('blanket',1, true, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        @endif
+        <label>Toiletries</label>
+        @if(empty($housekeeping->toiletries))
+            {!! Form::checkbox('toiletries',0, false, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        @else
+            {!! Form::checkbox('toiletries',1, true, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        @endif
+        <label>Pillow</label>
+        @if(empty($housekeeping->pillow))
+            {!! Form::checkbox('pillow',0, false, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        @else
+            {!! Form::checkbox('pillow',1, true, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        @endif
     <br/>
-
-    {{-- EXPERCIENCES --}}
-    <fieldset>
-        <legend>Experiences:</legend>
-        @if(empty($employee))
-            <label>Experience </label>
-            {!! Form::select('experience', $selectExperiences, null,['class' => 'form-control w3-input w3-border-teal', 'placeholder' => '--- Choose an option ---']); !!}
-            <br/>
-            <label>Company</label>
-            {!! Form::text('company', null, ['class' => 'form-control w3-input w3-border-teal']) !!}
-            <label>Description</label>
-            {!! Form::text('description', null, ['class' => 'form-control w3-input w3-border-teal']) !!}
-            <label>Start date</label>
-            {!! Form::date('start_date', null, ['class' => 'form-control w3-input w3-border-teal']) !!}
-            <label>End date</label>
-            {!! Form::date('end_date', null, ['class' => 'form-control w3-input w3-border-teal']) !!}
-        @else
-            @foreach($selectExperiences as $key => $experience)
-                <label>Experience </label>
-                {!! Form::select('experience[]', [$key => $experience], $key, ['class' => 'form-control w3-input w3-border-teal']); !!}
-                <br/>
-                <label>Company</label>
-                {!! Form::text('company[]', $experiences[$key]->company, ['class' => 'form-control w3-input w3-border-teal']) !!}
-                <label>Description</label>
-                {!! Form::text('description[]', $experiences[$key]->description, ['class' => 'form-control w3-input w3-border-teal']) !!}
-                <label>Start date</label>
-                {!! Form::date('start_date[]', $experiences[$key]->start_date, ['class' => 'form-control w3-input w3-border-teal']) !!}
-                <label>End date</label>
-                {!! Form::date('end_date[]', $experiences[$key]->end_date, ['class' => 'form-control w3-input w3-border-teal']) !!}
-                <br/>
-                <hr/>
-            @endforeach
-        @endif
-    </fieldset>
-    <br/>
-
-
     <p>
         {{ Form::button('Save', ['type' => 'submit', 'class' => 'w3-btn w3-teal']) }}
     </p>
-</div>
+</fieldset>

@@ -16,6 +16,16 @@ class RestaurantController extends Controller
 {
 
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -24,7 +34,7 @@ class RestaurantController extends Controller
     {
         //FRONT
         //session guest_id
-        $restaurants = Restaurant::all();
+        $restaurants = Restaurant::paginate(3); //->orderBy('updated_at', 'desc')->get();
 
         return view('services.restaurant.index', compact('restaurants'));
     }
@@ -77,7 +87,7 @@ class RestaurantController extends Controller
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '1';
-                $restaurant = Restaurant::create($input);
+                $restaurant          = Restaurant::create($input);
                 DB::commit();
                 event(new NewOrderRequest($restaurant->service_id, $input['guest_id'], $restaurant->id));
 
@@ -111,8 +121,6 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
-        //FRONT recoger id del pedido
-        //session guest_id
         $guest = Guest::find($restaurant->guest_id);
 
         return view('services.restaurant.show', compact('restaurant', 'guest'));
@@ -177,15 +185,25 @@ class RestaurantController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param \Illuminate\Http\Request $request
+     * @param  int                     $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         Restaurant::find($id)->delete();
+        $totalOrders = Restaurant::all()->count();
+        if ($request->ajax()) {
+            $return = response()->json([
+                'total'   => $totalOrders,
+                'message' => 'Order number: ' . $id . ' was deleted',
+            ]);
+        } else {
+            $return = redirect()->back()->with('status', 'Guest deleted successfully');
+        }
 
-        return redirect()->back()->with('status', 'Guest deleted successfully');
+        return $return;
     }
 
     /**
@@ -194,11 +212,11 @@ class RestaurantController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function changeStatus($id)
-{
-    $restaurant         = Restaurant::findOrFail($id);
-    $restaurant->status = ($restaurant->status === '2') ? '1' : '2';
-    $restaurant->save();
+    {
+        $restaurant         = Restaurant::findOrFail($id);
+        $restaurant->status = ($restaurant->status === '2') ? '1' : '2';
+        $restaurant->save();
 
-    return response()->json($restaurant->status);
-}
+        return response()->json($restaurant->status);
+    }
 }

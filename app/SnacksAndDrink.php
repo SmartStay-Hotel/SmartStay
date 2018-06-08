@@ -6,12 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class SnacksAndDrink extends Model
 {
-    protected $fillable =
-        ['guest_id',
-        'product_type_id',
-        'order_date',
-        'price',
-        'quantity'];
+
+    protected $fillable
+        = [
+            'guest_id',
+            'product_type_id',
+            'order_date',
+            'price',
+            'quantity',
+            'status',
+        ];
 
     protected $attributes
         = [
@@ -21,5 +25,30 @@ class SnacksAndDrink extends Model
     public function productType()
     {
         return $this->belongsTo('App\ProductType');
+    }
+
+    public function guest()
+    {
+        return $this->belongsTo(Guest::class);
+    }
+
+    /**
+     * @return \___PHPSTORM_HELPERS\static|array|mixed
+     */
+    public static function getAllSnackAndDrinkOrders()
+    {
+        $snackDrinks = SnacksAndDrink::all();
+        if (count($snackDrinks) > 0) {
+            $serviceName = Services::getServiceName($snackDrinks[0]->service_id);
+            foreach ($snackDrinks as $key => $snackDrink) {
+                $snackDrink->serviceName = $serviceName;
+                $snackDrink->roomNumber  = ($snackDrink->guest->rooms[0]->number) ? $snackDrink->guest->rooms[0]->number
+                    : 'Snack and Drink id:' . $snackDrink->id;
+            }
+        } else {
+            $snackDrinks = [];
+        }
+
+        return $snackDrinks;
     }
 }

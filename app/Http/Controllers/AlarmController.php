@@ -9,10 +9,21 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class AlarmController extends Controller
 {
 
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -46,6 +57,7 @@ class AlarmController extends Controller
      * @param  \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function store(Request $request)
     {
@@ -131,9 +143,10 @@ class AlarmController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Alarm               $alarm
+     * @param                           $id
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function update(Request $request, $id)
     {
@@ -167,7 +180,7 @@ class AlarmController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Alarm $alarm
+     * @param $id
      *
      * @return \Illuminate\Http\Response
      */

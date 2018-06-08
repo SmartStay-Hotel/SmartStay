@@ -1,23 +1,22 @@
 @extends('admin.layout')
+@section('breadcrumb')
+    <li class="breadcrumb-item active" aria-current="page">Check in</li>
+@endsection
 @section('css')
     <style>
-        body {
-            overflow-y: auto !important;
-        }
     </style>
 @endsection
 @section('content')
-
-    <h2 id="checkInTitle">CHECK IN</h2>
-    <div class="col-sm-7" id="checkInTable">
-        <div class="panel-body">
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
+    <h2 id="checkInTitle"><i class="fas fa-sign-in-alt" style="padding: 5px;"></i>Check in<a href="#"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
+    <div class="flex-grid">
             @if (session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}
                 </div>
             @endif
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
+            <table class="table table-sm table-hover text-center" id="checkInTable">
+                <thead id="checkInTableHeader">
                 <tr>
                     <th valign="middle">#</th>
                     <th scope="col">Name</th>
@@ -53,7 +52,8 @@
                 @endforeach
                 </tbody>
             </table>
-        </div>
+
+    </div>
     </div>
 @endsection
 @section('scripts')

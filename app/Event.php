@@ -19,9 +19,30 @@ class Event extends Model
     {
         return $this->belongsTo('App\Event_types');
     }
+    public function guest()
+    {
+        return $this->belongsTo(Guest::class);
+    }
 
     protected $attributes
         = [
             'service_id' => 8,
         ];
+
+    public static function getAllEventOrders()
+    {
+        $events = Event::all();
+        if (count($events) > 0) {
+            $serviceName = Services::getServiceName($events[0]->service_id);
+            foreach ($events as $key => $event) {
+                $event->serviceName = $serviceName;
+                $event->roomNumber = ($event->guest->rooms[0]->number) ? $event->guest->rooms[0]->number
+                    : 'Event id:' . $event->id;
+            }
+        } else {
+            $events = [];
+        }
+
+        return $events;
+    }
 }
