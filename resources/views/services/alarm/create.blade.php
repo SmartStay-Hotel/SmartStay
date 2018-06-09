@@ -45,11 +45,11 @@
                 </div>
             @endif
 
-            {!! Form::open(['route' => 'alarm.store', null, 'method'=>'POST']) !!}
-            @include('services.alarm.partial.form')
-            {!! Form::close() !!}
 
         </table>
+        {!! Form::open(['route' => 'alarm.store', null, 'method'=>'POST']) !!}
+        @include('services.alarm.partial.form')
+        {!! Form::close() !!}
     </div>
 @endsection
 

@@ -10,4 +10,13 @@ class ProductType extends Model
     {
         return $this->hasMany('App\SnacksAndDrink');
     }
+
+    /**
+     * @param $id
+     *
+     * @return mixed
+     */
+    public static function getPriceById($id) {
+        return self::find($id)->price;
+    }
 }
