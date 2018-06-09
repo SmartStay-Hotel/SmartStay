@@ -1,9 +1,4 @@
 @extends('admin.layout')
-@section('css')
-    <style>
-
-    </style>
-@endsection
 @section('content')
 
     <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px; margin-bottom: 20px;">
@@ -15,17 +10,17 @@
         </div>
     </div>
 
-    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px; margin-bottom: 20px;">
     <div id="accordion">
         <div class="card">
             <div id="headingOne">
-                <h5 class="card-header text-center" id="pendingOrdersHeader" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <h5 class="card-header text-center" id="newOrdersHeader" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         NEW ORDERS
                 </h5>
             </div>
 
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body">
+                <div class="card-body" id="newOrdersBody">
                     <h5 class="card-title text-center">
                         <span style="padding: 10px;">Service</span>
                         <span>-</span>
@@ -37,17 +32,53 @@
                     <div id="test-list3">
                         <ul class="list" id="dispatchedOrdersList">
                             <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
                             </li>
                             <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
                             </li>
                             <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
                             </li>
 
                         </ul>
-                        <!--<ul class="pagination3"></ul>-->
+                        <ul class="pagination"></ul>
                     </div>
                 </div>
             </div>
@@ -56,10 +87,17 @@
             </div>
         </div>
 
+
     <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
     <div class="flex-grid">
-        <div class="card text-center">
-            <h5 class="card-header" id="pendingOrdersHeader">PENDING ORDERS</h5>
+        <div id="accordion2">
+            <div class="card">
+                <div id="headingTwo">
+                    <h5 class="card-header text-center" id="pendingOrdersHeader" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        PENDING ORDERS
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion2">
             <div class="card-body" id="pendingOrdersBody">
                 <h5 class="card-title text-center">
                     <span style="padding: 10px;">Service</span>
@@ -69,7 +107,7 @@
                     <span style="padding: 10px;">Room Nr</span>
 
                 </h5>
-                <div id="test-list" >
+                <div id="test-list">
                 <ul class="list" id="dispatchedOrdersList">
 
                         @foreach($services->sortBy('updated_at') as $service)
@@ -82,7 +120,7 @@
                                         <span style="padding: 10px;">-</span>
                                         <span style="padding: 10px;">{{ $service->roomNumber }}</span>
                                         <input type="checkbox"
-                                               name="{{ $service->serviceName .'/'.$service->id }}" id="pending"
+                                               name="{{ $service->serviceName .'/'.$service->id }}"
                                                @if ($service->status == '2') checked @endif style="float:right">
                                     </a>
                                 </li>
@@ -90,100 +128,27 @@
                             @endif
                         @endforeach
 
-                        <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                            <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                        </li>
-                        <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                            <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                        </li>
-                        <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                            <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                        </li>
 
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                            </li>
-
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                            </li>
-
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                            </li>
-
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                            </li>
-
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                            </li>
-
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                            </li>
-
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i style="display: block;" class="fas fa-check"></i></button>
-                            </li>
-
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i style="display: block" class="fas fa-check"></i></button>
-                            </li>
 
                     </ul>
                     <ul class="pagination"></ul>
                 </div>
                 </div>
             </div>
+            </div>
+        </div>
 
+        <div id="accordion3">
         <div class="card text-center">
-            <h5 class="card-header" id="dispatchedOrdersHeader">DISPATCHED ORDERS</h5>
+            <div id="headingThree">
+                <h5 class="card-header text-center" id="dispatchedOrdersHeader" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                    DISPATCHED ORDERS
+                </h5>
+            </div>
+            <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion3">
+
             <div class="card-body" id="dispatchedOrdersBody">
-                <h5 class="card-title text-cnter">
+                <h5 class="card-title text-center">
                     <span style="padding: 10px;">Service</span>
                     <span>-</span>
                     <span style="padding: 10px;">Customer</span>
@@ -204,7 +169,7 @@
                                         <span style="padding: 10px;">-</span>
                                         <span style="padding: 10px;">{{ $service->roomNumber }}</span>
                                         <input type="checkbox"
-                                               name="{{ $service->serviceName .'/'.$service->id  }}" id="pending"
+                                               name="{{ $service->serviceName .'/'.$service->id  }}"
                                                @if ($service->status == '2') checked @endif style="float:right">
                                     </a>
                                 </li>
@@ -271,10 +236,10 @@
             </div>
         </div>
     </div>
+    </div>
 @endsection
 @section('scripts')
     <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 
     <script>
@@ -286,6 +251,12 @@
         });
 
         var secondList = new List('test-list2', {
+            valueNames: ['name'],
+            page: 10,
+            pagination: true
+        });
+
+        var thirdList = new List('test-list3', {
             valueNames: ['name'],
             page: 10,
             pagination: true
@@ -325,6 +296,17 @@
                 window.location = data.goToShow.toLowerCase();
             };
             toastr.success(data.message, 'New Order:');
+
+            var li = $('<li>\n' +
+                        '<a href="' + data.goToShow.toLowerCase() + '">\n' +
+                        '<span>' + data.serviceName + '</span>\n' +
+                        '<span>' + data.roomNumber + '</span>\n' +
+                        '<input type="checkbox"\n' + 'name="'+ data.serviceName + '/' + data.orderId +'" style="float:right">\n' +
+                        '</a>\n' + '</li>').hide();
+
+            $('#pendingOrdersList').append(li);
+            li.fadeIn('slow');
+
         });
     </script>
     <script>
@@ -337,25 +319,39 @@
                 var $this = this;
                 var route = 'service/status' + event.target.name + '';
                 if ($($this).is(':checked')) {
+                    var li = $($this).parents('li');
 
                     toastr.options = {'closeButton': false, 'timeOut': false, 'closeOnHover': false};
                     toastr.warning('<div><button type="button" id="cancelBtn" class="btn btn-primary">Cancel</button><button type="button" id="okBtn" class="btn" style="margin: 0 8px 0 8px">Ok</button></div>', 'Is it already completed?');
 
-                    $('#okBtn').click(function () {
+                    $('#okBtn').click(function (e) {
+                        e.preventDefault();
+                        $(li).hide().prependTo('#dispatchedOrdersList').fadeIn('slow');
                         $.get(route, function (response, status) {
-                            location.reload();
+                            $this.checked = true;
                             console.log("Completed " + response);
+                        }).fail(function () {
+                            $(li).hide().appendTo('#pendingOrdersList').fadeIn('slow');
+                            toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                            toastr.warning('Something went wront', 'Alert!');
                         });
                     });
 
-                    $('#cancelBtn, #toast-container').click(function () {
+                    $('#cancelBtn, #toast-container').click(function (e) {
+                        e.preventDefault();
                         $this.checked = false;
                     });
 
                 } else {
+                    var li = $($this).parents('li');
+                    $(li).hide().appendTo('#pendingOrdersList').fadeIn('slow');
                     $.get(route, function (response, status) {
-                        location.reload();
                         console.log("In process " + response);
+                    }).fail(function () {
+                        $(li).hide().prependTo('#dispatchedOrdersList').fadeIn('slow');
+                        $this.checked = true;
+                        toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                        toastr.warning('Something went wront', 'Alert!');
                     });
                 }
             });

@@ -183,10 +183,15 @@ main #formLayout{
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
 }
 
-#newOrdersHeader{
-    background-color: red;
-    color: white;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+#pendingOrdersList{
+    list-style-type: none;
+}
+
+#pendingOrdersList > li{
+    border: 1px solid #979898;
+    padding: 10px;
+    text-align: left;
+    font-size: 1vw;
 }
 
 #dispatchedOrdersList{
@@ -209,6 +214,11 @@ main #formLayout{
     text-decoration: none;
 }
 
+#newOrdersHeader{
+    background-color: #C82333;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
 #pendingOrdersHeader{
     background-color: #F39C12;
@@ -219,6 +229,12 @@ main #formLayout{
 #dispatchedOrdersHeader{
     background-color: #218838;
     color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#newOrdersBody{
+    border-style: solid;
+    border-color: #C82333;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -430,11 +446,6 @@ z-index: 1;
 }
 
 /* Guests */
-#guestTableContainer{
-    margin-left: 22.5%;
-    margin-top: 3%;
-}
-
 ::-webkit-scrollbar {
     display: none;
 }

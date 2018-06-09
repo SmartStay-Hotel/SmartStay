@@ -6,9 +6,24 @@ use App\Guest;
 use App\SpaAppointment;
 use App\SpaType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class SpaAppointmentController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +43,12 @@ class SpaAppointmentController extends Controller
     public function create()
     {
         $guests = Guest::all();
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests = $guests->pluck('guestRoomNumber', 'id');
         $spaTypes = SpaType::all();
+
         return view('services.spa.create', compact('guests', 'spaTypes'));
     }
 
@@ -40,6 +60,28 @@ class SpaAppointmentController extends Controller
      */
     public function store(Request $request)
     {
+        $input = Input::all();
+
+        if ($request->ajax()) {
+            if (Session::exists('guest_id')) {
+                $input['guest_id'] = Session::get('guest_id');
+            } else {
+                return response()->json(['status' => false]);
+            }
+        }
+
+        $rules = [
+            'guest_id'           => 'required|numeric',
+            'day_hour'           => 'required|date',
+            'treatment_type_id'  =>'required|numeric',
+        ];
+        $validator = Validator::make($input, $rules);
+
+        if ($validator->passes()) {
+            DB::beginTransaction();
+            DB::commit();
+        }
+/////////////////////// OLD Code //////////////////////////
         $order_date = date('Y-m-d');
 
         $request->validate([

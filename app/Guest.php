@@ -21,6 +21,13 @@ class Guest extends Model
         return $this->hasMany(Restaurant::class);
     }
 
+    public function houseKeepings()
+    {
+        return $this->hasMany(Housekeeping::class);
+    }
+
+
+    //Métodos del modelo Guest
     public static function getGuestsByCheckoutDate()
     {
         $guests = Guest::whereHas('rooms', function ($q) {
@@ -37,11 +44,5 @@ class Guest extends Model
         })->get();
 
         return $guests;
-    }
-
-    public static function getRoomByGuestId($id)
-    {
-        $room = self::find($id)->rooms[0];
-        return $room;
     }
 }

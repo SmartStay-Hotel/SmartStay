@@ -1,14 +1,15 @@
 @extends('admin.layout')
 
 @section('css')
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 @endsection
 
 @section('content')
-    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
+    <div class="card"
+         style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
 
-    <h2 id="serviceTitle"><i class="fas fa-time" style="padding: 5px;"></i>Alarm<a href="{{ route('alarm.create') }}"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
-    <table class="table table-sm table-hover text-center" id="serviceTable">
+        <h2 id="serviceTitle"><i class="fas fa-time" style="padding: 5px;"></i>Alarm<a
+                    href="{{ route('alarm.create') }}"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
+        <table class="table table-sm table-hover text-center" id="serviceTable">
             @if (session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}
@@ -34,13 +35,13 @@
                                                    @if ($alarm->status == '2') checked @endif></td>
                     <td>
                         <a href="{{ route('alarm.show', $alarm->id) }}" class="show-modal btn btn-success">
-                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span class="far fa-eye"></span>
                         </a>
                         <a href="{{ route('alarm.edit', $alarm->id) }}" class="edit-modal btn btn-info">
-                            <span class="glyphicon glyphicon-edit"></span>
+                            <span class="far fa-edit"></span>
                         </a>
                         {!! Form::open(['method' => 'DELETE','route' => ['alarm.destroy', $alarm->id], 'style'=>'display:inline']) !!}
-                        {!! Form::button('<span class="glyphicon glyphicon-trash"></span>', array('type' => 'submit', 'class' => 'delete-modal btn btn-danger')) !!}
+                        {!! Form::button('<span class="far fa-trash-alt"></span>', array('type' => 'submit', 'class' => 'delete-modal btn btn-danger')) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>
@@ -54,15 +55,24 @@
     <script>
         $(document).ready(function () {
             $(':checkbox').change(function (event) {
-                var route = 'statusAlarm/' + event.target.name + '';
-                if ($(this).is(':checked')) {
-                    if (confirm("Is it already completed?")) {
+                var $this = this;
+                var route = 'statusRestaurant/' + event.target.name + '';
+                if ($($this).is(':checked')) {
+
+                    toastr.options = {'closeButton': false, 'timeOut': false, 'closeOnHover': false};
+                    toastr.warning('<div><button type="button" id="cancelBtn" class="btn btn-primary">Cancel</button><button type="button" id="okBtn" class="btn" style="margin: 0 8px 0 8px">Ok</button></div>', 'Is it already completed?');
+
+
+                    $('#okBtn').click(function () {
                         $.get(route, function (response, state) {
+                            $this.checked = true;
                             console.log("Completed " + response);
                         });
-                    } else {
-                        this.checked = false;
-                    }
+                    });
+
+                    $('#cancelBtn, #toast-container').click(function () {
+                        $this.checked = false;
+                    });
                 } else {
                     $.get(route, function (response, state) {
                         console.log("In process " + response);

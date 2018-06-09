@@ -16,6 +16,16 @@ class GuestController extends Controller
 {
 
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -229,7 +239,7 @@ class GuestController extends Controller
         $room->status = ! $room->status;
         $room->save();
 
-        //return response()->json($room->status);
+//        return response()->json($room->status);
     }
 
     /**

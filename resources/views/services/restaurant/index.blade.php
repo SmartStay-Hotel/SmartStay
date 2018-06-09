@@ -27,14 +27,14 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($restaurants as $indexKey => $restaurant)
+            @foreach($restaurants->sortByDesc('updated_at') as $indexKey => $restaurant)
                 <tr>
                     <td>{{ ++$indexKey }}</td>
                     <td>{{ $restaurant->guest->firstname . ' ' . $restaurant->guest->lastname }}</td>
                     <td> {{ $restaurant->guest->rooms[0]->number }} </td>
                     <td>{{ $restaurant->day_hour }}</td>
                     <td> {{ $restaurant->quantity }} </td>
-                    <td class="text-center"><input type="checkbox" name="{{ $restaurant->id }}" id="completed"
+                    <td class="text-center"><input type="checkbox" name="{{ $restaurant->id }}"
                                                    @if ($restaurant->status == '2') checked @endif></td>
                     <td>
                         <a href="{{ route('restaurant.show', $restaurant->id) }}" class="show-modal btn btn-success">
@@ -44,13 +44,17 @@
                             <span class="far fa-edit"></span>
                         </a>
                         {!! Form::open(['method' => 'DELETE','route' => ['restaurant.destroy', $restaurant->id], 'style'=>'display:inline']) !!}
-                        {!! Form::button('<span class="far fa-trash-alt"></span>', array('type' => 'submit', 'class' => 'delete-modal btn btn-danger')) !!}
+                        {!! Form::button('<span class="far fa-trash-alt"></span>', array('type' => 'submit', 'class' => 'btn-delete btn btn-danger')) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
+        {{ $restaurants->render() }}
+        <p>
+            <span id="restaurantTotal">{{ $restaurants->total() }}</span> orders | page {{ $restaurants->currentPage() }} of {{ $restaurants->lastPage() }}
+        </p>
     </div>
 @endsection
 
@@ -70,6 +74,9 @@
                         $.get(route, function (response, state) {
                             $this.checked = true;
                             console.log("Completed " + response);
+                        }).fail(function () {
+                            toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                            toastr.warning('Something went wront', 'Alert!');
                         });
                     });
 
@@ -81,9 +88,40 @@
                 } else {
                     $.get(route, function (response, state) {
                         console.log("In process " + response);
+                    }).fail(function () {
+                        $this.checked = true;
+                        toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                        toastr.warning('Something went wront', 'Alert!');
                     });
                 }
             });
+
+
+            $('.btn-delete').click(function (e) {
+                var $this = this;
+                e.preventDefault();
+                toastr.options = {'closeButton': true, 'timeOut': false, 'closeOnHover': false};
+                toastr.error('<button type="button" class="btn-yes btn">Yes</button>', 'You are about to delete a order!');
+                $('.btn-yes').click(function () {
+                    var row = $($this).parents('tr');
+                    var form = $($this).parents('form');
+                    var url = form.attr('action');
+
+                    row.fadeOut();
+                    $.post(url, form.serialize(), function (result) {
+                        $('#restaurantTotal').html(result.total);
+                        toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                        toastr.success(result.message);
+                    }).fail(function () {
+                        row.fadeIn();
+                        toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                        toastr.warning('Something went wront', 'Alert!');
+                    });
+
+                });
+            });
+
+
         });
     </script>
 @endsection
