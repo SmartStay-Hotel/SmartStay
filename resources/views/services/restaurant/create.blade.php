@@ -45,11 +45,11 @@
                 </div>
             @endif
 
-            {!! Form::open(['route' => 'restaurant.store', null, 'method'=>'POST']) !!}
-            @include('services.restaurant.partial.form')
-            {!! Form::close() !!}
 
         </table>
+        {!! Form::open(['route' => 'restaurant.store', null, 'method'=>'POST']) !!}
+        @include('services.restaurant.partial.form')
+        {!! Form::close() !!}
     </div>
 @endsection
 

@@ -21,6 +21,11 @@ class Guest extends Model
         return $this->hasMany(Restaurant::class);
     }
 
+    public function snacks()
+    {
+        return $this->hasMany(SnacksAndDrink::class);
+    }
+
     public function houseKeepings()
     {
         return $this->hasMany(Housekeeping::class);

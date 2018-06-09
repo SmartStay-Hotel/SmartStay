@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Guest;
 use App\ProductType;
 use App\SnacksAndDrink;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -59,11 +60,12 @@ class SnacksAndDrinkController extends Controller
      * @param  \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function store(Request $request)
     {
         $input = Input::all();
-
+        //dd($input);
         if ($request->ajax()) {
             if (Session::exists('guest_id')) {
                 $input['guest_id'] = Session::get('guest_id');
@@ -73,45 +75,53 @@ class SnacksAndDrinkController extends Controller
         }
 
         $rules     = [
-            'guest_id'        => 'required|numeric',
-            'day_hour'        => 'required|date',
-            'quantity1'       => 'required|numeric',
-            'product_type_id' => 'required|numeric',
+            'guest_id'          => 'required|numeric',
+            'product_type_id.*' => 'required|numeric',
+            'quantity.*'        => 'required|numeric|min:1',
         ];
         $validator = Validator::make($input, $rules);
 
         if ($validator->passes()) {
-            DB::beginTransaction();
-            DB::commit();
-        }
-        /////////////////////// OLD Code //////////////////////////
-        $request->validate([
-            'quantity1' => 'required',
-            'quantity2' => 'required',
-        ]);
-        $order_date = date('Y-m-d');
-        //Trip_types::find($trip->id); Obtener el precio de la tabla Tryp_types
-        SnacksAndDrink::create([
-            'guest_id'        => $request->guest,
-            'order_date'      => $order_date,
-            //Revisar!!! Existen varias opciones:
-            //Hay que idear la forma de poder guardar, en la misma petición más de un producto.
-            //- Replantear las tablas snacks_and_Drink y Product_types
-            //- Permitir poder guardar más de un producto en la petición (order) y sus respectivas cantidades.
-            //- Ejemplo el guest, pide un snack(x2) y una bebida(x2), permitir perdir dos productos en la misma orden.
-            //Posible solución: Rectificar la tabla, añadir una columna para snacks y otra para drinks con sus cantidades.
-            //Otra solución, permitir en product_type_id, guardar más de un tipo de producto y en quantity las dos cantidades juntas.
-            //Ser capaces de hacer la relación con product_types.
-            //Seria interesante que se puedieran pedir más de dos productos en una misma orden, los que el guest desee. Guardar en la base de datos una lista de productos y cantidades.
-            'quantity'        => $request->quantity1,
-            //.$request->quantity2,
-            'product_type_id' => $request->producttype1,
-            //.$request->producttype2,
-            'price'           => 5.5,
-            'status'          => '1',
-        ]);
+            try {
+                DB::beginTransaction();
+                $input['order_date'] = Carbon::today();
+                $input['status']     = '1'; //será cambiado a cero al actualizar la bbdd
+                $input['price']      = 0;
+                $guest               = Guest::find($input['guest_id']);
+                foreach ($input['product_type_id'] as $key => $value) {
+                    $guest->snacks()->save(
+                        new SnacksAndDrink([$input['guest_id'],
+                            $input['product_type_id'][$key],
+                            $input['quantity'][$key],
+                            $input['price'] = ProductType::getPriceById($input['product_type_id'][$key])
+                                * $input['quantity'][$key],
+                            $input['status'],
+                            $input['order_date']])
+                    );
+                }
 
-        return redirect('/service/snackdrink');
+                DB::commit();
+                //event(new NewOrderRequest($restaurant->service_id, $input['guest_id'], $restaurant->id));
+
+                if ($request->ajax()) {
+                    $return = ['status' => true];
+                } else {
+                    $return = redirect()->route('snackdrink.index')->with('status', 'Order added successfully.');
+                }
+            } catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        } else {
+            // No pasó el validador
+            if ($request->ajax()) {
+                $return = ['status' => false];
+            } else {
+                $return = redirect()->route('snackdrink.create')->withErrors($validator->getMessageBag());
+            }
+        }
+
+        return $return;
     }
 
     /**

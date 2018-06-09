@@ -45,21 +45,22 @@
                 </div>
             @endif
 
-            {!! Form::open(['route' => 'snackdrink.store', null, 'method'=>'POST']) !!}
-            @include('services.snackdrink.partial.form')
-            {!! Form::close() !!}
-
         </table>
+        {!! Form::open(['route' => 'snackdrink.store', null, 'method'=>'POST']) !!}
+        @include('services.snackdrink.partial.form')
+        {!! Form::close() !!}
     </div>
 @endsection
 
 @section('scripts')
     <script>
-    $(document).ready(function () {
-       $('#addProduct').click(function (e) {
-           e.preventDefault();
-           console.log($(this).parents('products'));
-       })
-    });
+        $(document).ready(function () {
+            $('#addProduct').click(function (e) {
+                e.preventDefault();
+                var children = $('#products').clone();
+                $(children).find('#addProduct').remove().end();
+                $(children).children().appendTo('#products');
+            });
+        });
     </script>
 @endsection
