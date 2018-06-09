@@ -54,16 +54,6 @@
         body {
             overflow-y: auto !important;
         }
-
-
-        #manageGuestTitle{
-            margin-left: 30%;
-            margin-right: 11.7%;
-            margin-top: 3%;
-            padding: 10px;
-            color: white;
-            background-color: #DC3545;
-        }
     </style>
 @endsection
 @section('content')

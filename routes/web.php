@@ -58,7 +58,7 @@ Route::group(['middleware' => 'language'], function () {
         return $trips;
     });
     Route::get('events', function () {
-        $events = \App\Event::get();
+        $events = \App\Event_types::get();
 
         return $events;
     });

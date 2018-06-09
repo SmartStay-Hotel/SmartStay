@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewOrderRequest;
 use App\Guest;
+use Carbon\Carbon;
 use App\Housekeeping;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class HousekeepingController extends Controller
 {
@@ -53,13 +59,55 @@ class HousekeepingController extends Controller
      * @param  \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function store(Request $request)
     {
-        //En este caso seria interesante añadir en el form campos ocultos:
-        // --> service_id
-        //Revisar el tema de los precios!! Quizás debería ser un valor dinamico
 
+        $input = Input::all();
+        $input [].= (Input::has('bed_sheets')) ? true : false;
+       dd($input);
+        if ($request->ajax()) {
+            if (Session::exists('guest_id')) {
+                $input['guest_id'] = Session::get('guest_id');
+            } else {
+                return response()->json(['status' => false]);
+            }
+        }
+        $rules     = [
+            'guest_id' => 'required|numeric',
+        ];
+
+        $validator = Validator::make($input, $rules);
+
+        if ($validator->passes()) {
+            try {
+                DB::beginTransaction();
+                $input['order_date'] = Carbon::today();
+                $input['status']     = '1';
+                $housekeeping          = Housekeeping::create($input, $request);
+                DB::commit();
+                event(new NewOrderRequest($housekeeping->service_id, $input['guest_id'], $housekeeping->id));
+
+                if ($request->ajax()) {
+                    $return = ['status' => true];
+                } else {
+                    $return = redirect()->route('housekeeping.index')->with('status', 'Order added successfully.');
+                }
+            } catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        } else {
+            // No pasó el validador
+            if ($request->ajax()) {
+                $return = ['status' => false];
+            } else {
+                $return = redirect()->route('housekeeping.create')->withErrors($validator->getMessageBag());
+            }
+        }
+        return $return;
+        /* ////// OLD ////
         $order_date = date('Y-m-d');
         Housekeeping::create([
             'guest_id'   => $request->guest,
@@ -76,12 +124,13 @@ class HousekeepingController extends Controller
         ]);
 
         return redirect('/service/housekeeping');
+        */
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param \App\Housekeeping $housekeeping
      *
      * @return \Illuminate\Http\Response
      */
@@ -95,30 +144,63 @@ class HousekeepingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param \App\Housekeeping $housekeeping
      *
      * @return \Illuminate\Http\Response
      */
     public function edit(Housekeeping $housekeeping)
     {
-        //Pasarle el guest parar poder modificarlo
         $guests = Guest::all();
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests = $guests->pluck('guestRoomNumber', 'id');
 
-        //Falta que el select del edit.blade se quede seleccionado con el guest correcto
-        return view('services.housekeeping.edit', compact('housekeeping', 'guests'));
+        return view('services.housekeeping.edit', compact('guests', 'housekeeping'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function update(Request $request, $id)
     {
+        //No hay nada que evaluar salvo el guest
+
+        $input     = Input::all();
+        $rules     = [
+            'guest_id' => 'required|numeric',
+        ];
+
+        $validator = Validator::make($input, $rules);
         //$housekeeping->Input::all();
+
+        if ($validator->passes()) {
+            try {
+                DB::beginTransaction();
+                //$input['order_date'] = Carbon::today();
+                //$input['status']     = 1;
+                $housekeeping = Housekeeping::find($id);
+                $housekeeping->update($input);
+                DB::commit();
+
+                $return = redirect()->route('housekeeping.index')->with('status', 'Order updated successfully.');
+            } catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        } else {
+            $return = redirect()->route('restaurant.edit', $id)->withErrors($validator->getMessageBag());
+        }
+
+        return $return;
+
+        /*////////////// OLD /////////////////
         $order_date = date('Y-m-d');
 
         //recoger el valor del select de editar!!!
@@ -137,6 +219,7 @@ class HousekeepingController extends Controller
         ]);
 
         return redirect('/service/housekeeping');
+        */
     }
 
     /**
@@ -146,10 +229,28 @@ class HousekeepingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         Housekeeping::find($id)->delete();
+        $totalOrders = Housekeeping::all()->count();
+        if ($request->ajax()) {
+            $return = response()->json([
+                'total'   => $totalOrders,
+                'message' => 'Order number: ' . $id . ' was deleted',
+            ]);
+        } else {
+            $return = redirect()->back()->with('status', 'Guest deleted successfully');
+        }
 
-        return redirect('/service/housekeeping');
+        return $return;
+    }
+
+    public function changeStatus($id)
+    {
+        $housekeeping         = Housekeeping::findOrFail($id);
+        $housekeeping->status = ($housekeeping->status === '2') ? '1' : '2';
+        $housekeeping->save();
+
+        return response()->json($housekeeping->status);
     }
 }

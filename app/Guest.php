@@ -50,10 +50,4 @@ class Guest extends Model
 
         return $guests;
     }
-
-    public static function getRoomByGuestId($id)
-    {
-        $room = self::find($id)->rooms[0];
-        return $room;
-    }
 }
