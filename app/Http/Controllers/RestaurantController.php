@@ -105,7 +105,7 @@ class RestaurantController extends Controller
             // No pasó el validador
             if ($request->ajax()) {
                 //$return = ['status' => false];
-                return; //cambio para Cristian
+                //return; //cambio para Cristian
             } else {
                 $return = redirect()->route('restaurant.create')->withErrors($validator->getMessageBag());
             }
