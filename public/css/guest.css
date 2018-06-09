@@ -402,14 +402,6 @@ nav {
     box-shadow: var(--shadows);
 }
 
-.windowTitle {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    background: white;
-    color: black;
-    padding: 20px;
-}
 
 /*.windowService{*/
 /*width:60%;*/
@@ -425,10 +417,10 @@ nav {
 /*}*/
 .returnWindow {
     color: black;
-    left: -500px;
+
     background-color: transparent;
     border: none;
-    font-size: 30px;
+    font-size: 120%;
 }
 
 .returnWindow:hover {
@@ -441,21 +433,28 @@ nav {
     justify-content: space-between;
     background: white;
     color: black;
-    padding: 20px;
+    padding: 3%;
+}
+.windowTitle > h2{
+
+    font-size:140%;
 }
 
 .windowDesc {
     background-color: var(--colorSubMenu);
-    padding: 10px;
+    padding: 2%;
     color: white;
+    font-size:100%;
 }
 
 .windowContent {
     padding: 2%;
+    font-size:100%;
 }
 
 .windowContent label {
-    width: 150px;
+    width:30%;
+
 }
 label[for^="order"]{
     width:10%;
@@ -506,6 +505,7 @@ input[type="submit"]:active {
 }
 .windowNav{
     background-color: var(--colorNav);
+    font-size:70%;
 }
 .windowNav >ul{
     list-style-type: none;

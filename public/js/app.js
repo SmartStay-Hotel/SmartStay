@@ -14378,21 +14378,20 @@ new Vue({
         spaTypes: [],
         window: [false, false, false, false, false, false, false],
         show: false,
-        guestOut: true,
-        showMenuOut: true,
         tripSelected: "",
         eventSelected: "",
         spaSelected: "",
         numPersonsTrip: 1,
         statusRoom: "",
-        showModal: false,
+        showModalHK: false,
         dayHourServ: '',
         quantityServ: '',
         showResult: false,
         numSnacks: ['1'],
         numDrinks: ['1'],
         showSnack: ['true'],
-        pruebaOrder: []
+        pruebaOrder: [],
+        statusGuest: false
 
     },
     methods: {
@@ -14439,13 +14438,9 @@ new Vue({
         },
         showOut: function showOut() {
             axios.get(urlChangeStatusRoom);
-            this.guestOut = !this.guestOut;
-            this.showMenuOut = !this.showMenuOut;
+            this.showModalHK = true;
         },
-        showOut2: function showOut2() {
-            this.guestOut = !this.guestOut;
-            this.showMenuOut = !this.showMenuOut;
-        },
+
         setPriceTrip: function setPriceTrip(price) {
             return this.numPersonsTrip * price;
         },

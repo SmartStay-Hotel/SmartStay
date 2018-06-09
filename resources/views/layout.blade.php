@@ -39,7 +39,7 @@
 
                     <label class="switch">
 
-                        <input type="checkbox" v-model="statusRoom" @click="showModal = true" checked>
+                        <input type="checkbox" v-model="statusRoom" @click="showOut">
                         <span class="slider"></span>
                     </label>
                 </div>
@@ -52,7 +52,7 @@
     </div>
 {{--@{{ $data }}--}}
 
-    <housekeeping v-if="showModal" @close="showModal = false">
+    <housekeeping v-if="!statusRoom && showModalHK" @close="showModalHK = false">
 
     </housekeeping>
 
