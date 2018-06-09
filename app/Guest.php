@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Guest extends Model
@@ -36,7 +37,7 @@ class Guest extends Model
     public static function getGuestsByCheckoutDate()
     {
         $guests = Guest::whereHas('rooms', function ($q) {
-            $q->where('checkout_date', '=', \Carbon\Carbon::today()->toDateString());
+            $q->where('checkout_date', '=', Carbon::today()->toDateString());
         })->get();
 
         return $guests;
@@ -45,9 +46,15 @@ class Guest extends Model
     public static function getGuestsByCheckinDate()
     {
         $guests = Guest::whereHas('rooms', function ($q) {
-            $q->where('checkin_date', '=', \Carbon\Carbon::today()->toDateString());
+            $q->where('checkin_date', '=', Carbon::today()->toDateString());
         })->get();
 
         return $guests;
+    }
+
+    public static function getRoomByGuestId($id)
+    {
+        $room = self::find($id)->rooms[0];
+        return $room;
     }
 }
