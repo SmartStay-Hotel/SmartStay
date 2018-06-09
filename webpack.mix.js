@@ -19,13 +19,13 @@ let mix = require('laravel-mix');
 //     'resources/assets/js/axios.js',
 //     'resources/assets/js/app.js'
 // ], 'public/js/app.js')
-mix.js('resources/assets/js/app.js', 'public/js')
+/*mix.js('resources/assets/js/app.js', 'public/js')
     .styles([
         'resources/assets/css/bootstrap.css',
         'resources/assets/css/toastr.css',
         'resources/assets/css/app.css'
     ], 'public/css/app.css');
-
+*/
 
 //-------------------ADMIN --------------------------
 mix.js(['resources/assets/js/jquery.js',

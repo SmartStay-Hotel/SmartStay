@@ -48,6 +48,6 @@
     {!! Form::date('checkout_date', \Carbon\Carbon::tomorrow(), ['class' => 'form-control']) !!}
     <br/>
     <p>
-        {{ Form::button('Save', ['type' => 'submit', 'class' => '']) }}
+        {{ Form::button('Save', ['type' => 'submit', 'class' => 'btn btn-secondary']) }}
     </p>
 </fieldset>

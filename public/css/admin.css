@@ -203,6 +203,21 @@ main #formLayout{
     padding: 10px;
     text-align: left;
     font-size: 1vw;
+
+}
+
+#dispatchedOrdersList a{
+    color: black;
+}
+
+#dispatchedOrdersList a:hover {
+    text-decoration: none;
+}
+
+#newOrdersHeader{
+    background-color: #C82333;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #pendingOrdersHeader{
@@ -214,6 +229,12 @@ main #formLayout{
 #dispatchedOrdersHeader{
     background-color: #218838;
     color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#newOrdersBody{
+    border-style: solid;
+    border-color: #C82333;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
