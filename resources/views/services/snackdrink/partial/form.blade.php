@@ -10,12 +10,12 @@
     @endif
     <br/><br/>
     <div id="products">
-    <label>Products</label>
+    <label>Products:&nbsp;</label>
     {!! Form::select('product_type_id[]', $productTypes, ['class' => 'form-control'], ['placeholder' => '--- Choose a product ---']) !!}
         <button type="button" id="addProduct" class="btn">+</button>
     <br/>
-    <label>How many?</label>
-    {!! Form::number('quantity[]', 1, ['class' => 'form-control']) !!}
+    <label>How many? </label>
+        {!! Form::number('quantity[]', 0, ['class' => 'form-control']) !!}
     <br/>
     </div>
     <p>

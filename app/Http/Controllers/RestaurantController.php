@@ -92,7 +92,8 @@ class RestaurantController extends Controller
                 event(new NewOrderRequest($restaurant->service_id, $input['guest_id'], $restaurant->id));
 
                 if ($request->ajax()) {
-                    $return = ['status' => true];
+                    //$return = ['status' => true];
+                    return; //cambio para Cristian
                 } else {
                     $return = redirect()->route('restaurant.index')->with('status', 'Order added successfully.');
                 }
@@ -103,7 +104,8 @@ class RestaurantController extends Controller
         } else {
             // No pasó el validador
             if ($request->ajax()) {
-                $return = ['status' => false];
+                //$return = ['status' => false];
+                //return; //cambio para Cristian
             } else {
                 $return = redirect()->route('restaurant.create')->withErrors($validator->getMessageBag());
             }
