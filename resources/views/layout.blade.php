@@ -50,7 +50,7 @@
     <div id="main_container" ><!-- v-bind:class="[!showMenuOut && !guestOut ? 'blur' : '']" -->
         @yield('content')
     </div>
-{{--@{{ $data }}--}}
+@{{ $data }}
 
     <housekeeping v-if="!statusRoom && showModalHK" @close="showModalHK = false">
 

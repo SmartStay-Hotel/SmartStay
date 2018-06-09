@@ -94,7 +94,8 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
             numDrinks:['1'],
             showSnack:['true'],
             pruebaOrder:[],
-            statusGuest: false
+            statusGuest: false,
+            errores: "",
 
 
 
@@ -153,8 +154,11 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
                     quantity: this.quantityServ
                 }).then(response=>{
                     this.showResult = true;
-
                     toastr.success("jeje");
+                }).catch(error=>{
+                    toastr.success("jojoj");
+                    this.errores = error.response.data;
+
                 })
                 // this.pruebaOrder=response.data;
             },
