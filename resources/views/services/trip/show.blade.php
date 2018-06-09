@@ -1,5 +1,8 @@
 @extends('layouts.app')
-
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('trip.index') }}">Trips</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Show Trip</li>
+@endsection
 @section('content')
     <h1>Showing Trip Order: {{ $trip->id }}</h1>
     <div class="pull-right">

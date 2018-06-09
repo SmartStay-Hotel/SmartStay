@@ -6,7 +6,7 @@
 
         <table class="table table-sm table-hover text-center" id="alarmTable">
             <thead id="alarmTableHeader">
-            <tr><h2 id="alarmTitle"><i class="far fa-clock" style="padding: 5px;"></i>Alarm<a href="#"><i id="addGuest"
+            <tr><h2 id="alarmTitle"><i id="addGuestManage" class="far fa-clock" style="padding: 5px;"></i>Alarm<a href="#"><i id="addGuest"
                                                                                                           class="fas fa-user-plus"
                                                                                                           style="padding-left: 80%; color: white; z-index: 1;"></i></a>
                 </h2></tr>

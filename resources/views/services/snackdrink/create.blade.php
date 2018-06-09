@@ -1,5 +1,8 @@
 @extends('admin.layout')
-
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('snackdrink.index') }}">Snacks and Drinks</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Add Order</li>
+@endsection
 @section('css')
     <style>
         fieldset {

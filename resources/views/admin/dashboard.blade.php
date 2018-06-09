@@ -2,8 +2,8 @@
 @section('content')
 
     <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px; margin-bottom: 20px;">
-        <div class="flex-grid">
-            <a href="{{ url('admin/checkin') }}" id="checkInBtn" class="btn btn-success">Check in</a>
+        <div class="flex-grid" >
+            <a href="{{ url('admin/checkin') }}" id="checkInBtn" class="btn btn-success" >Check in</a>
             <a href="{{ url('admin/checkout') }}" id="checkOutBtn" class="btn btn-danger">Check out</a>
             <a href="#" id="bookingsBtn" class="btn btn-info">Bookings</a>
             <a href="{{ route('guests.create') }}" class="btn btn-secondary" id="newBookingBtn">New Booking</a>

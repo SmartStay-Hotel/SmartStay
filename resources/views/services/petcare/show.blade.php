@@ -1,5 +1,8 @@
 @extends('layouts.app')
- 
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('petcare.index') }}">Pet Care</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Show Order</li>
+@endsection
 @section('content')
             <h1>Showing Pet Care order: {{ $petcare->id }}</h1>
    <div class="pull-right">

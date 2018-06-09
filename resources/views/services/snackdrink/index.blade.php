@@ -1,5 +1,7 @@
 @extends('admin.layout')
-
+@section('breadcrumb')
+    <li class="breadcrumb-item active" aria-current="page">Snacks and Drinks</li>
+@endsection
 @section('breadcrumb')
     <li class="breadcrumb-item active" aria-current="page">Snacks and Drinks</li>
 @endsection

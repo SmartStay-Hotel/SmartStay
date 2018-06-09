@@ -1,5 +1,7 @@
 @extends('admin.layout')
-
+@section('breadcrumb')
+    <li class="breadcrumb-item active" aria-current="page">Alarm</li>
+@endsection
 @section('css')
 @endsection
 

@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('breadcrumb')
+    <li class="breadcrumb-item active" aria-current="page">Events</li>
+@endsection
 @section('content')
     @if (Session::has('message'))
         <div class="alert alert-info">{{ Session::get('message') }}</div>

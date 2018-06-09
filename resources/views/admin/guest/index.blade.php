@@ -1,4 +1,7 @@
 @extends('admin.layout')
+@section('breadcrumb')
+    <li class="breadcrumb-item active" aria-current="page">Manage Guests</li>
+@endsection
 @section('css')
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
     <style>
@@ -42,7 +45,7 @@
 
 @section('content')
     <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
-        <h2 id="newBookingTitle">Manage guests</h2>
+        <h2 id="newBookingTitle">Manage Guests</h2>
 
         <br/>
         <div class="panel panel-default">
