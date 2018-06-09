@@ -22,6 +22,6 @@
     <br/>
     <p>
 
-        {{ Form::button('Save', ['type' => 'submit', 'class' => 'btn-save']) }}
+        {{ Form::button('Save', ['type' => 'submit', 'class' => 'btn btn-primary']) }}
     </p>
 </fieldset>

@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('css')
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
     <style>
         .panel-heading {
             padding: 0;
@@ -44,8 +44,8 @@
 @endsection
 
 @section('content')
-    <div class="col-md-9 table-responsive" id="guestTableContainer">
-        <h2 class="text-center">Manage Guests</h2>
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
+        <h2 id="newBookingTitle">Show Guest</h2>
         <br/>
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -55,7 +55,7 @@
                     <li>Guest Information</li>
                 </ul>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" style="padding-left: 20px;">
                 <br/>
                 <label for="firstname">Firstname: </label> {{ $guest->firstname }} <br/>
                 <label for="lastname">Lastname: </label> {{ $guest->lastname }} <br/>

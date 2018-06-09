@@ -1,9 +1,4 @@
 @extends('admin.layout')
-@section('css')
-    <style>
-
-    </style>
-@endsection
 @section('content')
 
     <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px; margin-bottom: 20px;">
@@ -15,22 +10,115 @@
         </div>
     </div>
 
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px; margin-bottom: 20px;">
+    <div id="accordion">
+        <div class="card">
+            <div id="headingOne">
+                <h5 class="card-header text-center" id="newOrdersHeader" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        NEW ORDERS
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body" id="newOrdersBody">
+                    <h5 class="card-title text-center">
+                        <span style="padding: 10px;">Service</span>
+                        <span>-</span>
+                        <span style="padding: 10px;">Customer</span>
+                        <span>-</span>
+                        <span style="padding: 10px;">Room Nr</span>
+                    </h5>
+
+                    <div id="test-list3">
+                        <ul class="list" id="dispatchedOrdersList">
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
+                                <button style="float:right"><i class="fas fa-times"></i></button>
+                            </li>
+
+                        </ul>
+                        <ul class="pagination"></ul>
+                    </div>
+                </div>
+            </div>
+
+                </div>
+            </div>
+        </div>
+
+
     <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
     <div class="flex-grid">
-        <div class="card text-center">
-            <h5 class="card-header" id="pendingOrdersHeader">PENDING ORDERS</h5>
+        <div id="accordion2">
+            <div class="card">
+                <div id="headingTwo">
+                    <h5 class="card-header text-center" id="pendingOrdersHeader" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        PENDING ORDERS
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion2">
             <div class="card-body" id="pendingOrdersBody">
-                <h5 class="card-title">Orders ready to be dispatched</h5>
+                <h5 class="card-title text-center">
+                    <span style="padding: 10px;">Service</span>
+                    <span>-</span>
+                    <span style="padding: 10px;">Customer</span>
+                    <span>-</span>
+                    <span style="padding: 10px;">Room Nr</span>
+
+                </h5>
                 <div id="test-list">
-                <ul class="list" id="pendingOrdersList">
+                <ul class="list" id="dispatchedOrdersList">
 
                         @foreach($services->sortBy('updated_at') as $service)
                             @if($service->status == '1')
-                                <li>
-                                    <a href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
-                                        <span>{{ $service->serviceName }}</span>
-                                        <span>{{ $service->guest->firstname }}</span>
-                                        <span>{{ $service->roomNumber }}</span>
+                                <li class="text-center">
+                                    <a style="" href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
+                                        <span style="padding: 10px;">{{ $service->serviceName }}</span>
+                                        <span style="padding: 10px;">-</span>
+                                        <span style="padding: 10px;">{{ $service->guest->firstname }}</span>
+                                        <span style="padding: 10px;">-</span>
+                                        <span style="padding: 10px;">{{ $service->roomNumber }}</span>
                                         <input type="checkbox"
                                                name="{{ $service->serviceName .'/'.$service->id }}"
                                                @if ($service->status == '2') checked @endif style="float:right">
@@ -47,21 +135,39 @@
                 </div>
                 </div>
             </div>
+            </div>
+        </div>
 
+        <div id="accordion3">
         <div class="card text-center">
-            <h5 class="card-header" id="dispatchedOrdersHeader">DISPATCHED ORDERS</h5>
+            <div id="headingThree">
+                <h5 class="card-header text-center" id="dispatchedOrdersHeader" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                    DISPATCHED ORDERS
+                </h5>
+            </div>
+            <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordion3">
+
             <div class="card-body" id="dispatchedOrdersBody">
-                <h5 class="card-title">Dispatched orders</h5>
+                <h5 class="card-title text-center">
+                    <span style="padding: 10px;">Service</span>
+                    <span>-</span>
+                    <span style="padding: 10px;">Customer</span>
+                    <span>-</span>
+                    <span style="padding: 10px;">Room Nr</span>
+
+                </h5>
                 <div id="test-list2">
                 <ul class="list" id="dispatchedOrdersList">
 
                         @foreach($services->sortByDesc('updated_at') as $service)
                             @if($service->status == 2)
-                                <li>
+                                <li class="text-center">
                                     <a href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
-                                        <span>{{ $service->serviceName }}</span>
-                                        <span>{{ $service->guest->firstname }}</span>
-                                        <span>{{ $service->roomNumber }}</span>
+                                        <span style="padding: 10px;">{{ $service->serviceName }}</span>
+                                        <span style="padding: 10px;">-</span>
+                                        <span style="padding: 10px;">{{ $service->guest->firstname }}</span>
+                                        <span style="padding: 10px;">-</span>
+                                        <span style="padding: 10px;">{{ $service->roomNumber }}</span>
                                         <input type="checkbox"
                                                name="{{ $service->serviceName .'/'.$service->id  }}"
                                                @if ($service->status == '2') checked @endif style="float:right">
@@ -130,13 +236,14 @@
             </div>
         </div>
     </div>
+    </div>
 @endsection
 @section('scripts')
     <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 
     <script>
+        //add pagination to order's tables
         var firstList = new List('test-list', {
             valueNames: ['name'],
             page: 10,
@@ -144,6 +251,12 @@
         });
 
         var secondList = new List('test-list2', {
+            valueNames: ['name'],
+            page: 10,
+            pagination: true
+        });
+
+        var thirdList = new List('test-list3', {
             valueNames: ['name'],
             page: 10,
             pagination: true

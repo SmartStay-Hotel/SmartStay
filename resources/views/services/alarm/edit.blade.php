@@ -20,8 +20,7 @@
 
 @section('content')
 
-    <div class="card"
-         style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
         <table class="table table-sm table-hover text-center" id="serviceTable">
             @if (session('status'))
                 <div class="alert alert-success">
