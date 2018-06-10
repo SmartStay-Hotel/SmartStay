@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Event;
 use App\Event_types;
 use App\Guest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Events\NewOrderRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
@@ -49,6 +51,10 @@ class EventController extends Controller
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
         $eventTypes = Event_types::all();
+        foreach ($eventTypes as $eventType){
+            $eventType->eventname = $eventType->name;
+        }
+        $eventTypes = $eventTypes->pluck('eventname', 'id');
 
         return view('services.event.create', compact('guests', 'eventTypes'));
     }
@@ -59,11 +65,12 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function store(Request $request)
     {
         $input = Input::all();
-
+        $return = "";
         if ($request->ajax()) {
             if (Session::exists('guest_id')) {
                 $input['guest_id'] = Session::get('guest_id');
@@ -73,27 +80,41 @@ class EventController extends Controller
         }
 
         $rules = [
-            'guest_id'      => 'required|numeric',
-            'day_hour'      => 'required|date',
+            'guest_id'       => 'required|numeric',
             'event_type_id'  =>'required|numeric',
         ];
         $validator = Validator::make($input, $rules);
 
         if ($validator->passes()) {
-            DB::beginTransaction();
-            DB::commit();
-        }
-/////////////////////// OLD Code //////////////////////////
-        $order_date = date('Y-m-d');
-        //Trip_types::find($trip->id); Obtener el precio de la tabla Tryp_types
-        Event::create([
-            'guest_id'      => $request->guest,
-            'order_date'    => $order_date,
-            'event_type_id' => $request->eventtype,
-            'status'        => '1',
-        ]);
+            try {
+                DB::beginTransaction();
+                $input['order_date'] = Carbon::today();
+                $input['status'] = '1';
+                $event = Event::create($input);
+                DB::commit();
 
-        return redirect('/service/event');
+                event(new NewOrderRequest($event->service_id, $input['guest_id'], $event->id));
+
+                if ($request->ajax()) {
+                    //$return = ['status' => true];
+                    return; //cambio para Cristian
+                } else {
+                    $return = redirect()->route('event.index')->with('status', 'Order added successfully.');
+                }
+            }catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        } else {
+            // No pasó el validador
+            if ($request->ajax()) {
+                //$return = ['status' => false];
+                //return; //cambio para Cristian
+            } else {
+                $return = redirect()->route('event.create')->withErrors($validator->getMessageBag());
+            }
+        }
+        return $return;
     }
 
     /**
@@ -119,34 +140,55 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        $data = [
-            'guests'     => Guest::all(),
-            'eventTypes' => Event_types::all(),
-            'event'      => $event,
-        ];
+        $guests = Guest::all();
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests = $guests->pluck('guestRoomNumber', 'id');
 
-        return view('services.event.edit', $data);
+        $eventTypes = Event_types::all();
+        foreach ($eventTypes as $eventType){
+            $eventType->eventname = $eventType->name;
+        }
+        $eventTypes = $eventTypes->pluck('eventname', 'id');
+
+        return view('services.event.edit', compact('guests', 'event', 'eventTypes'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function update(Request $request, $id)
     {
-        $order_date = date('Y-m-d');
-        Event::find($id)->update([
-            'guest_id'      => $request->guest,
-            'event_type_id' => $request->eventtype,
-            'order_date'    => $order_date,
-            'status'        => '1',
-        ]);
+        $input     = Input::all();
+        $rules     = [];
+        $validator = Validator::make($input, $rules);
 
-        return redirect('/service/event');
+        if ($validator->passes()) {
+            try {
+                DB::beginTransaction();
+                //$input['order_date'] = Carbon::today();
+                //$input['status']     = 1;
+                $event = Event::find($id);
+                $event->update($input);
+                DB::commit();
+
+                $return = redirect()->route('event.index')->with('status', 'Order updated successfully.');
+            } catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        } else {
+            $return = redirect()->route('event.edit', $id)->withErrors($validator->getMessageBag());
+        }
+
+        return $return;
     }
 
     /**
@@ -156,11 +198,20 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         Event::find($id)->delete();
+        $totalOrders = Event::all()->count();
+        if ($request->ajax()) {
+            $return = response()->json([
+                'total'   => $totalOrders,
+                'message' => 'Order number: ' . $id . ' was deleted',
+            ]);
+        } else {
+            $return = redirect()->back()->with('status', 'Guest deleted successfully');
+        }
 
-        return redirect('/service/event');
+        return $return;
     }
 
     public function changeStatus($id)
@@ -170,5 +221,15 @@ class EventController extends Controller
         $event->save();
 
         return response()->json($event->status);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function orderList()
+    {
+        $event = Event::where('guest_id', Session::get('guest_id'))->get();
+
+        return $event;
     }
 }
