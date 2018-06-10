@@ -86,7 +86,8 @@ class RestaurantController extends Controller
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '1';
-                $restaurant          = Restaurant::create($input);
+                $guest               = Guest::find($input['guest_id']);
+                $restaurant          = $guest->restaurants()->create($input);
                 DB::commit();
                 event(new NewOrderRequest($restaurant->service_id, $input['guest_id'], $restaurant->id));
 

@@ -128,7 +128,7 @@ class GuestController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Guest               $guest
+     * @param                           $id
      *
      * @return \Illuminate\Http\Response
      * @throws \Exception

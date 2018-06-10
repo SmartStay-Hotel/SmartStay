@@ -62,7 +62,7 @@
                 e.preventDefault();
                 var children = $('#products').clone();
                 $(children).find('#addProduct').remove().end();
-                $(children).children().appendTo('#products');
+                $(children).children().slice(0, 6).appendTo('#products');
             });
         });
     </script>
