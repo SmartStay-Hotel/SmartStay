@@ -23,7 +23,8 @@ class SnacksAndDrinkController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['only' => ['index', 'create', 'show', 'edit', 'update', 'changeStatus']]);
+        $this->middleware('auth', ['except' => ['orderList', 'store', 'destroy']]);
     }
 
     /**
@@ -33,7 +34,7 @@ class SnacksAndDrinkController extends Controller
      */
     public function index()
     {
-        $snacks = SnacksAndDrink::all();
+        $snacks = SnacksAndDrink::paginate(5);
 
         return view('services.snackdrink.index', compact('snacks'));
     }
@@ -96,7 +97,8 @@ class SnacksAndDrinkController extends Controller
                         'guest_id'        => $input['guest_id'],
                         'product_type_id' => $input['product_type_id'][$key],
                         'order_date'      => $input['order_date'],
-                        'price'           => $input['price'] = ProductType::getPriceById($input['product_type_id'][$key]) * $input['quantity'][$key],
+                        'price'           => $input['price']
+                            = ProductType::getPriceById($input['product_type_id'][$key]) * $input['quantity'][$key],
                         'quantity'        => $input['quantity'][$key],
                         'status'          => $input['status'],
                     ]);
@@ -107,7 +109,8 @@ class SnacksAndDrinkController extends Controller
                 event(new NewOrderRequest($orders[0]->service_id, $input['guest_id'], $orders[0]->id));
 
                 if ($request->ajax()) {
-                    $return = ['status' => true];
+                    //$return = ['status' => true];
+                    return;
                 } else {
                     $return = redirect()->route('snackdrink.index')->with('status', 'Order added successfully.');
                 }
@@ -118,7 +121,7 @@ class SnacksAndDrinkController extends Controller
         } else {
             // No pasó el validador
             if ($request->ajax()) {
-                $return = ['status' => false];
+                //$return = ['status' => false];
             } else {
                 $return = redirect()->route('snackdrink.create')->withErrors($validator->getMessageBag());
             }
@@ -130,31 +133,40 @@ class SnacksAndDrinkController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param \App\SnacksAndDrink $snackdrink
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(SnacksAndDrink $snackdrink)
     {
-        //
+        $guest = Guest::find($snackdrink->guest_id);
+        $list  = SnacksAndDrink::getOrderByGuestDate($guest->id, $snackdrink->create_at);
+        $items = [];
+        foreach ($list as $item) {
+            $items[] = $item->productType->name;
+        }
+        $items = array_count_values($items);
+
+        return view('services.snackdrink.show', compact('snackdrink', 'guest', 'items'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param \App\SnacksAndDrink $snackdrink
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(SnacksAndDrink $snacksAndDrink)
+    public function edit(SnacksAndDrink $snackdrink)
     {
-        $data = [
-            'guests'       => Guest::find($snacksAndDrink->guest_id),
-            'productTypes' => ProductType::find($snacksAndDrink->product_type_id),
-            'snackdrinks'  => $snacksAndDrink,
-        ];
+        $guests = Guest::all();
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests       = $guests->pluck('guestRoomNumber', 'id');
+        $productTypes = ProductType::pluck('name', 'id');
 
-        return view('services.snackdrink.edit', $data);
+        return view('services.snackdrink.edit', compact('guests', 'productTypes', 'snackdrink'));
     }
 
     /**
@@ -164,10 +176,34 @@ class SnacksAndDrinkController extends Controller
      * @param  int                      $id
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function update(Request $request, $id)
     {
-        //
+        $input     = Input::all();
+        $rules     = [
+            'guest_id'        => 'numeric',
+            'product_type_id' => 'required|numeric',
+            'quantity'        => 'required|numeric|min:1',
+        ];
+        $validator = Validator::make($input, $rules);
+        if ($validator->passes()) {
+            try {
+                DB::beginTransaction();
+                $snackAndDrink = SnacksAndDrink::find($id);
+                $snackAndDrink->update($input);
+                DB::commit();
+
+                $return = redirect()->route('snackdrink.index')->with('status', 'Order updated successfully.');
+            } catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        } else {
+            $return = redirect()->route('snackdrink.edit', $id)->withErrors($validator->getMessageBag());
+        }
+
+        return $return;
     }
 
     /**
@@ -177,10 +213,43 @@ class SnacksAndDrinkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         SnacksAndDrink::find($id)->delete();
+        $totalOrders = SnacksAndDrink::all()->count();
+        if ($request->ajax()) {
+            $return = response()->json([
+                'total'   => $totalOrders,
+                'message' => 'Order number: ' . $id . ' was deleted',
+            ]);
+        } else {
+            $return = redirect()->back()->with('status', 'Order deleted successfully');
+        }
 
-        return redirect('/service/snackdrink');
+        return $return;
+    }
+
+    /**
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changeStatus($id)
+    {
+        $snack         = SnacksAndDrink::findOrFail($id);
+        $snack->status = ($snack->status === '2') ? '1' : '2';
+        $snack->save();
+
+        return response()->json($snack->status);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function orderList()
+    {
+        $snack = SnacksAndDrink::where('guest_id', Session::get('guest_id'))->get();
+
+        return $snack;
     }
 }
