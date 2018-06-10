@@ -141,13 +141,8 @@ class SnacksAndDrinkController extends Controller
     {
         $guest = Guest::find($snackdrink->guest_id);
         $list  = SnacksAndDrink::getOrderByGuestDate($guest->id, $snackdrink->create_at);
-        $items = [];
-        foreach ($list as $item) {
-            $items[] = $item->productType->name;
-        }
-        $items = array_count_values($items);
 
-        return view('services.snackdrink.show', compact('snackdrink', 'guest', 'items'));
+        return view('services.snackdrink.show', compact('snackdrink', 'guest', 'list'));
     }
 
     /**

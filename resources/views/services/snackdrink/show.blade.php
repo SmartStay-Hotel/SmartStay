@@ -50,8 +50,8 @@
                     <strong>Price total: </strong> {{ $snackdrink->price }} €<br/>
                     <hr/>
                     <p>Order List</p>
-                    @foreach($items as $item => $key)
-                        {{ $key .': '. $item }}<br/>
+                    @foreach($list as $key => $item)
+                        <strong>{{ $item->quantity }}: </strong>{{ $item->productType->name }}<br/>
                     @endforeach
                 </fieldset>
             </tr>
