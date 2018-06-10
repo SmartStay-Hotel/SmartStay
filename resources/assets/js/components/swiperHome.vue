@@ -1,19 +1,18 @@
 <template>
 
+    <!--nserv: Es el número por el que se empieza a contar, por cada containerServices se suma 4.-->
+    <!--servs: Es un array. Con 1 se indica que ese servicio esta activo y se puede mostrar, con 0 lo contrario-->
 
-            <!-- swiper -->
+
+    <!-- swiper -->
             <swiper :options="swiperOption">
                 <swiper-slide>
-                    <serviceshome v-bind:nserv="0" v-bind:servs="[1,1,1,1]"  @return-window="emitShow"></serviceshome>
+                    <serviceshome v-bind:nserv="0" v-bind:servs="[1,1,1,1]" v-bind:services="services"  @return-window="emitShow"></serviceshome>
                 </swiper-slide>
-                <swiper-slide>Slide 2</swiper-slide>
-                <swiper-slide>Slide 3</swiper-slide>
-                <swiper-slide>Slide 4</swiper-slide>
-                <swiper-slide>Slide 5</swiper-slide>
-                <swiper-slide>Slide 6</swiper-slide>
-                <swiper-slide>Slide 7</swiper-slide>
-                <swiper-slide>Slide 8</swiper-slide>
-                <swiper-slide style="border:2px solid green">Slide 9</swiper-slide>
+                <swiper-slide>
+                    <serviceshome v-bind:nserv="4" v-bind:servs="[1,1,0,0]" v-bind:services="services" @return-window="emitShow"></serviceshome>
+                </swiper-slide>
+
                 <div class="swiper-pagination" slot="pagination"></div>
                 <div class="swiper-button-prev" slot="button-prev"></div>
                 <div class="swiper-button-next" slot="button-next"></div>
@@ -28,14 +27,14 @@
     import { swiper, swiperSlide } from 'vue-awesome-swiper';
     export default {
         // name: 'carrousel',
-
+        props:['services'],
         data() {
             return {
 
                 swiperOption: {
                     slidesPerView: 1,
                     spaceBetween: 30,
-                    loop: true,
+                    loop: false,
                     pagination: {
                         el: '.swiper-pagination',
                         clickable: true
@@ -77,10 +76,23 @@
     .swiper-container {
         width: 100%;
         height: 70%;
-    }
-    .swiper-slide{
+        display:flex;
+
 
     }
+    .swiper-slide{
+        display:flex;
+        align-items:center;
+    }
+    /*.swiper-button-prev, .swiper-button-next {*/
+
+        /*height:100%;*/
+        /*top:0;*/
+        /*width:20%*/
+    /*}*/
+    /*.swiper-button-prev:hover, .swiper-button-next:hover{*/
+        /*background-color:rgba(0,0,0,0.1);*/
+    /*}*/
 
 
 

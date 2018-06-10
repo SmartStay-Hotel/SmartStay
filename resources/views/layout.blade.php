@@ -37,7 +37,7 @@
                 <a href="{{url('logout')}}"><i class="fas fa-power-off"></i></a>
             </div>
             <div id="subMenu2">
-                <i class="fas fa-list-ul" @click="showHistory = true"></i>
+                <i class="fas fa-history" @click="showHistory = !showHistory"></i>
                 <div id="inOut">
 
                     <label class="switch">
@@ -50,15 +50,17 @@
             </div>
         </div>
     </div>
-    <div id="main_container" ><!-- v-bind:class="[!showMenuOut && !guestOut ? 'blur' : '']" -->
+    <transition name="fade">
+    <div id="main_container" v-if="!showHistory"><!-- v-bind:class="[!showMenuOut && !guestOut ? 'blur' : '']" -->
         @yield('content')
     </div>
+    </transition>
 {{--@{{ $data }}--}}
 
     <housekeeping v-if="!statusRoom && showModalHK" @close="showModalHK = false">
 
     </housekeeping>
-    <historyorders  v-if="showHistory" @close="showHistory = true"></historyorders>
+    <historyorders  v-if="showHistory" @close="showHistory = false"></historyorders>
 
 </div>
 

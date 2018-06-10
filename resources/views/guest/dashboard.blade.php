@@ -2,8 +2,8 @@
 @section("content")
     <transition name="fade">
 
-<div class="swiperHome">
-    <homeslider @window-to-show="showWindow" v-if="!show && !showHistory"></homeslider>
+<div class="swiperHome" v-if="!show">
+    <homeslider @window-to-show="showWindow" v-bind:services="services"></homeslider>
 </div>
 
     </transition>
@@ -43,9 +43,9 @@
     {{--<transition name="fade">--}}
         {{--<div id="sliderServices" v-if="!show && !showHistory">--}}
             {{--<tiny-slider :mouse-drag="true" :loop="false" items="1" gutter="100">--}}
-                {{-- nserv: Es el número por el que se empieza a contar, por cada containerServices se suma 4.--}}
-                {{-- servs: Con 1 se indica que ese servicio esta activo y se puede mostrar, con 0 lo contrario --}}
-                {{-- services: Es el array de services. Siempre se ha de poner --}}
+                 {{--nserv: Es el número por el que se empieza a contar, por cada containerServices se suma 4.--}}
+                 {{--servs: Con 1 se indica que ese servicio esta activo y se puede mostrar, con 0 lo contrario --}}
+                 {{--services: Es el array de services. Siempre se ha de poner --}}
 
                 {{--<div class="containerServices">--}}
                 {{--<serviceshome v-bind:nserv="0" v-bind:servs="[1,1,1,1]" v-bind:services="services"></serviceshome>--}}
@@ -293,7 +293,7 @@
                     <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertAlarm">
                         <label for="dateAlarm"> Day and hour: </label>
                         <input type="datetime-local" name="dateAlarm" v-model="dayHourServ"><br>
-                        <p>@{{ dayHourServ }}</p>
+
                         <br>
                         <input type="submit" name="enviar">
                     </form>
@@ -302,6 +302,8 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="windowService" v-if="window[4]">
                 <div class="windowTitle">
                     <button class="returnWindow " v-if="show" @click="showWindow(4)"><i
@@ -316,6 +318,8 @@
                     Snacks: <input type="hour">
                 </div>
             </div>
+
+
             <div class="windowService" v-if="window[5]">
                 <div class="windowTitle">
                     <button class="returnWindow " v-if="show" @click="showWindow(5)"><i
@@ -324,39 +328,58 @@
                 </div>
                 <p class="windowDesc">Trip description</p>
                 <div class="windowContent">
-
-                    Choose a trip: <select name="selTrips" id="" v-model="tripSelected">
+                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertTrip">
+                    <label for="selTrips">
+                        Choose a trip:
+                    </label>
+                    <select name="selTrips" id="" v-model="tripSelected">
                         <option v-for="trip in trips" v-bind:value="trip.id">@{{ trip.name }}</option>
-
                     </select>
-                    Number of persons: <input type="number" min="1" v-model="numPersonsTrip">
-
+                    <label for="cantTrip">
+                        Number of persons:
+                    </label>
+                    <input type="number" name="cantTrip" min="1" v-model="numPersonsTrip">
+                        <input type="submit">
                     <div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">
                         <p>Location: @{{ item.location }}</p>
                         <p>Day: @{{ item.day_week }}</p>
                         <p>Price: @{{ setPriceTrip(item.price) }}</p>
 
                     </div>
-
+                    </form>
+                    <div v-if="showResult">
+                        <p>Trip selected: @{{tripSelected}}</p>
+                        <p>Number: @{{numPersonsTrip}}</p>
+                    </div>
                 </div>
             </div>
+
+
             <div class="windowService" v-if="window[6]">
                 <div class="windowTitle">
                     <button class="returnWindow " @click="showWindow(6)"><i class="fas fa-long-arrow-alt-left"></i>
                     </button>
-                    <h2>@{{ services[5].name }}</h2>
+                    <h2>@{{ services[6].name }}</h2>
                 </div>
-                <p class="windowDesc">@{{ services[5].description }}</p>
-                <div class="windowContent">
-                    Select a event: <select name="selEvent" v-model="eventSelected">
-                        <option v-for="event in events">@{{ event.name }}</option>
+                <p class="windowDesc">@{{ services[6].description }}</p>
+                <div class="windowContent row">
+                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertEvent">
+                        <label for="selEvent">
+                            Select a event
+                        </label>
+                   <select name="selEvent" v-model="eventSelected">
+                        <option v-for="event in events" v-bind:value="event.id">@{{ event.name }}</option>
                     </select>
+                        <input type="submit">
                     <div class="windowInfo" v-for="item in infoEvent" v-if="eventSelected != ''">
                         <p>Location: @{{ item.location }}</p>
                         <p>Day: @{{ item.day_week }}</p>
                     </div>
+                    </form>
                 </div>
             </div>
+
+
             <div class="windowService" v-if="window[7]">
                 <div class="windowTitle">
                     <button class="returnWindow " @click="showWindow(7)"><i class="fas fa-long-arrow-alt-left"></i>
@@ -364,15 +387,22 @@
                     <h2>Taxi</h2>
                 </div>
                 <p class="windowDesc">Taxi description</p>
-                <div class="windowContent">
-                    Hour <input type="time">
+                <div class="windowContent row">
+                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertTaxi">
+                        <label for="hourTaxi">Hour:</label> <input type="datetime-local" name="hourTaxi" v-model="dayHourServ">
+                        <input type="submit">
+                    </form>
+                </div>
+                <div v-if="showResult">
+                    <p>Hour: @{{hourTaxi}}</p>
+
                 </div>
             </div>
         </transition>
     </div>
 
 
-    <footer v-if="show"></footer>
+    {{--<footer v-if="show"></footer>--}}
 
     {{-- ------------------ --}}
 

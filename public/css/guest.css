@@ -1,8 +1,8 @@
 /*---------------------FONTS-------------------------*/
 :root {
     --colorBody: #E1E1E1 /*#2B2B2B*/; /*E1E1E1*/
-    --colorSecond: #36A7FC /*#252C4B*/;
-    --colorNav: /*#E1E1E1*/ #46CE90 /*#CF4946*/;
+    --colorSecond: #46CE90 /*#252C4B*/;
+    --colorNav: /*#E1E1E1*/ #36A7FC /*#CF4946*/;
 
     --colorSubMenu: #151515; /*#E1E1E1*/
     --shadows: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -101,13 +101,17 @@ nav {
     display:flex;
     flex-direction:row;
     color: white;
-    font-size:180%;
+    font-size:120%;
     justify-content: space-around;
 
 }
 #subMenu2 i{
-   padding-top:2%;
-}
+    padding-top:8%;
+
+}#subMenu2 i:hover{
+    color:var(--colorNav);
+
+ }
 #inOut {
     margin-left:10px;
     display: flex;
@@ -134,7 +138,10 @@ nav {
     width: 100%;
     display: flex;
 }
+.swiperHome{
+    width:100%;
 
+}
 .servicesHome {
 
     /*display:flex;*/
@@ -516,10 +523,7 @@ input:checked + .slider:before {
     }
 }
 
-.swiperHome{
-    width:100%;
 
-}
 
 
 
