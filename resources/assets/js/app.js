@@ -47,6 +47,7 @@ window.axios = require('axios');
 import VueTinySlider from 'vue-tiny-slider';
 Vue.component('housekeeping', require('./components/menuHousekeeping.vue'));
 Vue.component('serviceshome', require('./components/servicesHome.vue'));
+Vue.component('historyorders', require('./components/historyOrders.vue'))
 // Vue.component('modal', {
 //     template: '#hola'
 // })
@@ -68,6 +69,7 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
         this.getTrips();
         this.getEvents();
         this.getStatusRoom();
+        this.getHistory();
         // this.bttnMas();
         // this.setPriceTrip();
 
@@ -96,6 +98,7 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
             pruebaOrder:[],
             statusGuest: false,
             errores: "",
+            showHistory:false
 
 
 
@@ -107,6 +110,7 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
                 });
 
             },
+
             getStatusRoom:function(){
                 axios.get(urlGetStatusRoom).then(response=>{
                     this.statusRoom = response.data

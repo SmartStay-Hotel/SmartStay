@@ -4,7 +4,7 @@
 
 
     <transition name="fade">
-        <div id="sliderServices" v-if="!show">
+        <div id="sliderServices" v-if="!show && !showHistory">
             <tiny-slider :mouse-drag="true" :loop="false" items="1" gutter="100">
                 {{-- nserv: Es el número por el que se empieza a contar, por cada containerServices se suma 4.--}}
                 {{-- servs: Con 1 se indica que ese servicio esta activo y se puede mostrar, con 0 lo contrario --}}

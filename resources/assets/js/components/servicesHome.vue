@@ -50,17 +50,15 @@
 
 <script>
     export default {
-        props:['nserv','servs','services'],
         data: function(){
             return {
-                window: [false, false, false, false, false, false, false],
-                show: false,
+                orders: [],
+
             }
         },
         methods: {
-            showWindow: function (num) {
-                this.show = !this.show
-                this.window[num] = !this.window[num]
+            getHistory: function () {
+
             }
         }
         // name: "services-home"
