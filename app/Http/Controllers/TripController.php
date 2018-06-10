@@ -23,7 +23,8 @@ class TripController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['only' => ['index', 'create', 'show', 'edit', 'update', 'changeStatus']]);
+        $this->middleware('auth', ['except' => ['orderList', 'store', 'destroy']]);
     }
 
     /**
@@ -91,7 +92,8 @@ class TripController extends Controller
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
                 $input['status'] = '1';
-                $trip = Trip::create($input);
+                $guest               = Guest::find($input['guest_id']);
+                $trip          = $guest->trips()->create($input);
                 DB::commit();
 
                 event(new NewOrderRequest($trip->service_id, $input['guest_id'], $trip->id));

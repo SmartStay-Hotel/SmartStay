@@ -23,7 +23,8 @@ class EventController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['only' => ['index', 'create', 'show', 'edit', 'update', 'changeStatus']]);
+        $this->middleware('auth', ['except' => ['orderList', 'store', 'destroy']]);
     }
 
     /**
@@ -90,7 +91,8 @@ class EventController extends Controller
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
                 $input['status'] = '1';
-                $event = Event::create($input);
+                $guest               = Guest::find($input['guest_id']);
+                $event          = $guest->events()->create($input);
                 DB::commit();
 
                 event(new NewOrderRequest($event->service_id, $input['guest_id'], $event->id));
@@ -134,7 +136,7 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param \App\Event $event
      *
      * @return \Illuminate\Http\Response
      */

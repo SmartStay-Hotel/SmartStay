@@ -17,6 +17,16 @@ class Guest extends Model
             ->withTimestamps();
     }
 
+    public function alarms()
+    {
+        return $this->hasMany(Alarm::class);
+    }
+
+    public function taxis()
+    {
+        return $this->hasMany(Taxi::class);
+    }
+
     public function restaurants()
     {
         return $this->hasMany(Restaurant::class);
@@ -31,6 +41,16 @@ class Guest extends Model
     {
         return $this->hasMany(Housekeeping::class);
     }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+    public function trips()
+    {
+        return $this->hasMany(Trip::class);
+    }
+
 
 
     //Métodos del modelo Guest
