@@ -22,7 +22,8 @@ class AlarmController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['only' => ['index', 'create', 'show', 'edit', 'update', 'changeStatus']]);
+        $this->middleware('auth', ['except' => ['orderList', 'store', 'destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -80,13 +81,15 @@ class AlarmController extends Controller
             try{
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
-                $input['status'] = '1';
-                $alarm = Alarm::create($input);
+                $input['status']     = '1';
+                $guest               = Guest::find($input['guest_id']);
+                $alarm               = $guest->alarms()->create($input);
                 DB::commit();
                 event(new NewOrderRequest($alarm->service_id, $input['guest_id'], $alarm->id));
 
                 if ($request->ajax()){
-                    $return =['status' => true];
+                    //$return = ['status' => true];
+                    return; //cambio para Cristian
                 }else{
                     $return = redirect()->route('alarm.index')->with('status', 'Order added successfully.');
                 }
@@ -96,7 +99,8 @@ class AlarmController extends Controller
             }
         } else {
             if ($request->ajax()) {
-                $return = ['status' => false];
+                //$return = ['status' => false];
+                //return; //cambio para Cristian
             } else {
                 $return = redirect()->route('alarm.create')->withErrors($validator->getMessageBag());
             }
@@ -197,5 +201,15 @@ class AlarmController extends Controller
         $alarm->save();
 
         return response()->json($alarm->status);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function orderList()
+    {
+        $alarm = Alarm::where('guest_id', Session::get('guest_id'))->get();
+
+        return $alarm;
     }
 }

@@ -22,7 +22,8 @@ class TaxiController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['only' => ['index', 'create', 'show', 'edit', 'update', 'changeStatus']]);
+        $this->middleware('auth', ['except' => ['orderList', 'store', 'destroy']]);
     }
 
     /**
@@ -80,13 +81,15 @@ class TaxiController extends Controller
             try{
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
-                $input['status'] = '1';
-                $taxi = Taxi::create($input);
+                $input['status']     = '1';
+                $guest               = Guest::find($input['guest_id']);
+                $taxi                = $guest->taxis()->create($input);
                 DB::commit();
                 event(new NewOrderRequest($taxi->service_id, $input['guest_id'], $taxi->id));
 
                 if ($request->ajax()){
-                    $return = ['status' => true];
+                    //$return = ['status' => true];
+                    return; //cambio para Cristian
                 }else{
                     $return = redirect()->route('taxi.index')->with('status', 'Order added successfully');
                 }
@@ -96,7 +99,8 @@ class TaxiController extends Controller
             }
         }else {
             if ($request->ajax()){
-                $return = ['status' => false];
+                //$return = ['status' => false];
+                //return; //cambio para Cristian
             }else{
                 $return = redirect()->route('restaurant.create')->withErrors($validator->getMessageBag());
             }
@@ -194,5 +198,14 @@ class TaxiController extends Controller
         $taxi->save();
 
         return response()->json($taxi->status);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function orderList()
+    {
+        $taxi = Taxi::where('guest_id', Session::get('guest_id'))->get();
+        return $taxi;
     }
 }

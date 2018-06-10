@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewOrderRequest;
 use App\Guest;
 use App\ProductType;
 use App\SnacksAndDrink;
@@ -88,20 +89,22 @@ class SnacksAndDrinkController extends Controller
                 $input['status']     = '1'; //será cambiado a cero al actualizar la bbdd
                 $input['price']      = 0;
                 $guest               = Guest::find($input['guest_id']);
+
+                $orders = [];
                 foreach ($input['product_type_id'] as $key => $value) {
-                    $guest->snacks()->save(
-                        new SnacksAndDrink([$input['guest_id'],
-                            $input['product_type_id'][$key],
-                            $input['quantity'][$key],
-                            $input['price'] = ProductType::getPriceById($input['product_type_id'][$key])
-                                * $input['quantity'][$key],
-                            $input['status'],
-                            $input['order_date']])
-                    );
+                    $orders[] = new SnacksAndDrink([
+                        'guest_id'        => $input['guest_id'],
+                        'product_type_id' => $input['product_type_id'][$key],
+                        'order_date'      => $input['order_date'],
+                        'price'           => $input['price'] = ProductType::getPriceById($input['product_type_id'][$key]) * $input['quantity'][$key],
+                        'quantity'        => $input['quantity'][$key],
+                        'status'          => $input['status'],
+                    ]);
                 }
+                $guest->snacks()->saveMany($orders);
 
                 DB::commit();
-                //event(new NewOrderRequest($restaurant->service_id, $input['guest_id'], $restaurant->id));
+                event(new NewOrderRequest($orders[0]->service_id, $input['guest_id'], $orders[0]->id));
 
                 if ($request->ajax()) {
                     $return = ['status' => true];

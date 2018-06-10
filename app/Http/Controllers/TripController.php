@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewOrderRequest;
 use App\Guest;
 use App\Trip;
 use App\Trip_types;
@@ -22,10 +23,9 @@ class TripController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['only' => ['index', 'create', 'show', 'edit', 'update', 'changeStatus']]);
+        $this->middleware('auth', ['except' => ['orderList', 'store', 'destroy']]);
     }
-
-
 
     /**
      * Display a listing of the resource.
@@ -52,6 +52,10 @@ class TripController extends Controller
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
         $tripTypes = Trip_types::all();
+        foreach ($tripTypes as $tripType){
+            $tripType->tripname = $tripType->name;
+        }
+        $tripTypes = $tripTypes->pluck('tripname', 'id');
 
         return view('services.trip.create', compact('guests', 'tripTypes'));
     }
@@ -62,10 +66,12 @@ class TripController extends Controller
      * @param  \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function store(Request $request)
     {
         $input = Input::all();
+        $return ="";
 
         if ($request->ajax()) {
             if (Session::exists('guest_id')) {
@@ -77,90 +83,114 @@ class TripController extends Controller
 
         $rules = [
             'guest_id'      => 'required|numeric',
-            'day_hour'      => 'required|date',
             'trip_type_id'  =>'required|numeric',
         ];
         $validator = Validator::make($input, $rules);
 
         if ($validator->passes()) {
-            DB::beginTransaction();
-            DB::commit();
-        }
-/////////////////////// OLD Code //////////////////////////
-        $order_date = Carbon::today();
-        //Trip_types::find($trip->id); Obtener el precio de la tabla Tryp_types
-        Trip::create([
-            'guest_id'     => $request->guest,
-            'order_date'   => $order_date,
-            'trip_type_id' => $request->triptype,
-            //El precio se debe recuperar del tryp_type
-            'price'        => 20,
-            'status'       => '1',
-        ]);
+            try {
+                DB::beginTransaction();
+                $input['order_date'] = Carbon::today();
+                $input['status'] = '1';
+                $guest               = Guest::find($input['guest_id']);
+                $trip          = $guest->trips()->create($input);
+                DB::commit();
 
-        return redirect('/service/trip');
+                event(new NewOrderRequest($trip->service_id, $input['guest_id'], $trip->id));
+
+                if ($request->ajax()) {
+                    //$return = ['status' => true];
+                    return; //cambio para Cristian
+                } else {
+                    $return = redirect()->route('trip.index')->with('status', 'Order added successfully.');
+                }
+            }catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        }else {
+            // No pasó el validador
+            if ($request->ajax()) {
+                //$return = ['status' => false];
+                //return; //cambio para Cristian
+            } else {
+                $return = redirect()->route('trip.create')->withErrors($validator->getMessageBag());
+            }
+        }
+        return $return;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param \App\Trip $trip
      *
      * @return \Illuminate\Http\Response
      */
     public function show(Trip $trip)
     {
-        //Se consigue pasar el guest en función del guest_id del taxi
-
-        $data = [
-            'guest'    => Guest::find($trip->guest_id),
-            'tripType' => Trip_types::find($trip->trip_type_id),
-            'trip'     => $trip,
-        ];
-
-        return view('services.trip.show', $data);
+        $guest = Guest::find($trip->guest_id);
+        return view('services.trip.show', compact('trip', 'guest'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param \App\Trip $trip
      *
      * @return \Illuminate\Http\Response
      */
     public function edit(Trip $trip)
     {
-        $data = [
-            'guests'    => Guest::all(),
-            'tripTypes' => Trip_types::all(),
-            'trip'      => $trip,
-        ];
+        $guests = Guest::all();
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests = $guests->pluck('guestRoomNumber', 'id');
 
-        //return View::make('services.trip.edit')->with($data);
-        return view('services.trip.edit', $data);
+        $tripTypes = Trip_types::all();
+        foreach ($tripTypes as $tripType){
+            $tripType->tripname = $tripType->name;
+        }
+        $tripTypes = $tripTypes->pluck('tripname', 'id');
+
+        return view('services.trip.edit', compact('guests', 'trip', 'tripTypes'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function update(Request $request, $id)
     {
-        $order_date = date('Y-m-d');
-        trip::find($id)->update([
-            'guest_id'     => $request->guest,
-            'trip_type_id' => $request->triptype,
-            'order_date'   => $order_date,
-            //pasarle el precio del trip_type
-            'price'        => 20,
-            'status'       => '1',
-        ]);
+        $input     = Input::all();
+        $rules     = [];
+        $validator = Validator::make($input, $rules);
 
-        return redirect('/service/trip');
+        if ($validator->passes()) {
+            try {
+                DB::beginTransaction();
+                //$input['order_date'] = Carbon::today();
+                //$input['status']     = 1;
+                $trip = Trip::find($id);
+                $trip->update($input);
+                DB::commit();
+
+                $return = redirect()->route('trip.index')->with('status', 'Order updated successfully.');
+            } catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        } else {
+            $return = redirect()->route('trip.edit', $id)->withErrors($validator->getMessageBag());
+        }
+
+        return $return;
     }
 
     /**
@@ -170,10 +200,42 @@ class TripController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         Trip::find($id)->delete();
+        $totalOrders = Trip::all()->count();
+        if ($request->ajax()) {
+            $return = response()->json([
+                'total'   => $totalOrders,
+                'message' => 'Order number: ' . $id . ' was deleted',
+            ]);
+        } else {
+            $return = redirect()->back()->with('status', 'Guest deleted successfully');
+        }
 
-        return redirect('/service/trip');
+        return $return;
+    }
+    /**
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changeStatus($id)
+    {
+        $trip         = Trip::findOrFail($id);
+        $trip->status = ($trip->status === '2') ? '1' : '2';
+        $trip->save();
+
+        return response()->json($trip->status);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function orderList()
+    {
+        $trip = Trip::where('guest_id', Session::get('guest_id'))->get();
+
+        return $trip;
     }
 }

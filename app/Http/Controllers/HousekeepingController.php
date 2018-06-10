@@ -22,7 +22,8 @@ class HousekeepingController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['only' => ['index', 'create', 'show', 'edit', 'update', 'changeStatus']]);
+        $this->middleware('auth', ['except' => ['orderList', 'store', 'destroy']]);
     }
 
     /**
@@ -85,12 +86,14 @@ class HousekeepingController extends Controller
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '1';
-                $housekeeping          = Housekeeping::create($input, $request);
+                $guest               = Guest::find($input['guest_id']);
+                $housekeeping          = $guest->houseKeepings()->create($input);
                 DB::commit();
                 event(new NewOrderRequest($housekeeping->service_id, $input['guest_id'], $housekeeping->id));
 
                 if ($request->ajax()) {
-                    $return = ['status' => true];
+                    //$return = ['status' => true];
+                    return; //cambio para Cristian
                 } else {
                     $return = redirect()->route('housekeeping.index')->with('status', 'Order added successfully.');
                 }
@@ -101,7 +104,8 @@ class HousekeepingController extends Controller
         } else {
             // No pasó el validador
             if ($request->ajax()) {
-                $return = ['status' => false];
+                //$return = ['status' => false];
+                //return; //cambio para Cristian
             } else {
                 $return = redirect()->route('housekeeping.create')->withErrors($validator->getMessageBag());
             }
@@ -252,5 +256,12 @@ class HousekeepingController extends Controller
         $housekeeping->save();
 
         return response()->json($housekeeping->status);
+    }
+
+    public function orderList()
+    {
+        $housekeeping = Housekeeping::where('guest_id', Session::get('guest_id'))->get();
+
+        return $housekeeping;
     }
 }
