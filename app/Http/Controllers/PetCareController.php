@@ -170,7 +170,8 @@ class PetCareController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param \App\PetCare $petcare
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(PetCare $petcare)
@@ -219,6 +220,7 @@ class PetCareController extends Controller
 
         return $return;
 
+            //////////////// OLD //////////////////////
         //$order_date = date('Y-m-d');
 
         //controlar el valor del radio. Obtener aquí el valor actual de las food.
