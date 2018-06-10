@@ -99,19 +99,15 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param \App\Event $event
      *
      * @return \Illuminate\Http\Response
      */
     public function show(Event $event)
     {
-        $data = [
-            'guest'     => Guest::find($event->guest_id),
-            'eventType' => Event_types::find($event->event_type_id),
-            'event'     => $event,
-        ];
+        $guest = Guest::find($event->guest_id);
 
-        return view('services.event.show', $data);
+        return view('services.event.show', compact('event', 'guest'));
     }
 
     /**

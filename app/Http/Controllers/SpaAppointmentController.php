@@ -103,18 +103,15 @@ class SpaAppointmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param \App\SpaAppointment $spaAppointment
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(SpaAppointment $spaAppointment)
     {
-        $data = [
-            'guest'    => Guest::find($spaAppointment->guest_id),
-            'spaType' => SpaType::find($spaAppointment->treatment_type_id),
-            'spa'     => $spaAppointment,
-        ];
+        $guest = Guest::find($spaAppointment->guest_id);
 
-        return view('services.spa.show', $data);
+        return view('services.spa.show', compact('spaAppointment', 'guest'));
     }
 
     /**

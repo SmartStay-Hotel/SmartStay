@@ -77,7 +77,8 @@ class PetCareController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param \App\PetCare $petcare
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(PetCare $petcare)

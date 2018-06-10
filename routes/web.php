@@ -149,6 +149,8 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin/service/statusAlarm/{id}', 'AlarmController@changeStatus');
     Route::resource('admin/service/statusSpa/{id}', 'SpaAppointmentController@changeStatus');
     Route::resource('admin/service/statusEvent/{id}', 'EventController@changeStatus');
+    Route::resource('admin/service/statusTrip/{id}', 'TripController@changeStatus');
+    Route::resource('admin/service/statusHousekeeping/{id}', 'HousekeepingController@changeStatus');
 
     Route::get('test', function () {
         event(new App\Events\NewOrderRequest(1, 4, 15));

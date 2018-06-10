@@ -104,21 +104,14 @@ class TripController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param \App\Trip $trip
      *
      * @return \Illuminate\Http\Response
      */
     public function show(Trip $trip)
     {
-        //Se consigue pasar el guest en función del guest_id del taxi
-
-        $data = [
-            'guest'    => Guest::find($trip->guest_id),
-            'tripType' => Trip_types::find($trip->trip_type_id),
-            'trip'     => $trip,
-        ];
-
-        return view('services.trip.show', $data);
+        $guest = Guest::find($trip->guest_id);
+        return view('services.trip.show', compact('trip', 'guest'));
     }
 
     /**
