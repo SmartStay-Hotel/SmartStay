@@ -4,6 +4,7 @@
     <li class="breadcrumb-item"><a href="{{ route('petcare.index') }}">Pet Care</a></li>
     <li class="breadcrumb-item active" aria-current="page">Show Reservation</li>
 @endsection
+
 @section('css')
     <style>
         fieldset {
@@ -36,7 +37,7 @@
             <tr>
                 <fieldset>
                     <legend>Show</legend>
-                    <strong>Order Date: </strong> {{ $petcare->order_date}}<br>
+                    <strong>Date hour: </strong> {{ $petcare->order_date }}<br>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
                     <strong>Guest Phone: </strong> {{ $guest->telephone }}
                 </fieldset>

@@ -1,5 +1,6 @@
     <fieldset>
         <legend>New reservation:</legend>
+        <label>Room - Guest: </label>
         @if(empty($housekeeping))
             {!! Form::select('guest_id', $guests, ['class' => 'form-control'], ['placeholder' => '--- Choose an option ---']) !!}
         @else

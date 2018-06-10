@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\PetCare;
 use App\Guest;
+use Carbon\Carbon;
+use App\Events\NewOrderRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
@@ -20,7 +22,8 @@ class PetCareController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['only' => ['index', 'create', 'show', 'edit', 'update', 'changeStatus']]);
+        $this->middleware('auth', ['except' => ['orderList', 'store', 'destroy']]);
     }
 
     /**
@@ -52,16 +55,92 @@ class PetCareController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function store(Request $request)
     {
-        $order_date = date('Y-m-d');
+        $input = Input::all();
+        if ($request->ajax()) {
+            if (Session::exists('guest_id')) {
+                $input['guest_id'] = Session::get('guest_id');
+            } else {
+                return response()->json(['status' => false]);
+            }
+        }
+        $rules     = [
+            'guest_id' => 'required|numeric',
+            'food' => 'required',
+        ];
+
+        $validator = Validator::make($input, $rules);
+        if ($validator->passes()) {
+            try {
+                DB::beginTransaction();
+
+                //guardar los datos de los checkbox. Si está marcado = 1 y si no = 0
+                if ($input['water'] = ''){
+                    $input['water'] = 0;
+                }else{
+                    $input['water'] = 1;
+                }
+                if ($input['snacks'] = ''){
+                    $input['snacks'] = 0;
+                }else{
+                    $input['snacks'] = 1;
+                }
+                /*
+                if (!$input['standard']){
+                    $input['standard'] = 0;
+                }else{
+                    $input['standard'] = 1;
+                }
+                if (!$input['premium']){
+                    $input['premium'] = 0;
+                }else{
+                    $input['premium'] = 1;
+                }
+                */
+                $input['order_date'] = Carbon::today();
+                $input['status']     = '1';
+                $guest               = Guest::find($input['guest_id']);
+                $petcare             = $guest->petcares()->create($input);
+                DB::commit();
+                event(new NewOrderRequest($petcare->service_id, $input['guest_id'], $petcare->id));
+
+                if ($request->ajax()) {
+                    //$return = ['status' => true];
+                    return; //cambio para Cristian
+                } else {
+                    $return = redirect()->route('petcare.index')->with('status', 'Order added successfully.');
+                }
+            } catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        } else {
+            // No pasó el validador
+            if ($request->ajax()) {
+                //$return = ['status' => false];
+                //return; //cambio para Cristian
+            } else {
+                $return = redirect()->route('petcare.create')->withErrors($validator->getMessageBag());
+            }
+        }
+
+        return $return;
+
+
         //Revisar!! No pilla bien los radiobuttons.
         //Para que funcionen en la vista, el name debe ser el mismo.
         //Al recoger en el request, pilla los dos valores igual
 
+
+        ///////////////// OLD ////////////////////////
+        ///
+       /*
+        *  $order_date = date('Y-m-d');
         PetCare::create(['guest_id' => $request->guest,
             'service_id'     => 9,
             'order_date'     => $order_date,
@@ -72,6 +151,7 @@ class PetCareController extends Controller
             'price'          => 120,
             'status'         => '1']);
         return redirect('/service/petcare');
+       */
     }
 
     /**
@@ -90,26 +170,58 @@ class PetCareController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param \App\PetCare $petcare
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(PetCare $petcare)
     {
         $guests = Guest::all();
-        //Falta que el select del edit.blade se quede seleccionado con el guest correcto
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        }
+        $guests = $guests->pluck('guestRoomNumber', 'id');
+
         return view('services.petcare.edit',compact('petcare', 'guests'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function update(Request $request, $id)
     {
-        $order_date = date('Y-m-d');
+        $input     = Input::all();
+        $rules     = [
+            'food' => 'required',
+        ];
+        $validator = Validator::make($input, $rules);
+        if ($validator->passes()) {
+            try {
+                DB::beginTransaction();
+                //$input['order_date'] = Carbon::today();
+                //$input['status']     = 1;
+                $petCare = PetCare::find($id);
+                $petCare->update($input);
+                DB::commit();
+
+                $return = redirect()->route('petcare.index')->with('status', 'Order updated successfully.');
+            } catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+        } else {
+            $return = redirect()->route('petcare.edit', $id)->withErrors($validator->getMessageBag());
+        }
+
+        return $return;
+
+            //////////////// OLD //////////////////////
+        //$order_date = date('Y-m-d');
 
         //controlar el valor del radio. Obtener aquí el valor actual de las food.
         //Compararlo y en función de lo que tenga actualizar
@@ -123,14 +235,11 @@ class PetCareController extends Controller
         }elseif ($foods['premium_food'] == 1){
             $foods['standard_food'] = 0;
         }
-        */
-/*
         if (Input::get('food')) {
             $standardFood = 1;
         } else {
             $standardFood = 0;
         }
-*/
         //Revisar!! No pilla bien los radiobuttons.
         //Para que funcionen en la vista, el name debe ser el mismo.
         //Al recoger en el request, pilla los dos valores igual
@@ -146,6 +255,7 @@ class PetCareController extends Controller
             'status'         => '1']);
 
         return redirect('/service/petcare');
+        */
     }
 
     /**
@@ -154,9 +264,41 @@ class PetCareController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         PetCare::find($id)->delete();
-        return redirect('/service/petcare');
+        $totalOrders = PetCare::all()->count();
+        if ($request->ajax()) {
+            $return = response()->json([
+                'total'   => $totalOrders,
+                'message' => 'Order number: ' . $id . ' was deleted',
+            ]);
+        } else {
+            $return = redirect()->back()->with('status', 'Guest deleted successfully');
+        }
+
+        return $return;
+    }
+    /**
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changeStatus($id)
+    {
+        $petCare         = PetCare::findOrFail($id);
+        $petCare->status = ($petCare->status === '2') ? '1' : '2';
+        $petCare->save();
+
+        return response()->json($petCare->status);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function orderList()
+    {
+        $petCare = PetCare::where('guest_id', Session::get('guest_id'))->get();
+        return $petCare;
     }
 }

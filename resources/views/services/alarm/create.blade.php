@@ -32,7 +32,7 @@
                 </div>
             @endif
             <thead id="serviceTableHeader">
-            <tr><h2 id="serviceTitle"><i class="fas fa-utensils fa-xs" style="padding: 5px;"></i>Alarm<a
+            <tr><h2 id="serviceTitle"><i class="far fa-clock fa-xs" style="padding: 5px;"></i>Alarm<a
                             href="{{ route('alarm.index') }}"><i
                                 id="addGuest" class="fas fa-user-plus fa-xs"
                                 style="padding-left: 70%; color: white; z-index: 1;"></i></a></h2>
