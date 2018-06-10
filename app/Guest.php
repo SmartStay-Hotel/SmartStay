@@ -50,6 +50,14 @@ class Guest extends Model
     {
         return $this->hasMany(Trip::class);
     }
+    public function petCares()
+    {
+        return $this->hasMany(PetCare::class);
+    }
+    public function spas()
+    {
+        return $this->hasMany(SpaAppointment::class);
+    }
 
 
 
