@@ -5,6 +5,7 @@
 require('./bootstrap');
 window.Vue = require('vue');
 window.axios = require('axios');
+var Swiper = require('swiper');
 
 
 //
@@ -44,9 +45,15 @@ window.axios = require('axios');
 //
 // Vue.use(VueCarousel);
 
+
+
+
 import VueTinySlider from 'vue-tiny-slider';
+
+
+Vue.component('homeslider', require('./components/swiperHome.vue'))
 Vue.component('housekeeping', require('./components/menuHousekeeping.vue'));
-Vue.component('serviceshome', require('./components/servicesHome.vue'));
+Vue.component('sliderservices', require('./components/sliderServices.vue'));
 Vue.component('historyorders', require('./components/historyOrders.vue'))
 // Vue.component('modal', {
 //     template: '#hola'
@@ -69,7 +76,7 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
         this.getTrips();
         this.getEvents();
         this.getStatusRoom();
-        this.getHistory();
+
         // this.bttnMas();
         // this.setPriceTrip();
 
@@ -136,6 +143,7 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
             },
 
             showWindow: function(num){
+                console.log("shoooow wind"+ num);
                 this.show = !this.show
                 this.window[num]=!this.window[num]
             },

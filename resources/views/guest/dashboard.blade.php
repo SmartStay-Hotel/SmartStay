@@ -1,11 +1,48 @@
 @extends("layout")
 @section("content")
-
-
-
     <transition name="fade">
-        <div id="sliderServices" v-if="!show && !showHistory">
-            <tiny-slider :mouse-drag="true" :loop="false" items="1" gutter="100">
+
+<div class="swiperHome">
+    <homeslider @window-to-show="showWindow" v-if="!show && !showHistory"></homeslider>
+</div>
+
+    </transition>
+
+
+{{--<sliderservices v-bind:services="services"></sliderservices>--}}
+{{--<div class="swiper-container">--}}
+    {{--<!-- Additional required wrapper -->--}}
+    {{--<div class="swiper-wrapper">--}}
+        {{--<!-- Slides -->--}}
+        {{--<div class="swiper-slide">Slide 1</div>--}}
+        {{--<div class="swiper-slide">Slide 2</div>--}}
+        {{--<div class="swiper-slide">Slide 3</div>--}}
+        {{--...--}}
+    {{--</div>--}}
+    {{--<!-- If we need pagination -->--}}
+    {{--<div class="swiper-pagination"></div>--}}
+
+    {{--<!-- If we need navigation buttons -->--}}
+    {{--<div class="swiper-button-prev"></div>--}}
+    {{--<div class="swiper-button-next"></div>--}}
+
+    {{--<!-- If we need scrollbar -->--}}
+    {{--<div class="swiper-scrollbar"></div>--}}
+{{--</div>--}}
+
+<!-- if you don't want to use the buttons Flickity provides -->
+{{--<agile :infinite="false">--}}
+    {{--<div class="slide slide--1"><h3>slide 1</h3></div>--}}
+    {{--<div class="slide slide--2"><h3>slide 2</h3></div>--}}
+    {{--<div class="slide slide--3"><h3>slide 3</h3></div>--}}
+    {{--<div class="slide slide--4"><h3>slide 4</h3></div>--}}
+    {{--<div class="slide slide--5"><h3>slide 5</h3></div>--}}
+    {{--<div class="slide slide--6"><h3>slide 6</h3></div>--}}
+{{--</agile>--}}
+
+    {{--<transition name="fade">--}}
+        {{--<div id="sliderServices" v-if="!show && !showHistory">--}}
+            {{--<tiny-slider :mouse-drag="true" :loop="false" items="1" gutter="100">--}}
                 {{-- nserv: Es el número por el que se empieza a contar, por cada containerServices se suma 4.--}}
                 {{-- servs: Con 1 se indica que ese servicio esta activo y se puede mostrar, con 0 lo contrario --}}
                 {{-- services: Es el array de services. Siempre se ha de poner --}}
@@ -17,103 +54,103 @@
                 {{--<serviceshome v-bind:nserv="4" v-bind:servs="[1,1,1,0]" v-bind:services="services"></serviceshome>--}}
                 {{--</div>--}}
 
-                <div class="servicesHome">
-                    <div class="servicesTop row">
+                {{--<div class="servicesHome">--}}
+                    {{--<div class="servicesTop row">--}}
 
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3"
-                             v-on:click="showWindow(0)">
-                            <img v-bind:src="services[0].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[0].description }}</div>
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[0].name }}</p>
-                            </div>
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3"--}}
+                             {{--v-on:click="showWindow(0)">--}}
+                            {{--<img v-bind:src="services[0].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[0].description }}</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[0].name }}</p>--}}
+                            {{--</div>--}}
 
-                        </div>
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(1)">
-                            <img v-bind:src="services[1].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[1].description }}</div>
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[1].name }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="servicesBottom row">
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(2)">
-                            <img v-bind:src="services[2].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[2].description }}</div>
+                        {{--</div>--}}
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(1)">--}}
+                            {{--<img v-bind:src="services[1].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[1].description }}</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[1].name }}</p>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="servicesBottom row">--}}
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(2)">--}}
+                            {{--<img v-bind:src="services[2].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[2].description }}</div>--}}
 
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[2].name }}</p>
-                            </div>
-                        </div>
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(3)">
-                            <img v-bind:src="services[3].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[3].description }}</div>
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[3].name }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[2].name }}</p>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(3)">--}}
+                            {{--<img v-bind:src="services[3].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[3].description }}</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[3].name }}</p>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
-                <div class="servicesHome">
-                    <div class="servicesTop row">
+                {{--<div class="servicesHome">--}}
+                    {{--<div class="servicesTop row">--}}
 
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3"
-                             v-on:click="showWindow(4)">
-                            <img v-bind:src="services[0].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[0].description }}</div>
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[0].name }}</p>
-                            </div>
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3"--}}
+                             {{--v-on:click="showWindow(4)">--}}
+                            {{--<img v-bind:src="services[0].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[0].description }}</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[0].name }}</p>--}}
+                            {{--</div>--}}
 
-                        </div>
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(5)">
-                            <img v-bind:src="services[1].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[1].description }}</div>
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[1].name }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="servicesBottom row">
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(6)">
-                            <img v-bind:src="services[2].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[2].description }}</div>
+                        {{--</div>--}}
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(5)">--}}
+                            {{--<img v-bind:src="services[1].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[1].description }}</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[1].name }}</p>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="servicesBottom row">--}}
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(6)">--}}
+                            {{--<img v-bind:src="services[2].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[2].description }}</div>--}}
 
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[2].name }}</p>
-                            </div>
-                        </div>
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(7)">
-                            <img v-bind:src="services[3].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[3].description }}</div>
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[3].name }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[2].name }}</p>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(7)">--}}
+                            {{--<img v-bind:src="services[3].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[3].description }}</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[3].name }}</p>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
-            </tiny-slider>
-        </div>
-    </transition>
+            {{--</tiny-slider>--}}
+        {{--</div>--}}
+    {{--</transition>--}}
 
 
     <div class="windows">

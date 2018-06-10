@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('css/guest.css')}}">
+
+{{--    <script type="text/javascript" src="{{asset('css/styleSwiper.css') }}"></script>--}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.3.5/tiny-slider.css">
     <meta name="viewport" content="height=device-height, initial-scale=1.0">
     {{--<meta name="viewport" content="width=device-width, initial-scale=1.0">--}}
@@ -61,6 +63,15 @@
 </div>
 
 <script type="text/javascript" src="{{asset('js/app.js') }}"></script>
+<script type="text/javascript" src="{{asset('js/swiper/dist/js/swiper.min.js') }}"></script>
+
+<script>
+    // var mySwiper = new Swiper('.swiper-container', {
+    //     speed: 400,
+    //     spaceBetween: 100,
+    //     loop:true
+    // });
+</script>
 
 </body>
 </html>
