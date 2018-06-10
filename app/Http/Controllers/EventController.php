@@ -166,4 +166,13 @@ class EventController extends Controller
 
         return redirect('/service/event');
     }
+
+    public function changeStatus($id)
+    {
+        $event         = Event::findOrFail($id);
+        $event->status = ($event->status === '2') ? '1' : '2';
+        $event->save();
+
+        return response()->json($event->status);
+    }
 }

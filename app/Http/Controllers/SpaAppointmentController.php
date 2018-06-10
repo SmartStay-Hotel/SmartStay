@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewOrderRequest;
 use App\Guest;
 use App\SpaAppointment;
 use App\SpaType;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -31,7 +33,7 @@ class SpaAppointmentController extends Controller
      */
     public function index()
     {
-        $spaAppointments = SpaAppointment::all();
+        $spaAppointments = SpaAppointment::all();//::paginate(3);
         return view('services.spa.index', compact('spaAppointments'));
     }
 
@@ -167,5 +169,14 @@ class SpaAppointmentController extends Controller
         SpaAppointment::find($id)->delete();
 
         return redirect('/service/spa');
+    }
+
+    public function changeStatus($id)
+    {
+        $spa         = SpaAppointment::findOrFail($id);
+        $spa->status = ($spa->status === '2') ? '1' : '2';
+        $spa->save();
+
+        return response()->json($spa->status);
     }
 }
