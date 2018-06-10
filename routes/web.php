@@ -140,7 +140,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::resource('admin/service/spa', 'SpaAppointmentController');
     Route::resource('admin/service/event', 'EventController');
     Route::resource('admin/service/trip', 'TripController');
-    Route::resource('admin/service/petcare', 'PetcareController');
+    Route::resource('admin/service/petcare', 'PetCareController');
     Route::resource('admin/service/snackdrink', 'SnacksAndDrinkController');
 
     /* --->   ------------- STATUS SERVICES --------------   */
@@ -151,6 +151,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::resource('admin/service/statusEvent/{id}', 'EventController@changeStatus');
     Route::resource('admin/service/statusTrip/{id}', 'TripController@changeStatus');
     Route::resource('admin/service/statusHousekeeping/{id}', 'HousekeepingController@changeStatus');
+    Route::resource('admin/service/statusPetcare/{id}', 'PetCareController@changeStatus');
 
     Route::get('test', function () {
         event(new App\Events\NewOrderRequest(1, 4, 15));
