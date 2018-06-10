@@ -137,16 +137,20 @@ Route::group(['middleware' => 'language'], function () {
     Route::resource('admin/service/taxi', 'TaxiController');
     Route::resource('admin/service/alarm', 'AlarmController');
     Route::resource('admin/service/housekeeping', 'HousekeepingController');
-    Route::resource('service/trip', 'TripController');
-    Route::resource('service/event', 'EventController');
-    Route::resource('service/petcare', 'PetcareController');
-    Route::resource('service/spa', 'SpaAppointmentController');
+    Route::resource('admin/service/spa', 'SpaAppointmentController');
+    Route::resource('admin/service/event', 'EventController');
+    Route::resource('admin/service/trip', 'TripController');
+    Route::resource('admin/service/petcare', 'PetcareController');
     Route::resource('admin/service/snackdrink', 'SnacksAndDrinkController');
 
     /* --->   ------------- STATUS SERVICES --------------   */
     Route::get('admin/service/statusRestaurant/{id}', 'RestaurantController@changeStatus');
     Route::get('admin/service/statusTaxi/{id}', 'TaxiController@changeStatus');
     Route::get('admin/service/statusAlarm/{id}', 'AlarmController@changeStatus');
+    Route::resource('admin/service/statusSpa/{id}', 'SpaAppointmentController@changeStatus');
+    Route::resource('admin/service/statusEvent/{id}', 'EventController@changeStatus');
+    Route::resource('admin/service/statusTrip/{id}', 'TripController@changeStatus');
+    Route::resource('admin/service/statusHousekeeping/{id}', 'HousekeepingController@changeStatus');
 
     Route::get('test', function () {
         event(new App\Events\NewOrderRequest(1, 4, 15));
