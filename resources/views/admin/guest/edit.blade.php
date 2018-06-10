@@ -1,4 +1,8 @@
 @extends('admin.layout')
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('guests.index') }}">Manage Guests</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Guest</li>
+@endsection
 @section('css')
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
     <style>

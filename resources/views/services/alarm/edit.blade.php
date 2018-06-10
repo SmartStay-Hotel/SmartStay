@@ -1,5 +1,8 @@
 @extends('admin.layout')
-
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('alarm.index') }}">Alarm</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Alarm</li>
+@endsection
 @section('css')
     <style>
         fieldset {

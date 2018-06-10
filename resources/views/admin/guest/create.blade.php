@@ -1,7 +1,11 @@
 @extends('admin.layout')
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('guests.index') }}">Manage Guests</a></li>
+    <li class="breadcrumb-item active" aria-current="page">New Booking</li>
+@endsection
 @section('css')
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
     <style>
         .panel-heading {
             padding: 0;
@@ -47,19 +51,16 @@
         }
 
         legend {
-            font-size: 1.2em !important;
+            font-size: 0.6em !important;
             font-weight: bold !important;
             text-align: left !important;
         }
 
-        body {
-            overflow-y: auto !important;
-        }
     </style>
 @endsection
 @section('content')
     <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
-    <h2 id="newBookingTitle"><i class="far fa-calendar-plus" style="padding: 5px;"></i>New Booking<a href="#"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
+    <h2 id="newBookingTitle"><i class="far fa-calendar-plus" style="padding: 5px;"></i>New Booking<a href="#"></a></h2>
     <div class="flex-grid">
         <div id="panel" class="panel panel-default" id="newBookingPanel" style="margin: 0px !important;  border: #5A6268 2px solid; border-bottom: #5A6268 20px solid; border-top: #5A6268 20px solid;">
             <div class="panel-heading">

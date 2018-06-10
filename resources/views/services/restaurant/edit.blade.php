@@ -1,6 +1,7 @@
 @extends('admin.layout')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('restaurant.index') }}">Restaurant</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Reservation</li>
 @endsection
 @section('css')
     <style>

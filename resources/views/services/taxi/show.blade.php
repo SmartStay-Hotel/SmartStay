@@ -1,5 +1,8 @@
 @extends('admin.layout')
-
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('taxi.index') }}">Taxi</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Show Reservation</li>
+@endsection
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('taxi.index') }}">Taxi</a></li>
 @endsection

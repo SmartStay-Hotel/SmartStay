@@ -1,5 +1,8 @@
 @extends('layouts.app')
-
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('event.index') }}">Event</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Show Event</li>
+@endsection
 @section('content')
     <h1>Showing Event Order: {{ $event->id }}</h1>
     <div class="pull-right">

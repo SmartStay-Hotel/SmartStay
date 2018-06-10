@@ -1,5 +1,8 @@
 @extends('layouts.app')
- 
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('spa.index') }}">Spa</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Appointment</li>
+@endsection
 @section('content')
     <div class="pull-right">
         <a class="btn btn-primary" href="{{ route('spa.index') }}"> Back</a>
