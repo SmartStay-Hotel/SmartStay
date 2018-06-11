@@ -55,7 +55,7 @@
         @yield('content')
     </div>
     </transition>
-{{--@{{ $data }}--}}
+@{{ $data }}
 
     <housekeeping v-if="!statusRoom && showModalHK" @close="showModalHK = false">
 

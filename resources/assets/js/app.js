@@ -6,6 +6,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 window.axios = require('axios');
 var Swiper = require('swiper');
+import moment from 'moment'
 
 
 //
@@ -76,6 +77,7 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
         this.getTrips();
         this.getEvents();
         this.getStatusRoom();
+        this.actualDate();
 
         // this.bttnMas();
         // this.setPriceTrip();
@@ -97,6 +99,9 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
             showResult:false,
             showHistory:false,
 
+            dataActual: '',
+            dataActualFormat: '',
+
             tripSelected:"",
             eventSelected:"",
             spaSelected:"",
@@ -111,7 +116,6 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
             showSnack:['true'],
 
             errores: "",
-
 
 
 
@@ -168,9 +172,20 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
                 return this.numPersonsTrip * price
             },
             actualDate: function(){
-                this.dataActual =  Date.now()
+                var d = new Date();
+                var month = d.getMonth() + 1;
+                if(month < 10) month = "0"+month;
+                this.dataActual =  d.getFullYear()+"-"+month+"-"+d.getDate()+"T"+d.getHours()+":"+d.getMinutes()
+                this.dayHourServ = this.dataActual
+                this.dataActualFormat = moment(this.dataActual).format('MMMM Do YYYY, h:mm a');
+                // this.dataActual = d;
             },
             insertRestaurant: function(){
+                if(this.dayHourServ<this.dataActual){
+                    console.log("holasdas");
+                }else{
+                console.log("correctoo");
+
                 var urlInsRest ='admin/service/restaurant';
                 axios.post(urlInsRest,{
                     day_hour: this.dayHourServ,
@@ -183,6 +198,7 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
                     this.errores = error.response.data;
 
                 })
+                }
                 // this.pruebaOrder=response.data;
             },
             insertAlarm: function(){

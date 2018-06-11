@@ -80,5 +80,68 @@
 </script>
 
 <style scoped>
+    .servicesHome {
+
+        /*display:flex;*/
+        /*align-items: center;*/
+
+        /*display:flex;*/
+        /*flex-direction: column;*/
+        /*justify-content: space-around;*/
+        text-align:center;
+    }
+
+
+    .servicesTop, .servicesBottom {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .bttnServices {
+        background-color: var(--colorSubMenu);
+        padding: 0px;
+        margin-bottom: 1%;
+        margin-right: 1%;
+        color: white;
+        box-shadow: var(--shadows);
+    }
+
+    .bttnServices img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .serviceDescription {
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0.8);
+        overflow: hidden;
+        width: 100%;
+        height: 0;
+        transition: .5s ease;
+
+    }
+
+    .bttnServices:hover .serviceDescription {
+        bottom: 0;
+        height: 100%;
+    }
+
+    .textDesc {
+        /*white-space: nowrap;*/
+        color: black;
+        font-size: 90%;
+        position: absolute;
+        overflow: hidden;
+        top: 50%;
+        width: 100%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+    }
 
 </style>

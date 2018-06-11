@@ -167,7 +167,8 @@
                 <div class="windowContent row">
                     <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertRestaurant">
                         <label for="dateRestaurant"> Day and hour: </label>
-                        <input type="datetime-local" name="dateRestaurant" v-model="dayHourServ"><br>
+                        <input type="datetime-local" name="dateRestaurant" v-model="dayHourServ" v-bind:min="dataActual" max="20-06-2018T00:00"><br>
+                        <p class="errorForm">*La fecha debe ser entre @{{ dataActualFormat }} y -checkout date-</p>
                         <label for="numPersonRest"> Number of persons: </label> <input type="number"
                                                                                        v-model="quantityServ"
                                                                                        name="numPersonRest">

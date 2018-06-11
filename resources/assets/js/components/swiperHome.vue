@@ -10,7 +10,7 @@
                     <serviceshome v-bind:nserv="0" v-bind:servs="[1,1,1,1]" v-bind:services="services"  @return-window="emitShow"></serviceshome>
                 </swiper-slide>
                 <swiper-slide>
-                    <serviceshome v-bind:nserv="4" v-bind:servs="[1,1,0,0]" v-bind:services="services" @return-window="emitShow"></serviceshome>
+                    <serviceshome v-bind:nserv="4" v-bind:servs="[1,1,1,0]" v-bind:services="services" @return-window="emitShow"></serviceshome>
                 </swiper-slide>
 
                 <div class="swiper-pagination" slot="pagination"></div>
@@ -84,15 +84,24 @@
         display:flex;
         align-items:center;
     }
-    /*.swiper-button-prev, .swiper-button-next {*/
 
-        /*height:100%;*/
-        /*top:0;*/
-        /*width:20%*/
-    /*}*/
+    .swiper-button-prev, .swiper-button-next {
+    width:10%;
+    }
     /*.swiper-button-prev:hover, .swiper-button-next:hover{*/
-        /*background-color:rgba(0,0,0,0.1);*/
+    /*background-color:rgba(0,0,0,0.1);*/
     /*}*/
+
+
+    @media (max-width: 545px) {
+        .swiper-button-prev, .swiper-button-next {
+            top:10%;
+            background-color:white;
+            width:50%;
+        }
+    }
+
+
 
 
 
