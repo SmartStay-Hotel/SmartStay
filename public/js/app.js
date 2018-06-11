@@ -41195,6 +41195,7 @@ new Vue({
         this.getEvents();
         this.getStatusRoom();
         this.actualDate();
+        this.getCheckOutDate();
 
         // this.bttnMas();
         // this.setPriceTrip();
@@ -41217,6 +41218,7 @@ new Vue({
 
         dataActual: '',
         dataActualFormat: '',
+        checkoutDate: '',
 
         tripSelected: "",
         eventSelected: "",
@@ -41243,35 +41245,42 @@ new Vue({
                 _this.services = response.data;
             });
         },
-
-        getStatusRoom: function getStatusRoom() {
+        getCheckOutDate: function getCheckOutDate() {
             var _this2 = this;
 
+            var urlCheckOutDate = 'checkout';
+            axios.get(urlCheckOutDate).then(function (response) {
+                _this2.checkoutDate = response.data;
+            });
+        },
+        getStatusRoom: function getStatusRoom() {
+            var _this3 = this;
+
             axios.get(urlGetStatusRoom).then(function (response) {
-                _this2.statusRoom = response.data;
+                _this3.statusRoom = response.data;
             });
         },
         getTrips: function getTrips() {
-            var _this3 = this;
+            var _this4 = this;
 
             var urlTrips = 'trips';
             axios.get(urlTrips).then(function (response) {
-                _this3.trips = response.data;
+                _this4.trips = response.data;
             });
         },
         getEvents: function getEvents() {
-            var _this4 = this;
+            var _this5 = this;
 
             var urlEvents = 'events';
             axios.get(urlEvents).then(function (response) {
-                _this4.events = response.data;
+                _this5.events = response.data;
             });
         },
         getSpaTypes: function getSpaTypes() {
-            var _this5 = this;
+            var _this6 = this;
 
             axios.get(urlSpaTypes).then(function (response) {
-                _this5.spaTypes = response.data;
+                _this6.spaTypes = response.data;
             });
         },
 
@@ -41299,7 +41308,7 @@ new Vue({
             // this.dataActual = d;
         },
         insertRestaurant: function insertRestaurant() {
-            var _this6 = this;
+            var _this7 = this;
 
             if (this.dayHourServ < this.dataActual) {
                 console.log("holasdas");
@@ -41311,83 +41320,83 @@ new Vue({
                     day_hour: this.dayHourServ,
                     quantity: this.quantityServ
                 }).then(function (response) {
-                    _this6.showResult = true;
+                    _this7.showResult = true;
                     toastr.success("jeje");
                 }).catch(function (error) {
                     toastr.success("jojoj");
-                    _this6.errores = error.response.data;
+                    _this7.errores = error.response.data;
                 });
             }
             // this.pruebaOrder=response.data;
         },
         insertAlarm: function insertAlarm() {
-            var _this7 = this;
+            var _this8 = this;
 
             var urlInsAlarm = 'admin/service/alarm';
             axios.post(urlInsAlarm, {
                 day_hour: this.dayHourServ
 
             }).then(function (response) {
-                _this7.showResult = true;
+                _this8.showResult = true;
                 toastr.success("adios");
                 console.log("coorecto alaramaaa");
             }).catch(function (error) {
 
                 toastr.success("sdfsadf");
-                _this7.errores = error.response.data;
+                _this8.errores = error.response.data;
                 console.log("alarm no");
             });
         },
         insertTrip: function insertTrip() {
-            var _this8 = this;
+            var _this9 = this;
 
             var urlInsTrip = 'admin/service/trip';
             axios.post(urlInsTrip, {
                 trip_type_id: this.dayHourServ
 
             }).then(function (response) {
-                _this8.showResult = true;
+                _this9.showResult = true;
                 toastr.success("adios");
                 console.log("correcto trip");
             }).catch(function (error) {
 
                 toastr.success("sdfsadf");
-                _this8.errores = error.response.data;
+                _this9.errores = error.response.data;
                 console.log("tripppp no");
             });
         }, insertEvent: function insertEvent() {
-            var _this9 = this;
+            var _this10 = this;
 
             var urlInsEvent = 'admin/service/event';
             axios.post(urlInsEvent, {
                 event_type_id: this.eventSelected
 
             }).then(function (response) {
-                _this9.showResult = true;
+                _this10.showResult = true;
                 toastr.success("adios");
                 console.log("correcto eventtt");
             }).catch(function (error) {
 
                 toastr.success("sdfsadf");
-                _this9.errores = error.response.data;
+                _this10.errores = error.response.data;
                 console.log("evevevvent no");
             });
         },
         insertTaxi: function insertTaxi() {
-            var _this10 = this;
+            var _this11 = this;
 
             var urlInsTaxi = 'admin/service/taxi';
             axios.post(urlInsTaxi, {
                 day_hour: this.dayHourServ
 
             }).then(function (response) {
-                _this10.showResult = true;
+                _this11.showResult = true;
                 toastr.success("adios");
                 console.log("correcto taxiiii");
             }).catch(function (error) {
 
                 toastr.success("sdfsadf");
-                _this10.errores = error.response.data;
+                _this11.errores = error.response.data;
                 console.log("taxino no");
             });
         },
@@ -41409,17 +41418,17 @@ new Vue({
     },
     computed: {
         infoTrip: function infoTrip() {
-            var _this11 = this;
+            var _this12 = this;
 
             return this.trips.filter(function (trip) {
-                return trip.id == _this11.tripSelected;
+                return trip.id == _this12.tripSelected;
             });
         },
         infoEvent: function infoEvent() {
-            var _this12 = this;
+            var _this13 = this;
 
             return this.events.filter(function (event) {
-                return event.id == _this12.eventSelected;
+                return event.id == _this13.eventSelected;
             });
         }
 

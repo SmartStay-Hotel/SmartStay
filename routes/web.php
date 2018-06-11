@@ -50,11 +50,13 @@ Route::group(['middleware' => 'language'], function () {
 
     Route::get('logout', 'CodeController@logout');
 
-    Route::get('services', function () {
-        $services = \App\Services::get();
+    //funciones para el guest
+    Route::get('checkout', 'GuestController@getCheckout');
 
-        return $services;
-    });
+    //Traducciones Google Translate REST API
+    Route::get('services', 'TranslatorAppController@services');
+
+
     Route::get('trips', function () {
         $trips = \App\Trip_types::get();
 
@@ -83,8 +85,8 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin', 'HomeController@index')->name('admin');
     Route::get('admin/dashboard', 'AdminDashboardController@index');
     Route::get('admin/checkin', 'AdminDashboardController@checkin');
-
     Route::get('admin/checkout', 'AdminDashboardController@checkout');
+    Route::get('admin/translate', 'TranslatorAppController@translate');
 
     /* llamadas a las vistas - luego irán en los controllers */
     Route::get('admin/taxi', function () {
@@ -145,6 +147,7 @@ Route::group(['middleware' => 'language'], function () {
 
     /* --->   ------------- STATUS SERVICES --------------   */
     Route::get('admin/service/statusRestaurant/{id}', 'RestaurantController@changeStatus');
+    Route::get('admin/service/statusSnacksAndDrinks/{id}', 'SnacksAndDrinkController@changeStatus');
     Route::get('admin/service/statusTaxi/{id}', 'TaxiController@changeStatus');
     Route::get('admin/service/statusAlarm/{id}', 'AlarmController@changeStatus');
     Route::resource('admin/service/statusSpa/{id}', 'SpaAppointmentController@changeStatus');

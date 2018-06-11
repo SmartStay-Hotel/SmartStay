@@ -78,6 +78,7 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
         this.getEvents();
         this.getStatusRoom();
         this.actualDate();
+        this.getCheckOutDate();
 
         // this.bttnMas();
         // this.setPriceTrip();
@@ -101,6 +102,7 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
 
             dataActual: '',
             dataActualFormat: '',
+            checkoutDate: '',
 
             tripSelected:"",
             eventSelected:"",
@@ -129,7 +131,12 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
                 });
 
             },
-
+            getCheckOutDate:function(){
+              var urlCheckOutDate = 'checkout'
+                axios.get(urlCheckOutDate).then(response=>{
+                    this.checkoutDate = response.data
+            })
+            },
             getStatusRoom:function(){
                 axios.get(urlGetStatusRoom).then(response=>{
                     this.statusRoom = response.data

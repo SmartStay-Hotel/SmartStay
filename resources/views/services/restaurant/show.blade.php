@@ -30,16 +30,15 @@
         <table class="table table-sm table-hover text-center" id="serviceTable">
             <thead id="serviceTableHeader">
             <tr><h2 id="serviceTitle"><i class="fas fa-utensils fa-xs" style="padding: 5px;"></i>Restaurant<a
-                            href="{{ route('restaurant.index') }}"><i
-                                id="addGuest" class="fas fa-user-plus fa-xs"
-                                style="padding-left: 70%; color: white; z-index: 1;"></i></a></h2>
+                            href="{{ route('restaurant.index') }}"></a></h2>
             </tr>
             <tr>
                 <fieldset>
                     <legend>Show</legend>
-                    <strong>Quantity: </strong> {{ $restaurant->quantity }}<br>
-                    <strong>Date hour: </strong> {{ $restaurant->day_hour }}<br>
-                    <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
+                    <strong>Room: </strong> {{ $guest->rooms[0]->number }}<br/>
+                    <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br/>
+                    <strong>Quantity: </strong> {{ $restaurant->quantity }}<br/>
+                    <strong>Date hour: </strong> {{ $restaurant->day_hour }}<br/>
                     <strong>Guest Phone: </strong> {{ $guest->telephone }}
                 </fieldset>
             </tr>

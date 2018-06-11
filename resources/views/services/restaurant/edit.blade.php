@@ -33,9 +33,7 @@
             @endif
             <thead id="serviceTableHeader">
             <tr><h2 id="serviceTitle"><i class="fas fa-utensils fa-xs" style="padding: 5px;"></i>Restaurant<a
-                            href="{{ route('restaurant.index') }}"><i
-                                id="addGuest" class="fas fa-user-plus fa-xs"
-                                style="padding-left: 70%; color: white; z-index: 1;"></i></a></h2>
+                            href="{{ route('restaurant.index') }}"></a></h2>
             </tr>
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
@@ -62,8 +60,21 @@
     <script>
         $(document).ready(function () {
             $('#change').change(function () {
-                if ($(this).is(':checked')) {
+                var $this = this;
+                if ($($this).is(':checked')) {
                     this.checked = (confirm("Are you sure?")) ? $('#selectGuest').prop('disabled', false) : false;
+                    /*toastr.options = {'closeButton': false, 'timeOut': false, 'closeOnHover': false};
+                    toastr.warning('<div><button type="button" id="cancelBtn" class="btn btn-primary">Cancel</button><button type="button" id="okBtn" class="btn" style="margin: 0 8px 0 8px">Ok</button></div>', 'Are you sure?');
+
+                    $('#okBtn').click(function () {
+                        $('#selectGuest').prop('disabled', false);
+                        $this.checked = true;
+                    });
+
+                    $('#cancelBtn, #toast-container').click(function () {
+                        $this.checked = false;
+                    });*/
+
                 }else{$('#selectGuest').prop('disabled', true)}
             });
         });

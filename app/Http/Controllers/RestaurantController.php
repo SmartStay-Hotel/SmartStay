@@ -159,6 +159,7 @@ class RestaurantController extends Controller
     {
         $input     = Input::all();
         $rules     = [
+            'guest_id' => 'numeric',
             'quantity' => 'required|numeric',
             'day_hour' => 'required|date',
         ];
@@ -202,7 +203,7 @@ class RestaurantController extends Controller
                 'message' => 'Order number: ' . $id . ' was deleted',
             ]);
         } else {
-            $return = redirect()->back()->with('status', 'Guest deleted successfully');
+            $return = redirect()->back()->with('status', 'Order deleted successfully');
         }
 
         return $return;

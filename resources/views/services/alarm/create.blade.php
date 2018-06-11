@@ -32,10 +32,8 @@
                 </div>
             @endif
             <thead id="serviceTableHeader">
-            <tr><h2 id="serviceTitle"><i class="far fa-clock fa-xs" style="padding: 5px;"></i>Alarm<a
-                            href="{{ route('alarm.index') }}"><i
-                                id="addGuest" class="fas fa-user-plus fa-xs"
-                                style="padding-left: 70%; color: white; z-index: 1;"></i></a></h2>
+            <tr><h2 id="serviceTitle"><i class="fas fa-clock fa-xs" style="padding: 5px;"></i>Alarm<a
+                            href="{{ route('alarm.index') }}"></a></h2>
             </tr>
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
