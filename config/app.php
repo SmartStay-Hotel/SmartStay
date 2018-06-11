@@ -162,6 +162,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /* 3rd Party Providers */
+        Dedicated\GoogleTranslate\GoogleTranslateProvider::class,
+
     ],
 
     /*
