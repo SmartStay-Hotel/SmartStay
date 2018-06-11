@@ -50,6 +50,9 @@ Route::group(['middleware' => 'language'], function () {
 
     Route::get('logout', 'CodeController@logout');
 
+    //funciones para el guest
+    Route::get('checkout', 'GuestController@getCheckout');
+
     //Traducciones Google Translate REST API
     Route::get('services', 'TranslatorAppController@services');
 
