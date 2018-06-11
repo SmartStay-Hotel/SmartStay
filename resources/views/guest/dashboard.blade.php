@@ -129,19 +129,19 @@
                 <p class="windowDesc">@{{ services[0].description }} </p>
                 <div class="windowContent row">
                     <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertRestaurant">
-                        <label for="dateRestaurant"> Day and hour: </label>
+                        <label for="dateRestaurant">{{trans('smartstay.restaurant.date')}}</label>
                         <input type="datetime-local" name="dateRestaurant" v-model="dayHourServ"><br>
-                        <label for="numPersonRest"> Number of persons: </label> <input type="number"
+                        <label for="numPersonRest">{{trans('smartstay.restaurant.numPers')}}</label> <input type="number"
                                                                                        v-model="quantityServ"
                                                                                        name="numPersonRest">
                         <br>
-                        <input type="submit" name="enviar">
+                        <input type="submit" name="{{trans('smartstay.dashboard.send')}}">
                     </form>
                     <div class="resultOrder col-md-5">
-                        <p>Booking name:
+                        <p>{{trans('smartstay.restaurant.bookingName')}}
                             <strong>{{\App\Guest::find(Session::get('guest_id'))->rooms[0]->number}}</strong></p>
                         <div v-if="showResult">
-                            <p>Hora: @{{dayHourServ}}</p>
+                            <p>{{trans('smartstay.restaurant.time')}} @{{dayHourServ}}</p>
                         </div>
                     </div>
 
@@ -157,8 +157,8 @@
                 <p class="windowDesc" style="margin-bottom:0px;">@{{ services[1].description }}</p>
                 <div class="windowNav">
                     <ul>
-                        <li @click="showSnack=true" v-bind:class="[showSnack ? 'windowNavSelected' : '']">Snack</li>
-                        <li style="border-left:1px solid gray;" @click="showSnack=false" v-bind:class="[!showSnack ? 'windowNavSelected' : '']">Drink</li>
+                        <li @click="showSnack=true" v-bind:class="[showSnack ? 'windowNavSelected' : '']">{{trans('smartstay.snack.name')}}</li>
+                        <li style="border-left:1px solid gray;" @click="showSnack=false" v-bind:class="[!showSnack ? 'windowNavSelected' : '']">{{trans('smartstay.drink.name')}}</li>
                     </ul>
                 </div>
                 <div class="windowContent row">
@@ -166,12 +166,12 @@
                         <div class="row" style="margin-bottom:5%;">
                             <transition name="fade">
                             <div v-if="showSnack">
-                                <label for="orderSnack" class="col-md-4">Snack</label>
+                                <label for="orderSnack" class="col-md-4">{{trans('smartstay.snack.name')}}</label>
                                 <div class="selSnackDrinks col-md-8">
 
                                     <select name="orderSnakc" id="snackOrder" v-for="numS in numSnacks">
-                                        <option>Select a snack</option>
-                                        <option value="">Select a snack</option>
+                                        <option>{{trans('smartstay.snack.select')}}</option>
+                                        <option value="">{{trans('smartstay.snack.select')}}</option>
                                     </select>
                                     <div class="bttnSnackDrinks row">
                                         <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5 col-xl-5" style="padding:0px">
@@ -189,12 +189,12 @@
                             </transition>
                             <transition name="fade">
                             <div v-if="!showSnack">
-                                <label for="orderDrink" class="col-md-4">Drink</label>
+                                <label for="orderDrink" class="col-md-4">{{trans('smartstay.drink.name')}}</label>
                                 <div class="selSnackDrinks col-md-8">
 
                                     <select name="orderDrink" id="drinkOrder" v-for="numD in numDrinks">
-                                        <option>Select a drink</option>
-                                        <option value="">Select a drink</option>
+                                        <option>{{trans('smartstay.drink.select')}}</option>
+                                        <option value="">{{trans('smartstay.drink.select')}}</option>
                                     </select>
                                     <div class="bttnSnackDrinks row">
                                         <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5 col-xl-5" style="padding:0px">
@@ -213,7 +213,7 @@
 
                         </div>
 
-                        <input type="submit" name="enviar">
+                        <input type="submit" name="{{trans('smartstay.dashboard.send')}}">
                     </form>
 
                 </div>
@@ -228,17 +228,17 @@
                 <p class="windowDesc">@{{ services[2].description }}</p>
                 <div class="windowContent row">
                     <div class="col-md-6" id="attrSpa">
-                        <div><label for="dateSpa">Day and hour</label><input type="datetime-local" name="dateSpa"></div>
-                        <div><label for="bookingSpa">Booking name</label><input type="text" name="bookingSpa"></div>
+                        <div><label for="dateSpa">{{trans('smartstay.spa.date')}}</label><input type="datetime-local" name="dateSpa"></div>
+                        <div><label for="bookingSpa">{{trans('smartstay.spa.bookingName')}}</label><input type="text" name="bookingSpa"></div>
                     </div>
                     <div class="col-md-6">
-                        <label for="typeSpa">Type</label> <select name="typeSpa" id="">
+                        <label for="typeSpa">{{trans('smartstay.spa.type')}}</label> <select name="typeSpa" id="">
 
                         </select>
                         <div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">
-                            <p>Location: @{{ item.location }}</p>
-                            <p>Day: @{{ item.day_week }}</p>
-                            <p>Price: @{{ setPriceTrip(item.price) }}</p>
+                            <p>{{trans('smartstay.spa.location')}} @{{ item.location }}</p>
+                            <p>{{trans('smartstay.spa.day')}} @{{ item.day_week }}</p>
+                            <p>{{trans('smartstay.spa.price')}} @{{ setPriceTrip(item.price) }}</p>
 
                         </div>
                     </div>
@@ -254,14 +254,14 @@
                 <p class="windowDesc">@{{ services[3].description }}</p>
                 <div class="windowContent row">
                     <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertAlarm">
-                        <label for="dateAlarm"> Day and hour: </label>
+                        <label for="dateAlarm">{{trans('smartstay.alarm.date')}}</label>
                         <input type="datetime-local" name="dateAlarm" v-model="dayHourServ"><br>
                         <p>@{{ dayHourServ }}</p>
                         <br>
-                        <input type="submit" name="enviar">
+                        <input type="submit" name="{{trans('smartstay.dashboard.send')}}">
                     </form>
                     <div v-if="showResult">
-                        <p>Hora: @{{dayHourServ}}</p>
+                        <p>{{trans('smartstay.alarm.hour')}}: @{{dayHourServ}}</p>
                     </div>
                 </div>
             </div>
@@ -269,35 +269,35 @@
                 <div class="windowTitle">
                     <button class="returnWindow " v-if="show" @click="showWindow(4)"><i
                                 class="fas fa-long-arrow-alt-left"></i></button>
-                    <h2>Pet care</h2>
+                    <h2>{{trans('smartstay.pet.name')}}</h2>
                 </div>
-                <p class="windowDesc">Pet care description</p>
+                <p class="windowDesc">{{trans('smartstay.pet.description')}}</p>
                 <div class="windowContent">
-                    <input type="checkbox"> Water
-                    <input type="radio"> Standard food
-                    <input type="radio"> Premium food
-                    Snacks: <input type="hour">
+                    <input type="checkbox">{{trans('smartstay.pet.water')}}
+                    <input type="radio">{{trans('smartstay.pet.standardFood')}}
+                    <input type="radio">{{trans('smartstay.pet.premiumFood')}}
+                    {{trans('smartstay.pet.snacks')}}: <input type="hour">
                 </div>
             </div>
             <div class="windowService" v-if="window[5]">
                 <div class="windowTitle">
                     <button class="returnWindow " v-if="show" @click="showWindow(5)"><i
                                 class="fas fa-long-arrow-alt-left"></i></button>
-                    <h2>Trips</h2>
+                    <h2>{{trans('smartstay.trips.name')}}</h2>
                 </div>
-                <p class="windowDesc">Trip description</p>
+                <p class="windowDesc">{{trans('smartstay.trips.description')}}</p>
                 <div class="windowContent">
 
                     Choose a trip: <select name="selTrips" id="" v-model="tripSelected">
                         <option v-for="trip in trips" v-bind:value="trip.id">@{{ trip.name }}</option>
 
                     </select>
-                    Number of persons: <input type="number" min="1" v-model="numPersonsTrip">
+                    {{trans('smartstay.trips.numPersons')}}: <input type="number" min="1" v-model="numPersonsTrip">
 
                     <div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">
-                        <p>Location: @{{ item.location }}</p>
-                        <p>Day: @{{ item.day_week }}</p>
-                        <p>Price: @{{ setPriceTrip(item.price) }}</p>
+                        <p>{{trans('smartstay.trips.location')}}: @{{ item.location }}</p>
+                        <p>{{trans('smartstay.trips.day')}}: @{{ item.day_week }}</p>
+                        <p>{{trans('smartstay.trips.price')}}: @{{ setPriceTrip(item.price) }}</p>
 
                     </div>
 
@@ -311,12 +311,12 @@
                 </div>
                 <p class="windowDesc">@{{ services[5].description }}</p>
                 <div class="windowContent">
-                    Select a event: <select name="selEvent" v-model="eventSelected">
+                    {{trans('smartstay.event.selectEvent')}}: <select name="selEvent" v-model="eventSelected">
                         <option v-for="event in events">@{{ event.name }}</option>
                     </select>
                     <div class="windowInfo" v-for="item in infoEvent" v-if="eventSelected != ''">
-                        <p>Location: @{{ item.location }}</p>
-                        <p>Day: @{{ item.day_week }}</p>
+                        <p>{{trans('smartstay.event.location')}}: @{{ item.location }}</p>
+                        <p>{{trans('smartstay.event.day')}}: @{{ item.day_week }}</p>
                     </div>
                 </div>
             </div>
@@ -324,11 +324,11 @@
                 <div class="windowTitle">
                     <button class="returnWindow " @click="showWindow(7)"><i class="fas fa-long-arrow-alt-left"></i>
                     </button>
-                    <h2>Taxi</h2>
+                    <h2>{{trans('smartstay.taxi.name')}}</h2>
                 </div>
-                <p class="windowDesc">Taxi description</p>
+                <p class="windowDesc">{{trans('smartstay.taxi.description')}}</p>
                 <div class="windowContent">
-                    Hour <input type="time">
+                    {{trans('smartstay.taxi.hour')}}<input type="time">
                 </div>
             </div>
         </transition>
@@ -338,12 +338,6 @@
     <footer v-if="show"></footer>
 
     {{-- ------------------ --}}
-
-
-
-
-
-
 
 
 
