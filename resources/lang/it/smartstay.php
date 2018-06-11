@@ -28,4 +28,72 @@ return [
     'dashboard.taxi' => 'Taxi',
     'dashboard.spa' => 'SpaAppointment',
     'dashboard.housekeeping' => 'Servizi stanza',
+
+    'dashboard.send' => 'Invia',
+
+    /*
+restaurant
+*/
+    'restaurant.date' => 'Giorno e ora',
+    'restaurant.numPers' => 'Numero di persone',
+    'restaurant.bookingName' => 'Nome prenotazione',
+    'restaurant.time' => 'Ora',
+
+    /*
+snack
+*/
+    'snack.name' => 'Snack',
+    'snack.select' => 'Scegli uno snack',
+    'drink.name' => 'Bibita',
+    'drink.select' => 'Scegli una bibita',
+
+    /*
+spa
+*/
+    'spa.date' => 'Giorno e ora',
+    'spa.bookingName' => 'Nome prenotazione',
+    'spa.type' => 'Tipo',
+    'spa.location' => 'Luogo',
+    'spa.day' => 'Giorno',
+    'spa.price' => 'Prezzo',
+
+    /*
+alarm
+*/
+    'alarm.date' => 'Giorno e ora',
+    'alarm.hour' => 'Ora',
+
+    /*
+pet care
+*/
+    'pet.name' => 'Animali',
+    'pet.description' => 'Descrizione servizi per animali',
+    'pet.water' => 'Acqua',
+    'pet.standardFood' => 'Cibo standard',
+    'pet.premiumFood' => 'Cibo premium',
+    'pet.snacks' => 'Snacks',
+
+    /*
+trips
+*/
+    'trips.name' => 'Escursioni',
+    'trips.description' => 'Descrizione escursioni',
+    'trips.numPersons' => 'Numero di persone',
+    'trips.location' => 'Luogo',
+    'trips.day' => 'Giorno',
+    'trips.price' => 'Prezzo',
+
+    /*
+events
+*/
+    'event.selectEvent' => 'Scegli un evento',
+    'event.location' => 'Luogo',
+    'event.day' => 'Giorno',
+
+    /*
+taxi
+*/
+    'taxi.name' => 'Taxi',
+    'taxi.description' => 'Descrizione taxi',
+    'taxi.hour' => 'Ora',
 ];
