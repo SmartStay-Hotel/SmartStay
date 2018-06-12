@@ -15,9 +15,9 @@ class Event extends Model
             'status',
         ];
 
-    public function eventTypes()
+    public function eventType()
     {
-        return $this->belongsTo('App\Event_types');
+        return $this->belongsTo(Event_types::class);
     }
     public function guest()
     {

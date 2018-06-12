@@ -9,7 +9,7 @@
     <div class="card"
          style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
 
-        <h2 id="serviceTitle"><i class="fas fa-time" style="padding: 5px;"></i>Alarm<a
+        <h2 id="serviceTitle"><i class="far fa-clock" style="padding: 5px;"></i>Alarm<a
                     href="{{ route('alarm.create') }}"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
         <table class="table table-sm table-hover text-center" id="serviceTable">
             @if (session('status'))

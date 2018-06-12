@@ -51,4 +51,8 @@ class SnacksAndDrink extends Model
 
         return $snackDrinks;
     }
+
+    public static function getOrderByGuestDate($guest_id, $date){
+        return self::where('guest_id', $guest_id, 'created_at', $date)->get();
+    }
 }

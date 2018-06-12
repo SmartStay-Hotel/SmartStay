@@ -32,8 +32,8 @@
                 </div>
             @endif
             <thead id="serviceTableHeader">
-            <tr><h2 id="serviceTitle"><i class="fas fa-utensils fa-xs" style="padding: 5px;"></i>Restaurant<a
-                            href="{{ route('restaurant.index') }}"><i
+            <tr><h2 id="serviceTitle"><i class="fas fa-taxi fa-xs" style="padding: 5px;"></i>Taxi<a
+                            href="{{ route('taxi.index') }}"><i
                                 id="addGuest" class="fas fa-user-plus fa-xs"
                                 style="padding-left: 70%; color: white; z-index: 1;"></i></a></h2>
             </tr>
@@ -50,8 +50,8 @@
 
 
         </table>
-        {!! Form::open(['route' => 'restaurant.store', null, 'method'=>'POST']) !!}
-        @include('services.restaurant.partial.form')
+        {!! Form::open(['route' => 'taxi.store', null, 'method'=>'POST']) !!}
+        @include('services.taxi.partial.form')
         {!! Form::close() !!}
     </div>
 @endsection

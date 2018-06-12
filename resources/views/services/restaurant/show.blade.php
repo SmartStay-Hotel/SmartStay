@@ -35,9 +35,10 @@
             <tr>
                 <fieldset>
                     <legend>Show</legend>
-                    <strong>Quantity: </strong> {{ $restaurant->quantity }}<br>
-                    <strong>Date hour: </strong> {{ $restaurant->day_hour }}<br>
-                    <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
+                    <strong>Room: </strong> {{ $guest->rooms[0]->number }}<br/>
+                    <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br/>
+                    <strong>Quantity: </strong> {{ $restaurant->quantity }}<br/>
+                    <strong>Date hour: </strong> {{ $restaurant->day_hour }}<br/>
                     <strong>Guest Phone: </strong> {{ $guest->telephone }}
                 </fieldset>
             </tr>

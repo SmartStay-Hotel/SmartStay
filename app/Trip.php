@@ -21,9 +21,9 @@ class Trip extends Model
             'service_id' => 7,
         ];
 
-    public function tripTypes()
+    public function tripType()
     {
-        return $this->belongTo('App\Trip_types');
+        return $this->belongsTo(Trip_types::class);
     }
 
     public function guest()

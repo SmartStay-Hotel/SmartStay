@@ -22,7 +22,8 @@ class RestaurantController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['only' => ['index', 'create', 'show', 'edit', 'update', 'changeStatus']]);
+        $this->middleware('auth', ['except' => ['orderList', 'store', 'destroy']]);
     }
 
     /**
@@ -32,8 +33,6 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        //FRONT
-        //session guest_id
         $restaurants = Restaurant::paginate(3); //->orderBy('updated_at', 'desc')->get();
 
         return view('services.restaurant.index', compact('restaurants'));
@@ -66,7 +65,7 @@ class RestaurantController extends Controller
     public function store(Request $request)
     {
         //dd($request->request);
-//        Session::put('guest_id', '19');
+        //        Session::put('guest_id', '19');
         //Session::forget('guest_id');
         $input = Input::all();
         if ($request->ajax()) {
@@ -87,7 +86,8 @@ class RestaurantController extends Controller
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '1';
-                $restaurant          = Restaurant::create($input);
+                $guest               = Guest::find($input['guest_id']);
+                $restaurant          = $guest->restaurants()->create($input);
                 DB::commit();
                 event(new NewOrderRequest($restaurant->service_id, $input['guest_id'], $restaurant->id));
 
@@ -159,6 +159,7 @@ class RestaurantController extends Controller
     {
         $input     = Input::all();
         $rules     = [
+            'guest_id' => 'numeric',
             'quantity' => 'required|numeric',
             'day_hour' => 'required|date',
         ];
@@ -202,7 +203,7 @@ class RestaurantController extends Controller
                 'message' => 'Order number: ' . $id . ' was deleted',
             ]);
         } else {
-            $return = redirect()->back()->with('status', 'Guest deleted successfully');
+            $return = redirect()->back()->with('status', 'Order deleted successfully');
         }
 
         return $return;
@@ -220,5 +221,15 @@ class RestaurantController extends Controller
         $restaurant->save();
 
         return response()->json($restaurant->status);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function orderList()
+    {
+        $restaurant = Restaurant::where('guest_id', Session::get('guest_id'))->get();
+
+        return $restaurant;
     }
 }
