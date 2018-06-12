@@ -5,6 +5,8 @@
 require('./bootstrap');
 window.Vue = require('vue');
 window.axios = require('axios');
+var Swiper = require('swiper');
+import moment from 'moment'
 
 
 //
@@ -44,20 +46,27 @@ window.axios = require('axios');
 //
 // Vue.use(VueCarousel);
 
+
+
+
 import VueTinySlider from 'vue-tiny-slider';
+
+
+Vue.component('homeslider', require('./components/swiperHome.vue'))
 Vue.component('housekeeping', require('./components/menuHousekeeping.vue'));
 Vue.component('serviceshome', require('./components/servicesHome.vue'));
+Vue.component('historyorders', require('./components/historyOrders.vue'))
 // Vue.component('modal', {
 //     template: '#hola'
 // })
 
 // import servicesHome from './components/servicesHome.vue'
 
-    var urlServices = 'services';
-    var urlTrips = 'trips';
-    var urlChangeStatusRoom= 'changeStatus';
+
+
+
     var urlGetStatusRoom ='seeStatus';
-    var urlSpaTypes='';
+    var urlChangeStatusRoom = 'changeStatus';
 
 
 
@@ -68,6 +77,9 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
         this.getTrips();
         this.getEvents();
         this.getStatusRoom();
+        this.actualDate();
+        this.getCheckOutDate();
+
         // this.bttnMas();
         // this.setPriceTrip();
 
@@ -79,32 +91,53 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
             trips:[],
             events:[],
             spaTypes:[],
+
+            statusGuest: false,
+
             window: [false, false, false, false, false, false, false],
             show: false,
-            guestOut:true,
-            showMenuOut: true,
+            showModalHK:false,
+            showResult:false,
+            showHistory:false,
+
+            dataActual: '',
+            dataActualFormat: '',
+            checkoutDate: '',
+            checkoutDateFormat:'',
+
             tripSelected:"",
             eventSelected:"",
             spaSelected:"",
             numPersonsTrip:1,
             statusRoom:"",
-            showModal:false,
             dayHourServ:'',
             quantityServ:'',
-            showResult:false,
+            hourTaxi:'',
+
             numSnacks:['1'],
             numDrinks:['1'],
             showSnack:['true'],
-            pruebaOrder:[],
+
+            errores: "",
+
 
 
 
         },
         methods:{
             getServices: function(){
+                var urlServices = 'services';
                 axios.get(urlServices).then(response=>{
                     this.services = response.data
                 });
+
+            },
+            getCheckOutDate:function(){
+              var urlCheckOutDate = 'checkout';
+                axios.get(urlCheckOutDate).then(response=>{
+                    this.checkoutDate = response.data
+            })
+                this.checkoutDateFormat = moment(this.checkoutDate).format('MMMM Do YYYY, h:mm a');
 
             },
             getStatusRoom:function(){
@@ -113,6 +146,7 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
                 })
             },
             getTrips: function(){
+                var urlTrips = 'trips';
                 axios.get(urlTrips).then(response=>{
                     this.trips = response.data
             });
@@ -132,34 +166,56 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
             },
 
             showWindow: function(num){
+                console.log("shoooow wind"+ num);
                 this.show = !this.show
                 this.window[num]=!this.window[num]
+                this.showResult = false
+
             },
             showOut: function(){
                 axios.get(urlChangeStatusRoom)
-                this.guestOut = !this.guestOut
-                this.showMenuOut = !this.showMenuOut
+                this.showModalHK = true
+
             },
-            showOut2:function(){
-                this.guestOut = !this.guestOut
-                this.showMenuOut = !this.showMenuOut
-            },
+
             setPriceTrip: function(price){
                 return this.numPersonsTrip * price
             },
             actualDate: function(){
-                this.dataActual =  Date.now()
+                var d = new Date();
+                var month = d.getMonth() + 1;
+                var hour= d.getHours();
+                var day = d.getDate();
+                var minutes = d.getMinutes();
+                if(month < 10) month = "0"+month;
+                if(hour<10) hour = "0" + hour;
+                if(day<10) day = "0"+ day;
+                if(minutes<10) minutes = "0" + minutes;
+                this.dataActual =  d.getFullYear()+"-"+month+"-"+d.getDate()+"T"+d.getHours()+":"+d.getMinutes()
+                this.dayHourServ = this.dataActual
+                this.dataActualFormat = moment(this.dataActual).format('MMMM Do YYYY, h:mm a');
+
+                // this.dataActual = d;
             },
             insertRestaurant: function(){
+                if(this.dayHourServ<this.dataActual){
+                    console.log("holasdas");
+                }else{
+                console.log("correctoo");
+
                 var urlInsRest ='admin/service/restaurant';
                 axios.post(urlInsRest,{
                     day_hour: this.dayHourServ,
                     quantity: this.quantityServ
                 }).then(response=>{
                     this.showResult = true;
-
                     toastr.success("jeje");
+                }).catch(error=>{
+                    toastr.success("jojoj");
+                    this.errores = error.response.data;
+
                 })
+                }
                 // this.pruebaOrder=response.data;
             },
             insertAlarm: function(){
@@ -170,6 +226,64 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
                 }).then(response=>{
                     this.showResult = true;
                     toastr.success("adios");
+                    console.log("coorecto alaramaaa");
+
+            }).catch(error=>{
+
+                    toastr.success("sdfsadf");
+                this.errores = error.response.data;
+                console.log("alarm no");
+
+            })
+            },
+            insertTrip: function(){
+                var urlInsTrip ='admin/service/trip';
+                axios.post(urlInsTrip,{
+                    trip_type_id: this.dayHourServ
+
+                }).then(response=>{
+                    this.showResult = true;
+                toastr.success("adios");
+                console.log("correcto trip");
+            }).catch(error=>{
+
+                    toastr.success("sdfsadf");
+                this.errores = error.response.data;
+                console.log("tripppp no");
+
+            })
+            },insertEvent: function(){
+                var urlInsEvent ='admin/service/event';
+                axios.post(urlInsEvent,{
+                    event_type_id: this.eventSelected
+
+                }).then(response=>{
+                    this.showResult = true;
+                toastr.success("adios");
+                console.log("correcto eventtt");
+            }).catch(error=>{
+
+                    toastr.success("sdfsadf");
+                this.errores = error.response.data;
+                console.log("evevevvent no");
+
+            })
+            },
+            insertTaxi: function(){
+                var urlInsTaxi ='admin/service/taxi';
+                axios.post(urlInsTaxi,{
+                    day_hour: this.dayHourServ
+
+                }).then(response=>{
+                    this.showResult = true;
+                toastr.success("adios");
+                console.log("correcto taxiiii");
+            }).catch(error=>{
+
+                    toastr.success("sdfsadf");
+                this.errores = error.response.data;
+                console.log("taxino no");
+
             })
             },
             bttnMas: function(tipo){
@@ -197,7 +311,7 @@ Vue.component('serviceshome', require('./components/servicesHome.vue'));
                 return this.trips.filter((trip) => trip.id==this.tripSelected);
             },
             infoEvent: function(){
-                return this.events.filter((event) => event.name.includes(this.eventSelected));
+                return this.events.filter((event) => event.id==this.eventSelected);
             },
 
         },

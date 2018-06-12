@@ -57,8 +57,8 @@ nav header {
 }
 
 #separator2{
-    margin: 8px -20px 20px -20px;
-    border-width: 30px;
+    margin: 0px -20px 20px -20px;
+    border-width: 40px;
     border-color: white;
 }
 
@@ -122,18 +122,20 @@ main #formLayout{
 
 .flex-grid > div{
     flex: 1;
-    margin: 0 20px 0px 0;
+    margin: 0 20px 20px 0;
     border: 1px solid #ddd;
     background: #fff;
     padding: 40px 20px 40px 20px;
+    font-size: 2vw;
     border-radius: 0px;
 }
 
 .flex-grid > a{
     flex: 1;
-    margin: 0 20px 0px 0;
+    margin: 0 20px 20px 0;
     border: 1px solid #ddd;
     padding: 40px 20px 40px 20px;
+    font-size: 2vw;
     border-radius: 0px;
 }
 
@@ -145,7 +147,6 @@ main #formLayout{
     background-position: right center;
     border-bottom: 20px solid #2160A6;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
-    font-size: 34px;
 }
 
 #bookingsBtn:active, #newBookingBtn:active, #checkOutBtn:active, #checkInBtn:active{
@@ -160,7 +161,6 @@ main #formLayout{
     background-position: center center;
     border-bottom: 20px solid #004101;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
-    font-size: 34px;
 }
 
 #checkOutBtn {
@@ -171,7 +171,6 @@ main #formLayout{
     background-position: center center;
     border-bottom: 20px solid #880015;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
-    font-size: 34px;
 }
 
 #newBookingBtn{
@@ -182,8 +181,6 @@ main #formLayout{
     background-position: right center;
     border-bottom: 20px solid #272727;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
-    margin-right: 0px;
-    font-size: 34px;
 }
 
 #pendingOrdersList{
@@ -194,6 +191,7 @@ main #formLayout{
     border: 1px solid #979898;
     padding: 10px;
     text-align: left;
+    font-size: 1vw;
 }
 
 #dispatchedOrdersList{
@@ -204,6 +202,7 @@ main #formLayout{
     border: 1px solid #979898;
     padding: 10px;
     text-align: left;
+    font-size: 1vw;
 
 }
 
@@ -451,26 +450,8 @@ z-index: 1;
     display: none;
 }
 
-@media screen and (max-width: 1024px) {
+@media  screen and (max-width: 1024px) {
     #addGuestManage {padding-left: 50% !important;}
     #addGuest {line-height: 100% !important;}
-    #bookingsBtn, #newBookingBtn, #checkOutBtn, #checkInBtn{font-size: 20px;}
-}
-
-@media screen and (max-width: 1023px) and (min-width: 400px){
-    .sidenav{margin-bottom: 300px!important;}
-}
-
-@media screen and (max-width: 700px) {
-    .sidenav{width: 20%; margin-bottom: 100%; width: 100%;}
-    #servicesList{width: 100%;}
-    #main_container{flex-direction: column;}
-    #titleAdmin{display: none;}
-    .flex-grid{flex-direction: column;}
-    .flex-grid>a{margin: 0px;}
-    .card-title{display:none;}
-    #serviceTableHeader{width:40%;}
-    #serviceTable{font-size: 2.3vw;}
-    #guestTable{font-size: 3px;}
 }
 
