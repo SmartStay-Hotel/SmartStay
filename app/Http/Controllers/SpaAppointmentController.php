@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\NewOrderRequest;
 use App\Guest;
 use App\SpaAppointment;
 use App\SpaTreatmentType;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -34,6 +32,7 @@ class SpaAppointmentController extends Controller
     public function index()
     {
         $spaAppointments = SpaAppointment::all();//::paginate(3);
+
         return view('services.spa.index', compact('spaAppointments'));
     }
 
@@ -46,9 +45,10 @@ class SpaAppointmentController extends Controller
     {
         $guests = Guest::all();
         foreach ($guests as $guest) {
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number : 'Err' . ' - ' . $guest->firstname . ' ' . $guest->lastname;
         }
-        $guests = $guests->pluck('guestRoomNumber', 'id');
+        $guests   = $guests->pluck('guestRoomNumber', 'id');
         $spaTypes = SpaTreatmentType::all();
 
         return view('services.spa.create', compact('guests', 'spaTypes'));
@@ -57,7 +57,8 @@ class SpaAppointmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -72,10 +73,10 @@ class SpaAppointmentController extends Controller
             }
         }
 
-        $rules = [
-            'guest_id'           => 'required|numeric',
-            'day_hour'           => 'required|date',
-            'treatment_type_id'  =>'required|numeric',
+        $rules     = [
+            'guest_id'          => 'required|numeric',
+            'day_hour'          => 'required|date',
+            'treatment_type_id' => 'required|numeric',
         ];
         $validator = Validator::make($input, $rules);
 
@@ -83,11 +84,12 @@ class SpaAppointmentController extends Controller
             DB::beginTransaction();
             DB::commit();
         }
-/////////////////////// OLD Code //////////////////////////
+        /////////////////////// OLD Code //////////////////////////
         $order_date = date('Y-m-d');
 
         $request->validate([
-            'day_hour' => 'required',]);
+            'day_hour' => 'required',
+        ]);
 
         SpaAppointment::create([
             'guest_id'          => $request->guest,
@@ -95,7 +97,8 @@ class SpaAppointmentController extends Controller
             'treatment_type_id' => $request->spatype,
             'day_hour'          => $request->day_hour,
             'price'             => 20,
-            'status'            => '0']);
+            'status'            => '0',
+        ]);
 
         return redirect('/service/spa');
     }
@@ -117,13 +120,14 @@ class SpaAppointmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(SpaAppointment $spaAppointment)
     {
         $data = [
-            'guests'    => Guest::all(),
+            'guests'   => Guest::all(),
             'spaTypes' => SpaTreatmentType::all(),
             'spa'      => $spaAppointment,
         ];
@@ -136,8 +140,9 @@ class SpaAppointmentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -158,7 +163,8 @@ class SpaAppointmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

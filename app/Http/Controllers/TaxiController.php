@@ -34,6 +34,7 @@ class TaxiController extends Controller
     public function index()
     {
         $taxis = Taxi::all();
+
         return view('services.taxi.index', compact('taxis'));
     }
 
@@ -45,8 +46,9 @@ class TaxiController extends Controller
     public function create()
     {
         $guests = Guest::all();
-        foreach ($guests as $guest){
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+        foreach ($guests as $guest) {
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number : 'Err' . ' - ' . $guest->firstname . ' ' . $guest->lastname;
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
@@ -71,14 +73,14 @@ class TaxiController extends Controller
                 return response()->json(['status' => false]);
             }
         }
-        $rules = [
+        $rules     = [
             'guest_id' => 'required|numeric',
-            'day_hour' => 'required|date'
+            'day_hour' => 'required|date',
         ];
         $validator = Validator::make($input, $rules);
 
-        if ($validator->passes()){
-            try{
+        if ($validator->passes()) {
+            try {
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '0';
@@ -87,21 +89,21 @@ class TaxiController extends Controller
                 DB::commit();
                 event(new NewOrderRequest($taxi->service_id, $input['guest_id'], $taxi->id));
 
-                if ($request->ajax()){
+                if ($request->ajax()) {
                     //$return = ['status' => true];
                     return; //cambio para Cristian
-                }else{
+                } else {
                     $return = redirect()->route('taxi.index')->with('status', 'Order added successfully');
                 }
-            }catch (\Exception $e) {
+            } catch (\Exception $e) {
                 DB::rollback();
                 throw $e;
             }
-        }else {
-            if ($request->ajax()){
+        } else {
+            if ($request->ajax()) {
                 //$return = ['status' => false];
                 //return; //cambio para Cristian
-            }else{
+            } else {
                 $return = redirect()->route('restaurant.create')->withErrors($validator->getMessageBag());
             }
         }
@@ -119,6 +121,7 @@ class TaxiController extends Controller
     public function show(Taxi $taxi)
     {
         $guest = Guest::find($taxi->guest_id);
+
         return view('services.taxi.show', compact('taxi', 'guest'));
     }
 
@@ -152,26 +155,26 @@ class TaxiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input     = Input::all();
-        $rules     = [
+        $input = Input::all();
+        $rules = [
             'day_hour' => 'required|date',
         ];
 
         $validator = Validator::make($input, $rules);
 
-        if ($validator->passes()){
-            try{
+        if ($validator->passes()) {
+            try {
                 DB::beginTransaction();
                 $taxi = Taxi::find($id);
                 $taxi->update($input);
                 DB::commit();
 
                 $return = redirect()->route('taxi.index')->with('status', 'Order updated successfully.');
-            }catch (\Exception $e) {
+            } catch (\Exception $e) {
                 DB::rollback();
                 throw $e;
             }
-        }else{
+        } else {
             $return = redirect()->route('taxi.edit', $id)->withErrors($validator->getMessageBag());
         }
 
@@ -188,6 +191,7 @@ class TaxiController extends Controller
     public function destroy($id)
     {
         Taxi::find($id)->delete();
+
         return redirect()->back()->with('status', 'Order deleted successfully');
     }
 
@@ -206,6 +210,7 @@ class TaxiController extends Controller
     public function orderList()
     {
         $taxi = Taxi::where('guest_id', Session::get('guest_id'))->get();
+
         return $taxi;
     }
 }

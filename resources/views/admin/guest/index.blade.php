@@ -44,7 +44,8 @@
 @endsection
 
 @section('content')
-    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
+    <div class="card"
+         style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
         <h2 id="newBookingTitle">Manage Guests</h2>
 
         <br/>
@@ -76,26 +77,28 @@
                     {{ csrf_field() }}
                     </thead>
                     <tbody>
-                    @foreach($guests as $indexKey => $guest)
-                        <tr class="item{{$guest->id}} @if($guest->balance > 0) warning @endif">
-                            <td class="col1">{{ $indexKey+1 }}</td>
-                            <td>{{$guest->firstname . " " . $guest->lastname}}</td>
-                            <td>{{$guest->rooms[0]->number}}</td>
-                            <td>{{$guest->rooms[0]->pivot->checkin_date}}</td>
-                            <td>{{$guest->rooms[0]->pivot->checkout_date}}</td>
-                            <td class="text-center">
-                                <a href="{{ route('guests.show', $guest->id) }}" class="show-modal btn btn-success">
-                                    <span style="padding: 5px;"><i class="far fa-eye"></i></span>
-                                </a>
-                                <a href="{{ route('guests.edit', $guest->id) }}" class="edit-modal btn btn-info">
-                                    <span style="padding: 5px;"><i class="fas fa-edit"></i></span>
-                                </a>
-                                {!! Form::open(['method' => 'DELETE','route' => ['guests.destroy', $guest->id], 'style'=>'display:inline']) !!}
-                                {!! Form::button('<span style="padding: 8px;"><i class="fas fa-trash-alt"></i></span>', array('type' => 'submit', 'class' => 'delete-modal btn btn-danger')) !!}
-                                {!! Form::close() !!}
-                            </td>
-                        </tr>
-                    @endforeach
+                    @if(isset($guests[0]->rooms[0]))
+                        @foreach($guests as $indexKey => $guest)
+                            <tr class="item{{$guest->id}} @if($guest->balance > 0) warning @endif">
+                                <td class="col1">{{ $indexKey+1 }}</td>
+                                <td>{{$guest->firstname . " " . $guest->lastname}}</td>
+                                <td>{{$guest->rooms[0]->number}}</td>
+                                <td>{{$guest->rooms[0]->pivot->checkin_date}}</td>
+                                <td>{{$guest->rooms[0]->pivot->checkout_date}}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('guests.show', $guest->id) }}" class="show-modal btn btn-success">
+                                        <span style="padding: 5px;"><i class="far fa-eye"></i></span>
+                                    </a>
+                                    <a href="{{ route('guests.edit', $guest->id) }}" class="edit-modal btn btn-info">
+                                        <span style="padding: 5px;"><i class="fas fa-edit"></i></span>
+                                    </a>
+                                    {!! Form::open(['method' => 'DELETE','route' => ['guests.destroy', $guest->id], 'style'=>'display:inline']) !!}
+                                    {!! Form::button('<span style="padding: 8px;"><i class="fas fa-trash-alt"></i></span>', array('type' => 'submit', 'class' => 'delete-modal btn btn-danger')) !!}
+                                    {!! Form::close() !!}
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                     </tbody>
                 </table>
             </div><!-- /.panel-body -->
