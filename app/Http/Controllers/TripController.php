@@ -49,7 +49,7 @@ class TripController extends Controller
         $guests = Guest::all();
         foreach ($guests as $guest) {
             $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
-                ? $guest->rooms[0]->number : 'Err' . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+                ? $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname : 'Not Found';
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
@@ -149,7 +149,7 @@ class TripController extends Controller
         $guests = Guest::all();
         foreach ($guests as $guest) {
             $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
-                ? $guest->rooms[0]->number : 'Err' . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+                ? $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname : 'Not Found';
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
