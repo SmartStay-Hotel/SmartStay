@@ -94,16 +94,18 @@ class PetCareController extends Controller
                 } else {
                     $input['snacks'] = 0;
                 }
-                if ( ! $request['s']) {
-                    $request['s'] = 0;
-                } else {
-                    $request['s'] = 1;
+                /*
+                if (!$input['standard']){
+                    $input['standard'] = 0;
+                }else{
+                    $input['standard'] = 1;
                 }
-                if ( ! $request['p']) {
-                    $request['p'] = 0;
-                } else {
-                    $request['p'] = 1;
+                if (!$input['premium']){
+                    $input['premium'] = 0;
+                }else{
+                    $input['premium'] = 1;
                 }
+                */
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '0';
                 $guest               = Guest::find($input['guest_id']);

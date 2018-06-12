@@ -85,8 +85,4 @@ class Guest extends Model
         $room = self::find($id)->rooms[0];
         return $room;
     }
-
-    public static function getCheckoutByGuestId($id){
-        return self::find($id)->rooms[0]->pivot->checkout_date;
-    }
 }

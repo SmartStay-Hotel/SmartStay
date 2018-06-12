@@ -24,7 +24,7 @@
                 <th scope="col">Room Nº</th>
                 <th scope="col">Water</th>
                 <th scope="col">Standard food</th>
-                <th scope="col">Premium_food</th>
+                <th scope="col">Premium food</th>
                 <th scope="col">Snacks</th>
                 <th scope="col">Price</th>
                 <th scope="col">Completed?</th>
@@ -138,6 +138,11 @@
             });
         });
     </script>
+
+    <script>
+        document.getElementsByClassName("itemDropdown")[6].style.color="white";
+    </script>
+
 @endsection
 
 

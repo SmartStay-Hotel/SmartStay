@@ -229,7 +229,7 @@ class GuestController extends Controller
         $room->status = ! $room->status;
         $room->save();
 
-        //        return response()->json($room->status);
+//        return response()->json($room->status);
     }
 
     /**

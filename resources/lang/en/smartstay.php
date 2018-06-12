@@ -78,6 +78,7 @@ trips
 */
     'trips.name' => 'Trips',
     'trips.description' => 'Trips Description',
+    'trips.select' => 'Select a trip',
     'trips.numPersons' => 'Number of Persons',
     'trips.location' => 'Location',
     'trips.day' => 'Day',
@@ -96,4 +97,15 @@ taxi
     'taxi.name' => 'Taxi',
     'taxi.description' => 'Taxi Description',
     'taxi.hour' => 'Hour',
+
+
+    /*
+housekeeping
+*/
+    'hk.sheets' => 'Bed Sheets',
+    'hk.cleaning' => 'Cleaning',
+    'hk.minibar' => 'Minibar',
+    'hk.blanket' => 'Blanket',
+    'hk.toiletries' => 'Toiletries',
+    'hk.pillow' => 'Pillow',
 ];

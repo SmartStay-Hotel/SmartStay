@@ -51,3 +51,9 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 @endsection
+
+@section('scripts')
+    <script>
+        document.getElementsByClassName("itemDropdown")[5].style.color="white";
+    </script>
+@endsection

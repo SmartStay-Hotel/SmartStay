@@ -24,20 +24,16 @@
 
     <label>Standard Food</label>
     @if(empty($petcare->standard_food))
-        {!! Form::radio('food', 's', false, (old('food') == 's'), ['id' => 'standard']) !!}
-        {{--!! Form::radio('food','standard', false, ['data-attribute' => 'standard', 'class' => 'form-control w3-input w3-border-teal']) !!--}}
+        {!! Form::radio('food','standard', false, ['class' => 'form-control w3-input w3-border-teal']) !!}
     @else
-        {!! Form::radio('food', 's', true, (old('food') == 's'), ['id' => 'standard']) !!}
-        {{--!! Form::checkbox('food','standard', true, ['class' => 'form-control w3-input w3-border-teal']) !!--}}
+        {!! Form::checkbox('food','standard', true, ['class' => 'form-control w3-input w3-border-teal']) !!}
     @endif
 
     <label>Premium Food</label>
     @if(empty($petcare->premium_food))
-        {!! Form::radio('food', 'p', false, (old('food') == 'p'), ['id'=>'premium']) !!}
-        {{--!! Form::radio('food','premium', false, ['class' => 'form-control w3-input w3-border-teal']) !!--}}
+        {!! Form::radio('food','premium', false, ['class' => 'form-control w3-input w3-border-teal']) !!}
     @else
-        {!! Form::radio('food', 'p', true, (old('food') == 'p'), ['id'=>'premium']) !!}
-        {{--!! Form::radio('food','premium', true, ['class' => 'form-control w3-input w3-border-teal']) !!--}}
+        {!! Form::radio('food','premium', true, ['class' => 'form-control w3-input w3-border-teal']) !!}
     @endif
     <br/>
     <p>

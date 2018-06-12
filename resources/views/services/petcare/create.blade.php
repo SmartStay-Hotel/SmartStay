@@ -53,6 +53,12 @@
         {!! Form::close() !!}
     </div>
 @endsection
+
+@section('scripts')
+    <script>
+        document.getElementsByClassName("itemDropdown")[6].style.color="white";
+    </script>
+@endsection
 {{--
 @section('content')
     <div class="pull-right">
