@@ -142,7 +142,7 @@ class GuestController extends Controller
             'nif'           => 'required',
             'email'         => 'required|email',
             'telephone'     => 'required',
-            'checkin_date'  => 'required|date',
+            'checkin_date'  => 'date',
             'checkout_date' => 'required|date',
         ];
         $validator = Validator::make($input, $rules);

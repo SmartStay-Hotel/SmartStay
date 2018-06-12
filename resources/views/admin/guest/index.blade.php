@@ -77,8 +77,8 @@
                     {{ csrf_field() }}
                     </thead>
                     <tbody>
-                    @if(isset($guests[0]->rooms[0]))
-                        @foreach($guests as $indexKey => $guest)
+                    @foreach($guests as $indexKey => $guest)
+                        @if(isset($guest->rooms[0]))
                             <tr class="item{{$guest->id}} @if($guest->balance > 0) warning @endif">
                                 <td class="col1">{{ $indexKey+1 }}</td>
                                 <td>{{$guest->firstname . " " . $guest->lastname}}</td>
@@ -97,8 +97,8 @@
                                     {!! Form::close() !!}
                                 </td>
                             </tr>
-                        @endforeach
-                    @endif
+                        @endif
+                    @endforeach
                     </tbody>
                 </table>
             </div><!-- /.panel-body -->

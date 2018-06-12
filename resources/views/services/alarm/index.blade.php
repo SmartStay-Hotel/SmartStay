@@ -23,6 +23,7 @@
                 <th scope="col">Guest Name</th>
                 <th scope="col">Room Nº</th>
                 <th scope="col">Day and Time</th>
+                <th scope="col">Completed?</th>
                 <th scope="col" colspan="3">Actions</th>
             </tr>
             </thead>
@@ -58,7 +59,7 @@
         $(document).ready(function () {
             $(':checkbox').change(function (event) {
                 var $this = this;
-                var route = 'statusRestaurant/' + event.target.name + '';
+                var route = 'statusAlarm/' + event.target.name + '';
                 if ($($this).is(':checked')) {
 
                     toastr.options = {'closeButton': false, 'timeOut': false, 'closeOnHover': false};
