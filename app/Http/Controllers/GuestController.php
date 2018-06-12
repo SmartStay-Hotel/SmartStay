@@ -152,7 +152,7 @@ class GuestController extends Controller
                 $guest = Guest::find($id);
                 $guest->update($input);
                 $guest->rooms()->sync([
-                    $guest->id => [
+                    $guest->rooms[0]->id => [
                         'checkin_date'  => $input['checkin_date'],
                         'checkout_date' => $input['checkout_date'],
                     ],
