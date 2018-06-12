@@ -24,7 +24,7 @@
         </div>
 
         <div class="servicesBottom">
-            <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" v-if="servs[nserv+2]" @click="$emit('return-window', 6)">
+            <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" v-if="servs[nserv+2]" @click="$emit('return-window', 5)">
                 <img v-bind:src="services[nserv+2].image" alt="">
                 <div class="serviceDescription">
                     <div class="textDesc">{{ services[nserv+2].description }}</div>

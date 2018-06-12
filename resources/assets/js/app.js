@@ -103,6 +103,7 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
             dataActual: '',
             dataActualFormat: '',
             checkoutDate: '',
+            checkoutDateFormat:'',
 
             tripSelected:"",
             eventSelected:"",
@@ -132,10 +133,12 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
 
             },
             getCheckOutDate:function(){
-              var urlCheckOutDate = 'checkout'
+              var urlCheckOutDate = 'checkout';
                 axios.get(urlCheckOutDate).then(response=>{
                     this.checkoutDate = response.data
             })
+                this.checkoutDateFormat = moment(this.checkoutDate).format('MMMM Do YYYY, h:mm a');
+
             },
             getStatusRoom:function(){
                 axios.get(urlGetStatusRoom).then(response=>{
@@ -181,10 +184,17 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
             actualDate: function(){
                 var d = new Date();
                 var month = d.getMonth() + 1;
+                var hour= d.getHours();
+                var day = d.getDate();
+                var minutes = d.getMinutes();
                 if(month < 10) month = "0"+month;
+                if(hour<10) hour = "0" + hour;
+                if(day<10) day = "0"+ day;
+                if(minutes<10) minutes = "0" + minutes;
                 this.dataActual =  d.getFullYear()+"-"+month+"-"+d.getDate()+"T"+d.getHours()+":"+d.getMinutes()
                 this.dayHourServ = this.dataActual
                 this.dataActualFormat = moment(this.dataActual).format('MMMM Do YYYY, h:mm a');
+
                 // this.dataActual = d;
             },
             insertRestaurant: function(){

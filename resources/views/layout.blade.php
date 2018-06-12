@@ -55,10 +55,17 @@
         @yield('content')
     </div>
     </transition>
-@{{ $data }}
+{{--@{{ $data }}--}}
 
     <housekeeping v-if="!statusRoom && showModalHK" @close="showModalHK = false">
-
+        <div slot="body">
+        <div class="menuOut"><input type="checkbox"> Bed Sheets</div>
+        <div class="menuOut"><input type="checkbox"> Cleaning </div>
+        <div class="menuOut"><input type="checkbox"> Minibar</div>
+        <div class="menuOut"><input type="checkbox"> Blanket</div>
+        <div class="menuOut"><input type="checkbox"> Toiletries</div>
+        <div class="menuOut"><input type="checkbox"> Pillow</div>
+        </div>
     </housekeeping>
     <historyorders  v-if="showHistory" @close="showHistory = false"></historyorders>
 

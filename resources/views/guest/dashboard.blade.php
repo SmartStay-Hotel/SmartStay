@@ -168,8 +168,8 @@
                     <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertRestaurant">
                         <label for="dateRestaurant">{{trans('smartstay.restaurant.date')}}</label>
 
-                        <input type="datetime-local" name="dateRestaurant" v-model="dayHourServ" v-bind:min="dataActual" max="20-06-2018T00:00"><br>
-                        <p class="errorForm">*La fecha debe ser entre @{{ dataActualFormat }} y -checkout date-</p>
+                        <input type="datetime-local" name="dateRestaurant" v-model="dayHourServ" v-bind:min="dataActual" v-bind:max="checkoutDate"><br>
+                        <p class="errorForm">*La fecha debe ser entre @{{ dataActualFormat }} y @{{ checkoutDateFormat }}</p>
                         <label for="numPersonRest">{{trans('smartstay.restaurant.numPers')}}</label> <input type="number" v-model="quantityServ" name="numPersonRest">
                         <br>
                         <input type="submit" name="{{trans('smartstay.dashboard.send')}}">
@@ -327,7 +327,7 @@
                     <h2>{{trans('smartstay.trips.name')}}</h2>
                 </div>
                 <p class="windowDesc">{{trans('smartstay.trips.description')}}</p>
-                <div class="windowContent">
+                <div class="windowContent row">
                     <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertTrip">
                     <label for="selTrips">
                         Choose a trip:
@@ -391,7 +391,7 @@
                     <h2>{{trans('smartstay.taxi.name')}}</h2>
                 </div>
                 <p class="windowDesc">{{trans('smartstay.taxi.description')}}</p>
-                <div class="windowContent">
+                <div class="windowContent row">
                     {{trans('smartstay.taxi.hour')}}<input type="time">
                 <p class="windowDesc">Taxi description</p>
                 <div class="windowContent row">
@@ -404,6 +404,7 @@
                     <p>Hour: @{{hourTaxi}}</p>
 
                 </div>
+            </div>
             </div>
         </transition>
     </div>

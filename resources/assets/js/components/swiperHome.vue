@@ -87,7 +87,9 @@
 
     .swiper-button-prev, .swiper-button-next {
     width:10%;
+
     }
+
     /*.swiper-button-prev:hover, .swiper-button-next:hover{*/
     /*background-color:rgba(0,0,0,0.1);*/
     /*}*/
