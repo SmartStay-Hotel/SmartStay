@@ -45,6 +45,8 @@
         </table>
     </div>
 @endsection
-
+<script>
+    document.getElementsByClassName("itemDropdown")[8].style.color="white";
+</script>
 @section('scripts')
 @endsection

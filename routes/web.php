@@ -50,20 +50,16 @@ Route::group(['middleware' => 'language'], function () {
 
     Route::get('logout', 'CodeController@logout');
 
-    //funciones para el guest
-    Route::get('checkout', 'GuestController@getCheckout');
-
-    //Traducciones Google Translate REST API
     Route::get('services', 'TranslatorAppController@services');
 
 
     Route::get('trips', function () {
-        $trips = \App\Trip_types::get();
+        $trips = \App\TripType::get();
 
         return $trips;
     });
     Route::get('events', function () {
-        $events = \App\Event_types::get();
+        $events = \App\EventType::get();
 
         return $events;
     });
@@ -85,8 +81,8 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin', 'HomeController@index')->name('admin');
     Route::get('admin/dashboard', 'AdminDashboardController@index');
     Route::get('admin/checkin', 'AdminDashboardController@checkin');
+
     Route::get('admin/checkout', 'AdminDashboardController@checkout');
-    Route::get('admin/translate', 'TranslatorAppController@translate');
 
     /* llamadas a las vistas - luego irán en los controllers */
     Route::get('admin/taxi', function () {

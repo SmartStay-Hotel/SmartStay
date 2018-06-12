@@ -8,7 +8,7 @@
 @section('content')
     <div class="card"
          style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
-        <h2 id="serviceTitle"><i class="fas fa-suitcase" style="padding: 5px;"></i>Trip<a
+        <h2 id="serviceTitle"><i class="fas fa-suitcase" style="padding: 5px;"></i>Trips<a
                     href="{{ route('trip.create') }}"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
         <table class="table table-sm table-hover text-center" id="serviceTable">
             @if (session('status'))
@@ -119,5 +119,10 @@
                 });
             });
         });
+
+    </script>
+
+    <script>
+        document.getElementsByClassName("itemDropdown")[8].style.color="white";
     </script>
 @endsection

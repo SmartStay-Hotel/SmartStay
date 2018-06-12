@@ -21,7 +21,8 @@ class CodeController extends Controller
         //$guestCode = '6ca36f';
         $room = Room::where("code", $guestCode)->first();
         if ($room['code']) {
-            $checkOutDate = $room->guests[0]->pivot->checkout_date;
+            $checkOutDate = (isset($room->guests[0]->pivot->checkout_date)) ? $room->guests[0]->pivot->checkout_date
+                : '2012-12-12';
             $today        = Carbon::now();
             $checkOutDate = Carbon::parse($checkOutDate)->addHour(12);
 

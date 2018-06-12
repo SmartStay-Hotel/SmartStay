@@ -330,16 +330,14 @@
                 <div class="windowContent row">
                     <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertTrip">
                     <label for="selTrips">
-                        Choose a trip:
+                        {{trans('smartstay.trips.select')}}
                     </label>
                     <select name="selTrips" id="" v-model="tripSelected">
                         <option v-for="trip in trips" v-bind:value="trip.id">@{{ trip.name }}</option>
                     </select>
-                    {{trans('smartstay.trips.numPersons')}}: <input type="number" min="1" v-model="numPersonsTrip">
+                    <label for="cantTrip">{{trans('smartstay.trips.numPersons')}}: </label><input type="number" min="1" v-model="numPersonsTrip">
 
-                    <label for="cantTrip">
-                        Number of persons:
-                    </label>
+
                     <input type="number" name="cantTrip" min="1" v-model="numPersonsTrip">
                         <input type="submit">
                     <div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">

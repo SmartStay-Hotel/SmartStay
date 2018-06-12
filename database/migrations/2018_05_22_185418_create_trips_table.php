@@ -22,6 +22,7 @@ class CreateTripsTable extends Migration
             $table->unsignedInteger('service_id');
             $table->unsignedInteger('trip_type_id'); //pendiente de tabla
             $table->date('order_date');
+            $table->unsignedInteger('people_num');
             $table->double('price');
             $table->enum('status', ['0', '1', '2']);
             $table->timestamps();

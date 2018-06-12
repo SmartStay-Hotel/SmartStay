@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Events\NewOrderRequest;
 use App\Guest;
-use Carbon\Carbon;
 use App\Housekeeping;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -47,7 +47,8 @@ class HousekeepingController extends Controller
     {
         $guests = Guest::all();
         foreach ($guests as $guest) {
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number : 'Err' . ' - ' . $guest->firstname . ' ' . $guest->lastname;
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
@@ -65,9 +66,9 @@ class HousekeepingController extends Controller
     public function store(Request $request)
     {
 
-        $input = Input::all();
-        $input [].= (Input::has('bed_sheets')) ? true : false;
-       dd($input);
+        $input    = Input::all();
+        $input [] .= (Input::has('bed_sheets')) ? true : false;
+        dd($input);
         if ($request->ajax()) {
             if (Session::exists('guest_id')) {
                 $input['guest_id'] = Session::get('guest_id');
@@ -75,7 +76,7 @@ class HousekeepingController extends Controller
                 return response()->json(['status' => false]);
             }
         }
-        $rules     = [
+        $rules = [
             'guest_id' => 'required|numeric',
         ];
 
@@ -85,9 +86,9 @@ class HousekeepingController extends Controller
             try {
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
-                $input['status']     = '1';
+                $input['status']     = '0';
                 $guest               = Guest::find($input['guest_id']);
-                $housekeeping          = $guest->houseKeepings()->create($input);
+                $housekeeping        = $guest->houseKeepings()->create($input);
                 DB::commit();
                 event(new NewOrderRequest($housekeeping->service_id, $input['guest_id'], $housekeeping->id));
 
@@ -110,6 +111,7 @@ class HousekeepingController extends Controller
                 $return = redirect()->route('housekeeping.create')->withErrors($validator->getMessageBag());
             }
         }
+
         return $return;
         /* ////// OLD ////
         $order_date = date('Y-m-d');
@@ -156,7 +158,8 @@ class HousekeepingController extends Controller
     {
         $guests = Guest::all();
         foreach ($guests as $guest) {
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number : 'Err' . ' - ' . $guest->firstname . ' ' . $guest->lastname;
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
@@ -167,7 +170,7 @@ class HousekeepingController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  int                      $id
      *
      * @return \Illuminate\Http\Response
      * @throws \Exception
@@ -176,8 +179,8 @@ class HousekeepingController extends Controller
     {
         //No hay nada que evaluar salvo el guest
 
-        $input     = Input::all();
-        $rules     = [
+        $input = Input::all();
+        $rules = [
             'guest_id' => 'required|numeric',
         ];
 

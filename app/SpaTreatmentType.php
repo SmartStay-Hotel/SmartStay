@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SpaType extends Model
+class SpaTreatmentType extends Model
 {
     public function spaAppointment()
     {

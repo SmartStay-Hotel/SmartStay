@@ -21,6 +21,7 @@ class CreateTripTypesTable extends Migration
             $table->integer('max_num_people');
             $table->string('day_week');
             $table->double('price');
+            $table->string('image');
             $table->timestamps();
         });
     }

@@ -293,7 +293,7 @@
         channel.bind('App\\Events\\NewOrderRequest', function (data) {
             //alert(data.message);
             toastr.options.onclick = function () {
-                window.location = data.goToShow.toLowerCase();
+                window.location = data.goToShow.toLowerCase().replace(' ', '');
             };
             toastr.success(data.message, 'New Order:');
 

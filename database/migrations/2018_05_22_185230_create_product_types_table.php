@@ -18,6 +18,8 @@ class CreateProductTypesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->double('price');
+            $table->integer('type_id');
+            $table->string('image');
             $table->timestamps();
         });
     }

@@ -53,7 +53,7 @@ class GuestController extends Controller
         $rules     = [
             'firstname'     => 'required|max:30',
             'lastname'      => 'required|max:30',
-            'nie'           => 'required',
+            'nif'           => 'required',
             'email'         => 'required|email',
             'telephone'     => 'required|numeric',
             'checkin_date'  => 'required|date',
@@ -139,10 +139,10 @@ class GuestController extends Controller
         $rules     = [
             'firstname'     => 'required|max:30',
             'lastname'      => 'required|max:30',
-            'nie'           => 'required',
+            'nif'           => 'required',
             'email'         => 'required|email',
             'telephone'     => 'required',
-            'checkin_date'  => 'required|date',
+            'checkin_date'  => 'date',
             'checkout_date' => 'required|date',
         ];
         $validator = Validator::make($input, $rules);
@@ -152,7 +152,7 @@ class GuestController extends Controller
                 $guest = Guest::find($id);
                 $guest->update($input);
                 $guest->rooms()->sync([
-                    $guest->id => [
+                    $guest->rooms[0]->id => [
                         'checkin_date'  => $input['checkin_date'],
                         'checkout_date' => $input['checkout_date'],
                     ],
@@ -229,7 +229,7 @@ class GuestController extends Controller
         $room->status = ! $room->status;
         $room->save();
 
-        //        return response()->json($room->status);
+//        return response()->json($room->status);
     }
 
     /**
@@ -246,6 +246,9 @@ class GuestController extends Controller
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function getCheckout()
     {
         return Guest::getCheckoutByGuestId(Session::get('guest_id'));

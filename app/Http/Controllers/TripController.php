@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\NewOrderRequest;
 use App\Guest;
 use App\Trip;
-use App\Trip_types;
+use App\TripType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +35,7 @@ class TripController extends Controller
     public function index()
     {
         $trips = Trip::all();
+
         return view('services.trip.index', compact('trips'));
     }
 
@@ -47,12 +48,13 @@ class TripController extends Controller
     {
         $guests = Guest::all();
         foreach ($guests as $guest) {
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number : 'Err' . ' - ' . $guest->firstname . ' ' . $guest->lastname;
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
-        $tripTypes = Trip_types::all();
-        foreach ($tripTypes as $tripType){
+        $tripTypes = TripType::all();
+        foreach ($tripTypes as $tripType) {
             $tripType->tripname = $tripType->name;
         }
         $tripTypes = $tripTypes->pluck('tripname', 'id');
@@ -70,8 +72,8 @@ class TripController extends Controller
      */
     public function store(Request $request)
     {
-        $input = Input::all();
-        $return ="";
+        $input  = Input::all();
+        $return = "";
 
         if ($request->ajax()) {
             if (Session::exists('guest_id')) {
@@ -81,9 +83,9 @@ class TripController extends Controller
             }
         }
 
-        $rules = [
-            'guest_id'      => 'required|numeric',
-            'trip_type_id'  =>'required|numeric',
+        $rules     = [
+            'guest_id'     => 'required|numeric',
+            'trip_type_id' => 'required|numeric',
         ];
         $validator = Validator::make($input, $rules);
 
@@ -91,9 +93,9 @@ class TripController extends Controller
             try {
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
-                $input['status'] = '1';
+                $input['status']     = '0';
                 $guest               = Guest::find($input['guest_id']);
-                $trip          = $guest->trips()->create($input);
+                $trip                = $guest->trips()->create($input);
                 DB::commit();
 
                 event(new NewOrderRequest($trip->service_id, $input['guest_id'], $trip->id));
@@ -104,11 +106,11 @@ class TripController extends Controller
                 } else {
                     $return = redirect()->route('trip.index')->with('status', 'Order added successfully.');
                 }
-            }catch (\Exception $e) {
+            } catch (\Exception $e) {
                 DB::rollback();
                 throw $e;
             }
-        }else {
+        } else {
             // No pasó el validador
             if ($request->ajax()) {
                 //$return = ['status' => false];
@@ -117,6 +119,7 @@ class TripController extends Controller
                 $return = redirect()->route('trip.create')->withErrors($validator->getMessageBag());
             }
         }
+
         return $return;
     }
 
@@ -130,6 +133,7 @@ class TripController extends Controller
     public function show(Trip $trip)
     {
         $guest = Guest::find($trip->guest_id);
+
         return view('services.trip.show', compact('trip', 'guest'));
     }
 
@@ -144,12 +148,13 @@ class TripController extends Controller
     {
         $guests = Guest::all();
         foreach ($guests as $guest) {
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number : 'Err' . ' - ' . $guest->firstname . ' ' . $guest->lastname;
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
-        $tripTypes = Trip_types::all();
-        foreach ($tripTypes as $tripType){
+        $tripTypes = TripType::all();
+        foreach ($tripTypes as $tripType) {
             $tripType->tripname = $tripType->name;
         }
         $tripTypes = $tripTypes->pluck('tripname', 'id');
@@ -161,7 +166,7 @@ class TripController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  int                      $id
      *
      * @return \Illuminate\Http\Response
      * @throws \Exception
@@ -215,6 +220,7 @@ class TripController extends Controller
 
         return $return;
     }
+
     /**
      * @param $id
      *

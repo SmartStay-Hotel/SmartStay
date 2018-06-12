@@ -54,7 +54,7 @@ spa
 */
     'spa.date' => 'Fecha y hora',
     'spa.bookingName' => 'Nombre reserva',
-    'spa.type' => 'Tipo',
+    'spa.type' => 'Tipo tratamiento',
     'spa.location' => 'Lugar',
     'spa.day' => 'Día',
     'spa.price' => 'Precio',
@@ -80,6 +80,7 @@ trips
 */
     'trips.name' => 'Excursiones',
     'trips.description' => 'Descripción excursiones',
+    'trips.select' => 'Seleccione una excursión',
     'trips.numPersons' => 'Número de personas',
     'trips.location' => 'Lugar',
     'trips.day' => 'Día',
@@ -98,4 +99,14 @@ taxi
     'taxi.name' => 'Taxi',
     'taxi.description' => 'Descripción taxi',
     'taxi.hour' => 'Hora',
+
+    /*
+housekeeping
+*/
+    'hk.sheets' => 'Sábanas',
+    'hk.cleaning' => 'Limpieza',
+    'hk.minibar' => 'Minibar',
+    'hk.blanket' => 'Manta',
+    'hk.toiletries' => 'Artículos de aseo',
+    'hk.pillow' => 'Almohada',
 ];

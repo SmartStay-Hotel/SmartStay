@@ -18,9 +18,9 @@ class SpaAppointment extends Model
             'service_id' => 3,
         ];
 
-    public function spaType()
+    public function spaTreatmentType()
     {
-        return $this->belongsTo(SpaType::class);
+        return $this->belongsTo(SpaTreatmentType::class);
     }
 
     public function guest()

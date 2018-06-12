@@ -48,7 +48,8 @@ class SnacksAndDrinkController extends Controller
     {
         $guests = Guest::all();
         foreach ($guests as $guest) {
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number : 'Err' . ' - ' . $guest->firstname . ' ' . $guest->lastname;
         }
         $guests       = $guests->pluck('guestRoomNumber', 'id');
         $productTypes = ProductType::pluck('name', 'id');
@@ -87,7 +88,7 @@ class SnacksAndDrinkController extends Controller
             try {
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
-                $input['status']     = '1'; //será cambiado a cero al actualizar la bbdd
+                $input['status']     = '0'; //será cambiado a cero al actualizar la bbdd
                 $input['price']      = 0;
                 $guest               = Guest::find($input['guest_id']);
 
@@ -156,7 +157,8 @@ class SnacksAndDrinkController extends Controller
     {
         $guests = Guest::all();
         foreach ($guests as $guest) {
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number : 'Err' . ' - ' . $guest->firstname . ' ' . $guest->lastname;
         }
         $guests       = $guests->pluck('guestRoomNumber', 'id');
         $productTypes = ProductType::pluck('name', 'id');

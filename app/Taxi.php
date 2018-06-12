@@ -17,7 +17,7 @@ class Taxi extends Model
 
     protected $attributes
         = [
-            'service_id' => 5,
+            'service_id' => 8,
         ];
 
     public function guest()

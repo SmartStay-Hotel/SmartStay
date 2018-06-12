@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Event;
-use App\Event_types;
+use App\Events\NewOrderRequest;
+use App\EventType;
 use App\Guest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Events\NewOrderRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
@@ -36,6 +36,7 @@ class EventController extends Controller
     {
         //Pasarle más información!!! Es posible?
         $events = Event::all();
+
         return view('services.event.index', compact('events'));
     }
 
@@ -48,11 +49,12 @@ class EventController extends Controller
     {
         $guests = Guest::all();
         foreach ($guests as $guest) {
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number : 'Err' . ' - ' . $guest->firstname . ' ' . $guest->lastname;
         }
-        $guests = $guests->pluck('guestRoomNumber', 'id');
-        $eventTypes = Event_types::all();
-        foreach ($eventTypes as $eventType){
+        $guests     = $guests->pluck('guestRoomNumber', 'id');
+        $eventTypes = EventType::all();
+        foreach ($eventTypes as $eventType) {
             $eventType->eventname = $eventType->name;
         }
         $eventTypes = $eventTypes->pluck('eventname', 'id');
@@ -70,7 +72,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $input = Input::all();
+        $input  = Input::all();
         $return = "";
         if ($request->ajax()) {
             if (Session::exists('guest_id')) {
@@ -80,9 +82,9 @@ class EventController extends Controller
             }
         }
 
-        $rules = [
-            'guest_id'       => 'required|numeric',
-            'event_type_id'  =>'required|numeric',
+        $rules     = [
+            'guest_id'      => 'required|numeric',
+            'event_type_id' => 'required|numeric',
         ];
         $validator = Validator::make($input, $rules);
 
@@ -90,9 +92,9 @@ class EventController extends Controller
             try {
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
-                $input['status'] = '1';
+                $input['status']     = '0';
                 $guest               = Guest::find($input['guest_id']);
-                $event          = $guest->events()->create($input);
+                $event               = $guest->events()->create($input);
                 DB::commit();
 
                 event(new NewOrderRequest($event->service_id, $input['guest_id'], $event->id));
@@ -103,7 +105,7 @@ class EventController extends Controller
                 } else {
                     $return = redirect()->route('event.index')->with('status', 'Order added successfully.');
                 }
-            }catch (\Exception $e) {
+            } catch (\Exception $e) {
                 DB::rollback();
                 throw $e;
             }
@@ -116,6 +118,7 @@ class EventController extends Controller
                 $return = redirect()->route('event.create')->withErrors($validator->getMessageBag());
             }
         }
+
         return $return;
     }
 
@@ -144,12 +147,13 @@ class EventController extends Controller
     {
         $guests = Guest::all();
         foreach ($guests as $guest) {
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number : 'Err' . ' - ' . $guest->firstname . ' ' . $guest->lastname;
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
-        $eventTypes = Event_types::all();
-        foreach ($eventTypes as $eventType){
+        $eventTypes = EventType::all();
+        foreach ($eventTypes as $eventType) {
             $eventType->eventname = $eventType->name;
         }
         $eventTypes = $eventTypes->pluck('eventname', 'id');
@@ -161,7 +165,7 @@ class EventController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  int                      $id
      *
      * @return \Illuminate\Http\Response
      * @throws \Exception
