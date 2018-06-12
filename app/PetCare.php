@@ -12,13 +12,12 @@ class PetCare extends Model
         'water',
         'standard_food',
         'premium_food',
-        'price',
         'snacks',
         'status'];
 
     protected $attributes
         = [
-            'service_id' => 9,
+            'service_id' => 5,
         ];
 
     public function guest()

@@ -17,6 +17,7 @@ class SpaTreatmentTypesSeeder extends Seeder
             'name'       => 'Hydrotherapy',
             'duration'   => 15,
             'price'      => 30,
+            'image'      => '/img/home_services/spa/hydrotherapy.jpg',
             'created_at' => new DateTime,
             'updated_at' => new DateTime,
         ]);
@@ -26,6 +27,7 @@ class SpaTreatmentTypesSeeder extends Seeder
             'name'       => 'Scrubs & Wraps',
             'duration'   => 50,
             'price'      => 90,
+            'image'      => '/img/home_services/spa/scrubsWraps.jpg',
             'created_at' => new DateTime,
             'updated_at' => new DateTime,
         ]);
@@ -35,6 +37,7 @@ class SpaTreatmentTypesSeeder extends Seeder
             'name'       => 'Massage',
             'duration'   => 50,
             'price'      => 120,
+            'image'      => '/img/home_services/spa/massage.jpg',
             'created_at' => new DateTime,
             'updated_at' => new DateTime,
         ]);
@@ -44,6 +47,7 @@ class SpaTreatmentTypesSeeder extends Seeder
             'name'       => 'Facial',
             'duration'   => 50,
             'price'      => 120,
+            'image'      => '/img/home_services/spa/facial.jpg',
             'created_at' => new DateTime,
             'updated_at' => new DateTime,
         ]);
@@ -53,6 +57,7 @@ class SpaTreatmentTypesSeeder extends Seeder
             'name'       => 'Hands & Feet',
             'duration'   => 50,
             'price'      => 45,
+            'image'      => '/img/home_services/spa/handsFeet.jpg',
             'created_at' => new DateTime,
             'updated_at' => new DateTime,
         ]);

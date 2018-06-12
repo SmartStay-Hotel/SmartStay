@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\NewOrderRequest;
 use App\Guest;
 use App\Trip;
-use App\Trip_types;
+use App\TripType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -51,7 +51,7 @@ class TripController extends Controller
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
-        $tripTypes = Trip_types::all();
+        $tripTypes = TripType::all();
         foreach ($tripTypes as $tripType){
             $tripType->tripname = $tripType->name;
         }
@@ -91,7 +91,7 @@ class TripController extends Controller
             try {
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
-                $input['status'] = '1';
+                $input['status'] = '0';
                 $guest               = Guest::find($input['guest_id']);
                 $trip          = $guest->trips()->create($input);
                 DB::commit();
@@ -148,7 +148,7 @@ class TripController extends Controller
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
-        $tripTypes = Trip_types::all();
+        $tripTypes = TripType::all();
         foreach ($tripTypes as $tripType){
             $tripType->tripname = $tripType->name;
         }

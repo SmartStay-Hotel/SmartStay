@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Guest extends Model
 {
 
-    protected $fillable = ['firstname', 'lastname', 'nie', 'email', 'telephone', 'balance'];
+    protected $fillable = ['firstname', 'lastname', 'nif', 'email', 'telephone', 'balance'];
 
     public function rooms()
     {

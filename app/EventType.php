@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Event_types extends Model
+class EventType extends Model
 {
 
     public function Event()

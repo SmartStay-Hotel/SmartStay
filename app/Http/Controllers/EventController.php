@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
-use App\Event_types;
+use App\EventType;
 use App\Guest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -51,7 +51,7 @@ class EventController extends Controller
             $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
-        $eventTypes = Event_types::all();
+        $eventTypes = EventType::all();
         foreach ($eventTypes as $eventType){
             $eventType->eventname = $eventType->name;
         }
@@ -90,7 +90,7 @@ class EventController extends Controller
             try {
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
-                $input['status'] = '1';
+                $input['status'] = '0';
                 $guest               = Guest::find($input['guest_id']);
                 $event          = $guest->events()->create($input);
                 DB::commit();
@@ -148,7 +148,7 @@ class EventController extends Controller
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
-        $eventTypes = Event_types::all();
+        $eventTypes = EventType::all();
         foreach ($eventTypes as $eventType){
             $eventType->eventname = $eventType->name;
         }

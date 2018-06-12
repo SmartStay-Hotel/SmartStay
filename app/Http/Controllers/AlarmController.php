@@ -81,7 +81,7 @@ class AlarmController extends Controller
             try{
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
-                $input['status']     = '1';
+                $input['status']     = '0';
                 $guest               = Guest::find($input['guest_id']);
                 $alarm               = $guest->alarms()->create($input);
                 DB::commit();

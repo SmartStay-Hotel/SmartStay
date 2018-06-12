@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\NewOrderRequest;
 use App\Guest;
 use App\SpaAppointment;
-use App\SpaType;
+use App\SpaTreatmentType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +49,7 @@ class SpaAppointmentController extends Controller
             $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
-        $spaTypes = SpaType::all();
+        $spaTypes = SpaTreatmentType::all();
 
         return view('services.spa.create', compact('guests', 'spaTypes'));
     }
@@ -95,7 +95,7 @@ class SpaAppointmentController extends Controller
             'treatment_type_id' => $request->spatype,
             'day_hour'          => $request->day_hour,
             'price'             => 20,
-            'status'            => '1']);
+            'status'            => '0']);
 
         return redirect('/service/spa');
     }
@@ -124,7 +124,7 @@ class SpaAppointmentController extends Controller
     {
         $data = [
             'guests'    => Guest::all(),
-            'spaTypes' => SpaType::all(),
+            'spaTypes' => SpaTreatmentType::all(),
             'spa'      => $spaAppointment,
         ];
         //dd($data);
@@ -149,7 +149,7 @@ class SpaAppointmentController extends Controller
             'day_hour'          => $request->day_hour,
             'order_date'        => $order_date,
             'price'             => 20,
-            'status'            => '1',
+            'status'            => '0',
         ]);
 
         return redirect('/service/spa');

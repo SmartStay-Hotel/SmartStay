@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateSnacksAndDrinksTable extends Migration
 {
@@ -20,9 +20,10 @@ class CreateSnacksAndDrinksTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('guest_id');
             $table->unsignedInteger('service_id');
-            $table->unsignedInteger('product_type_id'); //pendiente de tabla
+            $table->unsignedInteger('product_type_id');
             $table->date('order_date');
             $table->double('price');
+            $table->unsignedInteger('quantity');
             $table->enum('status', ['0', '1', '2']);
             $table->timestamps();
 

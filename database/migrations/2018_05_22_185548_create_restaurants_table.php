@@ -23,7 +23,6 @@ class CreateRestaurantsTable extends Migration
             $table->integer('quantity');
             $table->dateTime('day_hour');
             $table->date('order_date');
-            $table->double('price');
             $table->enum('status', ['0', '1', '2']);
             $table->timestamps();
 

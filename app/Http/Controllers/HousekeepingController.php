@@ -85,7 +85,7 @@ class HousekeepingController extends Controller
             try {
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
-                $input['status']     = '1';
+                $input['status']     = '0';
                 $guest               = Guest::find($input['guest_id']);
                 $housekeeping          = $guest->houseKeepings()->create($input);
                 DB::commit();

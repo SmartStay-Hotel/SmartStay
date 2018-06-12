@@ -58,12 +58,12 @@ Route::group(['middleware' => 'language'], function () {
 
 
     Route::get('trips', function () {
-        $trips = \App\Trip_types::get();
+        $trips = \App\TripType::get();
 
         return $trips;
     });
     Route::get('events', function () {
-        $events = \App\Event_types::get();
+        $events = \App\EventType::get();
 
         return $events;
     });

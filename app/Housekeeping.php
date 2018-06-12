@@ -17,12 +17,11 @@ class Housekeeping extends Model
             'blanket',
             'toiletries',
             'pillow',
-            'price',
         ];
 
     protected $attributes
         = [
-            'service_id' => 6,
+            'service_id' => 9,
         ];
 
     public function guest()
@@ -40,7 +39,8 @@ class Housekeeping extends Model
             $serviceName = Services::getServiceName($housekeepings[0]->service_id);
             foreach ($housekeepings as $key => $housekeeping) {
                 $housekeeping->serviceName = $serviceName;
-                $housekeeping->roomNumber  = ($housekeeping->guest->rooms[0]->number) ? $housekeeping->guest->rooms[0]->number
+                $housekeeping->roomNumber  = ($housekeeping->guest->rooms[0]->number)
+                    ? $housekeeping->guest->rooms[0]->number
                     : 'Housekeeping id:' . $housekeeping->id;
             }
         } else {

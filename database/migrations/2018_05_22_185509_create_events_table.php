@@ -20,7 +20,8 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('guest_id');
             $table->unsignedInteger('service_id');
-            $table->unsignedInteger('event_type_id'); //pendiente de tabla
+            $table->unsignedInteger('event_type_id');
+            $table->integer('people_num');
             $table->date('order_date');
             $table->enum('status', ['0', '1', '2']);
             $table->timestamps();

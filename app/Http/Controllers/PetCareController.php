@@ -101,7 +101,7 @@ class PetCareController extends Controller
                     $request['p'] = 1;
                 }
                 $input['order_date'] = Carbon::today();
-                $input['status']     = '1';
+                $input['status']     = '0';
                 $guest               = Guest::find($input['guest_id']);
                 $petcare             = $guest->petcares()->create($input);
                 DB::commit();

@@ -87,7 +87,7 @@ class SnacksAndDrinkController extends Controller
             try {
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
-                $input['status']     = '1'; //será cambiado a cero al actualizar la bbdd
+                $input['status']     = '0'; //será cambiado a cero al actualizar la bbdd
                 $input['price']      = 0;
                 $guest               = Guest::find($input['guest_id']);
 

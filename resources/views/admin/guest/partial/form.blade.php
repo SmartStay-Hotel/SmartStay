@@ -6,8 +6,8 @@
     <label>Last Name</label>
     {!! Form::text('lastname', null, ['class' => 'form-control']) !!}
 
-    <label>NIE</label>
-    {!! Form::text('nie', null, ['class' => 'form-control']) !!}
+    <label>NIF</label>
+    {!! Form::text('nif', null, ['class' => 'form-control']) !!}
 
     <label>Email</label>
     {!! Form::email('email', null, ['class' => 'form-control']) !!}

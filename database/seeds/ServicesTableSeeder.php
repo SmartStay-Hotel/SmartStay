@@ -25,7 +25,7 @@ class ServicesTableSeeder extends Seeder
 
         DB::table('services')->insert([
             'id'          => '2',
-            'name'        => 'Snacks And Drinks',
+            'name'        => 'Snacks and drinks',
             'description' => 'Snacks and drinks description',
             'image'       => '/img/home_services/snack.jpg',
             'is_active'   => '1',
@@ -52,5 +52,57 @@ class ServicesTableSeeder extends Seeder
             'created_at'  => new DateTime,
             'updated_at'  => new DateTime,
         ]);
+
+        DB::table('services')->insert([
+            'id'          => '5',
+            'name'        => 'Pet care',
+            'description' => 'Pet care description',
+            'image'       => '/img/home_services/petCare.jpg',
+            'is_active'   => '1',
+            'created_at'  => new DateTime,
+            'updated_at'  => new DateTime,
+        ]);
+
+        DB::table('services')->insert([
+            'id'          => '6',
+            'name'        => 'Trip',
+            'description' => 'Trip description',
+            'image'       => '/img/home_services/Trip.jpg',
+            'is_active'   => '1',
+            'created_at'  => new DateTime,
+            'updated_at'  => new DateTime,
+        ]);
+
+        DB::table('services')->insert([
+            'id'          => '7',
+            'name'        => 'Event',
+            'description' => 'Event description',
+            'image'       => '/img/home_services/event.jpg',
+            'is_active'   => '1',
+            'created_at'  => new DateTime,
+            'updated_at'  => new DateTime,
+        ]);
+
+        DB::table('services')->insert([
+            'id'          => '8',
+            'name'        => 'Taxi',
+            'description' => 'Taxi description',
+            'image'       => '/img/home_services/taxi.jpg',
+            'is_active'   => '1',
+            'created_at'  => new DateTime,
+            'updated_at'  => new DateTime,
+        ]);
+
+        DB::table('services')->insert([
+            'id'          => '9',
+            'name'        => 'Housekeeping',
+            'description' => 'Housekeeping description',
+            'image'       => '/img/home_services/Housekeeping.jpg',
+            'is_active'   => '1',
+            'created_at'  => new DateTime,
+            'updated_at'  => new DateTime,
+        ]);
+
+
     }
 }

@@ -53,7 +53,7 @@ class GuestController extends Controller
         $rules     = [
             'firstname'     => 'required|max:30',
             'lastname'      => 'required|max:30',
-            'nie'           => 'required',
+            'nif'           => 'required',
             'email'         => 'required|email',
             'telephone'     => 'required|numeric',
             'checkin_date'  => 'required|date',
@@ -139,7 +139,7 @@ class GuestController extends Controller
         $rules     = [
             'firstname'     => 'required|max:30',
             'lastname'      => 'required|max:30',
-            'nie'           => 'required',
+            'nif'           => 'required',
             'email'         => 'required|email',
             'telephone'     => 'required',
             'checkin_date'  => 'required|date',
@@ -246,6 +246,9 @@ class GuestController extends Controller
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function getCheckout()
     {
         return Guest::getCheckoutByGuestId(Session::get('guest_id'));
