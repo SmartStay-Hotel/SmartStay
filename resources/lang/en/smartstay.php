@@ -78,6 +78,7 @@ trips
 */
     'trips.name' => 'Trips',
     'trips.description' => 'Trips Description',
+    'trips.select' => 'Select a trip',
     'trips.numPersons' => 'Number of Persons',
     'trips.location' => 'Location',
     'trips.day' => 'Day',

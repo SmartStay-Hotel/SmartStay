@@ -32,15 +32,15 @@
             </p>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="servicesList" style="border: none; box-shadow: none; display: block">
-                <a class="dropdown-item" id="itemDropdown" href="{{ route('alarm.index') }}"><i class="far fa-clock" style="padding: 5px;"></i>Alarm</a>
-                <a class="dropdown-item" id="itemDropdown" href="{{ route('restaurant.index') }}"><i class="fas fa-utensils" style="padding: 5px;"></i>Restaurant</a>
-                <a class="dropdown-item" id="itemDropdown" href="{{ route('housekeeping.index') }}"><i class="fas fa-broom" style="padding: 5px;"></i>Housekeeping</a>
-                <a class="dropdown-item" id="itemDropdown" href="{{ route('taxi.index') }}"><i class="fas fa-taxi" style="padding: 5px;"></i>Taxi</a>
-                <a class="dropdown-item" id="itemDropdown" href="{{ route('snackdrink.index') }}"><i class="fas fa-glass-martini" style="padding: 5px;"></i>Snacks</a>
-                <a class="dropdown-item" id="itemDropdown" href="{{ route('spa.index') }}"><i class="fas fa-sun" style="padding: 5px;"></i>Spa</a>
-                <a class="dropdown-item" id="itemDropdown" href="{{ route('petcare.index') }}"><i class="fas fa-paw" style="padding: 5px;"></i>Pet care</a>
-                <a class="dropdown-item" id="itemDropdown" href="{{ route('event.index') }}"><i class="fas fa-music" style="padding: 5px;"></i>Events</a>
-                <a class="dropdown-item" id="itemDropdown" href="{{ route('trip.index') }}"><i class="fas fa-suitcase" style="padding: 5px;"></i>Trips</a>
+                <a class="dropdown-item itemDropdown"  href="{{ route('alarm.index') }}"><i class="far fa-clock" style="padding: 5px;"></i>Alarm</a>
+                <a class="dropdown-item itemDropdown"  href="{{ route('restaurant.index') }}"><i class="fas fa-utensils" style="padding: 5px;"></i>Restaurant</a>
+                <a class="dropdown-item itemDropdown"  href="{{ route('housekeeping.index') }}"><i class="fas fa-broom" style="padding: 5px;"></i>Housekeeping</a>
+                <a class="dropdown-item itemDropdown"  href="{{ route('taxi.index') }}"><i class="fas fa-taxi" style="padding: 5px;"></i>Taxi</a>
+                <a class="dropdown-item itemDropdown"  href="{{ route('snackdrink.index') }}"><i class="fas fa-glass-martini" style="padding: 5px;"></i>Snacks</a>
+                <a class="dropdown-item itemDropdown"  href="{{ route('spa.index') }}"><i class="fas fa-sun" style="padding: 5px;"></i>Spa</a>
+                <a class="dropdown-item itemDropdown"  href="{{ route('petcare.index') }}"><i class="fas fa-paw" style="padding: 5px;"></i>Pet care</a>
+                <a class="dropdown-item itemDropdown"  href="{{ route('event.index') }}"><i class="fas fa-music" style="padding: 5px;"></i>Events</a>
+                <a class="dropdown-item itemDropdown"  href="{{ route('trip.index') }}"><i class="fas fa-suitcase" style="padding: 5px;"></i>Trips</a>
             </div>
         </div>
 

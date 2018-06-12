@@ -78,6 +78,7 @@ trips
 */
     'trips.name' => 'Escursioni',
     'trips.description' => 'Descrizione escursioni',
+    'trips.select' => "Seleziona un'escursione",
     'trips.numPersons' => 'Numero di persone',
     'trips.location' => 'Luogo',
     'trips.day' => 'Giorno',

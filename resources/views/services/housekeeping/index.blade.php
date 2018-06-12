@@ -145,6 +145,9 @@
             });
         });
     </script>
+    <script>
+        document.getElementsByClassName("itemDropdown")[2].style.color="white";
+    </script>
 @endsection
   {{--<table class="table">
         <thead class="thead-dark">

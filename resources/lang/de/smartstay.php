@@ -76,6 +76,7 @@ trips
 */
     'trips.name' => 'Ausflügen',
     'trips.description' => 'Ausflügen Beschreibung',
+    'trips.select' => 'Ausfügen auswählen',
     'trips.numPersons' => 'Teilnehmerzahl',
     'trips.location' => 'Ort',
     'trips.day' => 'Tag',
