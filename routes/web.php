@@ -50,11 +50,9 @@ Route::group(['middleware' => 'language'], function () {
 
     Route::get('logout', 'CodeController@logout');
 
-    Route::get('services', function () {
-        $services = \App\Services::get();
+    Route::get('services', 'TranslatorAppController@services');
 
-        return $services;
-    });
+
     Route::get('trips', function () {
         $trips = \App\Trip_types::get();
 

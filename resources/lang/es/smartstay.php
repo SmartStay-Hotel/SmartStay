@@ -98,4 +98,14 @@ taxi
     'taxi.name' => 'Taxi',
     'taxi.description' => 'Descripción taxi',
     'taxi.hour' => 'Hora',
+
+    /*
+housekeeping
+*/
+    'hk.sheets' => 'Sábanas',
+    'hk.cleaning' => 'Limpieza',
+    'hk.minibar' => 'Minibar',
+    'hk.blanket' => 'Manta',
+    'hk.toiletries' => 'Artículos de aseo',
+    'hk.pillow' => 'Almohada',
 ];

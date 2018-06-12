@@ -10,7 +10,7 @@
                     </div>
                     <div class="modal-body">
                         <slot name="body">
-                            <div class="menuOut"><input type="checkbox"> Bed Sheets</div>
+                            <div class="menuOut"><input type="checkbox"> {{trans('smartstay.hk.sheets')}}</div>
                             <div class="menuOut"><input type="checkbox"> Cleaning </div>
                             <div class="menuOut"><input type="checkbox"> Minibar</div>
                             <div class="menuOut"><input type="checkbox"> Blanket</div>
