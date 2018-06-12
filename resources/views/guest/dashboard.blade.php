@@ -1,14 +1,51 @@
 @extends("layout")
 @section("content")
-
-
-
     <transition name="fade">
-        <div id="sliderServices" v-if="!show">
-            <tiny-slider :mouse-drag="true" :loop="false" items="1" gutter="100">
-                {{-- nserv: Es el número por el que se empieza a contar, por cada containerServices se suma 4.--}}
-                {{-- servs: Con 1 se indica que ese servicio esta activo y se puede mostrar, con 0 lo contrario --}}
-                {{-- services: Es el array de services. Siempre se ha de poner --}}
+
+<div class="swiperHome" v-if="!show">
+    <homeslider @window-to-show="showWindow" v-bind:services="services"></homeslider>
+</div>
+
+    </transition>
+
+
+{{--<sliderservices v-bind:services="services"></sliderservices>--}}
+{{--<div class="swiper-container">--}}
+    {{--<!-- Additional required wrapper -->--}}
+    {{--<div class="swiper-wrapper">--}}
+        {{--<!-- Slides -->--}}
+        {{--<div class="swiper-slide">Slide 1</div>--}}
+        {{--<div class="swiper-slide">Slide 2</div>--}}
+        {{--<div class="swiper-slide">Slide 3</div>--}}
+        {{--...--}}
+    {{--</div>--}}
+    {{--<!-- If we need pagination -->--}}
+    {{--<div class="swiper-pagination"></div>--}}
+
+    {{--<!-- If we need navigation buttons -->--}}
+    {{--<div class="swiper-button-prev"></div>--}}
+    {{--<div class="swiper-button-next"></div>--}}
+
+    {{--<!-- If we need scrollbar -->--}}
+    {{--<div class="swiper-scrollbar"></div>--}}
+{{--</div>--}}
+
+<!-- if you don't want to use the buttons Flickity provides -->
+{{--<agile :infinite="false">--}}
+    {{--<div class="slide slide--1"><h3>slide 1</h3></div>--}}
+    {{--<div class="slide slide--2"><h3>slide 2</h3></div>--}}
+    {{--<div class="slide slide--3"><h3>slide 3</h3></div>--}}
+    {{--<div class="slide slide--4"><h3>slide 4</h3></div>--}}
+    {{--<div class="slide slide--5"><h3>slide 5</h3></div>--}}
+    {{--<div class="slide slide--6"><h3>slide 6</h3></div>--}}
+{{--</agile>--}}
+
+    {{--<transition name="fade">--}}
+        {{--<div id="sliderServices" v-if="!show && !showHistory">--}}
+            {{--<tiny-slider :mouse-drag="true" :loop="false" items="1" gutter="100">--}}
+                 {{--nserv: Es el número por el que se empieza a contar, por cada containerServices se suma 4.--}}
+                 {{--servs: Con 1 se indica que ese servicio esta activo y se puede mostrar, con 0 lo contrario --}}
+                 {{--services: Es el array de services. Siempre se ha de poner --}}
 
                 {{--<div class="containerServices">--}}
                 {{--<serviceshome v-bind:nserv="0" v-bind:servs="[1,1,1,1]" v-bind:services="services"></serviceshome>--}}
@@ -17,103 +54,103 @@
                 {{--<serviceshome v-bind:nserv="4" v-bind:servs="[1,1,1,0]" v-bind:services="services"></serviceshome>--}}
                 {{--</div>--}}
 
-                <div class="servicesHome">
-                    <div class="servicesTop row">
+                {{--<div class="servicesHome">--}}
+                    {{--<div class="servicesTop row">--}}
 
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3"
-                             v-on:click="showWindow(0)">
-                            <img v-bind:src="services[0].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[0].description }}</div>
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[0].name }}</p>
-                            </div>
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3"--}}
+                             {{--v-on:click="showWindow(0)">--}}
+                            {{--<img v-bind:src="services[0].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[0].description }}</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[0].name }}</p>--}}
+                            {{--</div>--}}
 
-                        </div>
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(1)">
-                            <img v-bind:src="services[1].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[1].description }}</div>
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[1].name }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="servicesBottom row">
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(2)">
-                            <img v-bind:src="services[2].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[2].description }}</div>
+                        {{--</div>--}}
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(1)">--}}
+                            {{--<img v-bind:src="services[1].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[1].description }}</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[1].name }}</p>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="servicesBottom row">--}}
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(2)">--}}
+                            {{--<img v-bind:src="services[2].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[2].description }}</div>--}}
 
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[2].name }}</p>
-                            </div>
-                        </div>
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(3)">
-                            <img v-bind:src="services[3].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[3].description }}</div>
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[3].name }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[2].name }}</p>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(3)">--}}
+                            {{--<img v-bind:src="services[3].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[3].description }}</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[3].name }}</p>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
-                <div class="servicesHome">
-                    <div class="servicesTop row">
+                {{--<div class="servicesHome">--}}
+                    {{--<div class="servicesTop row">--}}
 
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3"
-                             v-on:click="showWindow(4)">
-                            <img v-bind:src="services[0].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[0].description }}</div>
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[0].name }}</p>
-                            </div>
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3"--}}
+                             {{--v-on:click="showWindow(4)">--}}
+                            {{--<img v-bind:src="services[0].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[0].description }}</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[0].name }}</p>--}}
+                            {{--</div>--}}
 
-                        </div>
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(5)">
-                            <img v-bind:src="services[1].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[1].description }}</div>
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[1].name }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="servicesBottom row">
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(6)">
-                            <img v-bind:src="services[2].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[2].description }}</div>
+                        {{--</div>--}}
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(5)">--}}
+                            {{--<img v-bind:src="services[1].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[1].description }}</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[1].name }}</p>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="servicesBottom row">--}}
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(6)">--}}
+                            {{--<img v-bind:src="services[2].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[2].description }}</div>--}}
 
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[2].name }}</p>
-                            </div>
-                        </div>
-                        <div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(7)">
-                            <img v-bind:src="services[3].image" alt="">
-                            <div class="serviceDescription">
-                                <div class="textDesc">@{{ services[3].description }}</div>
-                            </div>
-                            <div class="serviceName">
-                                <p>@{{ services[3].name }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[2].name }}</p>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div class="bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3" @click="showWindow(7)">--}}
+                            {{--<img v-bind:src="services[3].image" alt="">--}}
+                            {{--<div class="serviceDescription">--}}
+                                {{--<div class="textDesc">@{{ services[3].description }}</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="serviceName">--}}
+                                {{--<p>@{{ services[3].name }}</p>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
-            </tiny-slider>
-        </div>
-    </transition>
+            {{--</tiny-slider>--}}
+        {{--</div>--}}
+    {{--</transition>--}}
 
 
     <div class="windows">
@@ -130,10 +167,10 @@
                 <div class="windowContent row">
                     <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertRestaurant">
                         <label for="dateRestaurant">{{trans('smartstay.restaurant.date')}}</label>
-                        <input type="datetime-local" name="dateRestaurant" v-model="dayHourServ"><br>
-                        <label for="numPersonRest">{{trans('smartstay.restaurant.numPers')}}</label> <input type="number"
-                                                                                       v-model="quantityServ"
-                                                                                       name="numPersonRest">
+
+                        <input type="datetime-local" name="dateRestaurant" v-model="dayHourServ" v-bind:min="dataActual" v-bind:max="checkoutDate"><br>
+                        <p class="errorForm">*La fecha debe ser entre @{{ dataActualFormat }} y @{{ checkoutDateFormat }}</p>
+                        <label for="numPersonRest">{{trans('smartstay.restaurant.numPers')}}</label> <input type="number" v-model="quantityServ" name="numPersonRest">
                         <br>
                         <input type="submit" name="{{trans('smartstay.dashboard.send')}}">
                     </form>
@@ -235,12 +272,12 @@
                         <label for="typeSpa">{{trans('smartstay.spa.type')}}</label> <select name="typeSpa" id="">
 
                         </select>
-                        <div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">
-                            <p>{{trans('smartstay.spa.location')}} @{{ item.location }}</p>
-                            <p>{{trans('smartstay.spa.day')}} @{{ item.day_week }}</p>
-                            <p>{{trans('smartstay.spa.price')}} @{{ setPriceTrip(item.price) }}</p>
+                        {{--<div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">--}}
+                            {{--<p>{{trans('smartstay.spa.location')}} @{{ item.location }}</p>--}}
+                            {{--<p>{{trans('smartstay.spa.day')}} @{{ item.day_week }}</p>--}}
+                            {{--<p>{{trans('smartstay.spa.price')}} @{{ setPriceTrip(item.price) }}</p>--}}
 
-                        </div>
+                        {{--</div>--}}
                     </div>
                 </div>
 
@@ -256,7 +293,7 @@
                     <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertAlarm">
                         <label for="dateAlarm">{{trans('smartstay.alarm.date')}}</label>
                         <input type="datetime-local" name="dateAlarm" v-model="dayHourServ"><br>
-                        <p>@{{ dayHourServ }}</p>
+
                         <br>
                         <input type="submit" name="{{trans('smartstay.dashboard.send')}}">
                     </form>
@@ -265,6 +302,8 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="windowService" v-if="window[4]">
                 <div class="windowTitle">
                     <button class="returnWindow " v-if="show" @click="showWindow(4)"><i
@@ -279,6 +318,8 @@
                     {{trans('smartstay.pet.snacks')}}: <input type="hour">
                 </div>
             </div>
+
+
             <div class="windowService" v-if="window[5]">
                 <div class="windowTitle">
                     <button class="returnWindow " v-if="show" @click="showWindow(5)"><i
@@ -286,40 +327,63 @@
                     <h2>{{trans('smartstay.trips.name')}}</h2>
                 </div>
                 <p class="windowDesc">{{trans('smartstay.trips.description')}}</p>
-                <div class="windowContent">
-
-                    Choose a trip: <select name="selTrips" id="" v-model="tripSelected">
+                <div class="windowContent row">
+                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertTrip">
+                    <label for="selTrips">
+                        Choose a trip:
+                    </label>
+                    <select name="selTrips" id="" v-model="tripSelected">
                         <option v-for="trip in trips" v-bind:value="trip.id">@{{ trip.name }}</option>
-
                     </select>
                     {{trans('smartstay.trips.numPersons')}}: <input type="number" min="1" v-model="numPersonsTrip">
 
+                    <label for="cantTrip">
+                        Number of persons:
+                    </label>
+                    <input type="number" name="cantTrip" min="1" v-model="numPersonsTrip">
+                        <input type="submit">
                     <div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">
                         <p>{{trans('smartstay.trips.location')}}: @{{ item.location }}</p>
                         <p>{{trans('smartstay.trips.day')}}: @{{ item.day_week }}</p>
                         <p>{{trans('smartstay.trips.price')}}: @{{ setPriceTrip(item.price) }}</p>
 
                     </div>
-
+                    </form>
+                    <div v-if="showResult">
+                        <p>Trip selected: @{{tripSelected}}</p>
+                        <p>Number: @{{numPersonsTrip}}</p>
+                    </div>
                 </div>
             </div>
+
+
             <div class="windowService" v-if="window[6]">
                 <div class="windowTitle">
                     <button class="returnWindow " @click="showWindow(6)"><i class="fas fa-long-arrow-alt-left"></i>
                     </button>
-                    <h2>@{{ services[5].name }}</h2>
+                    <h2>@{{ services[6].name }}</h2>
                 </div>
-                <p class="windowDesc">@{{ services[5].description }}</p>
-                <div class="windowContent">
-                    {{trans('smartstay.event.selectEvent')}}: <select name="selEvent" v-model="eventSelected">
-                        <option v-for="event in events">@{{ event.name }}</option>
+
+
+                <p class="windowDesc">@{{ services[6].description }}</p>
+                <div class="windowContent row">
+                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertEvent">
+                        <label for="selEvent">
+                            {{trans('smartstay.event.selectEvent')}}
+                        </label>
+                   <select name="selEvent" v-model="eventSelected">
+                        <option v-for="event in events" v-bind:value="event.id">@{{ event.name }}</option>
                     </select>
+                        <input type="submit">
                     <div class="windowInfo" v-for="item in infoEvent" v-if="eventSelected != ''">
                         <p>{{trans('smartstay.event.location')}}: @{{ item.location }}</p>
                         <p>{{trans('smartstay.event.day')}}: @{{ item.day_week }}</p>
                     </div>
+                    </form>
                 </div>
             </div>
+
+
             <div class="windowService" v-if="window[7]">
                 <div class="windowTitle">
                     <button class="returnWindow " @click="showWindow(7)"><i class="fas fa-long-arrow-alt-left"></i>
@@ -327,15 +391,26 @@
                     <h2>{{trans('smartstay.taxi.name')}}</h2>
                 </div>
                 <p class="windowDesc">{{trans('smartstay.taxi.description')}}</p>
-                <div class="windowContent">
+                <div class="windowContent row">
                     {{trans('smartstay.taxi.hour')}}<input type="time">
+                <p class="windowDesc">Taxi description</p>
+                <div class="windowContent row">
+                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertTaxi">
+                        <label for="hourTaxi">Hour:</label> <input type="datetime-local" name="hourTaxi" v-model="dayHourServ">
+                        <input type="submit">
+                    </form>
                 </div>
+                <div v-if="showResult">
+                    <p>Hour: @{{hourTaxi}}</p>
+
+                </div>
+            </div>
             </div>
         </transition>
     </div>
 
 
-    <footer v-if="show"></footer>
+    {{--<footer v-if="show"></footer>--}}
 
     {{-- ------------------ --}}
 
