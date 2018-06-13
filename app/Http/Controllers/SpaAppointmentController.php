@@ -177,7 +177,7 @@ class SpaAppointmentController extends Controller
     public function changeStatus($id)
     {
         $spa         = SpaAppointment::findOrFail($id);
-        $spa->status = ($spa->status === '2') ? '1' : '2';
+        $spa->status = ($spa->status === '1') ? '2' : '1';
         $spa->save();
 
         return response()->json($spa->status);

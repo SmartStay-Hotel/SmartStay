@@ -146,14 +146,14 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin/service/statusSnacksAndDrinks/{id}', 'SnacksAndDrinkController@changeStatus');
     Route::get('admin/service/statusTaxi/{id}', 'TaxiController@changeStatus');
     Route::get('admin/service/statusAlarm/{id}', 'AlarmController@changeStatus');
-    Route::resource('admin/service/statusSpa/{id}', 'SpaAppointmentController@changeStatus');
-    Route::resource('admin/service/statusEvent/{id}', 'EventController@changeStatus');
-    Route::resource('admin/service/statusTrip/{id}', 'TripController@changeStatus');
-    Route::resource('admin/service/statusHousekeeping/{id}', 'HousekeepingController@changeStatus');
-    Route::resource('admin/service/statusPetcare/{id}', 'PetCareController@changeStatus');
+    Route::get('admin/service/statusSpa/{id}', 'SpaAppointmentController@changeStatus');
+    Route::get('admin/service/statusEvent/{id}', 'EventController@changeStatus');
+    Route::get('admin/service/statusTrip/{id}', 'TripController@changeStatus');
+    Route::get('admin/service/statusHousekeeping/{id}', 'HousekeepingController@changeStatus');
+    Route::get('admin/service/statusPetcare/{id}', 'PetCareController@changeStatus');
 
     Route::get('test', function () {
-        event(new App\Events\NewOrderRequest(1, 4, 15));
+        event(new App\Events\NewOrderRequest(4, 153, 1));
 
         return "Order has been sent!";
     });

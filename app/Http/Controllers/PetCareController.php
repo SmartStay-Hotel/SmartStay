@@ -296,7 +296,7 @@ class PetCareController extends Controller
     public function changeStatus($id)
     {
         $petCare         = PetCare::findOrFail($id);
-        $petCare->status = ($petCare->status === '2') ? '1' : '2';
+        $petCare->status = ($petCare->status === '1') ? '2' : '1';
         $petCare->save();
 
         return response()->json($petCare->status);

@@ -223,7 +223,7 @@ class EventController extends Controller
     public function changeStatus($id)
     {
         $event         = Event::findOrFail($id);
-        $event->status = ($event->status === '2') ? '1' : '2';
+        $event->status = ($event->status === '1') ? '2' : '1';
         $event->save();
 
         return response()->json($event->status);

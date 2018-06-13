@@ -202,7 +202,7 @@ class AlarmController extends Controller
     public function changeStatus($id)
     {
         $alarm         = Alarm::findOrFail($id);
-        $alarm->status = ($alarm->status === '2') ? '1' : '2';
+        $alarm->status = ($alarm->status === '1') ? '2' : '1';
         $alarm->save();
 
         return response()->json($alarm->status);

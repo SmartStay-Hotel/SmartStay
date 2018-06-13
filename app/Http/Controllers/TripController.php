@@ -229,7 +229,7 @@ class TripController extends Controller
     public function changeStatus($id)
     {
         $trip         = Trip::findOrFail($id);
-        $trip->status = ($trip->status === '2') ? '1' : '2';
+        $trip->status = ($trip->status === '1') ? '2' : '1';
         $trip->save();
 
         return response()->json($trip->status);

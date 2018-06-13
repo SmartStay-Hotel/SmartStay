@@ -234,7 +234,7 @@ class SnacksAndDrinkController extends Controller
     public function changeStatus($id)
     {
         $snack         = SnacksAndDrink::findOrFail($id);
-        $snack->status = ($snack->status === '2') ? '1' : '2';
+        $snack->status = ($snack->status === '1') ? '2' : '1';
         $snack->save();
 
         return response()->json($snack->status);
