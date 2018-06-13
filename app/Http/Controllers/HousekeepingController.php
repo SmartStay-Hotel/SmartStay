@@ -33,7 +33,7 @@ class HousekeepingController extends Controller
      */
     public function index()
     {
-        $housekeepings = Housekeeping::all();
+        $housekeepings = Housekeeping::paginate(3);
 
         return view('services.housekeeping.index', compact('housekeepings'));
     }
@@ -65,7 +65,6 @@ class HousekeepingController extends Controller
      */
     public function store(Request $request)
     {
-
         $input               = Input::all();
         if ($request->ajax()) {
             if (Session::exists('guest_id')) {
@@ -170,7 +169,6 @@ class HousekeepingController extends Controller
     public function update(Request $request, $id)
     {
         //No hay nada que evaluar salvo el guest
-
         $input = Input::all();
         $rules = [
             'guest_id' => 'numeric',
@@ -187,8 +185,6 @@ class HousekeepingController extends Controller
         if ($validator->passes()) {
             try {
                 DB::beginTransaction();
-                //$input['order_date'] = Carbon::today();
-                //$input['status']     = 1;
                 $input['bed_sheets'] = (isset($input['bed_sheets'])) ? true : false;
                 $input['cleaning']   = (isset($input['cleaning'])) ? true : false;
                 $input['minibar']    = (isset($input['minibar'])) ? true : false;
