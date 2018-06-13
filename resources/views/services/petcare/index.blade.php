@@ -26,7 +26,6 @@
                 <th scope="col">Standard food</th>
                 <th scope="col">Premium food</th>
                 <th scope="col">Snacks</th>
-                <th scope="col">Price</th>
                 <th scope="col">Completed?</th>
                 <th scope="col" colspan="3">Actions</th>
             </tr>
@@ -52,7 +51,6 @@
                     <td>
                         <input type="checkbox" class="form-control" id="snacks"  name="snacks"
                                {{ ($petcare->snacks) ? 'checked' : "" }} onclick="return false;"/></td>
-                    <td>{{ ($petcare->price) }} </td>
                     <td class="text-center"><input type="checkbox" name="{{ $petcare->id }}"
                                                    @if ($petcare->status == '2') checked @endif></td>
                     <td>
