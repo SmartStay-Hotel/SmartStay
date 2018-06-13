@@ -35,7 +35,7 @@
                         <td>{{ $spaAppointment->guest->firstname . ' ' . $spaAppointment->guest->lastname }}</td>
                         <td> {{ $spaAppointment->guest->rooms[0]->number }} </td>
                         <td>{{ $spaAppointment->day_hour }}</td>
-                        <td>{{-- $spaAppointment->spaType->name --}} </td>
+                        <td>{{ $spaAppointment->spaTreatmentType->name }} </td>
                         <td class="text-center"><input type="checkbox" name="{{ $spaAppointment->id }}"
                                                        @if ($spaAppointment->status == '2') checked @endif></td>
                         <td>

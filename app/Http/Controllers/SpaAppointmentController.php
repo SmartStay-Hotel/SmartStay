@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 
+use App\Events\NewOrderRequest;
 use App\Guest;
-use Carbon\Carbon;
 use App\SpaAppointment;
 use App\SpaTreatmentType;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Events\NewOrderRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
@@ -54,7 +54,7 @@ class SpaAppointmentController extends Controller
             $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
                 ? $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname : 'Not Found';
         }
-        $guests   = $guests->pluck('guestRoomNumber', 'id');
+        $guests = $guests->pluck('guestRoomNumber', 'id');
 
         $spaTypes = SpaTreatmentType::all();
         foreach ($spaTypes as $spaType) {
@@ -97,11 +97,11 @@ class SpaAppointmentController extends Controller
             try {
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
-                $input['status'] = '0';
+                $input['status']     = '0';
                 //Revisar el precio a spatype
-                $input['price'] = 20;
-                $guest = Guest::find($input['guest_id']);
-                $spa = $guest->spas()->create($input);
+                $input['price'] = SpaTreatmentType::getPriceById($input['treatment_type_id']);
+                $guest          = Guest::find($input['guest_id']);
+                $spa            = $guest->spas()->create($input);
                 DB::commit();
 
                 event(new NewOrderRequest($spa->service_id, $input['guest_id'], $spa->id));
@@ -112,7 +112,7 @@ class SpaAppointmentController extends Controller
                 } else {
                     $return = redirect()->route('spa.index')->with('status', 'Order added successfully.');
                 }
-            }catch (\Exception $e) {
+            } catch (\Exception $e) {
                 DB::rollback();
                 throw $e;
             }
@@ -125,6 +125,7 @@ class SpaAppointmentController extends Controller
                 $return = redirect()->route('spa.create')->withErrors($validator->getMessageBag());
             }
         }
+
         return $return;
     }
 

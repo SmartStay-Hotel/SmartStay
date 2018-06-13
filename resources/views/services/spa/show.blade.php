@@ -37,7 +37,9 @@
                     <legend>Show</legend>
                     <strong>Order Date: </strong> {{ $spa->day_hour }}<br>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
-                    <strong>Guest Phone: </strong> {{ $guest->telephone }}
+                    <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
+                    <strong>Treatment Type: </strong> {{ $spa->spaTreatmentType->name }}<br/>
+                    <strong>Price: </strong> {{ $spa->spaTreatmentType->price }}<br/>
                 </fieldset>
             </tr>
         </table>
