@@ -75,7 +75,9 @@ class PetCareController extends Controller
         }
         $rules = [
             'guest_id' => 'required|numeric',
-            'food'     => 'required',
+            'water'    => 'required_without_all:snacks,food|boolean',
+            'snacks'   => 'required_without_all:water,food|boolean',
+            'food'     => 'required_without_all:water,snacks',
         ];
 
         $validator = Validator::make($input, $rules);
@@ -83,29 +85,13 @@ class PetCareController extends Controller
             try {
                 DB::beginTransaction();
 
-                //guardar los datos de los checkbox. Si está marcado = 1 y si no = 0
-                if ($input['water'] = '') {
-                    $input['water'] = 0;
-                } else {
-                    $input['water'] = 0;
+                $input['water']  = (isset($input['water'])) ? true : false;
+                $input['snacks'] = (isset($input['snacks'])) ? true : false;
+                if (isset($input['food'])) {
+                    $input['standard_food'] = ($input['food'] == 'standard_food') ? true : false;
+                    $input['premium_food']  = ($input['food'] == 'premium_food') ? true : false;
                 }
-                if ($input['snacks'] = '') {
-                    $input['snacks'] = 0;
-                } else {
-                    $input['snacks'] = 0;
-                }
-                /*
-                if (!$input['standard']){
-                    $input['standard'] = 0;
-                }else{
-                    $input['standard'] = 1;
-                }
-                if (!$input['premium']){
-                    $input['premium'] = 0;
-                }else{
-                    $input['premium'] = 1;
-                }
-                */
+
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '0';
                 $guest               = Guest::find($input['guest_id']);
@@ -204,12 +190,22 @@ class PetCareController extends Controller
     {
         $input     = Input::all();
         $rules     = [
-            'food' => 'required',
+            'guest_id' => 'numeric',
+            'water'    => 'required_without_all:snacks,food|boolean',
+            'snacks'   => 'required_without_all:water,food|boolean',
+            'food'     => 'required_without_all:water,snacks',
         ];
         $validator = Validator::make($input, $rules);
         if ($validator->passes()) {
             try {
                 DB::beginTransaction();
+
+                $input['water']  = (isset($input['water'])) ? true : false;
+                $input['snacks'] = (isset($input['snacks'])) ? true : false;
+                if (isset($input['food'])) {
+                    $input['standard_food'] = ($input['food'] == 'standard_food') ? true : false;
+                    $input['premium_food']  = ($input['food'] == 'premium_food') ? true : false;
+                }
                 //$input['order_date'] = Carbon::today();
                 //$input['status']     = 1;
                 $petCare = PetCare::find($id);
