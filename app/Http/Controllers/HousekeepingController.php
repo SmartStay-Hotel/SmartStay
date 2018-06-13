@@ -87,8 +87,8 @@ class HousekeepingController extends Controller
         $validator = Validator::make($input, $rules);
         if ($validator->passes()) {
             try {
-                //dd($input);
                 DB::beginTransaction();
+                //'bed_sheets' => ($request->bed_sheets) ? true : false,
                 $input['bed_sheets'] = (isset($input['bed_sheets'])) ? true : false;
                 $input['cleaning']   = (isset($input['cleaning'])) ? true : false;
                 $input['minibar']    = (isset($input['minibar'])) ? true : false;
@@ -123,24 +123,6 @@ class HousekeepingController extends Controller
         }
 
         return $return;
-        /* ////// OLD ////
-        $order_date = date('Y-m-d');
-        Housekeeping::create([
-            'guest_id'   => $request->guest,
-            'order_date' => $order_date,
-            'bed_sheets' => ($request->bed_sheets) ? true : false,
-            'cleaning'   => ($request->cleaning) ? true : false,
-            'minibar'    => ($request->minibar) ? true : false,
-            'blanket'    => ($request->blanket) ? true : false,
-            'toiletries' => ($request->toiletries) ? true : false,
-            'toiletries' => ($request->toiletries) ? true : false,
-            'pillow'     => ($request->pillow) ? true : false,
-            'price'      => 120,
-            'status'     => '1',
-        ]);
-
-        return redirect('/service/housekeeping');
-        */
     }
 
     /**
@@ -227,27 +209,6 @@ class HousekeepingController extends Controller
         }
 
         return $return;
-
-        /*////////////// OLD /////////////////
-        $order_date = date('Y-m-d');
-
-        //recoger el valor del select de editar!!!
-        Housekeeping::find($id)->update([
-            'guest_id'   => $request->guest,
-            'order_date' => $order_date,
-            'bed_sheets' => ($request->bed_sheets) ? true : false,
-            'cleaning'   => ($request->cleaning) ? true : false,
-            'minibar'    => ($request->minibar) ? true : false,
-            'blanket'    => ($request->blanket) ? true : false,
-            'toiletries' => ($request->toiletries) ? true : false,
-            'toiletries' => ($request->toiletries) ? true : false,
-            'pillow'     => ($request->pillow) ? true : false,
-            'price'      => 120,
-            'status'     => '1',
-        ]);
-
-        return redirect('/service/housekeeping');
-        */
     }
 
     /**
