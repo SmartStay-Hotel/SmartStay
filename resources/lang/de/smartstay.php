@@ -76,6 +76,7 @@ trips
 */
     'trips.name' => 'Ausflügen',
     'trips.description' => 'Ausflügen Beschreibung',
+    'trips.select' => 'Ausfügen auswählen',
     'trips.numPersons' => 'Teilnehmerzahl',
     'trips.location' => 'Ort',
     'trips.day' => 'Tag',
@@ -94,4 +95,14 @@ taxi
     'taxi.name' => 'Taxi',
     'taxi.description' => 'Taxi Beschreibung',
     'taxi.hour' => 'Uhrzeit',
+
+    /*
+housekeeping
+*/
+    'hk.sheets' => 'Bettlaken',
+    'hk.cleaning' => 'Reinigen',
+    'hk.minibar' => 'Minibar',
+    'hk.blanket' => 'Bettdecke',
+    'hk.toiletries' => 'Toilettenartikel',
+    'hk.pillow' => 'Kissen',
 ];

@@ -134,7 +134,6 @@ return [
         Illuminate\Encryption\EncryptionServiceProvider::class,
         Illuminate\Filesystem\FilesystemServiceProvider::class,
         Illuminate\Foundation\Providers\FoundationServiceProvider::class,
-        Dedicated\GoogleTranslate\GoogleTranslateProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,

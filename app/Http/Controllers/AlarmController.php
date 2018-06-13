@@ -25,6 +25,7 @@ class AlarmController extends Controller
         $this->middleware('auth', ['only' => ['index', 'create', 'show', 'edit', 'update', 'changeStatus']]);
         $this->middleware('auth', ['except' => ['orderList', 'store', 'destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,6 +34,7 @@ class AlarmController extends Controller
     public function index()
     {
         $alarms = Alarm::all();
+
         return view('services.alarm.index', compact('alarms'));
     }
 
@@ -45,7 +47,8 @@ class AlarmController extends Controller
     {
         $guests = Guest::all();
         foreach ($guests as $guest) {
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname : 'Not Found';
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
@@ -71,29 +74,29 @@ class AlarmController extends Controller
             }
         }
 
-        $rules = [
+        $rules     = [
             'guest_id' => 'required|numeric',
             'day_hour' => 'required|date',
         ];
         $validator = Validator::make($input, $rules);
 
         if ($validator->passes()) {
-            try{
+            try {
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
-                $input['status']     = '1';
+                $input['status']     = '0';
                 $guest               = Guest::find($input['guest_id']);
                 $alarm               = $guest->alarms()->create($input);
                 DB::commit();
                 event(new NewOrderRequest($alarm->service_id, $input['guest_id'], $alarm->id));
 
-                if ($request->ajax()){
+                if ($request->ajax()) {
                     //$return = ['status' => true];
                     return; //cambio para Cristian
-                }else{
+                } else {
                     $return = redirect()->route('alarm.index')->with('status', 'Order added successfully.');
                 }
-            }catch (\Exception $e) {
+            } catch (\Exception $e) {
                 DB::rollback();
                 throw $e;
             }
@@ -135,7 +138,8 @@ class AlarmController extends Controller
     {
         $guests = Guest::all();
         foreach ($guests as $guest) {
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname : 'Not Found';
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
@@ -160,8 +164,8 @@ class AlarmController extends Controller
         ];
         $validator = Validator::make($input, $rules);
 
-        if ($validator->passes()){
-            try{
+        if ($validator->passes()) {
+            try {
                 DB::beginTransaction();
                 //$input['order_date'] = Carbon::today();
                 //$input['status']     = 1;
@@ -191,13 +195,14 @@ class AlarmController extends Controller
     public function destroy($id)
     {
         Alarm::find($id)->delete();
+
         return redirect()->back()->with('status', 'Order deleted successfully');
     }
 
     public function changeStatus($id)
     {
         $alarm         = Alarm::findOrFail($id);
-        $alarm->status = ($alarm->status === '2') ? '1' : '2';
+        $alarm->status = ($alarm->status === '1') ? '2' : '1';
         $alarm->save();
 
         return response()->json($alarm->status);

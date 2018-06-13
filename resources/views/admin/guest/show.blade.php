@@ -63,7 +63,7 @@
                 <br/>
                 <label for="firstname">Firstname: </label> {{ $guest->firstname }} <br/>
                 <label for="lastname">Lastname: </label> {{ $guest->lastname }} <br/>
-                <label for="nie">NIE: </label> {{ $guest->nie }} <br/>
+                <label for="nif">NIF: </label> {{ $guest->nif }} <br/>
                 <label for="email">Email: </label> {{ $guest->email }} <br/>
                 <label for="telephone">Telephone: </label> {{ $guest->telephone }} <br/>
                 <label for="balance">Balance: </label> {{ $guest->balance }} €<br/>

@@ -32,7 +32,7 @@
                 </div>
             @endif
             <thead id="serviceTableHeader">
-            <tr><h2 id="serviceTitle"><i class="fas fa-martini fa-xs" style="padding: 5px;"></i>Snack and Drinks<a
+            <tr><h2 id="serviceTitle"><i class="fas fa-utensils fa-xs" style="padding: 5px;"></i>Snack and Drinks<a
                             href="{{ route('snackdrink.index') }}"></a></h2>
             </tr>
             @if (count($errors) > 0)
@@ -60,8 +60,12 @@
                 e.preventDefault();
                 var children = $('#products').clone();
                 $(children).find('#addProduct').remove().end();
-                $(children).children().appendTo('#products');
+                $(children).children().slice(0, 6).appendTo('#products');
             });
         });
+    </script>
+
+    <script>
+        document.getElementsByClassName("itemDropdown")[4].style.color="white";
     </script>
 @endsection

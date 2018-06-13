@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Guest extends Model
 {
 
-    protected $fillable = ['firstname', 'lastname', 'nie', 'email', 'telephone', 'balance'];
+    protected $fillable = ['firstname', 'lastname', 'nif', 'email', 'telephone', 'balance'];
 
     public function rooms()
     {
@@ -84,9 +84,5 @@ class Guest extends Model
     {
         $room = self::find($id)->rooms[0];
         return $room;
-    }
-
-    public static function getCheckoutByGuestId($id){
-        return self::find($id)->rooms[0]->pivot->checkout_date;
     }
 }

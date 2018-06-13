@@ -70,4 +70,7 @@
             });
         });
     </script>
+    <script>
+        document.getElementsByClassName("itemDropdown")[8].style.color="white";
+    </script>
 @endsection

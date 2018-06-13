@@ -18,7 +18,7 @@ class CreateGuestsTable extends Migration
             $table->increments('id');
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('nie')->unique();
+            $table->string('nif')->unique();
             $table->string('email')->unique();
             $table->string('telephone')->unique();
             $table->double('balance')->default(0);

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\PetCare;
-use App\Guest;
-use Carbon\Carbon;
 use App\Events\NewOrderRequest;
+use App\Guest;
+use App\PetCare;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
@@ -34,6 +34,7 @@ class PetCareController extends Controller
     public function index()
     {
         $petcares = PetCare::all();
+
         return view('services.petcare.index', compact('petcares'));
     }
 
@@ -46,9 +47,11 @@ class PetCareController extends Controller
     {
         $guests = Guest::all();
         foreach ($guests as $guest) {
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname : 'Not Found';
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
+
         return view('services.petcare.create', compact('guests'));
     }
 
@@ -56,6 +59,7 @@ class PetCareController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
@@ -69,9 +73,9 @@ class PetCareController extends Controller
                 return response()->json(['status' => false]);
             }
         }
-        $rules     = [
+        $rules = [
             'guest_id' => 'required|numeric',
-            'food' => 'required',
+            'food'     => 'required',
         ];
 
         $validator = Validator::make($input, $rules);
@@ -80,28 +84,30 @@ class PetCareController extends Controller
                 DB::beginTransaction();
 
                 //guardar los datos de los checkbox. Si está marcado = 1 y si no = 0
-                if ($input['water'] = ''){
+                if ($input['water'] = '') {
                     $input['water'] = 0;
-                }else{
+                } else {
                     $input['water'] = 0;
                 }
-                if ($input['snacks'] = ''){
+                if ($input['snacks'] = '') {
                     $input['snacks'] = 0;
-                }else{
+                } else {
                     $input['snacks'] = 0;
                 }
-                if (!$request['s']){
-                    $request['s'] = 0;
+                /*
+                if (!$input['standard']){
+                    $input['standard'] = 0;
                 }else{
-                    $request['s'] = 1;
+                    $input['standard'] = 1;
                 }
-                if (!$request['p']){
-                    $request['p'] = 0;
+                if (!$input['premium']){
+                    $input['premium'] = 0;
                 }else{
-                    $request['p'] = 1;
+                    $input['premium'] = 1;
                 }
+                */
                 $input['order_date'] = Carbon::today();
-                $input['status']     = '1';
+                $input['status']     = '0';
                 $guest               = Guest::find($input['guest_id']);
                 $petcare             = $guest->petcares()->create($input);
                 DB::commit();
@@ -137,19 +143,19 @@ class PetCareController extends Controller
 
         ///////////////// OLD ////////////////////////
         ///
-       /*
-        *  $order_date = date('Y-m-d');
-        PetCare::create(['guest_id' => $request->guest,
-            'service_id'     => 9,
-            'order_date'     => $order_date,
-            'water'          => ($request->water) ? true : false,
-            'snacks'         => ($request->snacks) ? true : false,
-            'standard_food'  => ($request->food) ? true : false,
-            'premium_food'   => ($request->food) ? true : false,
-            'price'          => 120,
-            'status'         => '1']);
-        return redirect('/service/petcare');
-       */
+        /*
+         *  $order_date = date('Y-m-d');
+         PetCare::create(['guest_id' => $request->guest,
+             'service_id'     => 9,
+             'order_date'     => $order_date,
+             'water'          => ($request->water) ? true : false,
+             'snacks'         => ($request->snacks) ? true : false,
+             'standard_food'  => ($request->food) ? true : false,
+             'premium_food'   => ($request->food) ? true : false,
+             'price'          => 120,
+             'status'         => '1']);
+         return redirect('/service/petcare');
+        */
     }
 
     /**
@@ -162,7 +168,8 @@ class PetCareController extends Controller
     public function show(PetCare $petcare)
     {
         $guest = Guest::find($petcare->guest_id);
-        return view('services.petcare.show',compact('petcare', 'guest'));
+
+        return view('services.petcare.show', compact('petcare', 'guest'));
     }
 
     /**
@@ -176,18 +183,20 @@ class PetCareController extends Controller
     {
         $guests = Guest::all();
         foreach ($guests as $guest) {
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname : 'Not Found';
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
-        return view('services.petcare.edit',compact('petcare', 'guests'));
+        return view('services.petcare.edit', compact('petcare', 'guests'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  int                      $id
+     *
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
@@ -218,7 +227,7 @@ class PetCareController extends Controller
 
         return $return;
 
-            //////////////// OLD //////////////////////
+        //////////////// OLD //////////////////////
         //$order_date = date('Y-m-d');
 
         //controlar el valor del radio. Obtener aquí el valor actual de las food.
@@ -259,7 +268,8 @@ class PetCareController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
@@ -277,6 +287,7 @@ class PetCareController extends Controller
 
         return $return;
     }
+
     /**
      * @param $id
      *
@@ -285,7 +296,7 @@ class PetCareController extends Controller
     public function changeStatus($id)
     {
         $petCare         = PetCare::findOrFail($id);
-        $petCare->status = ($petCare->status === '2') ? '1' : '2';
+        $petCare->status = ($petCare->status === '1') ? '2' : '1';
         $petCare->save();
 
         return response()->json($petCare->status);
@@ -297,6 +308,7 @@ class PetCareController extends Controller
     public function orderList()
     {
         $petCare = PetCare::where('guest_id', Session::get('guest_id'))->get();
+
         return $petCare;
     }
 }

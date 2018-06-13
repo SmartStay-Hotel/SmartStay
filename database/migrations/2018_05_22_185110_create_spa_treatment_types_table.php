@@ -18,6 +18,7 @@ class CreateSpaTreatmentTypesTable extends Migration
             $table->string('name');
             $table->integer('duration');
             $table->double('price');
+            $table->string('image');
             $table->timestamps();
         });
     }

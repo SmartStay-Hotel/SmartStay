@@ -50,20 +50,17 @@ Route::group(['middleware' => 'language'], function () {
 
     Route::get('logout', 'CodeController@logout');
 
-    //funciones para el guest
-    Route::get('checkout', 'GuestController@getCheckout');
-
-    //Traducciones Google Translate REST API
     Route::get('services', 'TranslatorAppController@services');
 
+    Route::get('checkout', 'GuestController@getCheckout');
 
     Route::get('trips', function () {
-        $trips = \App\Trip_types::get();
+        $trips = \App\TripType::get();
 
         return $trips;
     });
     Route::get('events', function () {
-        $events = \App\Event_types::get();
+        $events = \App\EventType::get();
 
         return $events;
     });
@@ -71,6 +68,12 @@ Route::group(['middleware' => 'language'], function () {
         $product = \App\ProductType::get();
 
         return $product;
+    });
+
+    Route::get('spa_treatments', function () {
+        $spaTypes = \App\SpaTreatmentType::get();
+
+        return $spaTypes;
     });
     Route::get('/logout', 'CodeController@logout');
 
@@ -90,8 +93,8 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin', 'HomeController@index')->name('admin');
     Route::get('admin/dashboard', 'AdminDashboardController@index');
     Route::get('admin/checkin', 'AdminDashboardController@checkin');
+
     Route::get('admin/checkout', 'AdminDashboardController@checkout');
-    Route::get('admin/translate', 'TranslatorAppController@translate');
 
     /* llamadas a las vistas - luego irán en los controllers */
     Route::get('admin/taxi', function () {
@@ -155,14 +158,14 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin/service/statusSnacksAndDrinks/{id}', 'SnacksAndDrinkController@changeStatus');
     Route::get('admin/service/statusTaxi/{id}', 'TaxiController@changeStatus');
     Route::get('admin/service/statusAlarm/{id}', 'AlarmController@changeStatus');
-    Route::resource('admin/service/statusSpa/{id}', 'SpaAppointmentController@changeStatus');
-    Route::resource('admin/service/statusEvent/{id}', 'EventController@changeStatus');
-    Route::resource('admin/service/statusTrip/{id}', 'TripController@changeStatus');
-    Route::resource('admin/service/statusHousekeeping/{id}', 'HousekeepingController@changeStatus');
-    Route::resource('admin/service/statusPetcare/{id}', 'PetCareController@changeStatus');
+    Route::get('admin/service/statusSpa/{id}', 'SpaAppointmentController@changeStatus');
+    Route::get('admin/service/statusEvent/{id}', 'EventController@changeStatus');
+    Route::get('admin/service/statusTrip/{id}', 'TripController@changeStatus');
+    Route::get('admin/service/statusHousekeeping/{id}', 'HousekeepingController@changeStatus');
+    Route::get('admin/service/statusPetcare/{id}', 'PetCareController@changeStatus');
 
     Route::get('test', function () {
-        event(new App\Events\NewOrderRequest(1, 4, 15));
+        event(new App\Events\NewOrderRequest(4, 153, 1));
 
         return "Order has been sent!";
     });

@@ -168,8 +168,7 @@
                     <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertRestaurant" id="formIns0">
                         <div class="row">
                             <label for="dateRestaurant" class="col-md-6">{{trans('smartstay.restaurant.date')}}</label>
-                            <input type="datetime-local" class="col-md-6" name="dateRestaurant" v-model="dayHourServ"
-                                   v-bind:min="dataActual" v-bind:max="checkoutDate"><br>
+                            <input type="datetime-local" class="col-md-6" style="width:50%;" name="dateRestaurant" v-model="dayHourServ" v-bind:min="dataActual" v-bind:max="checkoutDate">
                         </div>
                         <div class="row">
                             <p class="errorForm errorDayHour col-md-12" v-if="errorExists">*La fecha debe ser entre @{{dataActualFormat}} y @{{ checkoutDateFormat }}</p>
@@ -307,7 +306,7 @@
                     <div class="col-md-6">
                         <label for="typeSpa">{{trans('smartstay.spa.type')}}</label>
                         <select name="typeSpa" v-model="spaSelected">
-                            <option v-for="spatype in SpaTypes" v-bind:value="spatype.id"> @{{ spatype.name }} </option>
+                            <option v-for="spatype in spaTypes" v-bind:value="spatype.id"> @{{ spatype.name }} </option>
                         </select>
                         {{--<div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">--}}
                         {{--<p>{{trans('smartstay.spa.location')}} @{{ item.location }}</p>--}}
@@ -366,16 +365,16 @@
                 <p class="windowDesc">{{trans('smartstay.trips.description')}}</p>
                 <div class="windowContent row">
                     <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertTrip">
-                        <label for="selTrips">
-                            Choose a trip:
-                        </label>
-                        <select name="selTrips" id="" v-model="tripSelected">
-                            <option v-for="trip in trips" v-bind:value="trip.id">@{{ trip.name }}</option>
-                        </select>
-                        <label for="cantTrip">{{trans('smartstay.trips.numPersons')}}: </label><input type="number"
-                                                                                                      min="1"
-                                                                                                      v-model="numPersonsTrip">
+                    <label for="selTrips">
+                        {{trans('smartstay.trips.select')}}
+                    </label>
+                    <select name="selTrips" id="" v-model="tripSelected">
+                        <option v-for="trip in trips" v-bind:value="trip.id">@{{ trip.name }}</option>
+                    </select>
+                    <label for="cantTrip">{{trans('smartstay.trips.numPersons')}}: </label><input type="number" min="1" v-model="numPersonsTrip">
 
+
+                    <input type="number" name="cantTrip" min="1" v-model="numPersonsTrip">
                         <input type="submit">
                         <div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">
                             <p>{{trans('smartstay.trips.location')}}: @{{ item.location }}</p>

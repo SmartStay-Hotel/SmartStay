@@ -13,17 +13,18 @@ class Trip extends Model
             'trip_type_id',
             'order_date',
             'price',
+            'people_num',
             'status',
         ];
 
     protected $attributes
         = [
-            'service_id' => 7,
+            'service_id' => 6,
         ];
 
     public function tripType()
     {
-        return $this->belongsTo(Trip_types::class);
+        return $this->belongsTo(TripType::class);
     }
 
     public function guest()

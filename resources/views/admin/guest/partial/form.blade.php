@@ -6,8 +6,8 @@
     <label>Last Name</label>
     {!! Form::text('lastname', null, ['class' => 'form-control']) !!}
 
-    <label>NIE</label>
-    {!! Form::text('nie', null, ['class' => 'form-control']) !!}
+    <label>NIF</label>
+    {!! Form::text('nif', null, ['class' => 'form-control']) !!}
 
     <label>Email</label>
     {!! Form::email('email', null, ['class' => 'form-control']) !!}
@@ -41,12 +41,22 @@
         @endforeach
     </select>--}}
 
+    @if(!isset($guest))
+        <label>Check-in Date</label><br/>
+        <strong>Today: {{ \Carbon\Carbon::now() }}</strong><br/>
+        {!! Form::date('checkin_date', \Carbon\Carbon::now(), ['class' => 'form-control', 'style' => 'display:none']) !!}{{-- Hacer fecha por defecto hoy--}}
 
-    <label>Check-in Date</label>
-    {!! Form::date('checkin_date', \Carbon\Carbon::now(), ['class' => 'form-control', 'disabled']) !!}{{-- Hacer fecha por defecto hoy--}}
-    <label>Check-out Date</label>
-    {!! Form::date('checkout_date', \Carbon\Carbon::tomorrow(), ['class' => 'form-control']) !!}
-    <br/>
+        <label>Check-out Date</label>
+        {!! Form::date('checkout_date', \Carbon\Carbon::tomorrow(), ['class' => 'form-control']) !!}
+        <br/>
+    @else
+        <label>Check-in Date</label><br/>
+        {!! Form::date('checkin_date', $guest->rooms[0]->pivot->checkin_date, ['class' => 'form-control']) !!}{{-- Hacer fecha por defecto hoy--}}
+
+        <label>Check-out Date</label>
+        {!! Form::date('checkout_date', $guest->rooms[0]->pivot->checkout_date, ['class' => 'form-control']) !!}
+        <br/>
+    @endif
     <p>
         {{ Form::button('Save', ['type' => 'submit', 'class' => 'btn btn-secondary']) }}
     </p>

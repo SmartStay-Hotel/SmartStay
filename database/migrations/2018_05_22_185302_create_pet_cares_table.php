@@ -25,7 +25,6 @@ class CreatePetCaresTable extends Migration
             $table->boolean('premium_food');
             $table->boolean('snacks');
             $table->date('order_date');
-            $table->double('price');
             $table->enum('status', ['0', '1', '2']);
             $table->timestamps();
 

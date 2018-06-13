@@ -47,7 +47,8 @@ class RestaurantController extends Controller
     {
         $guests = Guest::all();
         foreach ($guests as $guest) {
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname : 'Not Found';
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
@@ -85,7 +86,7 @@ class RestaurantController extends Controller
             try {
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
-                $input['status']     = '1';
+                $input['status']     = '0';
                 $guest               = Guest::find($input['guest_id']);
                 $restaurant          = $guest->restaurants()->create($input);
                 DB::commit();
@@ -139,7 +140,8 @@ class RestaurantController extends Controller
     {
         $guests = Guest::all();
         foreach ($guests as $guest) {
-            $guest->guestRoomNumber = $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname;
+            $guest->guestRoomNumber = (isset($guest->rooms[0]->number))
+                ? $guest->rooms[0]->number . ' - ' . $guest->firstname . ' ' . $guest->lastname : 'Not Found';
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
@@ -217,7 +219,7 @@ class RestaurantController extends Controller
     public function changeStatus($id)
     {
         $restaurant         = Restaurant::findOrFail($id);
-        $restaurant->status = ($restaurant->status === '2') ? '1' : '2';
+        $restaurant->status = ($restaurant->status === '1') ? '2' : '1';
         $restaurant->save();
 
         return response()->json($restaurant->status);

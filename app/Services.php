@@ -10,6 +10,7 @@ class Services extends Model
     public static function getServiceName($id)
     {
         $name = ($id == 2) ? 'snackdrink' : self::get()->where('id', $id)->first()->name;
+        //$name = str_replace(' ', '', $name);
 
         return $name;
     }

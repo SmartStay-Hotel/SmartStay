@@ -16,43 +16,15 @@ class RoomsSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 100; $i <= 150; $i++) {
+        for ($i = 100; $i <= 400; $i++) {
             DB::table('rooms')->insert([
                 'type_id'          => $faker->numberBetween($min = 1, $max = 9),
                 'number'           => $i,
-                'capacity'         => $faker->numberBetween($min = 2, $max = 6),
+                'capacity'         => $faker->numberBetween($min = 2, $max = 4),
                 'disabled_adapted' => $faker->boolean($chanceOfGettingTrue = 90),
-                'jacuzzi'          => $faker->boolean($chanceOfGettingTrue = 30),
-                'code'             => substr($faker->hexColor(), 1),
-                'status'           => $faker->randomElement($array = [0, 1, null]),
-                'created_at'       => new DateTime,
-                'updated_at'       => new DateTime,
-            ]);
-        }
-
-        for ($i = 200; $i <= 250; $i++) {
-            DB::table('rooms')->insert([
-                'type_id'          => $faker->numberBetween($min = 1, $max = 9),
-                'number'           => $i,
-                'capacity'         => $faker->numberBetween($min = 2, $max = 6),
-                'disabled_adapted' => $faker->boolean($chanceOfGettingTrue = 90),
-                'jacuzzi'          => $faker->boolean($chanceOfGettingTrue = 30),
-                'code'             => substr($faker->hexColor(), 1),
-                'status'           => $faker->randomElement($array = [0, 1, null]),
-                'created_at'       => new DateTime,
-                'updated_at'       => new DateTime,
-            ]);
-        }
-
-        for ($i = 300; $i <= 350; $i++) {
-            DB::table('rooms')->insert([
-                'type_id'          => $faker->numberBetween($min = 1, $max = 9),
-                'number'           => $i,
-                'capacity'         => $faker->numberBetween($min = 2, $max = 6),
-                'disabled_adapted' => $faker->boolean($chanceOfGettingTrue = 90),
-                'jacuzzi'          => $faker->boolean($chanceOfGettingTrue = 30),
-                'code'             => substr($faker->hexColor(), 1),
-                'status'           => $faker->randomElement($array = [0, 1, null]),
+                'jacuzzi'          => $faker->boolean($chanceOfGettingTrue = 40),
+                'code'             => substr($faker->unique()->hexColor(), 1),
+                'status'           => $faker->optional($weight = 0.5, $default = null)->randomElement($array = [0, 1]),
                 'created_at'       => new DateTime,
                 'updated_at'       => new DateTime,
             ]);

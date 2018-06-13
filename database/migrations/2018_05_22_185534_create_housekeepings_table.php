@@ -27,7 +27,6 @@ class CreateHousekeepingsTable extends Migration
             $table->boolean('blanket');
             $table->boolean('toiletries');
             $table->boolean('pillow');
-            $table->double('price');
             $table->enum('status', ['0', '1', '2']);
             $table->timestamps();
 

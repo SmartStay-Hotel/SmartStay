@@ -20,6 +20,7 @@ class CreateEventTypesTable extends Migration
             $table->string('location');
             $table->integer('max_num_people');
             $table->string('day_week');
+            $table->string('image');
             $table->timestamps();
         });
     }
