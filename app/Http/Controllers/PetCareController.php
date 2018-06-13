@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Validator;
 
 class PetCareController extends Controller
 {
-
     /**
      * Create a new controller instance.
      *
@@ -33,7 +32,7 @@ class PetCareController extends Controller
      */
     public function index()
     {
-        $petcares = PetCare::all();
+        $petcares = PetCare::paginate(3);
 
         return view('services.petcare.index', compact('petcares'));
     }
@@ -77,7 +76,7 @@ class PetCareController extends Controller
             'guest_id' => 'required|numeric',
             'water'    => 'required_without_all:snacks,food|boolean',
             'snacks'   => 'required_without_all:water,food|boolean',
-            'food'     => 'required_without_all:water,snacks',
+            'food'     => 'required',
         ];
 
         $validator = Validator::make($input, $rules);
@@ -87,6 +86,7 @@ class PetCareController extends Controller
 
                 $input['water']  = (isset($input['water'])) ? true : false;
                 $input['snacks'] = (isset($input['snacks'])) ? true : false;
+
                 if (isset($input['food'])) {
                     $input['standard_food'] = ($input['food'] == 'standard_food') ? true : false;
                     $input['premium_food']  = ($input['food'] == 'premium_food') ? true : false;
@@ -120,28 +120,6 @@ class PetCareController extends Controller
         }
 
         return $return;
-
-
-        //Revisar!! No pilla bien los radiobuttons.
-        //Para que funcionen en la vista, el name debe ser el mismo.
-        //Al recoger en el request, pilla los dos valores igual
-
-
-        ///////////////// OLD ////////////////////////
-        ///
-        /*
-         *  $order_date = date('Y-m-d');
-         PetCare::create(['guest_id' => $request->guest,
-             'service_id'     => 9,
-             'order_date'     => $order_date,
-             'water'          => ($request->water) ? true : false,
-             'snacks'         => ($request->snacks) ? true : false,
-             'standard_food'  => ($request->food) ? true : false,
-             'premium_food'   => ($request->food) ? true : false,
-             'price'          => 120,
-             'status'         => '1']);
-         return redirect('/service/petcare');
-        */
     }
 
     /**
@@ -202,6 +180,7 @@ class PetCareController extends Controller
 
                 $input['water']  = (isset($input['water'])) ? true : false;
                 $input['snacks'] = (isset($input['snacks'])) ? true : false;
+
                 if (isset($input['food'])) {
                     $input['standard_food'] = ($input['food'] == 'standard_food') ? true : false;
                     $input['premium_food']  = ($input['food'] == 'premium_food') ? true : false;
@@ -222,43 +201,6 @@ class PetCareController extends Controller
         }
 
         return $return;
-
-        //////////////// OLD //////////////////////
-        //$order_date = date('Y-m-d');
-
-        //controlar el valor del radio. Obtener aquí el valor actual de las food.
-        //Compararlo y en función de lo que tenga actualizar
-        /*
-        $foods = ['standard_food'  => ($request->food),
-            'premium_food'   => ($request->food)];
-
-        dd($foods['standard_food']);
-        if ($foods['standard_food'] == 1){
-            $foods['premium_food'] = 0;
-        }elseif ($foods['premium_food'] == 1){
-            $foods['standard_food'] = 0;
-        }
-        if (Input::get('food')) {
-            $standardFood = 1;
-        } else {
-            $standardFood = 0;
-        }
-        //Revisar!! No pilla bien los radiobuttons.
-        //Para que funcionen en la vista, el name debe ser el mismo.
-        //Al recoger en el request, pilla los dos valores igual
-        PetCare::find($id)->update([
-            'guest_id'       => $request->guest,
-            'service_id'     => 9,
-            'order_date'     => $order_date,
-            'water'          => ($request->water) ? true : false,
-            'snacks'         => ($request->snacks) ? true : false,
-            'standard_food'  => ($request->food) ? true : false,
-            'premium_food'   => ($request->food) ? true : false,
-            'price'          => 120,
-            'status'         => '1']);
-
-        return redirect('/service/petcare');
-        */
     }
 
     /**

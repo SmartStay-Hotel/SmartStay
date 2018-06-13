@@ -19,6 +19,10 @@
             font-weight: bold !important;
             text-align: left !important;
         }
+
+        .orders {
+            margin-left: 40px;
+        }
     </style>
 @endsection
 @section('content')
@@ -38,8 +42,9 @@
                     <strong>Order Date: </strong> {{ $spa->day_hour }}<br>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
                     <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
-                    <strong>Treatment Type: </strong> {{ $spa->spaTreatmentType->name }}<br/>
-                    <strong>Price: </strong> {{ $spa->spaTreatmentType->price }}<br/>
+                    <strong>Details: </strong><br/>
+                    <strong class="orders">Treatment Type: </strong> {{ $spa->spaTreatmentType->name }}<br/>
+                    <strong class="orders">Price: </strong> {{ $spa->spaTreatmentType->price }}<br/>
                 </fieldset>
             </tr>
         </table>
