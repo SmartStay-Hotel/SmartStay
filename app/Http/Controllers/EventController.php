@@ -199,7 +199,7 @@ class EventController extends Controller
             $peopleGoing     = Event::getNumPeopleOnTheList($input['event_type_id']);
             $availablePlaces = $maxPeople - $peopleGoing;
             if ($availablePlaces < $input['people_num']) {
-                return redirect()->route('event.create')->withErrors([
+                return redirect()->route('event.edit', $event->id)->withErrors([
                     'Only ' . $availablePlaces . ' available places',
                 ]);
             }
