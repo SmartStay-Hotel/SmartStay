@@ -57545,15 +57545,35 @@ Vue.component('historyorders', __webpack_require__(191));
 var urlGetStatusRoom = 'seeStatus';
 var urlChangeStatusRoom = 'changeStatus';
 
+toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": false,
+    "extendedTimeOut": "3000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut",
+    "closeOnHover": false
+};
+
 new Vue({
     el: '#container',
     created: function created() {
         this.getServices();
         this.getTrips();
         this.getEvents();
+        this.getSpaTypes();
         this.getStatusRoom();
         this.actualDate();
         this.getCheckOutDate();
+        this.getProductTypes();
 
         // this.bttnMas();
         // this.setPriceTrip();
@@ -57565,6 +57585,7 @@ new Vue({
         trips: [],
         events: [],
         spaTypes: [],
+        productTypes: [],
 
         statusGuest: false,
 
@@ -57588,11 +57609,20 @@ new Vue({
         quantityServ: '',
         hourTaxi: '',
 
-        numSnacks: ['1'],
-        numDrinks: ['1'],
+        snackSelected: [],
+        snackCant: [],
+        snackPrice: [],
+
+        numSnacks: [0],
+        nS: 1,
+        numDrinks: [0],
+        nD: 1,
         showSnack: ['true'],
 
-        errores: ""
+        errores: "",
+        errorExists: false,
+
+        precioTotalSD: 0
 
     },
     methods: {
@@ -57609,38 +57639,47 @@ new Vue({
 
             var urlCheckOutDate = 'checkout';
             axios.get(urlCheckOutDate).then(function (response) {
-                _this2.checkoutDate = response.data;
+                _this2.checkoutDate = response.data + "T00:00";
+                _this2.checkoutDateFormat = __WEBPACK_IMPORTED_MODULE_0_moment___default()(response.data).format('YYYY-MM-DD');
             });
-            this.checkoutDateFormat = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.checkoutDate).format('MMMM Do YYYY, h:mm a');
         },
-        getStatusRoom: function getStatusRoom() {
+        getProductTypes: function getProductTypes() {
             var _this3 = this;
 
+            var urlProductTypes = 'product_types';
+            axios.get(urlProductTypes).then(function (response) {
+                _this3.productTypes = response.data;
+            });
+        },
+        getStatusRoom: function getStatusRoom() {
+            var _this4 = this;
+
             axios.get(urlGetStatusRoom).then(function (response) {
-                _this3.statusRoom = response.data;
+                _this4.statusRoom = response.data;
             });
         },
         getTrips: function getTrips() {
-            var _this4 = this;
+            var _this5 = this;
 
             var urlTrips = 'trips';
             axios.get(urlTrips).then(function (response) {
-                _this4.trips = response.data;
+                _this5.trips = response.data;
             });
         },
         getEvents: function getEvents() {
-            var _this5 = this;
+            var _this6 = this;
 
             var urlEvents = 'events';
             axios.get(urlEvents).then(function (response) {
-                _this5.events = response.data;
+                _this6.events = response.data;
             });
         },
         getSpaTypes: function getSpaTypes() {
-            var _this6 = this;
+            var _this7 = this;
 
+            var urlSpaTypes = 'spa_treatments';
             axios.get(urlSpaTypes).then(function (response) {
-                _this6.spaTypes = response.data;
+                _this7.spaTypes = response.data;
             });
         },
 
@@ -57670,14 +57709,15 @@ new Vue({
             if (minutes < 10) minutes = "0" + minutes;
             this.dataActual = d.getFullYear() + "-" + month + "-" + d.getDate() + "T" + d.getHours() + ":" + d.getMinutes();
             this.dayHourServ = this.dataActual;
-            this.dataActualFormat = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.dataActual).format('MMMM Do YYYY, h:mm a');
+            this.dataActualFormat = __WEBPACK_IMPORTED_MODULE_0_moment___default()().format('YYYY-MM-DD, h:mm a');
 
             // this.dataActual = d;
         },
         insertRestaurant: function insertRestaurant() {
-            var _this7 = this;
+            var _this8 = this;
 
-            if (this.dayHourServ < this.dataActual) {
+            if (this.dayHourServ <= this.dataActual) {
+                this.errorExists = true;
                 console.log("holasdas");
             } else {
                 console.log("correctoo");
@@ -57687,115 +57727,142 @@ new Vue({
                     day_hour: this.dayHourServ,
                     quantity: this.quantityServ
                 }).then(function (response) {
-                    _this7.showResult = true;
+                    _this8.showResult = true;
                     toastr.success("jeje");
                 }).catch(function (error) {
-                    toastr.success("jojoj");
-                    _this7.errores = error.response.data;
+                    _this8.errorExists = true;
+                    _this8.errores = error.response.data;
                 });
             }
             // this.pruebaOrder=response.data;
         },
         insertAlarm: function insertAlarm() {
-            var _this8 = this;
+            var _this9 = this;
 
             var urlInsAlarm = 'admin/service/alarm';
             axios.post(urlInsAlarm, {
                 day_hour: this.dayHourServ
 
             }).then(function (response) {
-                _this8.showResult = true;
+                _this9.showResult = true;
                 toastr.success("adios");
                 console.log("coorecto alaramaaa");
             }).catch(function (error) {
 
                 toastr.success("sdfsadf");
-                _this8.errores = error.response.data;
+                _this9.errores = error.response.data;
                 console.log("alarm no");
             });
         },
         insertTrip: function insertTrip() {
-            var _this9 = this;
+            var _this10 = this;
 
             var urlInsTrip = 'admin/service/trip';
             axios.post(urlInsTrip, {
                 trip_type_id: this.dayHourServ
 
             }).then(function (response) {
-                _this9.showResult = true;
+                _this10.showResult = true;
                 toastr.success("adios");
                 console.log("correcto trip");
             }).catch(function (error) {
 
                 toastr.success("sdfsadf");
-                _this9.errores = error.response.data;
+                _this10.errores = error.response.data;
                 console.log("tripppp no");
             });
         }, insertEvent: function insertEvent() {
-            var _this10 = this;
+            var _this11 = this;
 
             var urlInsEvent = 'admin/service/event';
             axios.post(urlInsEvent, {
                 event_type_id: this.eventSelected
 
             }).then(function (response) {
-                _this10.showResult = true;
+                _this11.showResult = true;
                 toastr.success("adios");
                 console.log("correcto eventtt");
             }).catch(function (error) {
 
                 toastr.success("sdfsadf");
-                _this10.errores = error.response.data;
+                _this11.errores = error.response.data;
                 console.log("evevevvent no");
             });
         },
         insertTaxi: function insertTaxi() {
-            var _this11 = this;
+            var _this12 = this;
 
             var urlInsTaxi = 'admin/service/taxi';
             axios.post(urlInsTaxi, {
                 day_hour: this.dayHourServ
 
             }).then(function (response) {
-                _this11.showResult = true;
+                _this12.showResult = true;
                 toastr.success("adios");
                 console.log("correcto taxiiii");
             }).catch(function (error) {
 
                 toastr.success("sdfsadf");
-                _this11.errores = error.response.data;
+                _this12.errores = error.response.data;
                 console.log("taxino no");
             });
         },
         bttnMas: function bttnMas(tipo) {
             if (tipo == 'snack') {
-                this.numSnacks.push("1");
+                this.numSnacks.push(this.nS);
+                this.nS = this.nS + 1;
             } else if (tipo == 'drink') {
-                this.numDrinks.push("1");
+                this.numDrinks.push(this.nD);
+                this.nD = this.nD + 1;
             }
         },
         bttnMenos: function bttnMenos(tipo) {
             if (tipo == 'snack') {
                 this.numSnacks.pop();
+                this.nS = this.nS - 1;
+                this.snackSelected[this.nS] = '';
             } else if (tipo == 'drink') {
                 this.numDrinks.pop();
+                this.nD = this.nD - 1;
+                this.snackSelected[this.nD] = '';
             }
         }
 
     },
     computed: {
         infoTrip: function infoTrip() {
-            var _this12 = this;
+            var _this13 = this;
 
             return this.trips.filter(function (trip) {
-                return trip.id == _this12.tripSelected;
+                return trip.id == _this13.tripSelected;
             });
         },
         infoEvent: function infoEvent() {
-            var _this13 = this;
+            var _this14 = this;
 
             return this.events.filter(function (event) {
-                return event.id == _this13.eventSelected;
+                return event.id == _this14.eventSelected;
+            });
+        },
+        infoSnack0: function infoSnack0() {
+            var _this15 = this;
+
+            return this.productTypes.filter(function (product) {
+                return product.id == _this15.snackSelected[0];
+            });
+        },
+        infoSnack1: function infoSnack1() {
+            var _this16 = this;
+
+            return this.productTypes.filter(function (product) {
+                return product.id == _this16.snackSelected[1];
+            });
+        },
+        infoSnack2: function infoSnack2() {
+            var _this17 = this;
+
+            return this.productTypes.filter(function (product) {
+                return product.id == _this17.snackSelected[2];
             });
         }
 
@@ -77281,7 +77348,7 @@ exports = module.exports = __webpack_require__(15)(false);
 
 
 // module
-exports.push([module.i, "\n.swiper-container[data-v-50c93ee4] {\n    width: 100%;\n    height: 70%;\n    display:flex;\n}\n.swiper-slide[data-v-50c93ee4]{\n    display:flex;\n    align-items:center;\n}\n.swiper-button-prev[data-v-50c93ee4], .swiper-button-next[data-v-50c93ee4] {\nwidth:10%;\n}\n\n/*.swiper-button-prev:hover, .swiper-button-next:hover{*/\n/*background-color:rgba(0,0,0,0.1);*/\n/*}*/\n@media (max-width: 545px) {\n.swiper-button-prev[data-v-50c93ee4], .swiper-button-next[data-v-50c93ee4] {\n        top:10%;\n        background-color:white;\n        width:50%;\n}\n}\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.swiper-container[data-v-50c93ee4] {\n    width: 100%;\n    height: 70%;\n    display:flex;\n}\n.swiper-slide[data-v-50c93ee4]{\n    display:flex;\n    align-items:center;\n}\n.swiper-button-prev[data-v-50c93ee4], .swiper-button-next[data-v-50c93ee4] {\nwidth:10%;\n}\n\n/*.swiper-button-prev:hover, .swiper-button-next:hover{*/\n/*background-color:rgba(0,0,0,0.1);*/\n/*}*/\n@media (max-width: 545px) {\n.swiper-button-prev[data-v-50c93ee4], .swiper-button-next[data-v-50c93ee4] {\n        top:10%;\n        background-color:white;\n        width:47%;\n}\n}\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -77539,7 +77606,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "servicesHome" }, [
     _c("div", { staticClass: "servicesTop" }, [
-      _vm.servs[_vm.nserv]
+      _vm.servs[0]
         ? _c(
             "div",
             {
@@ -77569,7 +77636,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.servs[_vm.nserv + 1]
+      _vm.servs[1]
         ? _c(
             "div",
             {
@@ -77601,7 +77668,7 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "servicesBottom" }, [
-      _vm.servs[_vm.nserv + 2]
+      _vm.servs[2]
         ? _c(
             "div",
             {
@@ -77609,7 +77676,7 @@ var render = function() {
                 "bttnServices col-md-4 col-sm-4 col-xs-6 col-lg-5 col-xl-3",
               on: {
                 click: function($event) {
-                  _vm.$emit("return-window", 5)
+                  _vm.$emit("return-window", _vm.nserv + 2)
                 }
               }
             },
@@ -77631,7 +77698,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.servs[_vm.nserv + 3]
+      _vm.servs[3]
         ? _c(
             "div",
             {
@@ -85431,7 +85498,7 @@ var render = function() {
         "swiper-slide",
         [
           _c("serviceshome", {
-            attrs: { nserv: 4, servs: [1, 1, 1, 0], services: _vm.services },
+            attrs: { nserv: 4, servs: [1, 1, 1, 1], services: _vm.services },
             on: { "return-window": _vm.emitShow }
           })
         ],

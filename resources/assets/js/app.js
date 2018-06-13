@@ -68,7 +68,23 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
     var urlGetStatusRoom ='seeStatus';
     var urlChangeStatusRoom = 'changeStatus';
 
-
+toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": false,
+    "extendedTimeOut": "3000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut",
+    "closeOnHover": false
+};
 
     new Vue({
         el: '#container',
@@ -76,9 +92,11 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
         this.getServices();
         this.getTrips();
         this.getEvents();
+        this.getSpaTypes();
         this.getStatusRoom();
         this.actualDate();
         this.getCheckOutDate();
+        this.getProductTypes();
 
         // this.bttnMas();
         // this.setPriceTrip();
@@ -91,6 +109,7 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
             trips:[],
             events:[],
             spaTypes:[],
+            productTypes:[],
 
             statusGuest: false,
 
@@ -114,13 +133,21 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
             quantityServ:'',
             hourTaxi:'',
 
-            numSnacks:['1'],
-            numDrinks:['1'],
+            snackSelected:[],
+            snackCant:[],
+            snackPrice:[],
+
+
+            numSnacks:[0],
+            nS:1,
+            numDrinks:[0],
+            nD:1,
             showSnack:['true'],
 
             errores: "",
+            errorExists : false,
 
-
+            precioTotalSD: 0,
 
 
         },
@@ -135,9 +162,15 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
             getCheckOutDate:function(){
               var urlCheckOutDate = 'checkout';
                 axios.get(urlCheckOutDate).then(response=>{
-                    this.checkoutDate = response.data
+                    this.checkoutDate = response.data+"T00:00";
+                    this.checkoutDateFormat = moment(response.data).format('YYYY-MM-DD');
             })
-                this.checkoutDateFormat = moment(this.checkoutDate).format('MMMM Do YYYY, h:mm a');
+            },
+            getProductTypes: function(){
+                var urlProductTypes = 'product_types';
+                axios.get(urlProductTypes).then(response=>{
+                    this.productTypes = response.data
+            });
 
             },
             getStatusRoom:function(){
@@ -160,6 +193,7 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
             });
             },
             getSpaTypes: function(){
+                var urlSpaTypes = 'spa_treatments';
                 axios.get(urlSpaTypes).then(response=>{
                     this.spaTypes= response.data
                 });
@@ -193,12 +227,13 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
                 if(minutes<10) minutes = "0" + minutes;
                 this.dataActual =  d.getFullYear()+"-"+month+"-"+d.getDate()+"T"+d.getHours()+":"+d.getMinutes()
                 this.dayHourServ = this.dataActual
-                this.dataActualFormat = moment(this.dataActual).format('MMMM Do YYYY, h:mm a');
+                this.dataActualFormat = moment().format('YYYY-MM-DD, h:mm a');
 
                 // this.dataActual = d;
             },
             insertRestaurant: function(){
-                if(this.dayHourServ<this.dataActual){
+                if(this.dayHourServ<=this.dataActual){
+                    this.errorExists = true;
                     console.log("holasdas");
                 }else{
                 console.log("correctoo");
@@ -211,7 +246,7 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
                     this.showResult = true;
                     toastr.success("jeje");
                 }).catch(error=>{
-                    toastr.success("jojoj");
+                        this.errorExists = true;
                     this.errores = error.response.data;
 
                 })
@@ -288,17 +323,24 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
             },
             bttnMas: function(tipo){
                 if(tipo=='snack'){
-                    this.numSnacks.push("1");
+                    this.numSnacks.push(this.nS);
+                    this.nS = this.nS+1;
                 }else if(tipo=='drink'){
-                    this.numDrinks.push("1");
+                    this.numDrinks.push(this.nD);
+                    this.nD = this.nD+1;
                 }
 
             },
             bttnMenos: function(tipo){
                 if(tipo=='snack'){
                     this.numSnacks.pop();
+                    this.nS = this.nS-1;
+                    this.snackSelected[this.nS] = '';
+
                 }else if(tipo=='drink'){
                     this.numDrinks.pop();
+                    this.nD = this.nD-1;
+                    this.snackSelected[this.nD] = '';
                 }
 
 
@@ -313,6 +355,15 @@ Vue.component('historyorders', require('./components/historyOrders.vue'))
             infoEvent: function(){
                 return this.events.filter((event) => event.id==this.eventSelected);
             },
+            infoSnack0:function(){
+                return this.productTypes.filter((product) => product.id==this.snackSelected[0]);
+            },
+            infoSnack1:function(){
+                return this.productTypes.filter((product) => product.id==this.snackSelected[1]);
+            },
+            infoSnack2:function(){
+                return this.productTypes.filter((product) => product.id==this.snackSelected[2]);
+            }
 
         },
         components: {

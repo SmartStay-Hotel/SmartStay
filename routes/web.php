@@ -67,6 +67,11 @@ Route::group(['middleware' => 'language'], function () {
 
         return $events;
     });
+    Route::get('product_types', function () {
+        $product = \App\ProductType::get();
+
+        return $product;
+    });
     Route::get('/logout', 'CodeController@logout');
 
 
