@@ -72,8 +72,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $input  = Input::all();
-        $return = "";
+        $input = Input::all();
         if ($request->ajax()) {
             if (Session::exists('guest_id')) {
                 $input['guest_id'] = Session::get('guest_id');
@@ -85,12 +84,24 @@ class EventController extends Controller
         $rules     = [
             'guest_id'      => 'required|numeric',
             'event_type_id' => 'required|numeric',
+            'people_num'    => 'required|numeric|max:150',
         ];
         $validator = Validator::make($input, $rules);
 
         if ($validator->passes()) {
+            $maxPeople       = EventType::getMaxPeopleByEvent($input['event_type_id']);
+            $peopleGoing     = Event::getNumPeopleOnTheList($input['event_type_id']);
+            $availablePlaces = $maxPeople - $peopleGoing;
+            if ($availablePlaces < $input['people_num']) {
+                return redirect()->route('event.create')->withErrors([
+                    'Only ' . $availablePlaces . ' available places',
+                ]);
+            }
+
             try {
                 DB::beginTransaction();
+
+
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '0';
                 $guest               = Guest::find($input['guest_id']);
@@ -165,23 +176,38 @@ class EventController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param \App\Event                $event
      *
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Event $event)
     {
-        $input     = Input::all();
-        $rules     = [];
+        $input                  = Input::all();
+        $input['guest_id']      = (isset($input['guest_id'])) ? $input['guest_id'] : $event->guest_id;
+        $input['event_type_id'] = (isset($input['event_type_id'])) ? $input['event_type_id'] : $event->event_type_id;
+
+        $rules     = [
+            'guest_id'      => 'required|numeric',
+            'event_type_id' => 'required|numeric',
+            'people_num'    => 'required|numeric|max:150',
+        ];
         $validator = Validator::make($input, $rules);
 
         if ($validator->passes()) {
+            $maxPeople       = EventType::getMaxPeopleByEvent($input['event_type_id']);
+            $peopleGoing     = Event::getNumPeopleOnTheList($input['event_type_id']);
+            $availablePlaces = $maxPeople - $peopleGoing;
+            if ($availablePlaces < $input['people_num']) {
+                return redirect()->route('event.create')->withErrors([
+                    'Only ' . $availablePlaces . ' available places',
+                ]);
+            }
             try {
                 DB::beginTransaction();
                 //$input['order_date'] = Carbon::today();
                 //$input['status']     = 1;
-                $event = Event::find($id);
+                $event = Event::find($event->id);
                 $event->update($input);
                 DB::commit();
 
@@ -191,7 +217,7 @@ class EventController extends Controller
                 throw $e;
             }
         } else {
-            $return = redirect()->route('event.edit', $id)->withErrors($validator->getMessageBag());
+            $return = redirect()->route('event.edit', $event->id)->withErrors($validator->getMessageBag());
         }
 
         return $return;

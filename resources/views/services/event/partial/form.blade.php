@@ -19,6 +19,9 @@
         {{ Form::checkbox('checkbox', 1, null, ['id' => 'changeevent']) }}
     @endif
     <br/>
+    <label>How many person will you be with?</label>
+    {!! Form::number('people_num', null, ['class' => 'form-control']) !!}
+    <br/>
     <p>
         {{ Form::button('Save', ['type' => 'submit', 'class' => 'btn btn-primary']) }}
     </p>

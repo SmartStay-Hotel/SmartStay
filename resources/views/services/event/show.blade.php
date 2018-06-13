@@ -38,7 +38,10 @@
                     <legend>Show</legend>
                     <strong>Order Date: </strong> {{ $event->order_date }}<br>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
-                    <strong>Guest Phone: </strong> {{ $guest->telephone }}
+                    <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
+                    <strong>Event Name: </strong> {{ $event->eventType->name }}<br/>
+                    <strong>People Going: </strong> {{ $event->people_num }}<br/>
+                    <strong>Location: </strong> {{ $event->eventType->location }}<br/>
                 </fieldset>
             </tr>
         </table>

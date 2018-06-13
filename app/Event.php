@@ -47,4 +47,10 @@ class Event extends Model
 
         return $events;
     }
+
+    public static function getNumPeopleOnTheList($id) {
+        $events =  self::where('event_type_id', $id)->sum('people_num');
+
+        return $events;
+    }
 }
