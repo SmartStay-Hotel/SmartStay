@@ -44,6 +44,7 @@ Route::group(['middleware' => 'language'], function () {
 
     Route::get('changeStatus', 'GuestController@changeStatus');
     Route::get('seeStatus/{id?}', 'GuestController@seeStatusGuest');
+    Route::get('checkout', 'GuestController@getCheckout');
 
     //Lista de órdenes de un guest
     Route::get('orderListRestaurant', 'RestaurantController@orderList');
