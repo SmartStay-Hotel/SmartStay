@@ -30,7 +30,8 @@
 
 @section('content')
 
-    <div class="col-sm-9 table-responsive" id="alarmTableContainer">
+    <div class="card"
+         style="">
         <table class="table table-sm table-hover text-center" id="serviceTable">
             <thead id="serviceTableHeader">
             <tr><h2 id="serviceTitle"><i class="fas fa-broom fa-xs" style="padding: 5px;"></i>Housekeeping<a
