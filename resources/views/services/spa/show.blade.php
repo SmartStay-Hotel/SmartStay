@@ -35,7 +35,7 @@
             <tr>
                 <fieldset>
                     <legend>Show</legend>
-                    <strong>Order Date: </strong> {{ $spaAppointment->day_hour }}<br>
+                    <strong>Order Date: </strong> {{ $spa->day_hour }}<br>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
                     <strong>Guest Phone: </strong> {{ $guest->telephone }}
                 </fieldset>

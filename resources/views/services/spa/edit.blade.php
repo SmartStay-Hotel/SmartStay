@@ -1,59 +1,75 @@
-@extends('layouts.app')
+@extends('admin.layout')
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('spa.index') }}">Spa</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Edit Appointment</li>
+    <li class="breadcrumb-item"><a href="{{ route('spa.index') }}">Spa Appointment</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Reservation</li>
+@endsection
+@section('css')
+    <style>
+        fieldset {
+            border: 1px groove #ddd !important;
+            padding: 0 1.4em 1.4em 1.4em !important;
+            margin: 0 0 1.5em 0 !important;
+            -webkit-box-shadow: 0px 0px 0px 0px #000;
+            box-shadow: 0px 0px 0px 0px #000;
+        }
+
+        legend {
+            font-size: 1.2em !important;
+            font-weight: bold !important;
+            text-align: left !important;
+        }
+    </style>
 @endsection
 @section('content')
-    <div class="pull-right">
-        <a class="btn btn-primary" href="{{ route('spa.index') }}"> Back</a>
-    </div>
-    <h1>Edit Spa Appointment Order: {{ $spa->id }}</h1>
-    <hr>
-     <form action="{{url('service/spa', [$spa->id])}}" method="POST">
-     <input type="hidden" name="_method" value="PUT">
-     {{ csrf_field() }}
-     <!--Guest_id-->
-         <label for="guest">Guest: </label><br>
-         <select name="guest">
-             @foreach ($guests as $guest)
-                 <option value="{{ $guest->id }}"
-                         @if($guest->id == $spa->guest_id)
-                         selected
-                         @endif>
-                     {{ $guest->firstname." ".$guest->lastname}}
-                 </option>
-             @endforeach
-         </select><br/>
-         <!--Spa_type_id -->
-         <label for="guest">Trip: </label><br>
-         <select name="spatype">
-             @foreach ($spaTypes as $spaType)
-                 <option value="{{ $spaType->id }}"
-                         @if($spa->treatment_type_id == $spaType->id)
-                         selected
-                         @endif>
-                     {{ $spaType->name." - ".$spaType->duration }}
-                 </option>
-             @endforeach
-         </select><br/>
-         <!--Day Hour-->
-         <label for="title">Spa Date: </label>
-         <input type="date" class="form-control datepicker" id="day_hour"  name="day_hour"/>
-      @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-      @endif
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-@endsection
 
+    <div class="card"
+         style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
+        <table class="table table-sm table-hover text-center" id="serviceTable">
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+    @endif
+                <thead id="serviceTableHeader">
+                <tr><h2 id="serviceTitle"><i class="fas fa-sun fa-xs" style="padding: 5px;"></i>Spa Appointment<a
+                                href="{{ route('spa.index') }}"><i
+                                    id="addGuest" class="fas fa-user-plus fa-xs"
+                                    style="padding-left: 70%; color: white; z-index: 1;"></i></a></h2>
+                </tr>
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                {!! Form::model($spa, ['route' => ['spa.update', $spa->id], 'method'=>'PATCH', null]) !!}
+                @include('services.spa.partial.form')
+                {!! Form::close() !!}
+        </table>
+    </div>
+@endsection
 @section('scripts')
     <script>
-        document.getElementsByClassName("itemDropdown")[5].style.color="white";
+        $(document).ready(function () {
+            $('#change').change(function () {
+                if ($(this).is(':checked')) {
+                    this.checked = (confirm("Are you sure?")) ? $('#selectGuest').prop('disabled', false) : false;
+                }else{$('#selectGuest').prop('disabled', true)}
+            });
+        });
+        $(document).ready(function () {
+            $('#changespa').change(function () {
+                if ($(this).is(':checked')) {
+                    this.checked = (confirm("Are you sure?")) ? $('#selectSpaType').prop('disabled', false) : false;
+                }else{$('#selectGuest').prop('disabled', true)}
+            });
+        });
+    </script>
+    <script>
+        document.getElementsByClassName("itemDropdown")[8].style.color="white";
     </script>
 @endsection
