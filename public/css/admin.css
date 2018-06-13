@@ -197,22 +197,22 @@ main #formLayout{
     text-align: left;
 }
 
-#dispatchedOrdersList{
+#dispatchedOrdersList, #pendingOrdersList, #newOrdersList{
     list-style-type: none;
 }
 
-#dispatchedOrdersList > li{
+#dispatchedOrdersList > li, #pendingOrdersList > li, #newOrdersList > li{
     border: 1px solid #979898;
     padding: 10px;
     text-align: left;
 
 }
 
-#dispatchedOrdersList a{
+#dispatchedOrdersList a, #pendingOrdersList a, #newOrdersList a{
     color: black;
 }
 
-#dispatchedOrdersList a:hover {
+#dispatchedOrdersList a:hover, #pendingOrdersList a:hover, #newOrdersList a:hover{
     text-decoration: none;
 }
 
@@ -269,6 +269,69 @@ main #formLayout{
     display:inline-block;
     padding:5px;
 
+}
+
+/* The container */
+.container {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 3px;
+    right: 0;
+    height: 25px;
+    width: 25px;
+    background-color: white;
+    border-radius: 100%;
+    border-color: green;
+    border-style: solid;
+
+}
+
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: white;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    left: 8px;
+    top: 4px;
+    width: 5px;
+    height: 10px;
+    border: solid green;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 /*CHECK-IN*/
@@ -474,3 +537,11 @@ legend {
     #serviceTable{font-size: 2.3vw;}
     #guestTable{font-size: 3px;}
 }
+
+/*@media screen and (min-width: 1024px){
+.checkmark {right: -15%;}
+}
+
+@media screen and (min-width: 700px){
+    .checkmark {right: 5%;}
+}*/
