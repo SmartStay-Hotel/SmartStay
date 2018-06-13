@@ -30,52 +30,28 @@
                     </h5>
 
                     <div id="test-list3">
-                        <ul class="list" id="dispatchedOrdersList">
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
+                        <ul class="list" id="newOrdersList">
+
+                            @foreach($services->sortBy('updated_at') as $service)
+                                @if($service->status == '0')
+                                    <li class="text-center">
+                                        <label class="container">
+                                        <a style="" href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
+                                            <span style="padding: 10px;">{{ $service->serviceName }}</span>
+                                            <span style="padding: 10px;">-</span>
+                                            <span style="padding: 10px;">{{ $service->guest->firstname }}</span>
+                                            <span style="padding: 10px;">-</span>
+                                            <span style="padding: 10px;">{{ $service->roomNumber }}</span>
+
+                                        </a>
+                                            <input type="checkbox"
+                                                   name="{{ $service->serviceName .'/'.$service->id }}"
+                                                   @if ($service->status == '0') checked @endif><span class="checkmark"></span>
+                                        </label>
+                                    </li>
+
+                                @endif
+                            @endforeach
 
                         </ul>
                         <ul class="pagination"></ul>
@@ -108,21 +84,24 @@
 
                 </h5>
                 <div id="test-list">
-                <ul class="list" id="dispatchedOrdersList">
+                <ul class="list" id="pendingOrdersList">
 
                         @foreach($services->sortBy('updated_at') as $service)
                             @if($service->status == '1')
                                 <li class="text-center">
+                                    <label class="container">
                                     <a style="" href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
                                         <span style="padding: 10px;">{{ $service->serviceName }}</span>
                                         <span style="padding: 10px;">-</span>
                                         <span style="padding: 10px;">{{ $service->guest->firstname }}</span>
                                         <span style="padding: 10px;">-</span>
                                         <span style="padding: 10px;">{{ $service->roomNumber }}</span>
+                                    </a>
                                         <input type="checkbox"
                                                name="{{ $service->serviceName .'/'.$service->id }}"
-                                               @if ($service->status == '2') checked @endif style="float:right">
-                                    </a>
+                                               @if ($service->status == '2') checked @endif><span class="checkmark"></span>
+
+                                    </label>
                                 </li>
 
                             @endif
@@ -162,73 +141,23 @@
                         @foreach($services->sortByDesc('updated_at') as $service)
                             @if($service->status == 2)
                                 <li class="text-center">
+                                    <label class="container">
                                     <a href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
                                         <span style="padding: 10px;">{{ $service->serviceName }}</span>
                                         <span style="padding: 10px;">-</span>
                                         <span style="padding: 10px;">{{ $service->guest->firstname }}</span>
                                         <span style="padding: 10px;">-</span>
                                         <span style="padding: 10px;">{{ $service->roomNumber }}</span>
+                                    </a>
                                         <input type="checkbox"
                                                name="{{ $service->serviceName .'/'.$service->id  }}"
-                                               @if ($service->status == '2') checked @endif style="float:right">
-                                    </a>
+                                               @if ($service->status == '2') checked @endif><span class="checkmark"></span>
+
+                                    </label>
                                 </li>
                             @endif
                         @endforeach
-                        <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                            <button style="float:right"><i class="fas fa-times"></i></button>
-                        </li>
-                        <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                            <button style="float:right"><i class="fas fa-times"></i></button>
-                        </li>
-                        <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                            <button style="float:right"><i class="fas fa-times"></i></button>
-                        </li>
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Pet care</span> - Crazy Elephant - <span>209</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Aggressive Hippo - <span>207</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
-                            <li><span>Restaurant</span> - Lunatic Racoon - <span>105</span>
-                                <button style="float:right"><i class="fas fa-times"></i></button>
-                            </li>
+
                     </ul>
                     <ul class="pagination"></ul>
                 </div>
@@ -333,7 +262,7 @@
                         }).fail(function () {
                             $(li).hide().appendTo('#pendingOrdersList').fadeIn('slow');
                             toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
-                            toastr.warning('Something went wront', 'Alert!');
+                            toastr.warning('Something went wrong', 'Alert!');
                         });
                     });
 
@@ -351,7 +280,7 @@
                         $(li).hide().prependTo('#dispatchedOrdersList').fadeIn('slow');
                         $this.checked = true;
                         toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
-                        toastr.warning('Something went wront', 'Alert!');
+                        toastr.warning('Something went wrong', 'Alert!');
                     });
                 }
             });
