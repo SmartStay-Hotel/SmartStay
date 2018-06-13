@@ -199,7 +199,7 @@ class TaxiController extends Controller
     public function changeStatus($id)
     {
         $taxi         = Taxi::findOrFail($id);
-        $taxi->status = ($taxi->status === '2') ? '1' : '2';
+        $taxi->status = ($taxi->status === '1') ? '2' : '1';
         $taxi->save();
 
         return response()->json($taxi->status);

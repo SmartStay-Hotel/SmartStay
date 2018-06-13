@@ -219,7 +219,7 @@ class RestaurantController extends Controller
     public function changeStatus($id)
     {
         $restaurant         = Restaurant::findOrFail($id);
-        $restaurant->status = ($restaurant->status === '2') ? '1' : '2';
+        $restaurant->status = ($restaurant->status === '1') ? '2' : '1';
         $restaurant->save();
 
         return response()->json($restaurant->status);

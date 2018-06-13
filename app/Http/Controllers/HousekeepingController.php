@@ -255,7 +255,7 @@ class HousekeepingController extends Controller
     public function changeStatus($id)
     {
         $housekeeping         = Housekeeping::findOrFail($id);
-        $housekeeping->status = ($housekeeping->status === '2') ? '1' : '2';
+        $housekeeping->status = ($housekeeping->status === '1') ? '2' : '1';
         $housekeeping->save();
 
         return response()->json($housekeeping->status);
