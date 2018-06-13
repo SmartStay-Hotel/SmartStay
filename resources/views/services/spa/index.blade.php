@@ -53,10 +53,10 @@
                 @endforeach
                 </tbody>
             </table>
-    {{-- $spaAppointments->render() --}}
-      {{-- <p>
+        {{ $spaAppointments->render() }}
+        <p>
             <span id="spaTotal">{{ $spaAppointments->total() }}</span> orders | page {{ $spaAppointments->currentPage() }} of {{ $spaAppointments->lastPage() }}
-        </p>--}}
+        </p>
     </div>
 @endsection
 
@@ -111,7 +111,7 @@
 
                     row.fadeOut();
                     $.post(url, form.serialize(), function (result) {
-                        $('#restaurantTotal').html(result.total);
+                        $('#spaTotal').html(result.total);
                         toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
                         toastr.success(result.message);
                     }).fail(function () {

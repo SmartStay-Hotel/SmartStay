@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Validator;
 
 class SpaAppointmentController extends Controller
 {
-
     /**
      * Create a new controller instance.
      *
@@ -34,10 +33,7 @@ class SpaAppointmentController extends Controller
      */
     public function index()
     {
-        $spaAppointments = SpaAppointment::all();//::paginate(3);
-        //Revisar!! Para mostrar el tipo de spa en el index???
-        //$spaType = SpaTreatmentType::find($spaAppointments->treatment_type_id);
-        //En index.blade se deja comentado: {{-- $spaAppointment->spaType->name --}}
+        $spaAppointments = SpaAppointment::paginate(3);
 
         return view('services.spa.index', compact('spaAppointments'));
     }
@@ -98,7 +94,6 @@ class SpaAppointmentController extends Controller
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '0';
-                //Revisar el precio a spatype
                 $input['price'] = SpaTreatmentType::getPriceById($input['treatment_type_id']);
                 $guest          = Guest::find($input['guest_id']);
                 $spa            = $guest->spas()->create($input);
@@ -186,8 +181,6 @@ class SpaAppointmentController extends Controller
         if ($validator->passes()) {
             try {
                 DB::beginTransaction();
-                //$input['order_date'] = Carbon::today();
-                //$input['status']     = 1;
                 $spa = SpaAppointment::find($id);
                 $spa->update($input);
                 DB::commit();

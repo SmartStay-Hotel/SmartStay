@@ -84,7 +84,7 @@
         </table>
         {{ $housekeepings->render() }}
         <p>
-            <span id="restaurantTotal">{{ $housekeepings->total() }}</span> orders | page {{ $housekeepings->currentPage() }} of {{ $housekeepings->lastPage() }}
+            <span id="housekeepingTotal">{{ $housekeepings->total() }}</span> orders | page {{ $housekeepings->currentPage() }} of {{ $housekeepings->lastPage() }}
         </p>
     </div>
 @endsection
