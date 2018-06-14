@@ -70,7 +70,7 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     /*---------- ORDER HISTORY --------------*/
-    Route::GET('admin/service/orderHistory', 'GuestController@getOrderHistoryByGuest');
+    Route::GET('orderHistory', 'GuestController@getOrderHistoryByGuest');
 
     /*---------- END ORDER HISTORY --------------*/
 

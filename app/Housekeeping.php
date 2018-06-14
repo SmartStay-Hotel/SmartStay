@@ -34,14 +34,32 @@ class Housekeeping extends Model
      */
     public static function getAllHousekeepingOrders()
     {
-        $housekeepings = Housekeeping::all();
+        $housekeepings = self::all();
         if (count($housekeepings) > 0) {
             $serviceName = Services::getServiceName($housekeepings[0]->service_id);
             foreach ($housekeepings as $key => $housekeeping) {
                 $housekeeping->serviceName = $serviceName;
                 $housekeeping->roomNumber  = ($housekeeping->guest->rooms[0]->number)
                     ? $housekeeping->guest->rooms[0]->number
-                    : 'Housekeeping id:' . $housekeeping->id;
+                    : 'HousekeepingErr id:' . $housekeeping->id;
+            }
+        } else {
+            $housekeepings = [];
+        }
+
+        return $housekeepings;
+    }
+
+    public static function getOrderHistoryByGuest($guestId)
+    {
+        $housekeepings = self::where('guest_id', $guestId)->get();
+        if (count($housekeepings) > 0) {
+            $serviceName = Services::getServiceName($housekeepings[0]->service_id);
+            foreach ($housekeepings as $key => $housekeeping) {
+                $housekeeping->serviceName = $serviceName;
+                $housekeeping->roomNumber  = ($housekeeping->guest->rooms[0]->number)
+                    ? $housekeeping->guest->rooms[0]->number
+                    : 'HousekeepingErr id:' . $housekeeping->id;
             }
         } else {
             $housekeepings = [];

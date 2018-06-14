@@ -33,13 +33,30 @@ class Event extends Model
 
     public static function getAllEventOrders()
     {
-        $events = Event::all();
+        $events = self::all();
         if (count($events) > 0) {
             $serviceName = Services::getServiceName($events[0]->service_id);
             foreach ($events as $key => $event) {
                 $event->serviceName = $serviceName;
                 $event->roomNumber  = ($event->guest->rooms[0]->number) ? $event->guest->rooms[0]->number
-                    : 'Event id:' . $event->id;
+                    : 'EventErr id:' . $event->id;
+            }
+        } else {
+            $events = [];
+        }
+
+        return $events;
+    }
+
+    public static function getOrderHistoryByGuest($guestId)
+    {
+        $events = self::where('guest_id', $guestId)->get();
+        if (count($events) > 0) {
+            $serviceName = Services::getServiceName($events[0]->service_id);
+            foreach ($events as $key => $event) {
+                $event->serviceName = $serviceName;
+                $event->roomNumber  = ($event->guest->rooms[0]->number) ? $event->guest->rooms[0]->number
+                    : 'EventErr id:' . $event->id;
             }
         } else {
             $events = [];
