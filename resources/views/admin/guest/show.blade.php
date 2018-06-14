@@ -74,4 +74,7 @@
     </div><!-- /.col-md-8 -->
 @endsection
 @section('scripts')
+    <script>
+        document.getElementById("guests").style.color="white";
+    </script>
 @endsection

@@ -96,4 +96,17 @@ class AdminDashboardController extends Controller
         return view('admin.checkin', compact('guests'));
     }
 
+    public function statistics()
+    {
+        $guests = Guest::getGuestsByCheckinDate();
+        foreach ($guests as $guest) {
+            $guest->number        = $guest->rooms[0]->number;
+            $guest->checkin_date  = $guest->rooms[0]->pivot->checkin_date;
+            $guest->checkout_date = $guest->rooms[0]->pivot->checkout_date;
+            $guest->roomType      = RoomType::find($guest->rooms[0]->type_id)->name;
+        }
+
+        return view('admin.statistics', compact('guests'));
+    }
+
 }

@@ -93,7 +93,8 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin', 'HomeController@index')->name('admin');
     Route::get('admin/dashboard', 'AdminDashboardController@index');
     Route::get('admin/checkin', 'AdminDashboardController@checkin');
-
+    // STATISTICS
+    Route::get('admin/statistics', 'AdminDashboardController@statistics');
     Route::get('admin/checkout', 'AdminDashboardController@checkout');
     /*------------ END ADMIN ------------*/
 
