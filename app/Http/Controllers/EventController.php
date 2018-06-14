@@ -92,6 +92,10 @@ class EventController extends Controller
             $peopleGoing     = Event::getNumPeopleOnTheList($input['event_type_id']);
             $availablePlaces = $maxPeople - $peopleGoing;
             if ($availablePlaces < $input['people_num']) {
+                if ($request->ajax()) {
+                    return $availablePlaces;
+                }
+
                 return redirect()->route('event.create')->withErrors([
                     'Only ' . $availablePlaces . ' available places',
                 ]);

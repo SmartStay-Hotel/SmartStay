@@ -93,4 +93,20 @@ class Guest extends Model
     {
         return self::find($id)->rooms[0]->pivot->checkout_date;
     }
+
+    public static function updateBalance($service)
+    {
+        if ($service->status == 2) {
+            $guest = self::find($service->guest_id);
+            $guest->balance += $service->price;
+            $guest->save();
+        }
+    }
+
+    public static function reduceBalance($service)
+    {
+        $guest = self::find($service->guest_id);
+        $guest->balance -= $service->price;
+        $guest->save();
+    }
 }
