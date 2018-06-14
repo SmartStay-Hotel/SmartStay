@@ -57572,7 +57572,7 @@ new Vue({
         this.getSpaTypes();
         this.getStatusRoom();
         this.actualDate();
-        // this.getCheckOutDate();
+        this.getCheckOutDate();
         this.getProductTypes();
 
         // this.bttnMas();
