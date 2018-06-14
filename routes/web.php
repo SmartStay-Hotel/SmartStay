@@ -81,7 +81,8 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin', 'HomeController@index')->name('admin');
     Route::get('admin/dashboard', 'AdminDashboardController@index');
     Route::get('admin/checkin', 'AdminDashboardController@checkin');
-
+    // STATISTICS
+    Route::get('admin/statistics', 'AdminDashboardController@statistics');
     Route::get('admin/checkout', 'AdminDashboardController@checkout');
 
     /* llamadas a las vistas - luego irán en los controllers */
