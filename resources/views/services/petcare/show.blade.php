@@ -45,7 +45,7 @@
                     <strong>Date hour: </strong> {{ $petcare->order_date }}<br>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
                     <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
-                    <strong>Order Details: </strong>
+                    <strong>More Details: </strong><br/>
                     <br/>
                     @if(!empty($petcare->water))
                         <strong class="orders">Water: </strong>

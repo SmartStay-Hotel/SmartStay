@@ -54,10 +54,10 @@
             @endforeach
             </tbody>
         </table>
-        {{-- $trips->render() }}
+        {{ $trips->render() }}
         <p>
             <span id="tripTotal">{{ $trips->total() }}</span> orders | page {{ $trips->currentPage() }} of {{ $trips->lastPage() }}
-        </p>--}}
+        </p>
     </div>
 @endsection
 @section('scripts')

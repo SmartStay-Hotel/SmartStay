@@ -45,7 +45,7 @@
                     <strong>Order Date: </strong> {{ $housekeeping->order_date }}<br>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
                     <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
-                    <strong>Order Details: </strong>
+                    <strong>More Details: </strong><br/>
                     <br/>
                         @if(!empty($housekeeping->bed_sheets))
                             <strong class="orders">Bed Sheets: </strong>

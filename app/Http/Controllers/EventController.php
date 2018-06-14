@@ -34,8 +34,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        //Pasarle más información!!! Es posible?
-        $events = Event::all();
+        $events = Event::paginate(12);
 
         return view('services.event.index', compact('events'));
     }
@@ -100,7 +99,6 @@ class EventController extends Controller
 
             try {
                 DB::beginTransaction();
-
 
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '0';

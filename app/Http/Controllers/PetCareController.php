@@ -32,7 +32,7 @@ class PetCareController extends Controller
      */
     public function index()
     {
-        $petcares = PetCare::paginate(3);
+        $petcares = PetCare::paginate(12);
 
         return view('services.petcare.index', compact('petcares'));
     }

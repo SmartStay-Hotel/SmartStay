@@ -33,7 +33,7 @@ class HousekeepingController extends Controller
      */
     public function index()
     {
-        $housekeepings = Housekeeping::paginate(3);
+        $housekeepings = Housekeeping::paginate(12);
 
         return view('services.housekeeping.index', compact('housekeepings'));
     }

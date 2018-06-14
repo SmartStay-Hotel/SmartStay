@@ -33,7 +33,7 @@ class SpaAppointmentController extends Controller
      */
     public function index()
     {
-        $spaAppointments = SpaAppointment::paginate(3);
+        $spaAppointments = SpaAppointment::paginate(12);
 
         return view('services.spa.index', compact('spaAppointments'));
     }

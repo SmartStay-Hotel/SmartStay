@@ -20,6 +20,10 @@
             font-weight: bold !important;
             text-align: left !important;
         }
+
+        .orders {
+            margin-left: 40px;
+        }
     </style>
 @endsection
 
@@ -40,14 +44,15 @@
                     <strong>Room: </strong> {{ $guest->rooms[0]->number }}<br/>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br/>
                     <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
+                    <strong>More Details: </strong><br/>
                     @if($snackdrink->productType->type_id == 1)
-                        <strong>Snack: </strong> {{ $snackdrink->productType->name }}<br/>
+                        <strong class="orders">- Snack: </strong> {{ $snackdrink->productType->name }}<br/>
                     @elseif($snackdrink->productType->type_id == 2)
-                        <strong>Drink: </strong> {{ $snackdrink->productType->name }}<br/>
+                        <strong class="orders">- Drink: </strong> {{ $snackdrink->productType->name }}<br/>
                     @endif
-                    <strong>Date hour: </strong> {{ $snackdrink->created_at }}<br/>
-                    <strong>Quantity: </strong> {{ $snackdrink->quantity }} u.<br/>
-                    <strong>Price total: </strong> {{ $snackdrink->price }} €<br/>
+                    <strong class="orders">- Date hour: </strong> {{ $snackdrink->created_at }}<br/>
+                    <strong class="orders">- Quantity: </strong> {{ $snackdrink->quantity }} u.<br/>
+                    <strong class="orders">- Price total: </strong> {{ $snackdrink->price }} €<br/>
                     <hr/>
                     <p>Order List</p>
                     @foreach($list as $key => $item)

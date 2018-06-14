@@ -34,7 +34,7 @@ class SnacksAndDrinkController extends Controller
      */
     public function index()
     {
-        $snacks = SnacksAndDrink::paginate(5);
+        $snacks = SnacksAndDrink::paginate(12);
 
         return view('services.snackdrink.index', compact('snacks'));
     }
