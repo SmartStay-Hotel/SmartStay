@@ -254,7 +254,9 @@ class TripController extends Controller
     public function changeStatus($id)
     {
         $trip         = Trip::findOrFail($id);
+        ($trip->status == 2) ? Guest::reduceBalance($trip) : null;
         $trip->status = ($trip->status === '1') ? '2' : '1';
+        ($trip->status == 2) ? Guest::updateBalance($trip) : null;
         $trip->save();
 
         return response()->json($trip->status);
