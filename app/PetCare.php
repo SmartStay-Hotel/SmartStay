@@ -34,7 +34,7 @@ class PetCare extends Model
         if (count($petCares) > 0) {
             $serviceName = Services::getServiceName($petCares[0]->service_id);
             foreach ($petCares as $key => $petCare) {
-                $petCare->serviceName = $serviceName;
+                $petCare->serviceName = str_replace(' ', '', $serviceName);
                 $petCare->roomNumber  = ($petCare->guest->rooms[0]->number) ? $petCare->guest->rooms[0]->number
                     : 'Pet Care id:' . $petCare->id;
             }

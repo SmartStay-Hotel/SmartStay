@@ -55,26 +55,29 @@ Route::group(['middleware' => 'language'], function () {
 
 
     Route::get('trips', function () {
-        $trips = \App\TripType::get();
-
-        return $trips;
+        return \App\TripType::get();
     });
     Route::get('events', function () {
-        $events = \App\EventType::get();
-
-        return $events;
+         return \App\EventType::get();
     });
+
+    Route::get('spas', function () {
+        return \App\SpaTreatmentType::get();
+    });
+
+    Route::get('products', function () {
+        return \App\ProductType::get();
+    });
+
+    /*---------- ORDER HISTORY --------------*/
+    Route::GET('admin/service/orderHistory', 'GuestController@getOrderHistoryByGuest');
+
+    /*---------- END ORDER HISTORY --------------*/
+
     Route::get('/logout', 'CodeController@logout');
 
 
     Route::post('/', 'CodeController@login');
-    //Route::get('/login', 'CodeController@login');
-
-    /*Route::get('dashboard', function () {
-        $services = \App\Services::all();
-
-        return view('guest.dashboard', compact('services'));
-    });*/
     /*------------ END GUEST ------------*/
 
 
@@ -84,41 +87,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin/checkin', 'AdminDashboardController@checkin');
 
     Route::get('admin/checkout', 'AdminDashboardController@checkout');
-
-    /* llamadas a las vistas - luego irán en los controllers */
-    Route::get('admin/taxi', function () {
-        return view('admin.taxi');
-    });
-
-    Route::get('admin/spa', function () {
-        return view('admin.spa');
-    });
-
-    Route::get('admin/restaurant', function () {
-        return view('admin.restaurant');
-    });
-
-    Route::get('admin/housekeeping', function () {
-        return view('admin.housekeeping');
-    });
-
-    Route::get('admin/petCare', function () {
-        return view('admin.petCare');
-    });
-
-    Route::get('admin/snacks', function () {
-        return view('admin.snacks');
-    });
-
-    Route::get('admin/events', function () {
-        return view('admin.events');
-    });
-
-    Route::get('admin/trips', function () {
-        return view('admin.trips');
-    });
-
-    /* end llamadas a las vistas */
+    /*------------ END ADMIN ------------*/
 
     Route::resource('admin/guests', 'GuestController');
     //----Filtro de búsqueda para reservas ------
@@ -127,7 +96,6 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin/guests/roomType/{id}/jacuzzi/{jacuzzi}', 'GuestController@getAvailableRooms');
     Route::get('admin/guests/roomType/{id}', 'GuestController@getAvailableRooms');
     //-------------------------------------------
-    /*------------ END ADMIN ------------*/
 
 
     /*------------- SERVICES --------------*/

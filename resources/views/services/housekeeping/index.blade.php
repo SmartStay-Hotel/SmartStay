@@ -64,7 +64,7 @@
                                {{ ($housekeeping->pillow) ? 'checked' : "" }} onclick="return false;"/>
                     </td>
                     <td class="text-center">
-                        <input type="checkbox" name="{{ $housekeeping->id }}"
+                        <input type="checkbox" class="status" name="{{ $housekeeping->id }}"
                                @if ($housekeeping->status == '2') checked @endif>
                     </td>
                     <td>
@@ -91,7 +91,7 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $(':checkbox').change(function (event) {
+            $('.status').change(function (event) {
                 var $this = this;
                 var route = 'statusHousekeeping/' + event.target.name + '';
                 if ($($this).is(':checked')) {

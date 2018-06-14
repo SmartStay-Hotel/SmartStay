@@ -51,7 +51,7 @@
                     <td>
                         <input type="checkbox" class="form-control" id="snacks"  name="snacks"
                                {{ ($petcare->snacks) ? 'checked' : "" }} onclick="return false;"/></td>
-                    <td class="text-center"><input type="checkbox" name="{{ $petcare->id }}"
+                    <td class="text-center"><input type="checkbox" class="status" name="{{ $petcare->id }}"
                                                    @if ($petcare->status == '2') checked @endif></td>
                     <td>
                         <a href="{{ route('petcare.show', $petcare->id) }}" class="show-modal btn btn-success">
@@ -78,7 +78,7 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $(':checkbox').change(function (event) {
+            $('.status').change(function (event) {
                 var $this = this;
                 var route = 'statusPetcare/' + event.target.name + '';
                 if ($($this).is(':checked')) {
