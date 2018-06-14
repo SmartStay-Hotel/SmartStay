@@ -31,7 +31,7 @@ class GuestController extends Controller
      */
     public function index()
     {
-        $guests = Guest::all();
+        $guests = Guest::paginate(15);
 
         return view('admin.guest.index', compact('guests'));
     }
