@@ -87,13 +87,13 @@
                                 <td>{{$guest->rooms[0]->pivot->checkout_date}}</td>
                                 <td class="text-center">
                                     <a href="{{ route('guests.show', $guest->id) }}" class="show-modal btn btn-success">
-                                        <span style="padding: 5px;"><i class="far fa-eye"></i></span>
+                                        <span class="far fa-eye"></span>
                                     </a>
                                     <a href="{{ route('guests.edit', $guest->id) }}" class="edit-modal btn btn-info">
-                                        <span style="padding: 5px;"><i class="fas fa-edit"></i></span>
+                                        <span class="far fa-edit"></span>
                                     </a>
                                     {!! Form::open(['method' => 'DELETE','route' => ['guests.destroy', $guest->id], 'style'=>'display:inline']) !!}
-                                    {!! Form::button('<span style="padding: 8px;"><i class="fas fa-trash-alt"></i></span>', array('type' => 'submit', 'class' => 'delete-modal btn btn-danger')) !!}
+                                    {!! Form::button('<span class="far fa-trash-alt"></span>', array('type' => 'submit', 'class' => 'btn-delete btn btn-danger')) !!}
                                     {!! Form::close() !!}
                                 </td>
                             </tr>
@@ -101,11 +101,43 @@
                     @endforeach
                     </tbody>
                 </table>
+                    {{ $guests->render() }}
+                    <p>
+                        <span id="guestTotal">{{ $guests->total() }}</span> orders | page {{ $guests->currentPage() }} of {{ $guests->lastPage() }}
+                    </p>
             </div><!-- /.panel-body -->
         </div><!-- /.panel panel-default -->
     </div><!-- /.col-md-8 -->
 @endsection
 @section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('.btn-delete').click(function (e) {
+                var $this = this;
+                e.preventDefault();
+                toastr.options = {'closeButton': true, 'timeOut': false, 'closeOnHover': false};
+                toastr.error('<button type="button" class="btn-yes btn">Yes</button>', 'You are about to delete a guest!');
+                $('.btn-yes').click(function () {
+                    var row = $($this).parents('tr');
+                    var form = $($this).parents('form');
+                    var url = form.attr('action');
+
+                    row.fadeOut();
+                    $.post(url, form.serialize(), function (result) {
+                        $('#guestTotal').html(result.total);
+                        toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                        toastr.success(result.message);
+                    }).fail(function () {
+                        row.fadeIn();
+                        toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                        toastr.warning('Something went wront', 'Alert!');
+                    });
+
+                });
+            });
+        })
+    </script>
+
     <script>
         document.getElementById("guests").style.color="white";
     </script>

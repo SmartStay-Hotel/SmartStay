@@ -31,13 +31,30 @@ class Restaurant extends Model
      */
     public static function getAllRestaurantOrders()
     {
-        $restaurants = Restaurant::all();
+        $restaurants = self::all();
         if (count($restaurants) > 0) {
             $serviceName = Services::getServiceName($restaurants[0]->service_id);
             foreach ($restaurants as $key => $restaurant) {
                 $restaurant->serviceName = $serviceName;
                 $restaurant->roomNumber  = ($restaurant->guest->rooms[0]->number) ? $restaurant->guest->rooms[0]->number
-                    : 'Restaurant id:' . $restaurant->id;
+                    : 'RestaurantErr id:' . $restaurant->id;
+            }
+        } else {
+            $restaurants = [];
+        }
+
+        return $restaurants;
+    }
+
+    public static function getOrderHistoryByGuest($guestId)
+    {
+        $restaurants = self::where('guest_id', $guestId)->get();
+        if (count($restaurants) > 0) {
+            $serviceName = Services::getServiceName($restaurants[0]->service_id);
+            foreach ($restaurants as $key => $restaurant) {
+                $restaurant->serviceName = $serviceName;
+                $restaurant->roomNumber  = ($restaurant->guest->rooms[0]->number) ? $restaurant->guest->rooms[0]->number
+                    : 'RestaurantErr id:' . $restaurant->id;
             }
         } else {
             $restaurants = [];

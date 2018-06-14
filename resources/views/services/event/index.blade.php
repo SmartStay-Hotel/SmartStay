@@ -53,10 +53,10 @@
                 </tbody>
         </table>
         <p>
-        {{-- $events->render() }}
+        {{ $events->render() }}
         <p>
             <span id="eventTotal">{{ $events->total() }}</span> orders | page {{ $events->currentPage() }} of {{ $events->lastPage() }}
-        </p>--}}
+        </p>
     </div>
 @endsection
 @section('scripts')

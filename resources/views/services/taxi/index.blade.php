@@ -50,6 +50,11 @@
             @endforeach
             </tbody>
         </table>
+        <p>
+        {{ $taxis->render() }}
+        <p>
+            <span id="eventTotal">{{ $taxis->total() }}</span> orders | page {{ $taxis->currentPage() }} of {{ $taxis->lastPage() }}
+        </p>
     </div>
 @endsection
 

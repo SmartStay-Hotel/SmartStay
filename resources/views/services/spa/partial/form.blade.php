@@ -9,13 +9,17 @@
         {{ Form::checkbox('checkbox', 1, null, ['id' => 'change']) }}
     @endif
     <br/>
-    <label>Treatment type</label>
+    <!-- Spa Type -->
+    <label for="guest">Spa Treatment: </label>
     @if(empty($spa))
-        {!! Form::select('treatment_type_id', $treatment_types, ['class' => 'form-control'], ['placeholder' => '--- Choose an option ---']) !!}
+        {!! Form::select('treatment_type_id', $spaTypes, ['class' => 'form-control'], ['placeholder' => '--- Choose an option ---']) !!}
     @else
-        {!! Form::select('treatment_type_id', $treatment_types, $spa->trip_types_id, ['class' => 'form-control', 'id' => 'selectTreatmentType', 'disabled']) !!}
-    @endif
+        {!! Form::select('treatment_type_id', $spaTypes, $spa->treatment_type_id, ['class' => 'form-control', 'id' => 'selectSpaType', 'disabled']) !!}
 
+        <label>Change </label>
+        {{ Form::checkbox('checkbox', 1, null, ['id' => 'changespa']) }}
+    @endif
+    <br/>
     <label>Reservation Date-Time</label>
     @if(empty($spa))
         {!! Form::datetimeLocal('day_hour', null, ['class' => 'form-control']) !!}
@@ -25,7 +29,6 @@
 
     <br/>
     <p>
-
         {{ Form::button('Save', ['type' => 'submit', 'class' => 'btn btn-primary']) }}
     </p>
 </fieldset>

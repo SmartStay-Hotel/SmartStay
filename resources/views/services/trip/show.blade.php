@@ -20,6 +20,10 @@
             font-weight: bold !important;
             text-align: left !important;
         }
+
+        .orders {
+            margin-left: 40px;
+        }
     </style>
 @endsection
 
@@ -39,7 +43,12 @@
                     <legend>Show</legend>
                     <strong>Order Date: </strong> {{ $trip->order_date }}<br>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
-                    <strong>Guest Phone: </strong> {{ $guest->telephone }}
+                    <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
+                    <strong>More Details:</strong><br/>
+                    <strong class="orders">Trip Name: </strong> {{ $trip->tripType->name }}<br/>
+                    <strong class="orders">Location: </strong> {{ $trip->tripType->location }}<br/>
+                    <strong class="orders">People Going: </strong> {{ $trip->people_num }}<br/>
+                    <strong class="orders">Total Price: </strong> {{ $trip->price }} €<br/>
                 </fieldset>
             </tr>
         </table>

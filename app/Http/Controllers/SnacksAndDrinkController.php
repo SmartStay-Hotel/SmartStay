@@ -34,7 +34,7 @@ class SnacksAndDrinkController extends Controller
      */
     public function index()
     {
-        $snacks = SnacksAndDrink::paginate(5);
+        $snacks = SnacksAndDrink::paginate(12);
 
         return view('services.snackdrink.index', compact('snacks'));
     }
@@ -233,8 +233,10 @@ class SnacksAndDrinkController extends Controller
      */
     public function changeStatus($id)
     {
-        $snack         = SnacksAndDrink::findOrFail($id);
+        $snack = SnacksAndDrink::findOrFail($id);
+        ($snack->status == 2) ? Guest::reduceBalance($snack) : null;
         $snack->status = ($snack->status === '1') ? '2' : '1';
+        ($snack->status == 2) ? Guest::updateBalance($snack) : null;
         $snack->save();
 
         return response()->json($snack->status);

@@ -131,9 +131,7 @@
         });
         */
     </script>
-
     <script>
         document.getElementById("guests").style.color="white";
     </script>
-
 @endsection

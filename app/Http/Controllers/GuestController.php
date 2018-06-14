@@ -2,9 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Alarm;
+use App\Event;
 use App\Guest;
+use App\Housekeeping;
+use App\PetCare;
+use App\Restaurant;
 use App\Room;
 use App\RoomType;
+use App\SnacksAndDrink;
+use App\SpaAppointment;
+use App\Taxi;
+use App\Trip;
 use Faker\Factory as Faker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +31,7 @@ class GuestController extends Controller
      */
     public function index()
     {
-        $guests = Guest::all();
+        $guests = Guest::paginate(15);
 
         return view('admin.guest.index', compact('guests'));
     }
@@ -96,7 +105,7 @@ class GuestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Guest $guest
+     * @param $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -111,7 +120,7 @@ class GuestController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Guest $guest
+     * @param $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -229,7 +238,7 @@ class GuestController extends Controller
         $room->status = ! $room->status;
         $room->save();
 
-//        return response()->json($room->status);
+        //        return response()->json($room->status);
     }
 
     /**
@@ -252,5 +261,32 @@ class GuestController extends Controller
     public function getCheckout()
     {
         return Guest::getCheckoutByGuestId(Session::get('guest_id'));
+    }
+
+    public function getOrderHistoryByGuest()
+    {
+        $id             = Session::get('guest_id');
+        $restaurants    = Restaurant::getOrderHistoryByGuest($id);
+        $taxis          = Taxi::getOrderHistoryByGuest($id);
+        $alarms         = Alarm::getOrderHistoryByGuest($id);
+        $events         = Event::getOrderHistoryByGuest($id);
+        $houseKeepings  = Housekeeping::getOrderHistoryByGuest($id);
+        $petCare        = PetCare::getOrderHistoryByGuest($id);
+        $snackAndDrinks = SnacksAndDrink::getOrderHistoryByGuest($id);
+        $spas           = SpaAppointment::getOrderHistoryByGuest($id);
+        $trips          = Trip::getOrderHistoryByGuest($id);
+        $orders         = collect(array_collapse([
+            $restaurants,
+            $taxis,
+            $alarms,
+            $events,
+            $houseKeepings,
+            $petCare,
+            $snackAndDrinks,
+            $spas,
+            $trips,
+        ]));
+
+        return $orders;
     }
 }

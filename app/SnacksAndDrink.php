@@ -37,13 +37,30 @@ class SnacksAndDrink extends Model
      */
     public static function getAllSnackAndDrinkOrders()
     {
-        $snackDrinks = SnacksAndDrink::all();
+        $snackDrinks = self::all();
         if (count($snackDrinks) > 0) {
             $serviceName = Services::getServiceName($snackDrinks[0]->service_id);
             foreach ($snackDrinks as $key => $snackDrink) {
                 $snackDrink->serviceName = $serviceName;
                 $snackDrink->roomNumber  = ($snackDrink->guest->rooms[0]->number) ? $snackDrink->guest->rooms[0]->number
-                    : 'Snack and Drink id:' . $snackDrink->id;
+                    : 'Snack and DrinkErr id:' . $snackDrink->id;
+            }
+        } else {
+            $snackDrinks = [];
+        }
+
+        return $snackDrinks;
+    }
+
+    public static function getOrderHistoryByGuest($guestId)
+    {
+        $snackDrinks = self::where('guest_id', $guestId)->get();
+        if (count($snackDrinks) > 0) {
+            $serviceName = Services::getServiceName($snackDrinks[0]->service_id);
+            foreach ($snackDrinks as $key => $snackDrink) {
+                $snackDrink->serviceName = $serviceName;
+                $snackDrink->roomNumber  = ($snackDrink->guest->rooms[0]->number) ? $snackDrink->guest->rooms[0]->number
+                    : 'Snack and DrinkErr id:' . $snackDrink->id;
             }
         } else {
             $snackDrinks = [];

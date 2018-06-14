@@ -51,6 +51,11 @@
             @endforeach
             </tbody>
         </table>
+        <p>
+        {{ $alarms->render() }}
+        <p>
+            <span id="eventTotal">{{ $alarms->total() }}</span> orders | page {{ $alarms->currentPage() }} of {{ $alarms->lastPage() }}
+        </p>
     </div>
 @endsection
 
@@ -81,6 +86,28 @@
                         console.log("In process " + response);
                     });
                 }
+            });
+            $('.btn-delete').click(function (e) {
+                var $this = this;
+                e.preventDefault();
+                toastr.options = {'closeButton': true, 'timeOut': false, 'closeOnHover': false};
+                toastr.error('<button type="button" class="btn-yes btn">Yes</button>', 'You are about to delete a order!');
+                $('.btn-yes').click(function () {
+                    var row = $($this).parents('tr');
+                    var form = $($this).parents('form');
+                    var url = form.attr('action');
+
+                    row.fadeOut();
+                    $.post(url, form.serialize(), function (result) {
+                        $('#alarmTotal').html(result.total);
+                        toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                        toastr.success(result.message);
+                    }).fail(function () {
+                        row.fadeIn();
+                        toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                        toastr.warning('Something went wront', 'Alert!');
+                    });
+                });
             });
         });
     </script>

@@ -11,29 +11,29 @@
     <br/>
     <label>Water</label>
     @if(empty($petcare->water))
-        {!! Form::checkbox('water',0, false, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        {!! Form::checkbox('water', 1, false, ['class' => 'form-control w3-input w3-border-teal']) !!}
     @else
-        {!! Form::checkbox('water',1, true, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        {!! Form::checkbox('water', 1, true, ['class' => 'form-control w3-input w3-border-teal']) !!}
     @endif
     <label>Snacks</label>
     @if(empty($petcare->snacks))
-        {!! Form::checkbox('snacks', 0, false, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        {!! Form::checkbox('snacks', 1, false, ['class' => 'form-control w3-input w3-border-teal']) !!}
     @else
         {!! Form::checkbox('snacks', 1, true, ['class' => 'form-control w3-input w3-border-teal']) !!}
     @endif
 
     <label>Standard Food</label>
     @if(empty($petcare->standard_food))
-        {!! Form::radio('food','standard', false, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        {!! Form::radio('food','standard_food', false, ['class' => 'form-control w3-input w3-border-teal']) !!}
     @else
-        {!! Form::checkbox('food','standard', true, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        {!! Form::radio('food','standard_food', true, ['class' => 'form-control w3-input w3-border-teal']) !!}
     @endif
 
     <label>Premium Food</label>
     @if(empty($petcare->premium_food))
-        {!! Form::radio('food','premium', false, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        {!! Form::radio('food','premium_food', false, ['class' => 'form-control w3-input w3-border-teal']) !!}
     @else
-        {!! Form::radio('food','premium', true, ['class' => 'form-control w3-input w3-border-teal']) !!}
+        {!! Form::radio('food','premium_food', true, ['class' => 'form-control w3-input w3-border-teal']) !!}
     @endif
     <br/>
     <p>

@@ -18,12 +18,20 @@
             font-weight: bold !important;
             text-align: left !important;
         }
+
+        .orders {
+            margin-left: 40px;
+        }
+        .details{
+            margin-left: 60px;
+        }
     </style>
 @endsection
 
 @section('content')
 
-    <div class="col-sm-9 table-responsive" id="alarmTableContainer">
+    <div class="card"
+         style="">
         <table class="table table-sm table-hover text-center" id="serviceTable">
             <thead id="serviceTableHeader">
             <tr><h2 id="serviceTitle"><i class="fas fa-broom fa-xs" style="padding: 5px;"></i>Housekeeping<a
@@ -36,7 +44,44 @@
                     <legend>Show</legend>
                     <strong>Order Date: </strong> {{ $housekeeping->order_date }}<br>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
-                    <strong>Guest Phone: </strong> {{ $guest->telephone }}
+                    <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
+                    <strong>More Details: </strong><br/>
+                    <br/>
+                        @if(!empty($housekeeping->bed_sheets))
+                            <strong class="orders">Bed Sheets: </strong>
+                            <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
+                               {{ ($housekeeping->bed_sheets) ? 'checked' : "" }} onclick="return false;"/>
+                        @endif
+
+                        @if(!empty($housekeeping->cleaning))
+                            <strong class="orders">Cleaning: </strong>
+                            <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
+                                   {{ ($housekeeping->cleaning) ? 'checked' : "" }} onclick="return false;"/>
+                        @endif
+
+                        @if(!empty($housekeeping->minibar))
+                            <strong class="orders">Minibar: </strong>
+                            <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
+                               {{ ($housekeeping->minibar) ? 'checked' : "" }} onclick="return false;"/>
+                        @endif
+
+                        @if(!empty($housekeeping->blanket))
+                            <strong class="orders">Blanket: </strong>
+                            <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
+                               {{ ($housekeeping->blanket) ? 'checked' : "" }} onclick="return false;"/>
+                        @endif
+
+                        @if(!empty($housekeeping->toiletries))
+                            <strong class="orders">Toiletries: </strong>
+                            <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
+                                   {{ ($housekeeping->toiletries) ? 'checked' : "" }} onclick="return false;"/>
+                        @endif
+
+                        @if(!empty($housekeeping->pillow))
+                            <strong class="orders">Pillow: </strong>
+                            <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
+                                   {{ ($housekeeping->pillow) ? 'checked' : "" }} onclick="return false;"/>
+                        @endif
                 </fieldset>
             </tr>
         </table>

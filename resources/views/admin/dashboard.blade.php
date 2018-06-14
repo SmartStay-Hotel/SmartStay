@@ -198,7 +198,7 @@
 
                 var thirdList = new List('test-list3', {
                     valueNames: ['name'],
-                    page: 10,
+                    page: 5,
                     pagination: true
                 });
             </script>
@@ -241,6 +241,7 @@
                         '<label class="container">' +
                         '<a href="' + data.goToShow.toLowerCase() + '">\n' +
                         '<span style="padding: 10px;">' + data.serviceName + '</span>\n' +
+                        '<span style="padding: 10px;">' + data.guestFullName + '</span>\n' +
                         '<span style="padding: 10px;">' + data.roomNumber + '</span>\n' +
                         '</a>\n' +
                         '<input type="checkbox"' + 'name="' + data.serviceName + '/' + data.orderId + '" checked >\n' +

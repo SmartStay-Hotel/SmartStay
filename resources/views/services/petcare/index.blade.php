@@ -26,7 +26,6 @@
                 <th scope="col">Standard food</th>
                 <th scope="col">Premium food</th>
                 <th scope="col">Snacks</th>
-                <th scope="col">Price</th>
                 <th scope="col">Completed?</th>
                 <th scope="col" colspan="3">Actions</th>
             </tr>
@@ -52,8 +51,7 @@
                     <td>
                         <input type="checkbox" class="form-control" id="snacks"  name="snacks"
                                {{ ($petcare->snacks) ? 'checked' : "" }} onclick="return false;"/></td>
-                    <td>{{ ($petcare->price) }} </td>
-                    <td class="text-center"><input type="checkbox" name="{{ $petcare->id }}"
+                    <td class="text-center"><input type="checkbox" class="status" name="{{ $petcare->id }}"
                                                    @if ($petcare->status == '2') checked @endif></td>
                     <td>
                         <a href="{{ route('petcare.show', $petcare->id) }}" class="show-modal btn btn-success">
@@ -70,17 +68,17 @@
             @endforeach
             </tbody>
         </table>
-        {{-- $petcares->render() }}
+        {{ $petcares->render() }}
         <p>
             <span id="petcareTotal">{{ $petcares->total() }}</span> orders | page {{ $petcares->currentPage() }} of {{ $petcares->lastPage() }}
-        </p> --}}
+        </p>
     </div>
 @endsection
 
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $(':checkbox').change(function (event) {
+            $('.status').change(function (event) {
                 var $this = this;
                 var route = 'statusPetcare/' + event.target.name + '';
                 if ($($this).is(':checked')) {
@@ -143,63 +141,4 @@
         document.getElementsByClassName("itemDropdown")[6].style.color="white";
     </script>
 
-@endsection
-
-
-
-
-
-
-@section('content')
-        @if (Session::has('message'))
-            <div class="alert alert-info">{{ Session::get('message') }}</div>
-        @endif
-         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('petcare.create') }}"> New Pet Care Order</a>
-        </div>
-        <table class="table">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Water</th>
-              <th scope="col">Standard food</th>
-              <th scope="col">Premium_food</th>
-              <th scope="col">Snacks</th>
-              <th scope="col">Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($petcares as $petcare)
-            <tr>
-              <th><a href="/service/petcare/{{$petcare->id}}">{{$petcare->id}}</a></th>
-                <td>
-                    <input type="checkbox" class="form-control" id="bed_sheets"  name="bed_sheets"
-                            {{ ($petcare->water) ? 'checked' : "" }} onclick="return false;"/></td>
-                <td>
-                    <input type="checkbox" class="form-control" id="bed_sheets"  name="bed_sheets"
-                           {{ ($petcare->standard_food) ? 'checked' : "" }} onclick="return false;"/></td></td>
-                <td>
-                    <input type="checkbox" class="form-control" id="bed_sheets"  name="bed_sheets"
-                           {{ ($petcare->premium_food) ? 'checked' : "" }} onclick="return false;"/></td></td>
-                <td>
-                    <input type="checkbox" class="form-control" id="bed_sheets"  name="bed_sheets"
-                           {{ ($petcare->snacks) ? 'checked' : "" }} onclick="return false;"/></td></td>
-
-                <td>{{ ($petcare->price) }} </td>
-              <td>
-              <div class="btn-group" role="group" aria-label="Basic example">
-                  <a href="{{ URL::to('/service/petcare/' . $petcare->id . '/edit') }}">
-                   <button type="button" class="btn btn-warning">Edit</button>
-                  </a>&nbsp;               
-                <form action="{{url('/service/petcare', [$petcare->id])}}" method="POST">
-                     <input type="hidden" name="_method" value="DELETE">
-                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                   <input type="submit" class="btn btn-danger" value="Delete"/>
-                </form>
-              </div>
- </td>
-            </tr>
-            @endforeach
-          </tbody>
-        </table>
 @endsection

@@ -9,7 +9,8 @@
 @section('content')
     <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
     <h2 id="statisticsTitle"><i class="fas fa-calendar-alt" style="padding: 5px;"></i>Statistics</h2>
-        <canvas id="myChart"></canvas>
+
+            <canvas id="myChart"></canvas>
 
     </div>
 

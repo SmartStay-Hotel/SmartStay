@@ -46,19 +46,21 @@ class Guest extends Model
     {
         return $this->hasMany(Event::class);
     }
+
     public function trips()
     {
         return $this->hasMany(Trip::class);
     }
+
     public function petCares()
     {
         return $this->hasMany(PetCare::class);
     }
+
     public function spas()
     {
         return $this->hasMany(SpaAppointment::class);
     }
-
 
 
     //Métodos del modelo Guest
@@ -83,6 +85,28 @@ class Guest extends Model
     public static function getRoomByGuestId($id)
     {
         $room = self::find($id)->rooms[0];
+
         return $room;
+    }
+
+    public static function getCheckoutByGuestId($id)
+    {
+        return self::find($id)->rooms[0]->pivot->checkout_date;
+    }
+
+    public static function updateBalance($service)
+    {
+        if ($service->status == 2) {
+            $guest = self::find($service->guest_id);
+            $guest->balance += $service->price;
+            $guest->save();
+        }
+    }
+
+    public static function reduceBalance($service)
+    {
+        $guest = self::find($service->guest_id);
+        $guest->balance -= $service->price;
+        $guest->save();
     }
 }

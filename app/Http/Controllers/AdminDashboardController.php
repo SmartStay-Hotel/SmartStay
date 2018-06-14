@@ -3,13 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Alarm;
+use App\Event;
 use App\Guest;
+use App\Housekeeping;
+use App\PetCare;
 use App\Restaurant;
 use App\RoomType;
+use App\SnacksAndDrink;
+use App\SpaAppointment;
 use App\Taxi;
+use App\Trip;
 
 class AdminDashboardController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *
@@ -19,6 +26,7 @@ class AdminDashboardController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Show the application dashboard.
      *
@@ -26,11 +34,27 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        $restaurants = Restaurant::getAllRestaurantOrders();
-        $taxis       = Taxi::getAllTaxiOrders();
-        $alarms      = Alarm::getAllAlarmOrders();
-        $services    = collect(array_collapse([$restaurants, $taxis, $alarms]));
-//dd($services);
+        $restaurants    = Restaurant::getAllRestaurantOrders();
+        $taxis          = Taxi::getAllTaxiOrders();
+        $alarms         = Alarm::getAllAlarmOrders();
+        $events         = Event::getAllEventOrders();
+        $houseKeepings  = Housekeeping::getAllHousekeepingOrders();
+        $petCare        = PetCare::getAllPetCareOrders();
+        $snackAndDrinks = SnacksAndDrink::getAllSnackAndDrinkOrders();
+        $spas           = SpaAppointment::getAllSpaAppointmentOrders();
+        $trips          = Trip::getAllTripOrders();
+        $services       = collect(array_collapse([
+            $restaurants,
+            $taxis,
+            $alarms,
+            $events,
+            $houseKeepings,
+            $petCare,
+            $snackAndDrinks,
+            $spas,
+            $trips,
+        ]));
+        //dd($services);
         //$services = (is_array($services) && count($services) > 0) ? $services : [];
 
         return view('admin.dashboard', compact('services'));

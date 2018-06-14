@@ -35,7 +35,7 @@
                         <td>{{ $spaAppointment->guest->firstname . ' ' . $spaAppointment->guest->lastname }}</td>
                         <td> {{ $spaAppointment->guest->rooms[0]->number }} </td>
                         <td>{{ $spaAppointment->day_hour }}</td>
-                        <td>{{-- $spaAppointment->spaType->name --}} </td>
+                        <td>{{ $spaAppointment->spaTreatmentType->name }} </td>
                         <td class="text-center"><input type="checkbox" name="{{ $spaAppointment->id }}"
                                                        @if ($spaAppointment->status == '2') checked @endif></td>
                         <td>
@@ -53,10 +53,10 @@
                 @endforeach
                 </tbody>
             </table>
-    {{-- $spaAppointments->render() --}}
-      {{-- <p>
+        {{ $spaAppointments->render() }}
+        <p>
             <span id="spaTotal">{{ $spaAppointments->total() }}</span> orders | page {{ $spaAppointments->currentPage() }} of {{ $spaAppointments->lastPage() }}
-        </p>--}}
+        </p>
     </div>
 @endsection
 
@@ -111,7 +111,7 @@
 
                     row.fadeOut();
                     $.post(url, form.serialize(), function (result) {
-                        $('#restaurantTotal').html(result.total);
+                        $('#spaTotal').html(result.total);
                         toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
                         toastr.success(result.message);
                     }).fail(function () {
@@ -129,51 +129,3 @@
         document.getElementsByClassName("itemDropdown")[5].style.color="white";
     </script>
 @endsection
-
-
-
-    {{--
-    @section('content')
-            @if (Session::has('message'))
-                <div class="alert alert-info">{{ Session::get('message') }}</div>
-            @endif
-             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('spa.create') }}"> New Spa Order</a>
-            </div>
-            <table class="table">
-              <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Spa Treatment Type</th>
-                    <th scope="col">Day Hour</th>
-                    <th scope="col">Price</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($spaAppointments as $spa)
-                <tr>
-                    <th scope="row"><a href="/service/spa/{{$spa->id}}">{{$spa->id}}</a></th>
-                    <td>{{ $spa->treatment_type_id }}</td>
-                    <td>{{ $spa ->day_hour }}</td>
-                    <td>{{ $spa ->price }}</td>
-                  <td>
-                      <div class="btn-group" role="group" aria-label="Basic example">
-                          <a href="{{ URL::to('service/spa/' . $spa->id . '/edit') }}">
-                           <button type="button" class="btn btn-warning">Edit</button>
-                          </a>&nbsp;
-                        <form action="{{url('service/spa', [$spa->id])}}" method="POST">
-                             <input type="hidden" name="_method" value="DELETE">
-                           <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                           <input type="submit" class="btn btn-danger" value="Delete"/>
-                        </form>
-                      </div>
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-    @endsection
-
-    --}}
