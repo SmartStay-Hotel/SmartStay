@@ -51,4 +51,10 @@ class Trip extends Model
 
         return $trips;
     }
+
+    public static function getNumPeopleOnTheList($id) {
+        $events =  self::where('trip_type_id', $id)->sum('people_num');
+
+        return $events;
+    }
 }

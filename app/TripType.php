@@ -11,4 +11,12 @@ class TripType extends Model
     {
         return $this->hasMany('App\Trip');
     }
+
+    public static function getPriceById($id) {
+        return self::find($id)->price;
+    }
+
+    public static function getMaxPeopleByEvent($id) {
+        return self::find($id)->max_num_people;
+    }
 }
