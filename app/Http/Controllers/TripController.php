@@ -94,6 +94,9 @@ class TripController extends Controller
             $peopleGoing     = Trip::getNumPeopleOnTheList($input['trip_type_id']);
             $availablePlaces = $maxPeople - $peopleGoing;
             if ($availablePlaces < $input['people_num']) {
+                if ($request->ajax()) {
+                    return $availablePlaces;
+                }
                 return redirect()->route('trip.create')->withErrors([
                     'Only ' . $availablePlaces . ' available places',
                 ]);
