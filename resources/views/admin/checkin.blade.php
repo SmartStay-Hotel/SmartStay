@@ -8,7 +8,7 @@
 @endsection
 @section('content')
     <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
-    <h2 id="checkInTitle"><i class="fas fa-sign-in-alt" style="padding: 5px;"></i>Check in<a href="#"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
+    <h2 id="checkInTitle"><i class="fas fa-sign-in-alt" style="padding: 5px;"></i>Check in</h2>
     <div class="flex-grid">
             @if (session('status'))
                 <div class="alert alert-success">
@@ -25,7 +25,7 @@
                     <th scope="col">Check-out Day</th>
                     <th scope="col">Room Nº</th>
                     <th scope="col">Info</th>
-                    <th scope="col">Check in</th>
+                   {{-- <th scope="col">Check in</th> --}}
                 </tr>
                 </thead>
                 <tbody>
@@ -42,12 +42,12 @@
                                 <span class="glyphicon glyphicon-eye-open"></span> Show
                             </a>
                         </td>
-                        <td>
-                            <button>Check in</button>
-                            {{--{!! Form::open(['method' => 'DELETE','route' => ['guests.destroy', $guest->id], 'style'=>'display:inline']) !!}
-                            {!! Form::button('', array('type' => 'submit', 'class' => 'fas fa-sign-out-alt fa-lg', 'id' => 'exitBtn')) !!}
-                            {!! Form::close() !!}--}}
-                        </td>
+                        {{-- <td>
+                            -<button>Check in</button>
+                             {!! Form::open(['method' => 'DELETE','route' => ['guests.destroy', $guest->id], 'style'=>'display:inline']) !!}
+                             {!! Form::button('', array('type' => 'submit', 'class' => 'fas fa-sign-out-alt fa-lg', 'id' => 'exitBtn')) !!}
+                             {!! Form::close() !!}
+                        </td>--}}
                     </tr>
                 @endforeach
                 </tbody>
