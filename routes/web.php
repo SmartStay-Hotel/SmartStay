@@ -69,6 +69,14 @@ Route::group(['middleware' => 'language'], function () {
         return \App\ProductType::get();
     });
 
+    Route::get('snacks', function () {
+        return \App\ProductType::where('type_id', 1)->get();
+    });
+
+    Route::get('drinks', function () {
+        return \App\ProductType::where('type_id', 2)->get();
+    });
+
     /*---------- ORDER HISTORY --------------*/
     Route::GET('orderHistory', 'GuestController@getOrderHistoryByGuest');
 
