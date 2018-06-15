@@ -46,6 +46,7 @@ class AdminDashboardController extends Controller
     {
         $guests = Guest::getGuestsByCheckoutDate();
         foreach ($guests as $guest) {
+            $guest->roomId        = $guest->rooms[0]->id;
             $guest->number        = $guest->rooms[0]->number;
             $guest->checkin_date  = $guest->rooms[0]->pivot->checkin_date;
             $guest->checkout_date = $guest->rooms[0]->pivot->checkout_date;

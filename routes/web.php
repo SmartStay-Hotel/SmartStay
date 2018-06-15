@@ -78,7 +78,8 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     /*---------- ORDER HISTORY --------------*/
-    Route::GET('orderHistory', 'GuestController@getOrderHistoryByGuest');
+    Route::get('orderHistory/{id?}', 'GuestController@getOrderHistoryByGuest');
+    Route::get('admin/guests/invoice/{roomId}', 'GuestController@pdf')->name('summary.pdf');
 
     /*---------- END ORDER HISTORY --------------*/
 

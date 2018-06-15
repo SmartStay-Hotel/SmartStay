@@ -14,6 +14,7 @@ use App\SnacksAndDrink;
 use App\SpaAppointment;
 use App\Taxi;
 use App\Trip;
+use Barryvdh\DomPDF\Facade as PDF;
 use Faker\Factory as Faker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -281,9 +282,11 @@ class GuestController extends Controller
         return Guest::getCheckoutByGuestId(Session::get('guest_id'));
     }
 
-    public function getOrderHistoryByGuest()
+    public function getOrderHistoryByGuest($id = null)
     {
-        $id             = Session::get('guest_id');
+        if ($id == null) {
+            $id = Session::get('guest_id');
+        }
         $restaurants    = Restaurant::getOrderHistoryByGuest($id);
         $taxis          = Taxi::getOrderHistoryByGuest($id);
         $alarms         = Alarm::getOrderHistoryByGuest($id);
@@ -306,5 +309,18 @@ class GuestController extends Controller
         ]));
 
         return $orders;
+    }
+
+    public function pdf($roomId)
+    {
+        $room   = Room::find($roomId);
+        $guests = $room->guests;
+        $orders = [];
+        foreach ($guests as $guest) {
+            $orders[] = self::getOrderHistoryByGuest($guest->id);
+        }
+        $pdf = PDF::loadView('admin.guest.pdf.summary', compact('guests', 'orders'));
+
+        return $pdf->stream('summary.pdf');
     }
 }
