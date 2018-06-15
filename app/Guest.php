@@ -68,7 +68,7 @@ class Guest extends Model
     {
         $guests = Guest::whereHas('rooms', function ($q) {
             $q->where('checkout_date', '=', Carbon::today()->toDateString());
-        })->get();
+        })->paginate(15);
 
         return $guests;
     }
@@ -77,7 +77,7 @@ class Guest extends Model
     {
         $guests = Guest::whereHas('rooms', function ($q) {
             $q->where('checkin_date', '=', Carbon::today()->toDateString());
-        })->get();
+        })->paginate(15);
 
         return $guests;
     }

@@ -10,7 +10,8 @@
     <div class="card"
          style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;"
          id="linechartparent">
-        <h2 id="statisticsTitle"><i class="fas fa-calendar-alt" style="padding: 5px;"></i>Statistics</h2>
+        <h2 id="statisticsTitle"><i class="fas fa-calendar-alt" style="padding: 5px;"></i>Statistics
+            <span id="addGuest" style="font-size: 18px">Rooms: Available {{ $availables }} | occupied {{ $occupied }}</span></h2>
         <div class="flex-grid">
             <div id="wrapper" style=" position: relative; height: 40vh; width: 50%; flex: 1;">
                 <canvas id="lastCheckin"></canvas>
@@ -20,7 +21,7 @@
                 <canvas id="lastcheckout"></canvas>
             </div>
         </div>
-
+        <hr>
         <div class="flex-grid">
             <div id="wrapper" style=" position: relative; height: 40vh; width: 50%; flex: 1;">
                 <canvas id="lastOrders"></canvas>

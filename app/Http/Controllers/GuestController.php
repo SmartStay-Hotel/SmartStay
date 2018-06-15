@@ -189,17 +189,35 @@ class GuestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $guest      = Guest::find($id);
         $roomNumber = $guest->rooms[0]->number; //foreach si se quiere dar de baja a todas las habitaciones.
         $room       = Room::where('number', $roomNumber)->first();
         $room->update(['code' => null, 'status' => null]);//habitación queda libre.
         $guest->rooms()->sync([]);
+        $guest->alarms()->delete();
+        $guest->taxis()->delete();
+        $guest->restaurants()->delete();
+        $guest->snacks()->delete();
+        $guest->houseKeepings()->delete();
+        $guest->events()->delete();
+        $guest->trips()->delete();
+        $guest->petCares()->delete();
+        $guest->spas()->delete();
         $guest->delete();
 
-        //return redirect()->route('guests.index')->with('status', 'Guest deleted successfully');
-        return redirect()->back()->with('status', 'Guest deleted successfully');
+        $totalGuests = Guest::getGuestsByCheckoutDate()->count();
+        if ($request->ajax()) {
+            $return = response()->json([
+                'total'   => $totalGuests,
+                'message' => 'Guest number: ' . $id . ' was checked out',
+            ]);
+        } else {
+            $return = redirect()->back()->with('status', 'Guest deleted successfully');
+        }
+
+        return $return;
     }
 
     /**

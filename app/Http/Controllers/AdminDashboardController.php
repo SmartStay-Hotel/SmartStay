@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Guest;
+use App\Room;
 use App\RoomType;
 use App\Services;
 
@@ -65,6 +66,14 @@ class AdminDashboardController extends Controller
         }
 
         return view('admin.checkin', compact('guests'));
+    }
+
+    public function indexStatistics()
+    {
+        $availables = Room::where('status', null)->count();
+        $occupied = Room::where('status', '!=', null)->count();
+
+        return view('admin.statistics', compact('availables', 'occupied'));
     }
 
     public function statistics()
