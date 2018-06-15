@@ -45,43 +45,32 @@
                     <strong>Order Date: </strong> {{ $housekeeping->order_date }}<br>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
                     <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
-                    <strong>More Details: </strong><br/>
-                    <br/>
+                    <strong>More Details: </strong>
+                    <ul>
                         @if(!empty($housekeeping->bed_sheets))
-                            <strong class="orders">Bed Sheets: </strong>
-                            <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
-                               {{ ($housekeeping->bed_sheets) ? 'checked' : "" }} onclick="return false;"/>
+                            <li class="orders"><strong>Bed Sheets</strong></li>
                         @endif
 
                         @if(!empty($housekeeping->cleaning))
-                            <strong class="orders">Cleaning: </strong>
-                            <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
-                                   {{ ($housekeeping->cleaning) ? 'checked' : "" }} onclick="return false;"/>
+                                <li class="orders"><strong>Cleaning</strong></li>
                         @endif
 
                         @if(!empty($housekeeping->minibar))
-                            <strong class="orders">Minibar: </strong>
-                            <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
-                               {{ ($housekeeping->minibar) ? 'checked' : "" }} onclick="return false;"/>
+                                <li class="orders"><strong>Minibar</strong></li>
                         @endif
 
                         @if(!empty($housekeeping->blanket))
-                            <strong class="orders">Blanket: </strong>
-                            <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
-                               {{ ($housekeeping->blanket) ? 'checked' : "" }} onclick="return false;"/>
+                                <li class="orders"><strong>Blanket</strong></li>
                         @endif
 
                         @if(!empty($housekeeping->toiletries))
-                            <strong class="orders">Toiletries: </strong>
-                            <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
-                                   {{ ($housekeeping->toiletries) ? 'checked' : "" }} onclick="return false;"/>
+                                <li class="orders"><strong>Toiletries</strong></li>
                         @endif
 
                         @if(!empty($housekeeping->pillow))
-                            <strong class="orders">Pillow: </strong>
-                            <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
-                                   {{ ($housekeeping->pillow) ? 'checked' : "" }} onclick="return false;"/>
+                                <li class="orders"><strong>Pillow</strong></li>
                         @endif
+                    </ul>
                 </fieldset>
             </tr>
         </table>

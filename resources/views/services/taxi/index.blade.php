@@ -43,7 +43,7 @@
                             <span class="far fa-edit"></span>
                         </a>
                         {!! Form::open(['method' => 'DELETE','route' => ['taxi.destroy', $taxi->id], 'style'=>'display:inline']) !!}
-                        {!! Form::button('<span class="far fa-trash-alt"></span>', array('type' => 'submit', 'class' => 'delete-modal btn btn-danger')) !!}
+                        {!! Form::button('<span class="far fa-trash-alt"></span>', array('type' => 'submit', 'class' => 'btn-delete btn btn-danger')) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>
@@ -53,7 +53,7 @@
         <p>
         {{ $taxis->render() }}
         <p>
-            <span id="eventTotal">{{ $taxis->total() }}</span> orders | page {{ $taxis->currentPage() }} of {{ $taxis->lastPage() }}
+            <span id="taxiTotal">{{ $taxis->total() }}</span> orders | page {{ $taxis->currentPage() }} of {{ $taxis->lastPage() }}
         </p>
     </div>
 @endsection
@@ -74,6 +74,9 @@
                         $.get(route, function (response, state) {
                             $this.checked = true;
                             console.log("Completed " + response);
+                        }).fail(function () {
+                            toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                            toastr.warning('Something went wront', 'Alert!');
                         });
                     });
 
@@ -85,13 +88,40 @@
                 } else {
                     $.get(route, function (response, state) {
                         console.log("In process " + response);
+                    }).fail(function () {
+                        $this.checked = true;
+                        toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                        toastr.warning('Something went wront', 'Alert!');
                     });
                 }
             });
+
+
+            $('.btn-delete').click(function (e) {
+                var $this = this;
+                e.preventDefault();
+                toastr.options = {'closeButton': true, 'timeOut': false, 'closeOnHover': false};
+                toastr.error('<button type="button" class="btn-yes btn">Yes</button>', 'You are about to delete a order!');
+                $('.btn-yes').click(function () {
+                    var row = $($this).parents('tr');
+                    var form = $($this).parents('form');
+                    var url = form.attr('action');
+
+                    row.fadeOut();
+                    $.post(url, form.serialize(), function (result) {
+                        $('#taxiTotal').html(result.total);
+                        toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                        toastr.success(result.message);
+                    }).fail(function () {
+                        row.fadeIn();
+                        toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                        toastr.warning('Something went wront', 'Alert!');
+                    });
+
+                });
+            });
         });
     </script>
-
-
     <script>
         document.getElementsByClassName("itemDropdown")[3].style.color="white";
     </script>

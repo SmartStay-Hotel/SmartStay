@@ -44,11 +44,13 @@
                     <strong>Order Date: </strong> {{ $trip->order_date }}<br>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
                     <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
-                    <strong>More Details:</strong><br/>
-                    <strong class="orders">Trip Name: </strong> {{ $trip->tripType->name }}<br/>
-                    <strong class="orders">Location: </strong> {{ $trip->tripType->location }}<br/>
-                    <strong class="orders">People Going: </strong> {{ $trip->people_num }}<br/>
-                    <strong class="orders">Total Price: </strong> {{ $trip->price }} €<br/>
+                    <strong>More Details:</strong>
+                    <ul>
+                        <li class="orders"> <strong>Trip Name: </strong> {{ $trip->tripType->name }}</li>
+                        <li class="orders"><strong>Location: </strong> {{ $trip->tripType->location }}</li>
+                        <li class="orders"><strong>People Going: </strong> {{ $trip->people_num }}</li>
+                        <li class="orders"><strong>Total Price: </strong> {{ $trip->price }} €</li>
+                    </ul>
                 </fieldset>
             </tr>
         </table>

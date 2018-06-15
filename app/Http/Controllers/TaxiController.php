@@ -185,15 +185,25 @@ class TaxiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param \Illuminate\Http\Request $request
+     * @param  int                     $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         Taxi::find($id)->delete();
+        $totalOrders = Taxi::all()->count();
+        if ($request->ajax()) {
+            $return = response()->json([
+                'total'   => $totalOrders,
+                'message' => 'Order number: ' . $id . ' was deleted',
+            ]);
+        } else {
+            $return = redirect()->back()->with('status', 'Order deleted successfully');
+        }
 
-        return redirect()->back()->with('status', 'Order deleted successfully');
+        return $return;
     }
 
     public function changeStatus($id)

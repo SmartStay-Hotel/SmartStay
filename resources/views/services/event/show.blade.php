@@ -43,10 +43,12 @@
                     <strong>Order Date: </strong> {{ $event->order_date }}<br>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
                     <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
-                    <strong>More Details: </strong><br/>
-                    <strong class="orders">- Event Name: </strong> {{ $event->eventType->name }}<br/>
-                    <strong class="orders">- People Going: </strong> {{ $event->people_num }}<br/>
-                    <strong class="orders">- Location: </strong> {{ $event->eventType->location }}<br/>
+                    <strong>More Details: </strong>
+                    <ul>
+                        <li  class="orders"><strong>Event Name: </strong> {{ $event->eventType->name }}</li>
+                        <li class="orders"><strong>People Going: </strong> {{ $event->people_num }}</li>
+                        <li class="orders"><strong>Location: </strong> {{ $event->eventType->location }}</li>
+                    </ul>
                 </fieldset>
             </tr>
         </table>

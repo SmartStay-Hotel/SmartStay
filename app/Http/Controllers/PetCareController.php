@@ -192,8 +192,7 @@ class PetCareController extends Controller
                     $input['standard_food'] = false;
                     $input['premium_food']  = false;
                 }
-                //$input['order_date'] = Carbon::today();
-                //$input['status']     = 1;
+
                 $petCare = PetCare::find($id);
                 $petCare->update($input);
                 DB::commit();

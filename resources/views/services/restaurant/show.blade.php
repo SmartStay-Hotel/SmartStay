@@ -20,6 +20,10 @@
             font-weight: bold !important;
             text-align: left !important;
         }
+
+        .orders {
+            margin-left: 40px;
+        }
     </style>
 @endsection
 
@@ -37,9 +41,12 @@
                     <legend>Show</legend>
                     <strong>Room: </strong> {{ $guest->rooms[0]->number }}<br/>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br/>
-                    <strong>Quantity: </strong> {{ $restaurant->quantity }}<br/>
-                    <strong>Date hour: </strong> {{ $restaurant->day_hour }}<br/>
-                    <strong>Guest Phone: </strong> {{ $guest->telephone }}
+                    <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
+                    <strong>Mode Details: </strong>
+                    <ul>
+                        <li class="orders"> <strong>Quantity: </strong> {{ $restaurant->quantity }}</li>
+                        <li class="orders"><strong> Date hour: </strong> {{ $restaurant->day_hour }}</li>
+                    </ul>
                 </fieldset>
             </tr>
         </table>

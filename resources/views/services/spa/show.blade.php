@@ -42,9 +42,12 @@
                     <strong>Order Date: </strong> {{ $spa->day_hour }}<br>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
                     <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
-                    <strong>More Details: </strong><br/>
-                    <strong class="orders">Treatment Type: </strong> {{ $spa->spaTreatmentType->name }}<br/>
-                    <strong class="orders">Price: </strong> {{ $spa->spaTreatmentType->price }}<br/>
+                    <strong>More Details: </strong>
+                    <ul>
+                        <li class="orders"><strong>Treatment Type: </strong> {{ $spa->spaTreatmentType->name }}</li>
+                        <li class="orders"><strong>Price: </strong> {{ $spa->spaTreatmentType->price }}</li>
+                    </ul>
+
                 </fieldset>
             </tr>
         </table>

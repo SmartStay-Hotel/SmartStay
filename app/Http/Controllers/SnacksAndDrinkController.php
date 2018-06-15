@@ -68,7 +68,6 @@ class SnacksAndDrinkController extends Controller
     public function store(Request $request)
     {
         $input = Input::all();
-        //dd($input);
         if ($request->ajax()) {
             if (Session::exists('guest_id')) {
                 $input['guest_id'] = Session::get('guest_id');
@@ -110,7 +109,6 @@ class SnacksAndDrinkController extends Controller
                 event(new NewOrderRequest($orders[0]->service_id, $input['guest_id'], $orders[0]->id));
 
                 if ($request->ajax()) {
-                    //$return = ['status' => true];
                     return;
                 } else {
                     $return = redirect()->route('snackdrink.index')->with('status', 'Order added successfully.');
