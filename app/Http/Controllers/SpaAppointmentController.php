@@ -23,7 +23,8 @@ class SpaAppointmentController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['only' => ['index', 'create', 'show', 'edit', 'update', 'changeStatus']]);
+        $this->middleware('auth', ['except' => ['orderList', 'store', 'destroy']]);
     }
 
     /**
@@ -175,7 +176,9 @@ class SpaAppointmentController extends Controller
     public function update(Request $request, $id)
     {
         $input     = Input::all();
-        $rules     = [];
+        $rules     = [
+            'day_hour'          => 'required|date',
+        ];
         $validator = Validator::make($input, $rules);
 
         if ($validator->passes()) {
