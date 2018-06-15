@@ -75,7 +75,7 @@ class AdminDashboardController extends Controller
         $lastOrdersBuyers = Services::getLastFiveDaysOrdersBuyers();
         $statistics       = [
             'lastCheckin'      => $lastCheckin,
-            'lastcheckout'     => $lastcheckout,
+            'lastCheckout'     => $lastcheckout,
             'lastOrders'       => $lastOrders,
             'lastOrdersBuyers' => $lastOrdersBuyers,
         ];
