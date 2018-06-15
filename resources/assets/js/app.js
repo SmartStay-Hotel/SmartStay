@@ -476,10 +476,7 @@ toastr.options = {
             //         return "";
             // },
 
-            calcularPrecio(){
-                this.getPriceProducts();
-                this.hola = !this.hola;
-            }
+
 
 
 

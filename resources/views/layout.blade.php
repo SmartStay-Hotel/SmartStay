@@ -55,7 +55,7 @@
         @yield('content')
     </div>
     </transition>
-@{{ $data }}
+
 
     <housekeeping v-if="!statusRoom && showModalHK" @close="showModalHK = false">
         <div slot="body">
@@ -68,7 +68,7 @@
         </div>
     </housekeeping>
     <historyorders  v-if="showHistory" @close="showHistory = false"></historyorders>
-
+@{{$data}}
 </div>
 
 <script type="text/javascript" src="{{asset('js/app.js') }}"></script>
