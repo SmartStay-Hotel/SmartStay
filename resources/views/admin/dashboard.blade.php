@@ -198,7 +198,7 @@
 
                 var thirdList = new List('test-list3', {
                     valueNames: ['name'],
-                    page: 10,
+                    page: 5,
                     pagination: true
                 });
             </script>

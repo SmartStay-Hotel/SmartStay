@@ -31,8 +31,8 @@
                 </div>
             @endif
                 <thead id="serviceTableHeader">
-                <tr><h2 id="serviceTitle"><i class="fas fa-utensils fa-xs" style="padding: 5px;"></i>Restaurant<a
-                                href="{{ route('restaurant.index') }}"><i
+                <tr><h2 id="serviceTitle"><i class="fas fa-paw fa-xs" style="padding: 5px;"></i>Pet Care<a
+                                href="{{ route('petcare.index') }}"><i
                                     id="addGuest" class="fas fa-user-plus fa-xs"
                                     style="padding-left: 70%; color: white; z-index: 1;"></i></a></h2>
                 </tr>

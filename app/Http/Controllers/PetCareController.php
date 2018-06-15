@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Validator;
 
 class PetCareController extends Controller
 {
-
     /**
      * Create a new controller instance.
      *
@@ -33,7 +32,7 @@ class PetCareController extends Controller
      */
     public function index()
     {
-        $petcares = PetCare::all();
+        $petcares = PetCare::paginate(3);
 
         return view('services.petcare.index', compact('petcares'));
     }
@@ -75,6 +74,8 @@ class PetCareController extends Controller
         }
         $rules = [
             'guest_id' => 'required|numeric',
+            'water'    => 'required_without_all:snacks,food|boolean',
+            'snacks'   => 'required_without_all:water,food|boolean',
             'food'     => 'required',
         ];
 
@@ -83,29 +84,14 @@ class PetCareController extends Controller
             try {
                 DB::beginTransaction();
 
-                //guardar los datos de los checkbox. Si está marcado = 1 y si no = 0
-                if ($input['water'] = '') {
-                    $input['water'] = 0;
-                } else {
-                    $input['water'] = 0;
+                $input['water']  = (isset($input['water'])) ? true : false;
+                $input['snacks'] = (isset($input['snacks'])) ? true : false;
+
+                if (isset($input['food'])) {
+                    $input['standard_food'] = ($input['food'] == 'standard_food') ? true : false;
+                    $input['premium_food']  = ($input['food'] == 'premium_food') ? true : false;
                 }
-                if ($input['snacks'] = '') {
-                    $input['snacks'] = 0;
-                } else {
-                    $input['snacks'] = 0;
-                }
-                /*
-                if (!$input['standard']){
-                    $input['standard'] = 0;
-                }else{
-                    $input['standard'] = 1;
-                }
-                if (!$input['premium']){
-                    $input['premium'] = 0;
-                }else{
-                    $input['premium'] = 1;
-                }
-                */
+
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '0';
                 $guest               = Guest::find($input['guest_id']);
@@ -134,28 +120,6 @@ class PetCareController extends Controller
         }
 
         return $return;
-
-
-        //Revisar!! No pilla bien los radiobuttons.
-        //Para que funcionen en la vista, el name debe ser el mismo.
-        //Al recoger en el request, pilla los dos valores igual
-
-
-        ///////////////// OLD ////////////////////////
-        ///
-        /*
-         *  $order_date = date('Y-m-d');
-         PetCare::create(['guest_id' => $request->guest,
-             'service_id'     => 9,
-             'order_date'     => $order_date,
-             'water'          => ($request->water) ? true : false,
-             'snacks'         => ($request->snacks) ? true : false,
-             'standard_food'  => ($request->food) ? true : false,
-             'premium_food'   => ($request->food) ? true : false,
-             'price'          => 120,
-             'status'         => '1']);
-         return redirect('/service/petcare');
-        */
     }
 
     /**
@@ -204,12 +168,23 @@ class PetCareController extends Controller
     {
         $input     = Input::all();
         $rules     = [
-            'food' => 'required',
+            'guest_id' => 'numeric',
+            'water'    => 'required_without_all:snacks,food|boolean',
+            'snacks'   => 'required_without_all:water,food|boolean',
+            'food'     => 'required_without_all:water,snacks',
         ];
         $validator = Validator::make($input, $rules);
         if ($validator->passes()) {
             try {
                 DB::beginTransaction();
+
+                $input['water']  = (isset($input['water'])) ? true : false;
+                $input['snacks'] = (isset($input['snacks'])) ? true : false;
+
+                if (isset($input['food'])) {
+                    $input['standard_food'] = ($input['food'] == 'standard_food') ? true : false;
+                    $input['premium_food']  = ($input['food'] == 'premium_food') ? true : false;
+                }
                 //$input['order_date'] = Carbon::today();
                 //$input['status']     = 1;
                 $petCare = PetCare::find($id);
@@ -226,43 +201,6 @@ class PetCareController extends Controller
         }
 
         return $return;
-
-        //////////////// OLD //////////////////////
-        //$order_date = date('Y-m-d');
-
-        //controlar el valor del radio. Obtener aquí el valor actual de las food.
-        //Compararlo y en función de lo que tenga actualizar
-        /*
-        $foods = ['standard_food'  => ($request->food),
-            'premium_food'   => ($request->food)];
-
-        dd($foods['standard_food']);
-        if ($foods['standard_food'] == 1){
-            $foods['premium_food'] = 0;
-        }elseif ($foods['premium_food'] == 1){
-            $foods['standard_food'] = 0;
-        }
-        if (Input::get('food')) {
-            $standardFood = 1;
-        } else {
-            $standardFood = 0;
-        }
-        //Revisar!! No pilla bien los radiobuttons.
-        //Para que funcionen en la vista, el name debe ser el mismo.
-        //Al recoger en el request, pilla los dos valores igual
-        PetCare::find($id)->update([
-            'guest_id'       => $request->guest,
-            'service_id'     => 9,
-            'order_date'     => $order_date,
-            'water'          => ($request->water) ? true : false,
-            'snacks'         => ($request->snacks) ? true : false,
-            'standard_food'  => ($request->food) ? true : false,
-            'premium_food'   => ($request->food) ? true : false,
-            'price'          => 120,
-            'status'         => '1']);
-
-        return redirect('/service/petcare');
-        */
     }
 
     /**

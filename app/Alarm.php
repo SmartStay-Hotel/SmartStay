@@ -26,13 +26,30 @@ class Alarm extends Model
      */
     public static function getAllAlarmOrders()
     {
-        $alarms = Alarm::all();
+        $alarms = self::all();
         if (count($alarms) > 0) {
             $serviceName = Services::getServiceName($alarms[0]->service_id);
             foreach ($alarms as $key => $alarm) {
                 $alarm->serviceName = $serviceName;
                 $alarm->roomNumber  = ($alarm->guest->rooms[0]->number) ? $alarm->guest->rooms[0]->number
-                    : 'Alarm id:' . $alarm->id;
+                    : 'AlarmErr id:' . $alarm->id;
+            }
+        } else {
+            $alarms = [];
+        }
+
+        return $alarms;
+    }
+
+    public static function getOrderHistoryByGuest($guestId)
+    {
+        $alarms = self::where('guest_id', $guestId)->get();
+        if (count($alarms) > 0) {
+            $serviceName = Services::getServiceName($alarms[0]->service_id);
+            foreach ($alarms as $key => $alarm) {
+                $alarm->serviceName = $serviceName;
+                $alarm->roomNumber  = ($alarm->guest->rooms[0]->number) ? $alarm->guest->rooms[0]->number
+                    : 'AlarmErr id:' . $alarm->id;
             }
         } else {
             $alarms = [];

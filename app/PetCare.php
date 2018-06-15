@@ -30,13 +30,30 @@ class PetCare extends Model
      */
     public static function getAllPetCareOrders()
     {
-        $petCares = PetCare::all();
+        $petCares = self::all();
         if (count($petCares) > 0) {
             $serviceName = Services::getServiceName($petCares[0]->service_id);
             foreach ($petCares as $key => $petCare) {
-                $petCare->serviceName = $serviceName;
+                $petCare->serviceName = str_replace(' ', '', $serviceName);
                 $petCare->roomNumber  = ($petCare->guest->rooms[0]->number) ? $petCare->guest->rooms[0]->number
-                    : 'Pet Care id:' . $petCare->id;
+                    : 'Pet CareErr id:' . $petCare->id;
+            }
+        } else {
+            $petCares = [];
+        }
+
+        return $petCares;
+    }
+
+    public static function getOrderHistoryByGuest($guestId)
+    {
+        $petCares = self::where('guest_id', $guestId)->get();
+        if (count($petCares) > 0) {
+            $serviceName = Services::getServiceName($petCares[0]->service_id);
+            foreach ($petCares as $key => $petCare) {
+                $petCare->serviceName = str_replace(' ', '', $serviceName);
+                $petCare->roomNumber  = ($petCare->guest->rooms[0]->number) ? $petCare->guest->rooms[0]->number
+                    : 'Pet CareErr id:' . $petCare->id;
             }
         } else {
             $petCares = [];

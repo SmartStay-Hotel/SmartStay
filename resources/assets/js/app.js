@@ -97,6 +97,7 @@ toastr.options = {
         this.actualDate();
         this.getCheckOutDate();
         this.getProductTypes();
+        this.getHistory();
 
         // this.bttnMas();
         // this.setPriceTrip();
@@ -109,7 +110,9 @@ toastr.options = {
             trips:[],
             events:[],
             spaTypes:[],
-            productTypes:[],
+            snacks:[],
+            drinks:[],
+            history:[],
 
             statusGuest: false,
 
@@ -133,10 +136,15 @@ toastr.options = {
             quantityServ:'',
             hourTaxi:'',
 
+            productSelected:[],
+            productCant:[],
+            productPrice:[],
             snackSelected:[],
             snackCant:[],
             snackPrice:[],
-
+            drinkSelected:[],
+            drinkCant:[],
+            drinkPrice:[],
 
             numSnacks:[0],
             nS:1,
@@ -148,6 +156,8 @@ toastr.options = {
             errorExists : false,
 
             precioTotalSD: 0,
+
+
 
 
         },
@@ -166,10 +176,20 @@ toastr.options = {
                     this.checkoutDateFormat = moment(response.data).format('YYYY-MM-DD');
             })
             },
+            getHistory:function(){
+              var urlHistory = 'orderHistory';
+              axios.get(urlHistory).then(response=>{
+                  this.history = response.data
+              })
+            },
             getProductTypes: function(){
-                var urlProductTypes = 'product_types';
-                axios.get(urlProductTypes).then(response=>{
-                    this.productTypes = response.data
+                var urlSnacks= 'snacks';
+                var urlDrinks = 'drinks';
+                axios.get(urlSnacks).then(response=>{
+                    this.snacks = response.data
+            });
+                axios.get(urlDrinks).then(response=>{
+                    this.drinks = response.data
             });
 
             },
@@ -193,7 +213,7 @@ toastr.options = {
             });
             },
             getSpaTypes: function(){
-                var urlSpaTypes = 'spa_treatments';
+                var urlSpaTypes = 'spas';
                 axios.get(urlSpaTypes).then(response=>{
                     this.spaTypes= response.data
                 });
@@ -253,6 +273,25 @@ toastr.options = {
                 }
                 // this.pruebaOrder=response.data;
             },
+            insertSpa: function(){
+                var urlInsSpa ='admin/service/spa';
+                axios.post(urlInsSpa,{
+                    treatment_type_id: this.spaSelected,
+                    day_hour: this.dayHourServ
+
+                }).then(response=>{
+                    this.showResult = true;
+                toastr.success("adios");
+                console.log("coorecto spapapa");
+
+            }).catch(error=>{
+
+                    toastr.success("sdfsadf");
+                this.errores = error.response.data;
+                console.log("alarm no sopasdoa");
+
+            })
+            },
             insertAlarm: function(){
                 var urlInsAlarm ='admin/service/alarm';
                 axios.post(urlInsAlarm,{
@@ -274,7 +313,8 @@ toastr.options = {
             insertTrip: function(){
                 var urlInsTrip ='admin/service/trip';
                 axios.post(urlInsTrip,{
-                    trip_type_id: this.dayHourServ
+                    trip_type_id: this.tripSelected,
+                    people_num: this.numPersonsTrip
 
                 }).then(response=>{
                     this.showResult = true;
@@ -344,7 +384,68 @@ toastr.options = {
                 }
 
 
+            }, infoSnack:function(num){
+                return this.snacks.filter((product) => product.id==this.snackSelected[num]);
             },
+            infoDrink:function(num){
+                return this.drinks.filter((product) => product.id==this.drinkSelected[num]);
+            },
+
+            getPriceProducts:function(){
+                var i = 0;
+                this.productPrice = [];
+                this.productSelected = [];
+                this.productCant = [];
+                this.precioTotalSD = 0;
+                // console.log("length snack "+this.snackSelected.length);
+                // var prodPrice = document.getElementsByClassName("productPrice");
+
+                for(i = 0; i < snackPrice.length; i++){
+                    this.productPrice.push(snackPrice[i]);
+                }
+                for(i = 0; i < drinkPrice.length; i++){
+                    this.productPrice.push(drinkPrice[i]);
+                }
+                for(i = 0; i < this.snackSelected.length; i++){
+                    this.productSelected.push(this.snackSelected[i]);
+                }
+                for(i = 0; i < this.drinkSelected.length; i++){
+                    this.productSelected.push(this.drinkSelected[i]);
+                }
+                for(i = 0; i < this.snackCant.length; i++){
+                    this.productCant.push(this.snackCant[i]);
+                }
+                for(i = 0; i < this.drinkCant.length; i++){
+                    this.productCant.push(this.snackCant[i]);
+                }
+
+
+                for(i = 0; i < this.productSelected.length; i++){
+                    console.log("parseee precio"+parseInt(this.productPrice[i]));
+                    console.log("i "+i);
+                    var cant = 1;
+                    if(this.productCant[i] != null) cant = this.productCant[i];
+                    this.precioTotalSD += (this.productPrice[i] * cant);
+                }
+
+                return this.precioTotalSD;
+
+
+            },
+
+            // getPrecio(precio, num){
+            //     console.log(num);
+            //     console.log(precio+"precioooo");
+            //     console.log(this.snackCant[num]+ "accaaant");
+            //     this.precioTotalSD += parseInt(this.snackCant[num]);
+            //         return "";
+            // },
+
+            calcularPrecio(){
+                this.getPriceProducts();
+                this.hola = !this.hola;
+            }
+
 
 
         },
@@ -355,15 +456,15 @@ toastr.options = {
             infoEvent: function(){
                 return this.events.filter((event) => event.id==this.eventSelected);
             },
-            infoSnack0:function(){
-                return this.productTypes.filter((product) => product.id==this.snackSelected[0]);
+            setPrecioSnack: function(precio, num){
+                this.snackPrice[num] = precio;
+                return precio;
             },
-            infoSnack1:function(){
-                return this.productTypes.filter((product) => product.id==this.snackSelected[1]);
+            setPrecioDrink: function(precio, num){
+                this.drinkPrice[num] = precio;
+                return precio;
             },
-            infoSnack2:function(){
-                return this.productTypes.filter((product) => product.id==this.snackSelected[2]);
-            }
+
 
         },
         components: {

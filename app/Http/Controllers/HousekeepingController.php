@@ -33,7 +33,7 @@ class HousekeepingController extends Controller
      */
     public function index()
     {
-        $housekeepings = Housekeeping::all();
+        $housekeepings = Housekeeping::paginate(3);
 
         return view('services.housekeeping.index', compact('housekeepings'));
     }
@@ -65,10 +65,7 @@ class HousekeepingController extends Controller
      */
     public function store(Request $request)
     {
-
-        $input    = Input::all();
-        $input [] .= (Input::has('bed_sheets')) ? true : false;
-        dd($input);
+        $input               = Input::all();
         if ($request->ajax()) {
             if (Session::exists('guest_id')) {
                 $input['guest_id'] = Session::get('guest_id');
@@ -77,14 +74,26 @@ class HousekeepingController extends Controller
             }
         }
         $rules = [
-            'guest_id' => 'required|numeric',
+            'guest_id'   => 'required|numeric',
+            'bed_sheets' => 'required_without_all:cleaning,minibar,blanket,toiletries,pillow|boolean',
+            'cleaning'   => 'required_without_all:bed_sheets,minibar,blanket,toiletries,pillow|boolean',
+            'minibar'    => 'required_without_all:bed_sheets,cleaning,blanket,toiletries,pillow|boolean',
+            'blanket'    => 'required_without_all:bed_sheets,cleaning,minibar,toiletries,pillow|boolean',
+            'toiletries' => 'required_without_all:bed_sheets,cleaning,minibar,blanket,pillow|boolean',
+            'pillow'     => 'required_without_all:bed_sheets,cleaning,minibar,blanket,toiletries|boolean',
         ];
 
         $validator = Validator::make($input, $rules);
-
         if ($validator->passes()) {
             try {
                 DB::beginTransaction();
+                //'bed_sheets' => ($request->bed_sheets) ? true : false,
+                $input['bed_sheets'] = (isset($input['bed_sheets'])) ? true : false;
+                $input['cleaning']   = (isset($input['cleaning'])) ? true : false;
+                $input['minibar']    = (isset($input['minibar'])) ? true : false;
+                $input['blanket']    = (isset($input['blanket'])) ? true : false;
+                $input['toiletries'] = (isset($input['toiletries'])) ? true : false;
+                $input['pillow']     = (isset($input['pillow'])) ? true : false;
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '0';
                 $guest               = Guest::find($input['guest_id']);
@@ -113,24 +122,6 @@ class HousekeepingController extends Controller
         }
 
         return $return;
-        /* ////// OLD ////
-        $order_date = date('Y-m-d');
-        Housekeeping::create([
-            'guest_id'   => $request->guest,
-            'order_date' => $order_date,
-            'bed_sheets' => ($request->bed_sheets) ? true : false,
-            'cleaning'   => ($request->cleaning) ? true : false,
-            'minibar'    => ($request->minibar) ? true : false,
-            'blanket'    => ($request->blanket) ? true : false,
-            'toiletries' => ($request->toiletries) ? true : false,
-            'toiletries' => ($request->toiletries) ? true : false,
-            'pillow'     => ($request->pillow) ? true : false,
-            'price'      => 120,
-            'status'     => '1',
-        ]);
-
-        return redirect('/service/housekeeping');
-        */
     }
 
     /**
@@ -178,20 +169,28 @@ class HousekeepingController extends Controller
     public function update(Request $request, $id)
     {
         //No hay nada que evaluar salvo el guest
-
         $input = Input::all();
         $rules = [
-            'guest_id' => 'required|numeric',
+            'guest_id' => 'numeric',
+            'bed_sheets' => 'required_without_all:cleaning,minibar,blanket,toiletries,pillow|boolean',
+            'cleaning'   => 'required_without_all:bed_sheets,minibar,blanket,toiletries,pillow|boolean',
+            'minibar'    => 'required_without_all:bed_sheets,cleaning,blanket,toiletries,pillow|boolean',
+            'blanket'    => 'required_without_all:bed_sheets,cleaning,minibar,toiletries,pillow|boolean',
+            'toiletries' => 'required_without_all:bed_sheets,cleaning,minibar,blanket,pillow|boolean',
+            'pillow'     => 'required_without_all:bed_sheets,cleaning,minibar,blanket,toiletries|boolean',
         ];
 
         $validator = Validator::make($input, $rules);
         //$housekeeping->Input::all();
-
         if ($validator->passes()) {
             try {
                 DB::beginTransaction();
-                //$input['order_date'] = Carbon::today();
-                //$input['status']     = 1;
+                $input['bed_sheets'] = (isset($input['bed_sheets'])) ? true : false;
+                $input['cleaning']   = (isset($input['cleaning'])) ? true : false;
+                $input['minibar']    = (isset($input['minibar'])) ? true : false;
+                $input['blanket']    = (isset($input['blanket'])) ? true : false;
+                $input['toiletries'] = (isset($input['toiletries'])) ? true : false;
+                $input['pillow']     = (isset($input['pillow'])) ? true : false;
                 $housekeeping = Housekeeping::find($id);
                 $housekeeping->update($input);
                 DB::commit();
@@ -202,31 +201,10 @@ class HousekeepingController extends Controller
                 throw $e;
             }
         } else {
-            $return = redirect()->route('restaurant.edit', $id)->withErrors($validator->getMessageBag());
+            $return = redirect()->route('housekeeping.edit', $id)->withErrors($validator->getMessageBag());
         }
 
         return $return;
-
-        /*////////////// OLD /////////////////
-        $order_date = date('Y-m-d');
-
-        //recoger el valor del select de editar!!!
-        Housekeeping::find($id)->update([
-            'guest_id'   => $request->guest,
-            'order_date' => $order_date,
-            'bed_sheets' => ($request->bed_sheets) ? true : false,
-            'cleaning'   => ($request->cleaning) ? true : false,
-            'minibar'    => ($request->minibar) ? true : false,
-            'blanket'    => ($request->blanket) ? true : false,
-            'toiletries' => ($request->toiletries) ? true : false,
-            'toiletries' => ($request->toiletries) ? true : false,
-            'pillow'     => ($request->pillow) ? true : false,
-            'price'      => 120,
-            'status'     => '1',
-        ]);
-
-        return redirect('/service/housekeeping');
-        */
     }
 
     /**

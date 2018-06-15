@@ -374,6 +374,13 @@ button[type="submit"]:active {
     display:flex;
     flex-direction:column;
 }
+.infoSnackDrink img{
+    width:70px;
+}
+.infoSnackDrink{
+    display:flex;
+    flex-direction:row;
+}
 .errorForm{
     color:red;
     font-weight: bolder;

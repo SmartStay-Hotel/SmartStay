@@ -11,4 +11,8 @@ class EventType extends Model
     {
         return $this->hasMany('App\Event');
     }
+
+    public static function getMaxPeopleByEvent($id) {
+        return self::find($id)->max_num_people;
+    }
 }

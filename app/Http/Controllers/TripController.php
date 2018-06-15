@@ -72,8 +72,7 @@ class TripController extends Controller
      */
     public function store(Request $request)
     {
-        $input  = Input::all();
-        $return = "";
+        $input = Input::all();
 
         if ($request->ajax()) {
             if (Session::exists('guest_id')) {
@@ -86,14 +85,24 @@ class TripController extends Controller
         $rules     = [
             'guest_id'     => 'required|numeric',
             'trip_type_id' => 'required|numeric',
+            'people_num'   => 'required|numeric|max:150',
         ];
         $validator = Validator::make($input, $rules);
 
         if ($validator->passes()) {
+            $maxPeople       = TripType::getMaxPeopleByEvent($input['trip_type_id']);
+            $peopleGoing     = Trip::getNumPeopleOnTheList($input['trip_type_id']);
+            $availablePlaces = $maxPeople - $peopleGoing;
+            if ($availablePlaces < $input['people_num']) {
+                return redirect()->route('trip.create')->withErrors([
+                    'Only ' . $availablePlaces . ' available places',
+                ]);
+            }
             try {
                 DB::beginTransaction();
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '0';
+                $input['price']      = TripType::getPriceById($input['trip_type_id']) * $input['people_num'];
                 $guest               = Guest::find($input['guest_id']);
                 $trip                = $guest->trips()->create($input);
                 DB::commit();
@@ -171,18 +180,34 @@ class TripController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Trip $trip)
     {
-        $input     = Input::all();
-        $rules     = [];
+        $input                 = Input::all();
+        $input['guest_id']     = (isset($input['guest_id'])) ? $input['guest_id'] : $trip->guest_id;
+        $input['trip_type_id'] = (isset($input['trip_type_id'])) ? $input['trip_type_id'] : $trip->trip_type_id;
+
+        $rules     = [
+            'guest_id'     => 'required|numeric',
+            'trip_type_id' => 'required|numeric',
+            'people_num'   => 'required|numeric|max:150',
+        ];
         $validator = Validator::make($input, $rules);
 
         if ($validator->passes()) {
+            $maxPeople       = TripType::getMaxPeopleByEvent($input['trip_type_id']);
+            $peopleGoing     = Trip::getNumPeopleOnTheList($input['trip_type_id']);
+            $availablePlaces = $maxPeople - $peopleGoing;
+            if ($availablePlaces < $input['people_num']) {
+                return redirect()->route('trip.edit', $trip->id)->withErrors([
+                    'Only ' . $availablePlaces . ' available places',
+                ]);
+            }
             try {
                 DB::beginTransaction();
                 //$input['order_date'] = Carbon::today();
                 //$input['status']     = 1;
-                $trip = Trip::find($id);
+                $trip = Trip::find($trip->id);
+                $input['price']      = TripType::getPriceById($input['trip_type_id']) * $input['people_num'];
                 $trip->update($input);
                 DB::commit();
 
@@ -192,7 +217,7 @@ class TripController extends Controller
                 throw $e;
             }
         } else {
-            $return = redirect()->route('trip.edit', $id)->withErrors($validator->getMessageBag());
+            $return = redirect()->route('trip.edit', $trip->id)->withErrors($validator->getMessageBag());
         }
 
         return $return;

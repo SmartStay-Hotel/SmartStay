@@ -39,7 +39,11 @@
                     <legend>Show</legend>
                     <strong>Order Date: </strong> {{ $trip->order_date }}<br>
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
-                    <strong>Guest Phone: </strong> {{ $guest->telephone }}
+                    <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
+                    <strong>Trip Name: </strong> {{ $trip->tripType->name }}<br/>
+                    <strong>Location: </strong> {{ $trip->tripType->location }}<br/>
+                    <strong>People Going: </strong> {{ $trip->people_num }}<br/>
+                    <strong>Total Price: </strong> {{ $trip->price }} €<br/>
                 </fieldset>
             </tr>
         </table>
