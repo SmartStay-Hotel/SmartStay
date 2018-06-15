@@ -12,10 +12,34 @@
                 </div>
                 <div class="modal-body">
                     <slot name="body">
+                        <!-- Restaurant -->
                         <div v-if="order.service_id==1">
                             <p>Date booking: {{order.day_hour}}</p>
                             <p>Quantity of persons: {{order.quantity}}</p>
                             <p>Name of booking: {{order.guest_id}}</p>
+                        </div>
+
+                        <!-- Snack and drinks -->
+                        <div v-if="order.service_id==2">
+                            <p>? Snack and drink</p>
+                        </div>
+
+                        <!-- Spa -->
+                        <div v-if="order.service_id==3">
+                            <p>? Spa</p>
+                        </div>
+
+                        <!-- Alarm -->
+                        <div v-if="order.service_id==4">
+                            <p>Alarm setted: {{order.day_hour}}</p>
+                        </div>
+
+                        <!-- Pet care -->
+                        <div v-if="order.service_id==5">
+                            <p v-if="order.water"> Water</p>
+                            <p v-if="order.standard_food"> Standard food</p>
+                            <p v-if="order.premium_food"> Premium food</p>
+                            <p v-if="order.snacks"> Snacks</p>
                         </div>
                     </slot>
                 </div>
@@ -23,7 +47,7 @@
                 <div class="modal-footer">
                     <slot name="footer">
 
-                        <button class="modal-default-button" @click="$emit('cancel')">
+                        <button class="modal-default-button" v-if="order.status==0" @click="$emit('cancel')">
                             Cancel the order
                         </button>
                     </slot>
@@ -37,7 +61,7 @@
 
 <script>
     export default {
-        props:['idServ', 'order'],
+        props:['order'],
     }
 </script>
 <style scoped>

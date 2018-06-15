@@ -13,9 +13,13 @@
                         <div class="historyItem" >
                             <div class="historyInfo" v-on:click="showInfoOrder(order.service_id, order.id)">
                             <p>{{order.serviceName}}</p>
-                            <p class="historyDate">{{formatDate(order.order_date)}}</p>
+                                <div class="historySubInfo">
+                            <p class="historyDate">{{formatDate(order.created_at)}}</p>
+                                <p v-if="order.status==1" style="margin-left:3%">In process</p>
+                                <p v-if="order.status==2" style="color:green; margin-left:3%">Completed</p>
+                                </div>
                             </div>
-                            <div class="historyCancel">
+                            <div class="historyCancel" v-if="order.status==0">
                                 <form method="POST" action="#" v-on:submit.prevent="deleteOrder(order.service_id, order.id)" accept-charset="UTF-8">
 
                                 <button type="submit"><i class="far fa-times-circle"></i></button>
@@ -24,7 +28,7 @@
                             <!--<h2>{{infoServID[order.service_id]}} // {{infoOrderID[order.id]}}</h2>-->
                         </div>
                         <div v-if="showInfo && infoServID == order.service_id && infoOrderID == order.id">
-                            <orderinfo v-bind:idServ="order.service_id" v-bind:order="order" @close="showInfo = false" @cancel="deleteOrder(order.service_id, order.id)"></orderinfo>
+                            <orderinfo v-bind:order="order" @close="showInfo = false" @cancel="deleteOrder(order.service_id, order.id)"></orderinfo>
                         </div>
 
                     </div>
@@ -42,7 +46,7 @@
                 </button>
             </div>
         </div>
-
+<!--{{$data}}-->
         </div>
 
     </transition>
@@ -76,8 +80,6 @@
             });
             },
             nextPage:function(){
-                console.log(this.history.length);
-                console.log(this.history.length/5);
                 if(this.endPage < this.history.length){ this.pageNumber++; }
 
             },
@@ -236,10 +238,10 @@
     .historyItem{
         display:flex;
     }
-    .historyDate{
-        font-size: 70%;
-        color:red
+    .historyItem:hover{
+        background-color:var(--colorBody);
     }
+
     .historyButton{
         margin:0px;
         width:50%;
@@ -248,5 +250,9 @@
     #historyPage{
         display:flex;
         justify-content:space-around;
+    }
+    .historySubInfo{
+        font-size:75%;
+        display:flex;
     }
 </style>

@@ -86243,7 +86243,7 @@ exports = module.exports = __webpack_require__(15)(false);
 
 
 // module
-exports.push([module.i, "\n#historyContainer *[data-v-7a71db5c] {\n    /*border:1px solid red;*/\n}\n#historyContainer[data-v-7a71db5c]{\n\n    display:flex;\n    justify-content:center;\n    align-items:center;\n    height:70%;\n}\n#history[data-v-7a71db5c]{\n    background-color:white;\n\n    width:40%;\n    box-shadow: var(--shadows);\n}\n#historyTitle[data-v-7a71db5c]{\n    display:flex;\n    justify-content: space-between;\n    padding:2%;\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n#historyTitle button[data-v-7a71db5c]{\n    padding:0px;\n    border:none;\n    font-size:150%;\n    background-color:transparent;\n}\n#historyTitle button[data-v-7a71db5c]:hover{\n    color: var(--colorSecond);\n}\n/*#historyList{*/\n    /*list-style-type:none;*/\n/*}*/\n/*#historyList > li{*/\n\n    /*padding: 2% 3% 1% 3%;*/\n    /*border-bottom:1px solid gray;*/\n    /*margin-top:1%;*/\n    /*display:flex;*/\n    /*justify-content: space-between;*/\n/*}*/\n/*#historyList > li > i {*/\n    /*font-size:150%;*/\n    /*color:red;*/\n/*}*/\n/*#historyList > li > i:hover {*/\n\n    /*color:black;*/\n/*}*/\n.historyItem[data-v-7a71db5c]{\n    border-bottom:1px solid gray;\n    padding:2% 5%;\n}\n.historyInfo[data-v-7a71db5c]{\n    width:92%;\n}\n.historyCancel[data-v-7a71db5c]{\n    width:8%;\n    font-size:100%;\n    display:flex;\n    justiy-content:center;\n    align-items:center;\n}\n/*.historyCancel>i{*/\n    /*width:100%;*/\n    /*height:100%;*/\n    /*margin:0px;*/\n    /**/\n/*}*/\n.historyItem p[data-v-7a71db5c]{\n    margin:0px;\n}\n.historyItem[data-v-7a71db5c]{\n    display:flex;\n}\n.historyDate[data-v-7a71db5c]{\n    font-size: 70%;\n    color:red\n}\n.historyButton[data-v-7a71db5c]{\n    margin:0px;\n    width:50%;\n    border:none;\n}\n#historyPage[data-v-7a71db5c]{\n    display:flex;\n    justify-content:space-around;\n}\n", ""]);
+exports.push([module.i, "\n#historyContainer *[data-v-7a71db5c] {\n    /*border:1px solid red;*/\n}\n#historyContainer[data-v-7a71db5c]{\n\n    display:flex;\n    justify-content:center;\n    align-items:center;\n    height:70%;\n}\n#history[data-v-7a71db5c]{\n    background-color:white;\n\n    width:40%;\n    box-shadow: var(--shadows);\n}\n#historyTitle[data-v-7a71db5c]{\n    display:flex;\n    justify-content: space-between;\n    padding:2%;\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n#historyTitle button[data-v-7a71db5c]{\n    padding:0px;\n    border:none;\n    font-size:150%;\n    background-color:transparent;\n}\n#historyTitle button[data-v-7a71db5c]:hover{\n    color: var(--colorSecond);\n}\n/*#historyList{*/\n    /*list-style-type:none;*/\n/*}*/\n/*#historyList > li{*/\n\n    /*padding: 2% 3% 1% 3%;*/\n    /*border-bottom:1px solid gray;*/\n    /*margin-top:1%;*/\n    /*display:flex;*/\n    /*justify-content: space-between;*/\n/*}*/\n/*#historyList > li > i {*/\n    /*font-size:150%;*/\n    /*color:red;*/\n/*}*/\n/*#historyList > li > i:hover {*/\n\n    /*color:black;*/\n/*}*/\n.historyItem[data-v-7a71db5c]{\n    border-bottom:1px solid gray;\n    padding:2% 5%;\n}\n.historyInfo[data-v-7a71db5c]{\n    width:92%;\n}\n.historyCancel[data-v-7a71db5c]{\n    width:8%;\n    font-size:100%;\n    display:flex;\n    justiy-content:center;\n    align-items:center;\n}\n/*.historyCancel>i{*/\n    /*width:100%;*/\n    /*height:100%;*/\n    /*margin:0px;*/\n    /**/\n/*}*/\n.historyItem p[data-v-7a71db5c]{\n    margin:0px;\n}\n.historyItem[data-v-7a71db5c]{\n    display:flex;\n}\n.historyItem[data-v-7a71db5c]:hover{\n    background-color:var(--colorBody);\n}\n.historyButton[data-v-7a71db5c]{\n    margin:0px;\n    width:50%;\n    border:none;\n}\n#historyPage[data-v-7a71db5c]{\n    display:flex;\n    justify-content:space-around;\n}\n.historySubInfo[data-v-7a71db5c]{\n    font-size:75%;\n    display:flex;\n}\n", ""]);
 
 // exports
 
@@ -86258,6 +86258,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modalOrder___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__modalOrder__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
+//
+//
+//
+//
 //
 //
 //
@@ -86338,8 +86342,6 @@ __WEBPACK_IMPORTED_MODULE_1_moment___default.a.lang('es');
             });
         },
         nextPage: function nextPage() {
-            console.log(this.history.length);
-            console.log(this.history.length / 5);
             if (this.endPage < this.history.length) {
                 this.pageNumber++;
             }
@@ -86462,35 +86464,58 @@ var render = function() {
                   [
                     _c("p", [_vm._v(_vm._s(order.serviceName))]),
                     _vm._v(" "),
-                    _c("p", { staticClass: "historyDate" }, [
-                      _vm._v(_vm._s(_vm.formatDate(order.order_date)))
+                    _c("div", { staticClass: "historySubInfo" }, [
+                      _c("p", { staticClass: "historyDate" }, [
+                        _vm._v(_vm._s(_vm.formatDate(order.created_at)))
+                      ]),
+                      _vm._v(" "),
+                      order.status == 1
+                        ? _c("p", { staticStyle: { "margin-left": "3%" } }, [
+                            _vm._v("In process")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      order.status == 2
+                        ? _c(
+                            "p",
+                            {
+                              staticStyle: {
+                                color: "green",
+                                "margin-left": "3%"
+                              }
+                            },
+                            [_vm._v("Completed")]
+                          )
+                        : _vm._e()
                     ])
                   ]
                 ),
                 _vm._v(" "),
-                _c("div", { staticClass: "historyCancel" }, [
-                  _c(
-                    "form",
-                    {
-                      attrs: {
-                        method: "POST",
-                        action: "#",
-                        "accept-charset": "UTF-8"
-                      },
-                      on: {
-                        submit: function($event) {
-                          $event.preventDefault()
-                          _vm.deleteOrder(order.service_id, order.id)
-                        }
-                      }
-                    },
-                    [
-                      _c("button", { attrs: { type: "submit" } }, [
-                        _c("i", { staticClass: "far fa-times-circle" })
-                      ])
-                    ]
-                  )
-                ])
+                order.status == 0
+                  ? _c("div", { staticClass: "historyCancel" }, [
+                      _c(
+                        "form",
+                        {
+                          attrs: {
+                            method: "POST",
+                            action: "#",
+                            "accept-charset": "UTF-8"
+                          },
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              _vm.deleteOrder(order.service_id, order.id)
+                            }
+                          }
+                        },
+                        [
+                          _c("button", { attrs: { type: "submit" } }, [
+                            _c("i", { staticClass: "far fa-times-circle" })
+                          ])
+                        ]
+                      )
+                    ])
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _vm.showInfo &&
@@ -86500,7 +86525,7 @@ var render = function() {
                     "div",
                     [
                       _c("orderinfo", {
-                        attrs: { idServ: order.service_id, order: order },
+                        attrs: { order: order },
                         on: {
                           close: function($event) {
                             _vm.showInfo = false
@@ -86522,13 +86547,13 @@ var render = function() {
           _c(
             "button",
             { staticClass: "historyButton", on: { click: _vm.prevPage } },
-            [_vm._v("\n                <\n            ")]
+            [_vm._v("\n                    <\n                ")]
           ),
           _vm._v(" "),
           _c(
             "button",
             { staticClass: "historyButton", on: { click: _vm.nextPage } },
-            [_vm._v("\n                >\n            ")]
+            [_vm._v("\n                    >\n                ")]
           )
         ])
       ])
@@ -86678,7 +86703,7 @@ exports = module.exports = __webpack_require__(15)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -86726,9 +86751,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['idServ', 'order']
+    props: ['order']
 });
 
 /***/ }),
@@ -86787,6 +86836,38 @@ var render = function() {
                         _vm._v("Name of booking: " + _vm._s(_vm.order.guest_id))
                       ])
                     ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.order.service_id == 2
+                  ? _c("div", [_c("p", [_vm._v("? Snack and drink")])])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.order.service_id == 3
+                  ? _c("div", [_c("p", [_vm._v("? Spa")])])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.order.service_id == 4
+                  ? _c("div", [
+                      _c("p", [
+                        _vm._v("Alarm setted: " + _vm._s(_vm.order.day_hour))
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.order.service_id == 5
+                  ? _c("div", [
+                      _vm.order.water ? _c("p", [_vm._v(" Water")]) : _vm._e(),
+                      _vm._v(" "),
+                      _vm.order.standard_food
+                        ? _c("p", [_vm._v(" Standard food")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.order.premium_food
+                        ? _c("p", [_vm._v(" Premium food")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.order.snacks ? _c("p", [_vm._v(" Snacks")]) : _vm._e()
+                    ])
                   : _vm._e()
               ])
             ],
@@ -86798,22 +86879,24 @@ var render = function() {
             { staticClass: "modal-footer" },
             [
               _vm._t("footer", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "modal-default-button",
-                    on: {
-                      click: function($event) {
-                        _vm.$emit("cancel")
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\r\n                            Cancel the order\r\n                        "
+                _vm.order.status == 0
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "modal-default-button",
+                        on: {
+                          click: function($event) {
+                            _vm.$emit("cancel")
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                            Cancel the order\r\n                        "
+                        )
+                      ]
                     )
-                  ]
-                )
+                  : _vm._e()
               ])
             ],
             2
