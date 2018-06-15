@@ -82,6 +82,32 @@ class Guest extends Model
         return $guests;
     }
 
+    public static function getLastFiveDaysCheckinDate()
+    {
+        $lastCheckin = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $day = (new \Carbon\Carbon)->subDays($i);
+            $guests = Guest::whereHas('rooms', function ($q) use ($day) {
+                $q->where('checkin_date', '=', $day->toDateString());
+            })->get();
+            $lastCheckin[$day->format('D')] = $guests->count();
+        }
+        return $lastCheckin;
+    }
+
+    public static function getLastFiveDaysCheckoutDate()
+    {
+        $lastCheckin = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $day = (new \Carbon\Carbon)->subDays($i);
+            $guests = Guest::whereHas('rooms', function ($q) use ($day) {
+                $q->where('checkout_date', '=', $day->toDateString());
+            })->get();
+            $lastCheckin[$day->format('D')] = $guests->count();
+        }
+        return $lastCheckin;
+    }
+
     public static function getRoomByGuestId($id)
     {
         $room = self::find($id)->rooms[0];

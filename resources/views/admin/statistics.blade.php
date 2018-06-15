@@ -7,209 +7,233 @@
     </style>
 @endsection
 @section('content')
-    <div class="card" style= "box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;" id="linechartparent">
-    <h2 id="statisticsTitle"><i class="fas fa-calendar-alt" style="padding: 5px;"></i>Statistics</h2>
+    <div class="card"
+         style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;"
+         id="linechartparent">
+        <h2 id="statisticsTitle"><i class="fas fa-calendar-alt" style="padding: 5px;"></i>Statistics</h2>
         <div class="flex-grid">
-        <div id="wrapper" style= " position: relative; height: 40vh; width: 50%; flex: 1;">
-            <canvas id="myChart"></canvas>
-        </div>
-
-        <div id="wrapper" style= " position: relative; height: 40vh; width: 50%; flex: 1;">
-            <canvas id="myChart2"></canvas>
-        </div>
-        </div>
-
-        <div class="flex-grid">
-            <div id="wrapper" style= " position: relative; height: 40vh; width: 50%; flex: 1;">
-                <canvas id="myChart3"></canvas>
+            <div id="wrapper" style=" position: relative; height: 40vh; width: 50%; flex: 1;">
+                <canvas id="lastCheckin"></canvas>
             </div>
 
-            <div id="wrapper" style= " position: relative; height: 40vh; width: 50%; flex: 1;">
-                <canvas id="myChart4"></canvas>
+            <div id="wrapper" style=" position: relative; height: 40vh; width: 50%; flex: 1;">
+                <canvas id="lastcheckout"></canvas>
+            </div>
+        </div>
+
+        <div class="flex-grid">
+            <div id="wrapper" style=" position: relative; height: 40vh; width: 50%; flex: 1;">
+                <canvas id="lastOrders"></canvas>
+            </div>
+
+            <div id="wrapper" style=" position: relative; height: 40vh; width: 50%; flex: 1;">
+                <canvas id="lastOrdersBuyers"></canvas>
             </div>
         </div>
 
     </div>
 
-    <input type="button" value="add" class="btn btn-success" onclick="addData()">
 @endsection
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
     <script>
-        //FIRST CHART
-        var canvas = document.getElementById('myChart');
-        var data = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [
-                {
-                    label: "Orders",
-                    backgroundColor: "rgba(75,192,192,0.2)",
-                    borderColor: "rgba(75,192,192)",
-                    borderWidth:1,
-                    data: [6, 15, 0, 20, 12, 16, 10],
-                }
-            ]
-        };
+        $(document).ready(function () {
+            $.get('dataStatistics', function (statistics) {
+                var dayOfWeek = [];
+                var dataPerDay = [];
 
-        function addData(){
-            myLineChart.data.datasets[0].data[5] = myLineChart.data.datasets[0].data[5] + 5;
-            myLineChart.update();
-        }
-
-        var option = {
-            showLines: true
-        };
-        var myLineChart = Chart.Bar(canvas,{
-            data:data,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    xAxes: [{
-                        barPercentage: 0.4,
-
-                        }],
-
-                    yAxes: [{
-                        ticks: {
-                            stepSize: 1
+                /*---Grafica Last Checkin---*/
+                $.each(statistics.lastCheckin, function (key, value) {
+                    dayOfWeek.push(key);
+                    dataPerDay.push(value);
+                });
+                var canvasCheckin = $('#lastCheckin');
+                var data = {
+                    labels: dayOfWeek,
+                    datasets: [
+                        {
+                            label: "Total Checkin",
+                            backgroundColor: "rgba(75,192,192,0.2)",
+                            borderColor: "rgba(75,192,192)",
+                            borderWidth: 1,
+                            data: dataPerDay,
                         }
-                    }]
-                }
-            }
+                    ]
+                };
 
-        });
+                Chart.Bar(canvasCheckin, {
+                    data: data,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            xAxes: [{
+                                barPercentage: 0.4,
 
-    </script>
+                            }],
 
-    <script>
-
-        // SECOND CHART
-        var canvas = document.getElementById('myChart2');
-        var data = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [
-                {
-                    label: "Orders",
-                    borderColor: "#FFA54C",
-                    borderWidth:2,
-                    data: [6, 15, 0, 20, 12, 16, 10],
-                    fill: false,
-                }
-            ]
-        };
-
-
-        var myLineChart = Chart.Line(canvas,{
-            data:data,
-            options: {
-                title: {
-                    display: true,
-                    text: 'Custom Chart Title',
-                },
-                legend: {
-                    display: false,
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    xAxes: [{
-                        barPercentage: 0.4,
-
-                    }],
-
-                    yAxes: [{
-                        ticks: {
-                            stepSize: 1
+                            yAxes: [{
+                                ticks: {
+                                    stepSize: 1
+                                }
+                            }]
                         }
-                    }]
-                }
-            }
+                    }
 
-        });
+                });
 
-    </script>
-
-    <script>
-
-        // THIRD CHART
-        var canvas = document.getElementById('myChart3');
-        var data = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [
-                {
-                    label: "Orders",
-                    borderColor: "#9F6FFF",
-                    borderWidth:2,
-                    data: [6, 15, 0, 20, 12, 16, 10],
-                    steppedLine: true,
-                    fill: false,
-                }
-            ]
-        };
-
-
-        var myLineChart = Chart.Line(canvas,{
-            data:data,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    xAxes: [{
-                        barPercentage: 0.4,
-
-                    }],
-
-                    yAxes: [{
-                        ticks: {
-                            stepSize: 1
+                /*---Grafica Last Checkout---*/
+                dayOfWeek = [];
+                dataPerDay = [];
+                $.each(statistics.lastCheckout, function (key, value) {
+                    dayOfWeek.push(key);
+                    dataPerDay.push(value);
+                });
+                var canvasCheckout = $('#lastcheckout');
+                var data = {
+                    labels: dayOfWeek,
+                    datasets: [
+                        {
+                            label: "Total Checkout",
+                            borderColor: "#FFA54C",
+                            borderWidth:2,
+                            fill: false,
+                            data: dataPerDay,
                         }
-                    }]
-                }
-            }
+                    ]
+                };
 
-        });
+                Chart.Line(canvasCheckout, {
+                    data: data,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            xAxes: [{
+                                barPercentage: 0.4,
 
-    </script>
+                            }],
 
-    <script>
-
-        // FOUTH CHART
-        var data = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [
-                {
-                    label: "Orders",
-                    backgroundColor: "rgba(153, 204, 0, 0.2)",
-                    borderColor: "rgba(153, 204, 0)",
-                    borderWidth:1,
-                    data: [6, 15, 0, 20, 12, 16, 10],
-                }
-            ]
-        };
-
-        var ctx = document.getElementById("myChart4").getContext('2d');
-        var myBarChart = new Chart(ctx, {
-            type: 'horizontalBar',
-            data: data,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    xAxes: [{
-                        barPercentage: 0.4,
-
-                    }],
-
-                    yAxes: [{
-                        ticks: {
-                            stepSize: 1
+                            yAxes: [{
+                                ticks: {
+                                    stepSize: 1
+                                }
+                            }]
                         }
-                    }]
-                }
-            }
+                    }
 
+                });
+
+                /*---Grafica Orders---*/
+                dayOfWeek = [];
+                dataPerDay = [];
+                $.each(statistics.lastOrders, function (key, value) {
+                    dayOfWeek.push(key);
+                    dataPerDay.push(value);
+                });
+                var canvasLastOrders = $('#lastOrders');
+                var data = {
+                    labels: dayOfWeek,
+                    datasets: [
+                        {
+                            label: "Total Orders",
+                            borderColor: "#9F6FFF",
+                            borderWidth: 2,
+                            steppedLine: true,
+                            fill: false,
+                            data: dataPerDay,
+                        }
+                    ]
+                };
+
+                Chart.Line(canvasLastOrders, {
+                    data: data,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            xAxes: [{
+                                barPercentage: 0.4,
+
+                            }],
+
+                            yAxes: [{
+                                ticks: {
+                                    stepSize: 1
+                                }
+                            }]
+                        }
+                    }
+
+                });
+
+                /*---Grafica Total Orders Profit---*/
+                dayOfWeek = [];
+                dataPerDay = [];
+                $.each(statistics.lastOrdersBuyers, function (key, value) {
+                    dayOfWeek.push(key);
+                    dataPerDay.push(value);
+                });
+                var canvasLastOrdersBuyers = $('#lastOrdersBuyers');
+                var data = {
+                    labels: dayOfWeek,
+                    datasets: [
+                        {
+                            label: "Total Orders Profit",
+                            backgroundColor: "rgba(153, 204, 0, 0.2)",
+                            borderColor: "rgba(153, 204, 0)",
+                            borderWidth: 1,
+                            data: dataPerDay,
+                        }
+                    ]
+                };
+
+              /*Chart.Bar(canvasLastOrdersBuyers, {
+                    data: data,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            xAxes: [{
+                                barPercentage: 0.4,
+
+                            }],
+
+                            yAxes: [{
+                                ticks: {
+                                    stepSize: 1
+                                }
+                            }]
+                        }
+                    }
+
+                });*/
+
+               var ctx = canvasLastOrdersBuyers;
+                var myHorizontalBarChart = new Chart(ctx, {
+                    type: 'horizontalBar',
+                    data: data,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            xAxes: [{
+                                barPercentage: 0.4,
+
+                            }],
+
+                            yAxes: [{
+                                ticks: {
+                                    stepSize: 1
+                                }
+                            }]
+                        }
+                    }
+
+                });
+
+            });
         });
 
     </script>
