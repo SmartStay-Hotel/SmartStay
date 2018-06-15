@@ -57628,6 +57628,11 @@ new Vue({
         nD: 1,
         showSnack: ['true'],
 
+        petWater: "",
+        petStandardFood: "",
+        petPremiumFood: "",
+        petSnacks: "",
+
         errores: "",
         errorExists: false,
 
@@ -57848,6 +57853,36 @@ new Vue({
                 console.log("taxino no");
             });
         },
+        insertPetCare: function insertPetCare() {
+            var _this15 = this;
+
+            var urlInsPetCare = 'admin/service/petcare';
+            var water = 0;
+            var standard = 0;
+            var premium = 0;
+            var snacks = 0;
+            if (this.petWater != '') water = 1;
+            if (this.petStandardFood != '') standard = 1;
+            if (this.petPremiumFood != '') premium = 1;
+            if (this.snacks != '') snacks = 1;
+            axios.post(urlInsPetCare, {
+
+                water: water,
+                standard_food: standard,
+                premium_food: premium,
+                snacks: snacks
+
+            }).then(function (response) {
+                _this15.showResult = true;
+                toastr.success("adios");
+                console.log("correcto dogg");
+            }).catch(function (error) {
+
+                toastr.success("sdfsadf");
+                _this15.errores = error.response.data;
+                console.log("dooogg no");
+            });
+        },
         bttnMas: function bttnMas(tipo) {
             if (tipo == 'snack') {
                 this.numSnacks.push(this.nS);
@@ -57868,17 +57903,17 @@ new Vue({
                 this.snackSelected[this.nD] = '';
             }
         }, infoSnack: function infoSnack(num) {
-            var _this15 = this;
+            var _this16 = this;
 
             return this.snacks.filter(function (product) {
-                return product.id == _this15.snackSelected[num];
+                return product.id == _this16.snackSelected[num];
             });
         },
         infoDrink: function infoDrink(num) {
-            var _this16 = this;
+            var _this17 = this;
 
             return this.drinks.filter(function (product) {
-                return product.id == _this16.drinkSelected[num];
+                return product.id == _this17.drinkSelected[num];
             });
         },
 
@@ -57936,17 +57971,17 @@ new Vue({
     },
     computed: {
         infoTrip: function infoTrip() {
-            var _this17 = this;
+            var _this18 = this;
 
             return this.trips.filter(function (trip) {
-                return trip.id == _this17.tripSelected;
+                return trip.id == _this18.tripSelected;
             });
         },
         infoEvent: function infoEvent() {
-            var _this18 = this;
+            var _this19 = this;
 
             return this.events.filter(function (event) {
-                return event.id == _this18.eventSelected;
+                return event.id == _this19.eventSelected;
             });
         },
         setPrecioSnack: function setPrecioSnack(precio, num) {

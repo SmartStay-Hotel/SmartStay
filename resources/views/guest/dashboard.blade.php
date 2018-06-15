@@ -383,10 +383,13 @@
                 </div>
                 <p class="windowDesc">{{trans('smartstay.pet.description')}}</p>
                 <div class="windowContent">
-                    <input type="checkbox">{{trans('smartstay.pet.water')}}
-                    <input type="radio">{{trans('smartstay.pet.standardFood')}}
-                    <input type="radio">{{trans('smartstay.pet.premiumFood')}}
-                    {{trans('smartstay.pet.snacks')}}: <input type="hour">
+                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertPetCare">
+                    <input type="checkbox" name="petWater" v-model="petWater" value="water">{{trans('smartstay.pet.water')}}
+                    <input type="radio" name="petStandardFood" value="standard" v-model="petStandardFood">{{trans('smartstay.pet.standardFood')}}
+                    <input type="radio" name="petPremiumFood" value="premium" v-model="petPremiumFood">{{trans('smartstay.pet.premiumFood')}}
+                    <input type="checkbox" v-model="petSnacks" name="petSnacks" value="snacks">{{trans('smartstay.pet.snacks')}}
+                        <input type="submit">
+                    </form>
                 </div>
             </div>
 

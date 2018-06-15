@@ -152,6 +152,11 @@ toastr.options = {
             nD:1,
             showSnack:['true'],
 
+            petWater:"",
+            petStandardFood:"",
+            petPremiumFood:"",
+            petSnacks:"",
+
             errores: "",
             errorExists : false,
 
@@ -358,6 +363,36 @@ toastr.options = {
                     toastr.success("sdfsadf");
                 this.errores = error.response.data;
                 console.log("taxino no");
+
+            })
+            },
+            insertPetCare: function(){
+                var urlInsPetCare ='admin/service/petcare';
+                var water = 0;
+                var standard = 0;
+                var premium = 0;
+                var snacks = 0;
+                if(this.petWater != '') water=1;
+                if(this.petStandardFood !='') standard=1;
+                if(this.petPremiumFood != '') premium = 1;
+                if(this.snacks != '') snacks = 1;
+                axios.post(urlInsPetCare,{
+
+                    water: water,
+                    standard_food:standard,
+                    premium_food:premium,
+                    snacks: snacks
+
+
+                }).then(response=>{
+                    this.showResult = true;
+                toastr.success("adios");
+                console.log("correcto dogg");
+            }).catch(error=>{
+
+                    toastr.success("sdfsadf");
+                this.errores = error.response.data;
+                console.log("dooogg no");
 
             })
             },
