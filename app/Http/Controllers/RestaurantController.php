@@ -33,7 +33,7 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        $restaurants = Restaurant::paginate(3); //->orderBy('updated_at', 'desc')->get();
+        $restaurants = Restaurant::paginate(12); //->orderBy('updated_at', 'desc')->get();
 
         return view('services.restaurant.index', compact('restaurants'));
     }

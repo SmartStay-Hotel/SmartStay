@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 
 class PetCareController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *
@@ -32,7 +33,7 @@ class PetCareController extends Controller
      */
     public function index()
     {
-        $petcares = PetCare::paginate(3);
+        $petcares = PetCare::paginate(12);
 
         return view('services.petcare.index', compact('petcares'));
     }
@@ -76,7 +77,7 @@ class PetCareController extends Controller
             'guest_id' => 'required|numeric',
             'water'    => 'required_without_all:snacks,food|boolean',
             'snacks'   => 'required_without_all:water,food|boolean',
-            'food'     => 'required',
+            'food'     => 'required_without_all:water,snacks',
         ];
 
         $validator = Validator::make($input, $rules);
@@ -90,6 +91,9 @@ class PetCareController extends Controller
                 if (isset($input['food'])) {
                     $input['standard_food'] = ($input['food'] == 'standard_food') ? true : false;
                     $input['premium_food']  = ($input['food'] == 'premium_food') ? true : false;
+                } else {
+                    $input['standard_food'] = false;
+                    $input['premium_food']  = false;
                 }
 
                 $input['order_date'] = Carbon::today();
@@ -184,6 +188,9 @@ class PetCareController extends Controller
                 if (isset($input['food'])) {
                     $input['standard_food'] = ($input['food'] == 'standard_food') ? true : false;
                     $input['premium_food']  = ($input['food'] == 'premium_food') ? true : false;
+                } else {
+                    $input['standard_food'] = false;
+                    $input['premium_food']  = false;
                 }
                 //$input['order_date'] = Carbon::today();
                 //$input['status']     = 1;

@@ -33,7 +33,7 @@ class SpaAppointmentController extends Controller
      */
     public function index()
     {
-        $spaAppointments = SpaAppointment::paginate(3);
+        $spaAppointments = SpaAppointment::paginate(12);
 
         return view('services.spa.index', compact('spaAppointments'));
     }
@@ -223,7 +223,9 @@ class SpaAppointmentController extends Controller
     public function changeStatus($id)
     {
         $spa         = SpaAppointment::findOrFail($id);
+        ($spa->status == 2) ? Guest::reduceBalance($spa) : null;
         $spa->status = ($spa->status === '1') ? '2' : '1';
+        ($spa->status == 2) ? Guest::updateBalance($spa) : null;
         $spa->save();
 
         return response()->json($spa->status);

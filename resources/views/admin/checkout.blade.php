@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
-    <h2 id="checkOutTitle"><i class="fas fa-sign-out-alt" style="padding: 5px;"></i>Check out<a href="#"><i id="addGuest" class="fas fa-user-plus"></i></a></h2>
+    <h2 id="checkOutTitle"><i class="fas fa-sign-out-alt" style="padding: 5px;"></i>Check out</h2>
     <div class="flex-grid">
             @if (session('status'))
                 <div class="alert alert-success">

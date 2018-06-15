@@ -6,7 +6,7 @@
         <div class="flex-grid">
             <a href="{{ url('admin/checkin') }}" id="checkInBtn" class="btn btn-success">Check in</a>
             <a href="{{ url('admin/checkout') }}" id="checkOutBtn" class="btn btn-danger">Check out</a>
-            <a href="#" id="bookingsBtn" class="btn btn-info">Bookings</a>
+            <a href="{{ url('admin/statistics') }}" id="bookingsBtn" class="btn btn-info">Statistics</a>
             <a href="{{ route('guests.create') }}" class="btn btn-secondary" id="newBookingBtn">New Booking</a>
         </div>
     </div>
@@ -241,6 +241,7 @@
                         '<label class="container">' +
                         '<a href="' + data.goToShow.toLowerCase() + '">\n' +
                         '<span style="padding: 10px;">' + data.serviceName + '</span>\n' +
+                        '<span style="padding: 10px;">' + data.guestFullName + '</span>\n' +
                         '<span style="padding: 10px;">' + data.roomNumber + '</span>\n' +
                         '</a>\n' +
                         '<input type="checkbox"' + 'name="' + data.serviceName + '/' + data.orderId + '" checked >\n' +

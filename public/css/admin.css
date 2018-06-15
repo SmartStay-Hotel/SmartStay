@@ -390,6 +390,33 @@ main #formLayout{
     color: white;
 }
 
+/*STATISTICS*/
+
+#statisticsTitle{
+    padding: 10px;
+    color: white;
+    background-color: #138496;
+
+}
+
+#statisticsTableHeader{
+    background-color: #138496;
+    color: white;
+
+}
+
+#statisticsTable{
+    flex: 1;
+    background-color: white;
+    padding: 0px;
+    border-style: solid;
+    border-color: #138496;
+    border-bottom: #138496 20px solid;
+    font-size: 1vw;
+
+
+}
+
 /* NEW BOOKING*/
 
 #newBookingTitle{

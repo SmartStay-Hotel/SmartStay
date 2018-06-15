@@ -34,8 +34,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        //Pasarle más información!!! Es posible?
-        $events = Event::all();
+        $events = Event::paginate(12);
 
         return view('services.event.index', compact('events'));
     }
@@ -93,6 +92,10 @@ class EventController extends Controller
             $peopleGoing     = Event::getNumPeopleOnTheList($input['event_type_id']);
             $availablePlaces = $maxPeople - $peopleGoing;
             if ($availablePlaces < $input['people_num']) {
+                if ($request->ajax()) {
+                    return $availablePlaces;
+                }
+
                 return redirect()->route('event.create')->withErrors([
                     'Only ' . $availablePlaces . ' available places',
                 ]);
@@ -100,7 +103,6 @@ class EventController extends Controller
 
             try {
                 DB::beginTransaction();
-
 
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '0';

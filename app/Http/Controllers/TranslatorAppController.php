@@ -12,7 +12,7 @@ namespace App\Http\Controllers;
 use App\Services;
 use Dedicated\GoogleTranslate\Translator;
 
-class TranslatorAppController extends controller
+class TranslatorAppController extends Controller
 {
 
     /**

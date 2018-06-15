@@ -33,7 +33,7 @@ class AlarmController extends Controller
      */
     public function index()
     {
-        $alarms = Alarm::all();
+        $alarms = Alarm::paginate(12);
 
         return view('services.alarm.index', compact('alarms'));
     }

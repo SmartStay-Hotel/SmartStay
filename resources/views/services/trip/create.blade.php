@@ -32,9 +32,7 @@
             @endif
             <thead id="serviceTableHeader">
             <tr><h2 id="serviceTitle"><i class="fas fa-suitcase fa-xs" style="padding: 5px;"></i>Trip<a
-                            href="{{ route('trip.index') }}"><i
-                                id="addGuest" class="fas fa-user-plus fa-xs"
-                                style="padding-left: 70%; color: white; z-index: 1;"></i></a></h2>
+                            href="{{ route('trip.index') }}"></a></h2>
             </tr>
             @if (count($errors) > 0)
                 <div class="alert alert-danger">

@@ -51,6 +51,11 @@
             @endforeach
             </tbody>
         </table>
+        <p>
+        {{ $alarms->render() }}
+        <p>
+            <span id="eventTotal">{{ $alarms->total() }}</span> orders | page {{ $alarms->currentPage() }} of {{ $alarms->lastPage() }}
+        </p>
     </div>
 @endsection
 

@@ -34,9 +34,10 @@ class TripController extends Controller
      */
     public function index()
     {
-        $trips = Trip::all();
+        $trips = Trip::paginate(12);
+        $tripTypes = TripType::all();
 
-        return view('services.trip.index', compact('trips'));
+        return view('services.trip.index', compact('trips', 'tripTypes'));
     }
 
     /**
@@ -94,6 +95,9 @@ class TripController extends Controller
             $peopleGoing     = Trip::getNumPeopleOnTheList($input['trip_type_id']);
             $availablePlaces = $maxPeople - $peopleGoing;
             if ($availablePlaces < $input['people_num']) {
+                if ($request->ajax()) {
+                    return $availablePlaces;
+                }
                 return redirect()->route('trip.create')->withErrors([
                     'Only ' . $availablePlaces . ' available places',
                 ]);
@@ -175,7 +179,7 @@ class TripController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param \App\Trip                 $trip
      *
      * @return \Illuminate\Http\Response
      * @throws \Exception
@@ -197,6 +201,7 @@ class TripController extends Controller
             $maxPeople       = TripType::getMaxPeopleByEvent($input['trip_type_id']);
             $peopleGoing     = Trip::getNumPeopleOnTheList($input['trip_type_id']);
             $availablePlaces = $maxPeople - $peopleGoing;
+
             if ($availablePlaces < $input['people_num']) {
                 return redirect()->route('trip.edit', $trip->id)->withErrors([
                     'Only ' . $availablePlaces . ' available places',
@@ -204,8 +209,7 @@ class TripController extends Controller
             }
             try {
                 DB::beginTransaction();
-                //$input['order_date'] = Carbon::today();
-                //$input['status']     = 1;
+
                 $trip = Trip::find($trip->id);
                 $input['price']      = TripType::getPriceById($input['trip_type_id']) * $input['people_num'];
                 $trip->update($input);
@@ -254,7 +258,9 @@ class TripController extends Controller
     public function changeStatus($id)
     {
         $trip         = Trip::findOrFail($id);
+        ($trip->status == 2) ? Guest::reduceBalance($trip) : null;
         $trip->status = ($trip->status === '1') ? '2' : '1';
+        ($trip->status == 2) ? Guest::updateBalance($trip) : null;
         $trip->save();
 
         return response()->json($trip->status);
