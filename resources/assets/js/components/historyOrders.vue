@@ -10,19 +10,23 @@
 
                     <div v-for="order in paginatedData">
 
-                        <div class="historyItem">
-                            <div class="historyInfo">
+                        <div class="historyItem" >
+                            <div class="historyInfo" v-on:click="showInfoOrder(order.service_id, order.id)">
                             <p>{{order.serviceName}}</p>
                             <p class="historyDate">{{formatDate(order.order_date)}}</p>
                             </div>
                             <div class="historyCancel">
                                 <form method="POST" action="#" v-on:submit.prevent="deleteOrder(order.service_id, order.id)" accept-charset="UTF-8">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="c8nkxTiFO7LY9dNwy1W2y96J7Wgu9xlEMMYPrWNm">
+
                                 <button type="submit"><i class="far fa-times-circle"></i></button>
                                 </form>
                             </div>
+                            <!--<h2>{{infoServID[order.service_id]}} // {{infoOrderID[order.id]}}</h2>-->
                         </div>
+                        <div v-if="showInfo && infoServID == order.service_id && infoOrderID == order.id">
+                            <orderinfo v-bind:idServ="order.service_id" v-bind:order="order" @close="showInfo = false" @cancel="deleteOrder(order.service_id, order.id)"></orderinfo>
+                        </div>
+
                     </div>
                     <!--<li><p>Pedido 2 </p><i class="far fa-times-circle"></i></li>-->
                     <!--<li><p>Pedido 3 </p><i class="far fa-times-circle"></i></li>-->
@@ -45,6 +49,7 @@
 </template>
 
 <script>
+    import orderinfo from './modalOrder'
     import moment from 'moment'
     moment.lang('es')
     export default {
@@ -57,6 +62,10 @@
                 history: [],
                 pageNumber: 0,
                 endPage: 0,
+                showInfo:false,
+                infoServID:0,
+                infoOrderID:0,
+                num:0,
             }
         },
         methods: {
@@ -80,6 +89,15 @@
             formatDate:function(d){
                 return moment(d).fromNow();
             },
+            showInfoOrder:function(servid, ordid){
+                this.showInfo = true,
+                this.infoServID=servid,
+                this.infoOrderID=ordid
+            },
+            // closeInfoOrder:function(servid, ordid){
+            //     this.infoServID[servid]=false,
+            //     this.infoOrderID[ordid]=false
+            // },
             deleteOrder:function(idServ, idOrder){
                 var nameService = "";
                 switch (idServ) {
@@ -120,6 +138,7 @@
             }
         },
         computed:{
+
             paginatedData:function(){
                 const start = this.pageNumber * 5,
                     end = start + 5;
@@ -128,6 +147,9 @@
             }
 
         },
+        components:{
+            orderinfo
+        }
 
     }
 </script>

@@ -68,7 +68,7 @@
         </div>
     </housekeeping>
     <historyorders  v-if="showHistory" @close="showHistory = false"></historyorders>
-@{{$data}}
+{{--@{{$data}}--}}
 </div>
 
 <script type="text/javascript" src="{{asset('js/app.js') }}"></script>

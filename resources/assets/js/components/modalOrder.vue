@@ -1,37 +1,39 @@
 <template>
     
-</template<transition name="modal">
+<transition name="modal">
     <div class="modal-mask">
         <div class="modal-wrapper">
             <div class="modal-container">
                 <div class="modal-header">
                     <slot name="header">
-                        <p>Housekeeping</p>
+                        <button @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button>
+                        <p>{{order.serviceName}}</p>
                     </slot>
                 </div>
                 <div class="modal-body">
                     <slot name="body">
-                        <div class="menuOut"><input type="checkbox"> Bed Sheets</div>
-                        <div class="menuOut"><input type="checkbox"> Cleaning </div>
-                        <div class="menuOut"><input type="checkbox"> Minibar</div>
-                        <div class="menuOut"><input type="checkbox"> Blanket</div>
-                        <div class="menuOut"><input type="checkbox"> Toiletries</div>
-                        <div class="menuOut"><input type="checkbox"> Pillow</div>
+                        <div v-if="order.service_id==1">
+                            <p>Date booking: {{order.day_hour}}</p>
+                            <p>Quantity of persons: {{order.quantity}}</p>
+                            <p>Name of booking: {{order.guest_id}}</p>
+                        </div>
                     </slot>
                 </div>
 
                 <div class="modal-footer">
                     <slot name="footer">
 
-                        <button class="modal-default-button" @click="$emit('close')">
-                            OK
+                        <button class="modal-default-button" @click="$emit('cancel')">
+                            Cancel the order
                         </button>
                     </slot>
                 </div>
             </div>
         </div>
     </div>
-</transition>>
+</transition>
+</template>
+
 
 <script>
     export default {
