@@ -44,7 +44,7 @@
                             <span class="far fa-edit"></span>
                         </a>
                         {!! Form::open(['method' => 'DELETE','route' => ['alarm.destroy', $alarm->id], 'style'=>'display:inline']) !!}
-                        {!! Form::button('<span class="far fa-trash-alt"></span>', array('type' => 'submit', 'class' => 'delete-modal btn btn-danger')) !!}
+                        {!! Form::button('<span class="far fa-trash-alt"></span>', array('type' => 'submit', 'class' => 'btn-delete btn btn-danger')) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>
@@ -54,7 +54,7 @@
         <p>
         {{ $alarms->render() }}
         <p>
-            <span id="eventTotal">{{ $alarms->total() }}</span> orders | page {{ $alarms->currentPage() }} of {{ $alarms->lastPage() }}
+            <span id="alarmTotal">{{ $alarms->total() }}</span> orders | page {{ $alarms->currentPage() }} of {{ $alarms->lastPage() }}
         </p>
     </div>
 @endsection
@@ -70,23 +70,31 @@
                     toastr.options = {'closeButton': false, 'timeOut': false, 'closeOnHover': false};
                     toastr.warning('<div><button type="button" id="cancelBtn" class="btn btn-primary">Cancel</button><button type="button" id="okBtn" class="btn" style="margin: 0 8px 0 8px">Ok</button></div>', 'Is it already completed?');
 
-
                     $('#okBtn').click(function () {
                         $.get(route, function (response, state) {
                             $this.checked = true;
                             console.log("Completed " + response);
+                        }).fail(function () {
+                            toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                            toastr.warning('Something went wront', 'Alert!');
                         });
                     });
 
                     $('#cancelBtn, #toast-container').click(function () {
                         $this.checked = false;
                     });
+
                 } else {
                     $.get(route, function (response, state) {
                         console.log("In process " + response);
+                    }).fail(function () {
+                        $this.checked = true;
+                        toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
+                        toastr.warning('Something went wront', 'Alert!');
                     });
                 }
             });
+
             $('.btn-delete').click(function (e) {
                 var $this = this;
                 e.preventDefault();
@@ -111,7 +119,6 @@
             });
         });
     </script>
-
     <script>
         document.getElementsByClassName("itemDropdown")[0].style.color="white";
     </script>

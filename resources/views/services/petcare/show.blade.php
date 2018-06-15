@@ -46,30 +46,23 @@
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br>
                     <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
                     <strong>More Details: </strong><br/>
-                    <br/>
+                    <ul>
                     @if(!empty($petcare->water))
-                        <strong class="orders">Water: </strong>
-                        <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
-                               {{ ($petcare->water) ? 'checked' : "" }} onclick="return false;"/>
+                        <li class="orders"><strong>Water</strong></li>
                     @endif
 
                     @if(!empty($petcare->snacks))
-                        <strong class="orders">Snacks: </strong>
-                        <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
-                               {{ ($petcare->snacks) ? 'checked' : "" }} onclick="return false;"/>
+                        <li class="orders"><strong>Snacks</strong></li>
                     @endif
 
                     @if(!empty($petcare->standard_food))
-                        <strong class="orders">Standard Food: </strong>
-                        <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
-                               {{ ($petcare->standard_food) ? 'checked' : "" }} onclick="return false;"/>
+                        <li class="orders"><strong>Standard Food</strong></li>
                     @endif
 
                     @if(!empty($petcare->premium_food))
-                        <strong class="orders">Premium Food: </strong>
-                        <input type="checkbox" class="form-control details" id="bed_sheets" name="bed_sheets"
-                               {{ ($petcare->premium_food) ? 'checked' : "" }} onclick="return false;"/>
+                        <li class="orders"><strong>Premium Food</strong></li>
                     @endif
+                    </ul>
                 </fieldset>
             </tr>
         </table>

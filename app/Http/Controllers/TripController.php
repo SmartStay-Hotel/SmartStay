@@ -115,7 +115,7 @@ class TripController extends Controller
 
                 if ($request->ajax()) {
                     //$return = ['status' => true];
-                    return; //cambio para Cristian
+                    return;
                 } else {
                     $return = redirect()->route('trip.index')->with('status', 'Order added successfully.');
                 }
@@ -127,7 +127,7 @@ class TripController extends Controller
             // No pasó el validador
             if ($request->ajax()) {
                 //$return = ['status' => false];
-                //return; //cambio para Cristian
+                //return;
             } else {
                 $return = redirect()->route('trip.create')->withErrors($validator->getMessageBag());
             }

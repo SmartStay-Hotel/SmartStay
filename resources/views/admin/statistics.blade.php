@@ -97,15 +97,15 @@
                     datasets: [
                         {
                             label: "Total Checkout",
-                            borderColor: "#FFA54C",
-                            borderWidth:2,
-                            fill: false,
+                            backgroundColor: "rgba(255, 148, 77 ,0.2)",
+                            borderColor: "rgba(255, 148, 77)",
+                            borderWidth: 1,
                             data: dataPerDay,
                         }
                     ]
                 };
 
-                Chart.Line(canvasCheckout, {
+                Chart.Bar(canvasCheckout, {
                     data: data,
                     options: {
                         responsive: true,
@@ -182,38 +182,15 @@
                     datasets: [
                         {
                             label: "Total Orders Profit",
-                            backgroundColor: "rgba(153, 204, 0, 0.2)",
                             borderColor: "rgba(153, 204, 0)",
-                            borderWidth: 1,
+                            borderWidth: 2,
+                            fill: false,
                             data: dataPerDay,
                         }
                     ]
                 };
 
-              /*Chart.Bar(canvasLastOrdersBuyers, {
-                    data: data,
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            xAxes: [{
-                                barPercentage: 0.4,
-
-                            }],
-
-                            yAxes: [{
-                                ticks: {
-                                    stepSize: 1
-                                }
-                            }]
-                        }
-                    }
-
-                });*/
-
-               var ctx = canvasLastOrdersBuyers;
-                var myHorizontalBarChart = new Chart(ctx, {
-                    type: 'horizontalBar',
+              Chart.Line(canvasLastOrdersBuyers, {
                     data: data,
                     options: {
                         responsive: true,
