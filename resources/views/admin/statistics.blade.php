@@ -37,6 +37,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
     <script>
+        //FIRST CHART
         var canvas = document.getElementById('myChart');
         var data = {
             labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -83,31 +84,33 @@
     </script>
 
     <script>
+
+        // SECOND CHART
         var canvas = document.getElementById('myChart2');
         var data = {
             labels: ["January", "February", "March", "April", "May", "June", "July"],
             datasets: [
                 {
                     label: "Orders",
-                    backgroundColor: "rgba(75,192,192,0.2)",
-                    borderColor: "rgba(75,192,192)",
-                    borderWidth:1,
+                    borderColor: "#FFA54C",
+                    borderWidth:2,
                     data: [6, 15, 0, 20, 12, 16, 10],
+                    fill: false,
                 }
             ]
         };
 
-        function addData(){
-            myLineChart.data.datasets[0].data[5] = myLineChart.data.datasets[0].data[5] + 5;
-            myLineChart.update();
-        }
 
-        var option = {
-            showLines: true
-        };
-        var myLineChart = Chart.Bar(canvas,{
+        var myLineChart = Chart.Line(canvas,{
             data:data,
             options: {
+                title: {
+                    display: true,
+                    text: 'Custom Chart Title',
+                },
+                legend: {
+                    display: false,
+                },
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
@@ -129,29 +132,25 @@
     </script>
 
     <script>
+
+        // THIRD CHART
         var canvas = document.getElementById('myChart3');
         var data = {
             labels: ["January", "February", "March", "April", "May", "June", "July"],
             datasets: [
                 {
                     label: "Orders",
-                    backgroundColor: "rgba(75,192,192,0.2)",
-                    borderColor: "rgba(75,192,192)",
-                    borderWidth:1,
+                    borderColor: "#9F6FFF",
+                    borderWidth:2,
                     data: [6, 15, 0, 20, 12, 16, 10],
+                    steppedLine: true,
+                    fill: false,
                 }
             ]
         };
 
-        function addData(){
-            myLineChart.data.datasets[0].data[5] = myLineChart.data.datasets[0].data[5] + 5;
-            myLineChart.update();
-        }
 
-        var option = {
-            showLines: true
-        };
-        var myLineChart = Chart.Bar(canvas,{
+        var myLineChart = Chart.Line(canvas,{
             data:data,
             options: {
                 responsive: true,
@@ -175,30 +174,25 @@
     </script>
 
     <script>
-        var canvas = document.getElementById('myChart4');
+
+        // FOUTH CHART
         var data = {
             labels: ["January", "February", "March", "April", "May", "June", "July"],
             datasets: [
                 {
                     label: "Orders",
-                    backgroundColor: "rgba(75,192,192,0.2)",
-                    borderColor: "rgba(75,192,192)",
+                    backgroundColor: "rgba(153, 204, 0, 0.2)",
+                    borderColor: "rgba(153, 204, 0)",
                     borderWidth:1,
                     data: [6, 15, 0, 20, 12, 16, 10],
                 }
             ]
         };
 
-        function addData(){
-            myLineChart.data.datasets[0].data[5] = myLineChart.data.datasets[0].data[5] + 5;
-            myLineChart.update();
-        }
-
-        var option = {
-            showLines: true
-        };
-        var myLineChart = Chart.Bar(canvas,{
-            data:data,
+        var ctx = document.getElementById("myChart4").getContext('2d');
+        var myBarChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: data,
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
