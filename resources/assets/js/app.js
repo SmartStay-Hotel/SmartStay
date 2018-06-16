@@ -50,7 +50,7 @@ import moment from 'moment'
 
 
 import VueTinySlider from 'vue-tiny-slider';
-import { FulfillingBouncingCircleSpinner } from 'epic-spinners'
+import { AtomSpinner  } from 'epic-spinners'
 moment.lang('en');
 
 Vue.component('homeslider', require('./components/swiperHome.vue'))
@@ -70,37 +70,21 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
     var urlGetStatusRoom ='seeStatus';
     var urlChangeStatusRoom = 'changeStatus';
 
-toastr.options = {
-    "closeButton": true,
-    "debug": false,
-    "newestOnTop": false,
-    "progressBar": false,
-    "positionClass": "toast-top-right",
-    "preventDuplicates": false,
-    "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": false,
-    "extendedTimeOut": "3000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut",
-    "closeOnHover": false
-};
+
 
     new Vue({
         el: '#container',
         created: function(){
             this.stopLoadingScreen();
-        this.getServices();
-        this.getTrips();
-        this.getEvents();
-        this.getSpaTypes();
-        this.getStatusRoom();
-        this.actualDate();
-        this.getCheckOutDate();
-        this.getProductTypes();
-        this.getHistory();
+            this.getServices();
+            this.getTrips();
+            this.getEvents();
+            this.getSpaTypes();
+            this.getStatusRoom();
+            this.actualDate();
+            this.getCheckOutDate();
+            this.getProductTypes();
+            this.getHistory();
 
         // this.bttnMas();
         // this.setPriceTrip();
@@ -157,9 +141,11 @@ toastr.options = {
             nD:1,
             showSnack:['true'],
 
-            petWater:"",
-            petStandardFood:"",
-            petPremiumFood:"",
+            petWater:false,
+            petStandardFood:false,
+            petPremiumFood:false,
+            petSnacks:false,
+
             petSnacks:"",
 
             errores: "",
@@ -266,10 +252,11 @@ toastr.options = {
                 this.numDrinks=[0];
                 this.nD=1;
                 this.showSnack=['true'];
-                this.petWater="";
-                this.petStandardFood="";
-                this.petPremiumFood="";
-                this.petSnacks="";
+                this.petWater=false,
+                this.petStandardFood=false,
+                this.petPremiumFood=false,
+                this.petSnacks=false,
+                this.petFood=false,
                 this.errores= "";
                 this.errorExists = false;
                 this.errorDayHour = false;
@@ -283,7 +270,7 @@ toastr.options = {
 
             },
             showOut: function(){
-                axios.get(urlChangeStatusRoom)
+                axios.get(urlChangeStatusRoom);
                 this.showModalHK = true
 
             },
@@ -431,22 +418,33 @@ toastr.options = {
             },
             insertPetCare: function(){
                 var urlInsPetCare ='admin/service/petcare';
-                var water = 0;
-                var standard = 0;
-                var premium = 0;
-                var snacks = 0;
-                if(this.petWater != '') water=1;
-                if(this.petStandardFood !='') standard=1;
-                if(this.petPremiumFood != '') premium = 1;
-                if(this.snacks != '') snacks = 1;
+
+
+                if(this.petFood =='standard') this.petStandardFood=true;
+                if(this.petFood == 'premium') this.petPremiumFood = true;
+
+                if(this.water) this.water=1;
+                else{
+                    this.water=0;
+                }
+                if(this.petStandardFood)this.petStandardFood=1;
+                else{
+                    this.petStandardFood=0;
+                }
+                if(this.petPremiumFood)this.petPremiumFood=1;
+                else{
+                    this.petPremimFood=0;
+                }
+                if(this.petSnacks) this.petSnacks = 1;
+                else{
+                    this.petSnacks=0;
+                }
                 axios.post(urlInsPetCare,{
-
-                    water: water,
-                    standard_food:standard,
-                    premium_food:premium,
-                    snacks: snacks
-
-
+                    water: 1,
+                    food:1,
+                    standard_food:1,
+                    premium_food:0,
+                    snacks: 0
                 }).then(response=>{
                     this.showResult = true;
                 toastr.success("adios");
@@ -619,7 +617,7 @@ toastr.options = {
         },
         components: {
             'tiny-slider': VueTinySlider,
-            'load-screen':FulfillingBouncingCircleSpinner
+            'load-screen':AtomSpinner
             // 'serviceshome': serviceshome
         }
     });

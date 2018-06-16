@@ -71,12 +71,12 @@
         </div>
     </housekeeping>
     <historyorders  v-if="showHistory" @close="closeHistory"></historyorders>
-{{--@{{$data}}--}}
+@{{$data}}
     <transition name="fade-out">
     <div id="loadingScreen" v-if="loadingScreen">
         <h2>Welcome</h2>
         <load-screen
-                :animation-duration="4000"
+                :animation-duration="1000"
                 :size="60"
                 color="#ff1d5e"
         />

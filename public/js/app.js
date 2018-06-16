@@ -57550,7 +57550,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_tiny_slider__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_tiny_slider___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_tiny_slider__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_epic_spinners__ = __webpack_require__(176);
+var _data;
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /* ----------------------- REQUIRES ----------------------------------*/
 
@@ -57614,24 +57616,6 @@ Vue.component('confirmcancel', __webpack_require__(168));
 var urlGetStatusRoom = 'seeStatus';
 var urlChangeStatusRoom = 'changeStatus';
 
-toastr.options = {
-    "closeButton": true,
-    "debug": false,
-    "newestOnTop": false,
-    "progressBar": false,
-    "positionClass": "toast-top-right",
-    "preventDuplicates": false,
-    "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": false,
-    "extendedTimeOut": "3000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut",
-    "closeOnHover": false
-};
-
 new Vue({
     el: '#container',
     created: function created() {
@@ -57651,7 +57635,7 @@ new Vue({
 
     },
 
-    data: {
+    data: (_data = {
         loadingScreen: true,
 
         services: [],
@@ -57700,23 +57684,12 @@ new Vue({
         nD: 1,
         showSnack: ['true'],
 
-        petWater: "",
-        petStandardFood: "",
-        petPremiumFood: "",
-        petSnacks: "",
+        petWater: false,
+        petStandardFood: false,
+        petPremiumFood: false,
+        petSnacks: false
 
-        errores: "",
-        errorDayHour: false,
-        errorExists: false,
-        errorPlazas: false,
-
-        precioTotalSD: 0,
-
-        showCancelConfirm: false,
-
-        pedidoHecho: false
-
-    },
+    }, _defineProperty(_data, 'petSnacks', ""), _defineProperty(_data, 'errores', ""), _defineProperty(_data, 'errorDayHour', false), _defineProperty(_data, 'errorExists', false), _defineProperty(_data, 'errorPlazas', false), _defineProperty(_data, 'precioTotalSD', 0), _defineProperty(_data, 'showCancelConfirm', false), _defineProperty(_data, 'pedidoHecho', false), _data),
     methods: {
         falseLoadScreen: function falseLoadScreen() {
             this.loadingScreen = false;
@@ -57820,11 +57793,7 @@ new Vue({
             this.numDrinks = [0];
             this.nD = 1;
             this.showSnack = ['true'];
-            this.petWater = "";
-            this.petStandardFood = "";
-            this.petPremiumFood = "";
-            this.petSnacks = "";
-            this.errores = "";
+            this.petWater = false, this.petStandardFood = false, this.petPremiumFood = false, this.petSnacks = false, this.petFood = false, this.errores = "";
             this.errorExists = false;
             this.errorDayHour = false;
             this.precioTotalSD = 0;
@@ -57983,21 +57952,28 @@ new Vue({
             var _this15 = this;
 
             var urlInsPetCare = 'admin/service/petcare';
-            var water = 0;
-            var standard = 0;
-            var premium = 0;
-            var snacks = 0;
-            if (this.petWater != '') water = 1;
-            if (this.petStandardFood != '') standard = 1;
-            if (this.petPremiumFood != '') premium = 1;
-            if (this.snacks != '') snacks = 1;
+
+            if (this.petFood == 'standard') this.petStandardFood = true;
+            if (this.petFood == 'premium') this.petPremiumFood = true;
+
+            if (this.water) this.water = 1;else {
+                this.water = 0;
+            }
+            if (this.petStandardFood) this.petStandardFood = 1;else {
+                this.petStandardFood = 0;
+            }
+            if (this.petPremiumFood) this.petPremiumFood = 1;else {
+                this.petPremimFood = 0;
+            }
+            if (this.petSnacks) this.petSnacks = 1;else {
+                this.petSnacks = 0;
+            }
             axios.post(urlInsPetCare, {
-
-                water: water,
-                standard_food: standard,
-                premium_food: premium,
-                snacks: snacks
-
+                water: 1,
+                food: 1,
+                standard_food: 1,
+                premium_food: 0,
+                snacks: 0
             }).then(function (response) {
                 _this15.showResult = true;
                 toastr.success("adios");
@@ -58180,7 +58156,7 @@ new Vue({
     },
     components: {
         'tiny-slider': __WEBPACK_IMPORTED_MODULE_1_vue_tiny_slider___default.a,
-        'load-screen': __WEBPACK_IMPORTED_MODULE_2_epic_spinners__["a" /* FulfillingBouncingCircleSpinner */]
+        'load-screen': __WEBPACK_IMPORTED_MODULE_2_epic_spinners__["a" /* AtomSpinner */]
         // 'serviceshome': serviceshome
     }
 });
@@ -77632,13 +77608,13 @@ webpackContext.id = 174;
 /* unused harmony reexport BreedingRhombusSpinner */
 /* unused harmony reexport SwappingSquaresSpinner */
 /* unused harmony reexport ScalingSquaresSpinner */
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_13__components_lib_FulfillingBouncingCircleSpinner_vue___default.a; });
+/* unused harmony reexport FulfillingBouncingCircleSpinner */
 /* unused harmony reexport RadarSpinner */
 /* unused harmony reexport SelfBuildingSquareSpinner */
 /* unused harmony reexport SpringSpinner */
 /* unused harmony reexport LoopingRhombusesSpinner */
 /* unused harmony reexport HalfCircleSpinner */
-/* unused harmony reexport AtomSpinner */
+/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_19__components_lib_AtomSpinner_vue___default.a; });
 
 
 
@@ -90056,7 +90032,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.errores = error.response.data;
                 console.log("noot houseee no");
             });
-            this.$emit('close');
+            this.bedSheets = '', this.cleaning = '', this.minibar = '', this.blanket = '', this.toiletries = '', this.pillow = '', this.$emit('close');
         }
 
     }

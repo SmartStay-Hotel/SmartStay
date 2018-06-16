@@ -83,6 +83,12 @@
                 console.log("noot houseee no");
 
             })
+                    this.bedSheets ='',
+                    this.cleaning ='',
+                    this.minibar ='',
+                    this.blanket ='',
+                    this.toiletries ='',
+                    this.pillow ='',
                 this.$emit('close');
             }
 
