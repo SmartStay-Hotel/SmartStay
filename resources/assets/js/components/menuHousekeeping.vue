@@ -5,6 +5,7 @@
                 <div class="modal-container">
                     <div class="modal-header">
                         <slot name="header">
+                            <button @click="$emit('close')">X</button>
                             <p>Housekeeping</p>
                         </slot>
                     </div>

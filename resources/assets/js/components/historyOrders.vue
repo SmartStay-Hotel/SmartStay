@@ -138,6 +138,9 @@
                     case 8:
                         nameService = "taxi";
                         break;
+                    case 9:
+                        nameService = "housekeeping";
+                        break;
                     default:
                         nameService = "";
                 }

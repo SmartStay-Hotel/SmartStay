@@ -165,6 +165,7 @@ toastr.options = {
             errores: "",
             errorDayHour: false,
             errorExists : false,
+            errorPlazas:false,
 
             precioTotalSD: 0,
 

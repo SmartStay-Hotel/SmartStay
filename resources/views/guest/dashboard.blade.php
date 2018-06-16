@@ -428,17 +428,24 @@
                 <div class="windowTitle">
                     <button class="returnWindow " v-if="show" @click="showWindow(5)"><i
                                 class="fas fa-long-arrow-alt-left"></i></button>
-                    <h2>{{trans('smartstay.trips.name')}}</h2>
+                    <h2>@{{ services[5].name }}</h2>
                 </div>
-                <p class="windowDesc">{{trans('smartstay.trips.description')}}</p>
+                <p class="windowDesc">@{{ services[5].description }}</p>
                 <div class="windowContent row">
-                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertTrip">
-                    <label for="selTrips">
-                        {{trans('smartstay.trips.select')}}
-                    </label>
-                    <select name="selTrips" id="" v-model="tripSelected">
-                        <option v-for="trip in trips" v-bind:value="trip.id">@{{ trip.name }}</option>
-                    </select>
+                    <form class="attribOrder col-md-5" action="#" method="post" v-on:submit.prevent="insertTrip" id="formIns5">
+                        <div class="row">
+                            <label for="selTrips">
+                                {{trans('smartstay.trips.select')}}
+                            </label>
+                            <select name="selTrips" id="" v-model="tripSelected">
+                                <option v-for="trip in trips" v-bind:value="trip.id">@{{ trip.name }}</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
+                            <p class="errorForm col-md-12" v-if="errorPlazas">*La fecha debe ser entre @{{dataActualFormat}} y @{{ checkoutDateFormat }}</p>
+                        </div>
+
                     <label for="cantTrip">{{trans('smartstay.trips.numPersons')}}: </label><input type="number" min="1" v-model="numPersonsTrip">
 
                         <input type="submit">

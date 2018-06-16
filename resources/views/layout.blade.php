@@ -38,7 +38,9 @@
                 <a href="{{url('logout')}}"><i class="fas fa-power-off"></i></a>
             </div>
             <div id="subMenu2">
-                <i class="fas fa-history" @click="showHistory = !showHistory"></i>
+                <div id="bttnHistory">
+                    <i class="fas fa-history" @click="showHistory = !showHistory"></i>
+                </div>
                 <div id="inOut">
 
                     <label class="switch">
