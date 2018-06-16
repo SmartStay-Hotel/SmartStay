@@ -31,7 +31,7 @@
                 </div>
             @endif
             <thead id="serviceTableHeader">
-            <tr><h2 id="serviceTitle"><i class="fas fa-music fa-xs" style="padding: 5px;"></i>Event<a
+            <tr><h2 id="serviceTitle"><i class="fas fa-music" style="padding: 5px;"></i>Event<a
                             href="{{ route('event.index') }}"></a></h2>
             </tr>
             @if (count($errors) > 0)

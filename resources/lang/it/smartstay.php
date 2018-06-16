@@ -109,4 +109,7 @@ housekeeping
     'hk.pillow' => 'Cuscino',
 
 
+    /* layout.blade */
+    'layout.welcome' => 'Benvenuto',
+
 ];

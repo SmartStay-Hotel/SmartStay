@@ -65,7 +65,7 @@ class HousekeepingController extends Controller
      */
     public function store(Request $request)
     {
-        $input               = Input::all();
+        $input = Input::all();
         if ($request->ajax()) {
             if (Session::exists('guest_id')) {
                 $input['guest_id'] = Session::get('guest_id');
@@ -87,12 +87,12 @@ class HousekeepingController extends Controller
         if ($validator->passes()) {
             try {
                 DB::beginTransaction();
-                $input['bed_sheets'] = (isset($input['bed_sheets'])) ? true : false;
-                $input['cleaning']   = (isset($input['cleaning'])) ? true : false;
-                $input['minibar']    = (isset($input['minibar'])) ? true : false;
-                $input['blanket']    = (isset($input['blanket'])) ? true : false;
-                $input['toiletries'] = (isset($input['toiletries'])) ? true : false;
-                $input['pillow']     = (isset($input['pillow'])) ? true : false;
+                $input['bed_sheets'] = (isset($input['bed_sheets']) && $input['bed_sheets'] == true) ? true : false;
+                $input['cleaning']   = (isset($input['cleaning']) && $input['cleaning'] == true) ? true : false;
+                $input['minibar']    = (isset($input['minibar']) && $input['minibar'] == true) ? true : false;
+                $input['blanket']    = (isset($input['blanket']) && $input['blanket'] == true) ? true : false;
+                $input['toiletries'] = (isset($input['toiletries']) && $input['toiletries'] == true) ? true : false;
+                $input['pillow']     = (isset($input['pillow']) && $input['pillow'] == true) ? true : false;
                 $input['order_date'] = Carbon::today();
                 $input['status']     = '0';
                 $guest               = Guest::find($input['guest_id']);
@@ -169,7 +169,7 @@ class HousekeepingController extends Controller
     {
         $input = Input::all();
         $rules = [
-            'guest_id' => 'numeric',
+            'guest_id'   => 'numeric',
             'bed_sheets' => 'required_without_all:cleaning,minibar,blanket,toiletries,pillow|boolean',
             'cleaning'   => 'required_without_all:bed_sheets,minibar,blanket,toiletries,pillow|boolean',
             'minibar'    => 'required_without_all:bed_sheets,cleaning,blanket,toiletries,pillow|boolean',
@@ -182,13 +182,13 @@ class HousekeepingController extends Controller
         if ($validator->passes()) {
             try {
                 DB::beginTransaction();
-                $input['bed_sheets'] = (isset($input['bed_sheets'])) ? true : false;
-                $input['cleaning']   = (isset($input['cleaning'])) ? true : false;
-                $input['minibar']    = (isset($input['minibar'])) ? true : false;
-                $input['blanket']    = (isset($input['blanket'])) ? true : false;
-                $input['toiletries'] = (isset($input['toiletries'])) ? true : false;
-                $input['pillow']     = (isset($input['pillow'])) ? true : false;
-                $housekeeping = Housekeeping::find($id);
+                $input['bed_sheets'] = (isset($input['bed_sheets']) && $input['bed_sheets'] == true) ? true : false;
+                $input['cleaning']   = (isset($input['cleaning']) && $input['cleaning'] == true) ? true : false;
+                $input['minibar']    = (isset($input['minibar']) && $input['minibar'] == true) ? true : false;
+                $input['blanket']    = (isset($input['blanket']) && $input['blanket'] == true) ? true : false;
+                $input['toiletries'] = (isset($input['toiletries']) && $input['toiletries'] == true) ? true : false;
+                $input['pillow']     = (isset($input['pillow']) && $input['pillow'] == true) ? true : false;
+                $housekeeping        = Housekeeping::find($id);
                 $housekeeping->update($input);
                 DB::commit();
 
