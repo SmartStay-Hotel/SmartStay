@@ -370,11 +370,10 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
 
                 }).then(response=>{
                     this.showResult = true;
-                toastr.success("adios");
-                console.log("correcto trip");
+
             }).catch(error=>{
 
-                    toastr.success("sdfsadf");
+
                 this.errores = error.response.data;
                 console.log("tripppp no");
 
@@ -389,8 +388,6 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                 toastr.success("adios");
                 console.log("correcto eventtt");
             }).catch(error=>{
-
-                    toastr.success("sdfsadf");
                 this.errores = error.response.data;
                 console.log("evevevvent no");
 
@@ -421,7 +418,7 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                 axios.post(urlInsPetCare,{
                     food:this.petFood,
                     water:this.petWater,
-                    snacks:this:petSnacks
+                    snacks:this.petSnacks
                 }).then(response=>{
                     this.showResult = true;
                 toastr.success("adios");

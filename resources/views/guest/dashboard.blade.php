@@ -466,14 +466,11 @@
                             <p>{{trans('smartstay.trips.day')}}: @{{ item.day_week }}</p>
                             <p>{{trans('smartstay.trips.price')}}: @{{ setPriceTrip(item.price) }}</p>
                             </div>
-                            <img v-bind:src="item.image" alt="Trip image" class="col-md-5">
+                            {{--<img v-bind:src="item.image" alt="Trip image" class="col-md-5">--}}
 
                         </div>
 
-                    <div v-if="showResult">
-                        <p>Trip selected: @{{tripSelected}}</p>
-                        <p>Number: @{{numPersonsTrip}}</p>
-                    </div>
+
 
                 </div>
                 <div class="bttnSubmit">
