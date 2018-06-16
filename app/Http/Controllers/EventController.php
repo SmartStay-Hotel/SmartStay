@@ -66,7 +66,7 @@ class EventController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      * @throws \Exception
      */
     public function store(Request $request)
@@ -93,7 +93,7 @@ class EventController extends Controller
             $availablePlaces = $maxPeople - $peopleGoing;
             if ($availablePlaces < $input['people_num']) {
                 if ($request->ajax()) {
-                    return $availablePlaces;
+                    return ['eventPlaces' => $availablePlaces];
                 }
 
                 return redirect()->route('event.create')->withErrors([
