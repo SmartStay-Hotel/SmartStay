@@ -355,22 +355,28 @@ toastr.options = {
 
             },
             insertAlarm: function(){
-                var urlInsAlarm ='admin/service/alarm';
-                axios.post(urlInsAlarm,{
-                    day_hour: this.dayHourServ
+                if(this.dayHourServ<=this.dataActual){
+                    this.errorDayHour = true;
+                }else {
+                    this.errorDayHour = false;
+                    var urlInsAlarm = 'admin/service/alarm';
+                    axios.post(urlInsAlarm, {
+                        day_hour: this.dayHourServ
 
-                }).then(response=>{
-                    this.showResult = true;
+                    }).then(response => {
+                        this.pedidoHecho=true;
+
                     toastr.success("adios");
                     console.log("coorecto alaramaaa");
 
-            }).catch(error=>{
+                }).
+                    catch(error => {
 
-                    toastr.success("sdfsadf");
-                this.errores = error.response.data;
-                console.log("alarm no");
+                        this.errorExists = true;
+                    this.errores = error.response.data;
 
-            })
+                })
+                }
             },
             insertTrip: function(){
                 var urlInsTrip ='admin/service/trip';

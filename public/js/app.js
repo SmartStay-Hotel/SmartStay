@@ -57905,20 +57905,25 @@ new Vue({
         insertAlarm: function insertAlarm() {
             var _this11 = this;
 
-            var urlInsAlarm = 'admin/service/alarm';
-            axios.post(urlInsAlarm, {
-                day_hour: this.dayHourServ
+            if (this.dayHourServ <= this.dataActual) {
+                this.errorDayHour = true;
+            } else {
+                this.errorDayHour = false;
+                var urlInsAlarm = 'admin/service/alarm';
+                axios.post(urlInsAlarm, {
+                    day_hour: this.dayHourServ
 
-            }).then(function (response) {
-                _this11.showResult = true;
-                toastr.success("adios");
-                console.log("coorecto alaramaaa");
-            }).catch(function (error) {
+                }).then(function (response) {
+                    _this11.pedidoHecho = true;
 
-                toastr.success("sdfsadf");
-                _this11.errores = error.response.data;
-                console.log("alarm no");
-            });
+                    toastr.success("adios");
+                    console.log("coorecto alaramaaa");
+                }).catch(function (error) {
+
+                    _this11.errorExists = true;
+                    _this11.errores = error.response.data;
+                });
+            }
         },
         insertTrip: function insertTrip() {
             var _this12 = this;

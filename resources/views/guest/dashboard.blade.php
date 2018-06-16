@@ -395,13 +395,22 @@
                 </div>
                 <p class="windowDesc">@{{ services[3].description }}</p>
                 <div class="windowContent row">
-                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertAlarm">
-                        <label for="dateAlarm">{{trans('smartstay.alarm.date')}}</label>
-                        <input type="datetime-local" name="dateAlarm" v-model="dayHourServ"><br>
-
-                        <br>
-                        <input type="submit" name="{{trans('smartstay.dashboard.send')}}">
+                    <div class="col-md-12" style="display:flex;justify-content: center;"><label for="dateAlarm" style="width:auto; font-weight: bolder; text-transform: uppercase; font-size:150%;">{{trans('smartstay.alarm.date')}}</label></div>
+                    <form class="attribOrder col-md-12" style="display:flex;justify-content: center;" action="#" method="post" v-on:submit.prevent="insertAlarm" id="formIns3">
+                        <input type="datetime-local" name="dateAlarm" v-model="dayHourServ" style="border:none; border:1px solid gray; border-radius:5px;"><br>
                     </form>
+                    <div class="row">
+                        <transition name="fade">
+                            <div class="col-md-12" style="display:flex; justify-content: center; padding-top:2%;">
+                        {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
+                        <p class="errorForm errorDayHour" v-if="errorDayHour">*La fecha debe ser entre @{{dataActualFormat}} y @{{ checkoutDateFormat }}</p>
+                            </div>
+                        </transition>
+                    </div>
+                    <div class="col-md-12 bttnSubmit" style="justify-content: center; padding-top:2%">
+                        <button type="submit" v-if="!pedidoHecho" form="formIns3" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
+                        <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">¡Pedido completado!</button>
+                    </div>
                     <div v-if="showResult">
                         <p>{{trans('smartstay.alarm.hour')}}: @{{dayHourServ}}</p>
                     </div>
@@ -457,7 +466,7 @@
                             <p>{{trans('smartstay.trips.day')}}: @{{ item.day_week }}</p>
                             <p>{{trans('smartstay.trips.price')}}: @{{ setPriceTrip(item.price) }}</p>
                             </div>
-                            <img v-bind:src="item.image" alt="Trip" class="col-md-5">
+                            <img v-bind:src="item.image" alt="Trip image" class="col-md-5">
 
                         </div>
 
@@ -490,15 +499,22 @@
                         </div>
 
                     </form>
-                    <div class="" style="margin-top:4%;">
-                        <div class="col-md-5">
+                    <div class="col-md-12" style="margin-top:4%;">
+                        <div class="col-md-10">
                     <div class="windowInfo col-md-12" v-for="item in infoEvent" v-if="eventSelected != ''">
+                        <div class="col-md-6" >
+                            <img v-bind:src="item.image" style="width:100%" alt="Event image" class="col-md-5">
+                        </div>
+
+                        <div class="col-md-6">
                         <p>{{trans('smartstay.event.location')}}: @{{ item.location }}</p>
                         <p>{{trans('smartstay.event.day')}}: @{{ item.day_week }}</p>
+                        </div>
+
                     </div>
                         </div>
-                        <div class="bttnSubmit col-md-7" style="display:flex; align-items: flex-end;padding-top:5%;">
-                            <button type="submit" class="row" form="formIns6" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
+                        <div class="bttnSubmit col-md-2" style="display:flex; align-items: flex-end;padding-top:5%;">
+                            <button type="submit" style="width:100%" class="row" form="formIns6" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
                         </div>
                     </div>
                 </div>
