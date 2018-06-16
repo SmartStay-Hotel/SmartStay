@@ -20,7 +20,7 @@
                                 </div>
                             </div>
                             <div class="historyCancel" v-if="order.status==0">
-                                <form method="POST" action="#" v-on:submit.prevent="deleteOrder(order.service_id, order.id)" accept-charset="UTF-8">
+                                <form method="POST" action="#" v-on:submit.prevent="showConfirmCancel(order.service_id, order.id)" accept-charset="UTF-8">
 
                                 <button type="submit"><i class="far fa-times-circle"></i></button>
                                 </form>
@@ -29,6 +29,9 @@
                         </div>
                         <div v-if="showInfo && infoServID == order.service_id && infoOrderID == order.id">
                             <orderinfo v-bind:order="order" @close="showInfo = false" @cancel="deleteOrder(order.service_id, order.id)"></orderinfo>
+                        </div>
+                        <div v-if="confirmCancelOrder && infoServID == order.service_id && infoOrderID == order.id">
+                            <confirmcancel @yes-cancel="deleteOrder(order.service_id, order.id)" @no-cancel="confirmCancelOrder=false"></confirmcancel>
                         </div>
 
                     </div>
@@ -54,8 +57,9 @@
 
 <script>
     import orderinfo from './modalOrder'
+    import confirmcancel from './confirmCancel'
     import moment from 'moment'
-    moment.lang('es')
+    moment.lang('en')
     export default {
 
         created: function(){
@@ -70,6 +74,7 @@
                 infoServID:0,
                 infoOrderID:0,
                 num:0,
+                confirmCancelOrder:false,
             }
         },
         methods: {
@@ -95,6 +100,12 @@
                 this.showInfo = true,
                 this.infoServID=servid,
                 this.infoOrderID=ordid
+            },
+            showConfirmCancel:function(servid, ordid){
+                console.log("shooow confirm");
+                this.confirmCancelOrder = true,
+                    this.infoServID=servid,
+                    this.infoOrderID=ordid
             },
             // closeInfoOrder:function(servid, ordid){
             //     this.infoServID[servid]=false,
@@ -137,6 +148,7 @@
                         this.getHistory();
                     })
                 }
+                this.confirmCancelOrder = false
             }
         },
         computed:{
@@ -150,7 +162,8 @@
 
         },
         components:{
-            orderinfo
+            orderinfo,
+            confirmcancel
         }
 
     }

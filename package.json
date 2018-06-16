@@ -20,6 +20,7 @@
     "vue": "^2.5.7"
   },
   "dependencies": {
+    "epic-spinners": "^1.0.3",
     "laravel-vue-pagination": "^1.2.0",
     "moment": "^2.22.2",
     "swiper": "^4.3.3",

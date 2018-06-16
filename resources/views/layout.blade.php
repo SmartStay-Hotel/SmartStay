@@ -20,6 +20,7 @@
 </head>
 <body>
 <div id="container">
+
     <div id="header">
         <nav>
             <div id="nav1">
@@ -67,8 +68,18 @@
         <div class="menuOut"><input type="checkbox"> {{trans('smartstay.hk.pillow')}}</div>
         </div>
     </housekeeping>
-    <historyorders  v-if="showHistory" @close="showHistory = false"></historyorders>
+    <historyorders  v-if="showHistory" @close="closeHistory"></historyorders>
 {{--@{{$data}}--}}
+    <transition name="fade-out">
+    <div id="loadingScreen" v-if="loadingScreen">
+        <h2>Welcome</h2>
+        <load-screen
+                :animation-duration="2500"
+                :rhombus-size="15"
+                color="#ff1d5e"
+        />
+    </div>
+    </transition>
 </div>
 
 <script type="text/javascript" src="{{asset('js/app.js') }}"></script>

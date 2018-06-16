@@ -50,12 +50,14 @@ import moment from 'moment'
 
 
 import VueTinySlider from 'vue-tiny-slider';
-
+import { LoopingRhombusesSpinner } from 'epic-spinners'
+moment.lang('en');
 
 Vue.component('homeslider', require('./components/swiperHome.vue'))
 Vue.component('housekeeping', require('./components/menuHousekeeping.vue'));
 Vue.component('serviceshome', require('./components/servicesHome.vue'));
 Vue.component('historyorders', require('./components/historyOrders.vue'))
+Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
 // Vue.component('modal', {
 //     template: '#hola'
 // })
@@ -89,6 +91,7 @@ toastr.options = {
     new Vue({
         el: '#container',
         created: function(){
+            this.stopLoadingScreen();
         this.getServices();
         this.getTrips();
         this.getEvents();
@@ -106,6 +109,8 @@ toastr.options = {
         },
 
         data:{
+            loadingScreen:true,
+
             services:[],
             trips:[],
             events:[],
@@ -158,15 +163,23 @@ toastr.options = {
             petSnacks:"",
 
             errores: "",
+            errorDayHour: false,
             errorExists : false,
 
             precioTotalSD: 0,
 
-
+            showCancelConfirm: false,
 
 
         },
         methods:{
+            falseLoadScreen:function(){
+                this.loadingScreen = false;
+            },
+            stopLoadingScreen: function(){
+                setInterval(this.falseLoadScreen,5000);
+            },
+
             getServices: function(){
                 var urlServices = 'services';
                 axios.get(urlServices).then(response=>{
@@ -225,10 +238,44 @@ toastr.options = {
             },
 
             showWindow: function(num){
-                console.log("shoooow wind"+ num);
-                this.show = !this.show
-                this.window[num]=!this.window[num]
-                this.showResult = false
+                this.show = !this.show;
+                this.window[num]=!this.window[num];
+                this.showResult = false;
+
+                this.tripSelected="";
+                this.eventSelected="";
+                this.spaSelected="";
+                this.numPersonsTrip=1;
+                this.dayHourServ="";
+                this.quantityServ='';
+                this.hourTaxi='';
+                this.productSelected=[];
+                this.productCant=[];
+                this.productPrice=[];
+                this.snackSelected=[];
+                this.snackCant=[];
+                this.snackPrice=[];
+                this.drinkSelected=[];
+                this.drinkCant=[];
+                this.drinkPrice=[];
+                this.numSnacks=[];
+                this.nS=1;
+                this.numDrinks=[];
+                this.nD=1;
+                this.showSnack=['true'];
+                this.petWater="";
+                this.petStandardFood="";
+                this.petPremiumFood="";
+                this.petSnacks="";
+                this.errores= "";
+                this.errorExists = false;
+                this.errorDayHour = false;
+                this.precioTotalSD= 0;
+
+                this.actualDate();
+                this.getHistory();
+
+
 
             },
             showOut: function(){
@@ -250,7 +297,7 @@ toastr.options = {
                 if(hour<10) hour = "0" + hour;
                 if(day<10) day = "0"+ day;
                 if(minutes<10) minutes = "0" + minutes;
-                this.dataActual =  d.getFullYear()+"-"+month+"-"+d.getDate()+"T"+d.getHours()+":"+d.getMinutes()
+                this.dataActual =  d.getFullYear()+"-"+month+"-"+day+"T"+hour+":"+minutes
                 this.dayHourServ = this.dataActual
                 this.dataActualFormat = moment().format('YYYY-MM-DD, h:mm a');
 
@@ -258,44 +305,45 @@ toastr.options = {
             },
             insertRestaurant: function(){
                 if(this.dayHourServ<=this.dataActual){
-                    this.errorExists = true;
-                    console.log("holasdas");
+                    this.errorDayHour = true;
                 }else{
-                console.log("correctoo");
-
+                    this.errorDayHour = false;
                 var urlInsRest ='admin/service/restaurant';
                 axios.post(urlInsRest,{
                     day_hour: this.dayHourServ,
                     quantity: this.quantityServ
                 }).then(response=>{
+                    this.errorExists = false;
                     this.showResult = true;
-                    toastr.success("jeje");
+
                 }).catch(error=>{
-                        this.errorExists = true;
+                    this.errorExists = true;
                     this.errores = error.response.data;
 
                 })
                 }
+                this.getHistory();
                 // this.pruebaOrder=response.data;
             },
             insertSpa: function(){
-                var urlInsSpa ='admin/service/spa';
-                axios.post(urlInsSpa,{
-                    treatment_type_id: this.spaSelected,
-                    day_hour: this.dayHourServ
+                if(this.dayHourServ<=this.dataActual){
+                    this.errorDayHour = true;
+                }else {
+                    this.errorDayHour = false;
+                    var urlInsSpa = 'admin/service/spa';
+                    axios.post(urlInsSpa, {
+                        treatment_type_id: this.spaSelected,
+                        day_hour: this.dayHourServ
+                    }).then(response=> {
+                        this.showResult = true;
+                    this.errorExists = false;
+                }).
+                    catch(error=> {
+                        this.errorExists = true;
+                        this.errores = error.response.data;
+                })
+                }
 
-                }).then(response=>{
-                    this.showResult = true;
-                toastr.success("adios");
-                console.log("coorecto spapapa");
-
-            }).catch(error=>{
-
-                    toastr.success("sdfsadf");
-                this.errores = error.response.data;
-                console.log("alarm no sopasdoa");
-
-            })
             },
             insertAlarm: function(){
                 var urlInsAlarm ='admin/service/alarm';
@@ -426,6 +474,7 @@ toastr.options = {
                 return this.drinks.filter((product) => product.id==this.drinkSelected[num]);
             },
 
+
             getPriceProducts:function(){
                 var i = 0;
                 this.productPrice = [];
@@ -475,7 +524,50 @@ toastr.options = {
             //     this.precioTotalSD += parseInt(this.snackCant[num]);
             //         return "";
             // },
+            closeHistory:function(){
+                this.showHistory = false;
+                this.getHistory();
+            },
 
+            deleteOrder:function(idServ, idOrder){
+                var nameService = "";
+                switch (idServ) {
+                    case 1:
+                        nameService = "restaurant";
+                        break;
+                    case 2:
+                        nameService = "snackdrink";
+                        break;
+                    case 3:
+                        nameService = "spa";
+                        break;
+                    case 4:
+                        nameService = "alarm";
+                        break;
+                    case 5:
+                        nameService = "petcare";
+                        break;
+                    case 6:
+                        nameService = "trip";
+                        break;
+                    case 7:
+                        nameService = "event";
+                        break;
+                    case 8:
+                        nameService = "taxi";
+                        break;
+                    default:
+                        nameService = "";
+                }
+                if(nameService != ''){
+                    var urlDeleteOrder = "/admin/service/"+nameService+"/"+idOrder;
+
+                    axios.delete(urlDeleteOrder).then(response=>{
+                        this.getHistory();
+                })
+                }
+                this.showCancelConfirm = false;
+            },
 
 
 
@@ -489,8 +581,15 @@ toastr.options = {
                 return this.events.filter((event) => event.id==this.eventSelected);
             },
             infoSpa: function(){
-                return this.events.filter((event) => event.id==this.eventSelected);
+                return this.spaTypes.filter((spatype) => spatype.id==this.spaSelected);
             },
+            existsRestaurant:function(){
+                var exists = '';
+                var rest = this.history.filter((order) => order.service_id==1)
+                if(rest.length>0) exists = rest;
+                return rest;
+            },
+
             setPrecioSnack: function(precio, num){
                 this.snackPrice[num] = precio;
                 return precio;
@@ -501,9 +600,11 @@ toastr.options = {
             },
 
 
+
         },
         components: {
             'tiny-slider': VueTinySlider,
+            'load-screen':LoopingRhombusesSpinner
             // 'serviceshome': serviceshome
         }
     });
