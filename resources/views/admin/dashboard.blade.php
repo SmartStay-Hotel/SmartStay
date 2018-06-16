@@ -24,12 +24,12 @@
 
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body" id="newOrdersBody">
-                        <h5 class="card-title text-center">
-                            <span style="padding: 10px;">Service</span>
-                            <span>-</span>
-                            <span style="padding: 10px;">Customer</span>
-                            <span>-</span>
-                            <span style="padding: 10px;">Room Nr</span>
+                        <h5 class="card-title text-center flex-grid" style="border: none!important;">
+                            <div style="padding: 0px; flex: 2; margin-left: 10%;">Service</div>
+
+                            <div style="padding: 0px; flex: 2;">Customer</div>
+
+                            <div style="padding: 0px; flex: 2; margin-right: 10%;">Room Nr</div>
                         </h5>
 
                         <div id="test-list3">
@@ -37,15 +37,15 @@
 
                                 @foreach($services->sortBy('updated_at') as $service)
                                     @if($service->status == '0')
-                                        <li class="text-center">
+                                        <li class="text-center " >
                                             <label class="container">
-                                                <a style=""
+                                                <a class="flex-grid"
                                                    href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
-                                                    <span style="padding: 10px;">{{ $service->serviceName }}</span>
-                                                    <span style="padding: 10px;">-</span>
-                                                    <span style="padding: 10px;">{{ $service->guest->firstname }}</span>
-                                                    <span style="padding: 10px;">-</span>
-                                                    <span style="padding: 10px;">{{ $service->roomNumber }}</span>
+                                                    <div style="padding: 0px;">{{ $service->serviceName }}</div>
+                                                    <div style="padding: 0px;">-</div>
+                                                    <div style="padding: 0px;">{{ $service->guest->firstname }}</div>
+                                                    <div style="padding: 0px;">-</div>
+                                                    <div style="padding: 0px;">{{ $service->roomNumber }}</div>
 
                                                 </a>
                                                 <input type="checkbox"

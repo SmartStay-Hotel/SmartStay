@@ -20,6 +20,7 @@
 </head>
 <body>
 <div id="container">
+
     <div id="header">
         <nav>
             <div id="nav1">
@@ -37,7 +38,9 @@
                 <a href="{{url('logout')}}"><i class="fas fa-power-off"></i></a>
             </div>
             <div id="subMenu2">
-                <i class="fas fa-history" @click="showHistory = !showHistory"></i>
+                <div id="bttnHistory">
+                    <i class="fas fa-history" @click="showHistory = !showHistory"></i>
+                </div>
                 <div id="inOut">
 
                     <label class="switch">
@@ -55,7 +58,7 @@
         @yield('content')
     </div>
     </transition>
-@{{ $data }}
+
 
     <housekeeping v-if="!statusRoom && showModalHK" @close="showModalHK = false">
         <div slot="body">
@@ -67,8 +70,18 @@
         <div class="menuOut"><input type="checkbox"> {{trans('smartstay.hk.pillow')}}</div>
         </div>
     </housekeeping>
-    <historyorders  v-if="showHistory" @close="showHistory = false"></historyorders>
-
+    <historyorders  v-if="showHistory" @close="closeHistory"></historyorders>
+{{--@{{$data}}--}}
+    <transition name="fade-out">
+    <div id="loadingScreen" v-if="loadingScreen">
+        <h2>Welcome</h2>
+        <load-screen
+                :animation-duration="4000"
+                :size="60"
+                color="#ff1d5e"
+        />
+    </div>
+    </transition>
 </div>
 
 <script type="text/javascript" src="{{asset('js/app.js') }}"></script>

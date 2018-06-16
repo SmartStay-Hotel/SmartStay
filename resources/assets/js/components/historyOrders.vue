@@ -7,45 +7,177 @@
             </div>
             <div id="historyContent">
                 <!--<p v-for="order in history">{{order.guest_id}}</p>-->
-                <ul id="historyList">
-                    <li><p>Pedido 1 </p><i class="far fa-times-circle"></i></li>
-                    <li><p>Pedido 2 </p><i class="far fa-times-circle"></i></li>
-                    <li><p>Pedido 3 </p><i class="far fa-times-circle"></i></li>
-                    <li><p>Pedido 4 </p><i class="far fa-times-circle"></i></li>
-                    <li><p>Pedido 5 </p><i class="far fa-times-circle"></i></li>
-                </ul>
-            </div>
-            <div id="historyPage">
+
+                    <div v-for="order in paginatedData">
+
+                        <div class="historyItem" >
+                            <div class="historyInfo" v-on:click="showInfoOrder(order.service_id, order.id)">
+                            <p>{{order.serviceName}}</p>
+                                <div class="historySubInfo">
+                            <p class="historyDate">{{formatDate(order.created_at)}}</p>
+                                <p v-if="order.status==1" style="margin-left:3%">In process</p>
+                                <p v-if="order.status==2" style="color:green; margin-left:3%">Completed</p>
+                                </div>
+                            </div>
+                            <div class="historyCancel" v-if="order.status==0">
+                                <form method="POST" action="#" v-on:submit.prevent="showConfirmCancel(order.service_id, order.id)" accept-charset="UTF-8">
+
+                                <button type="submit"><i class="far fa-times-circle"></i></button>
+                                </form>
+                            </div>
+                            <!--<h2>{{infoServID[order.service_id]}} // {{infoOrderID[order.id]}}</h2>-->
+                        </div>
+                        <div v-if="showInfo && infoServID == order.service_id && infoOrderID == order.id">
+                            <orderinfo v-bind:order="order" @close="showInfo = false" @cancel="deleteOrder(order.service_id, order.id)"></orderinfo>
+                        </div>
+                        <div v-if="confirmCancelOrder && infoServID == order.service_id && infoOrderID == order.id">
+                            <confirmcancel @yes-cancel="deleteOrder(order.service_id, order.id)" @no-cancel="confirmCancelOrder=false"></confirmcancel>
+                        </div>
+
+                    </div>
+                    <!--<li><p>Pedido 2 </p><i class="far fa-times-circle"></i></li>-->
+                    <!--<li><p>Pedido 3 </p><i class="far fa-times-circle"></i></li>-->
+                    <!--<li><p>Pedido 4 </p><i class="far fa-times-circle"></i></li>-->
 
             </div>
+            <div id="historyPage">
+                <button @click="prevPage" class="historyButton">
+                    <
+                </button>
+                <button @click="nextPage" class="historyButton">
+                    >
+                </button>
+            </div>
         </div>
+<!--{{$data}}-->
         </div>
+
     </transition>
 </template>
 
 <script>
+    import orderinfo from './modalOrder'
+    import confirmcancel from './confirmCancel'
+    import moment from 'moment'
+    moment.lang('en')
     export default {
+
         created: function(){
             this.getHistory();
         },
         data: function(){
             return {
                 history: [],
-
+                pageNumber: 0,
+                endPage: 0,
+                showInfo:false,
+                infoServID:0,
+                infoOrderID:0,
+                num:0,
+                confirmCancelOrder:false,
             }
         },
         methods: {
             getHistory: function () {
-                var urlHistory = 'orderListRestaurant';
+                var urlHistory = 'orderHistory';
                 axios.get(urlHistory).then(response=>{
                     this.history = response.data
             });
+            },
+            nextPage:function(){
+                if(this.endPage < this.history.length){ this.pageNumber++; }
+
+            },
+            prevPage:function(){
+                if(this.pageNumber > 0) {
+                    this.pageNumber--;
+                }
+            },
+            formatDate:function(d){
+                return moment(d).fromNow();
+            },
+            showInfoOrder:function(servid, ordid){
+                this.showInfo = true,
+                this.infoServID=servid,
+                this.infoOrderID=ordid
+            },
+            showConfirmCancel:function(servid, ordid){
+                console.log("shooow confirm");
+                this.confirmCancelOrder = true,
+                    this.infoServID=servid,
+                    this.infoOrderID=ordid
+            },
+            // closeInfoOrder:function(servid, ordid){
+            //     this.infoServID[servid]=false,
+            //     this.infoOrderID[ordid]=false
+            // },
+            deleteOrder:function(idServ, idOrder){
+                var nameService = "";
+                switch (idServ) {
+                    case 1:
+                        nameService = "restaurant";
+                        break;
+                    case 2:
+                        nameService = "snackdrink";
+                        break;
+                    case 3:
+                        nameService = "spa";
+                        break;
+                    case 4:
+                        nameService = "alarm";
+                        break;
+                    case 5:
+                        nameService = "petcare";
+                        break;
+                    case 6:
+                        nameService = "trip";
+                        break;
+                    case 7:
+                        nameService = "event";
+                        break;
+                    case 8:
+                        nameService = "taxi";
+                        break;
+                    case 9:
+                        nameService = "housekeeping";
+                        break;
+                    default:
+                        nameService = "";
+                }
+                if(nameService != ''){
+                    var urlDeleteOrder = "/admin/service/"+nameService+"/"+idOrder;
+
+                    axios.delete(urlDeleteOrder).then(response=>{
+                        this.getHistory();
+                    })
+                }
+                this.confirmCancelOrder = false
             }
+        },
+        computed:{
+
+            paginatedData:function(){
+                const start = this.pageNumber * 5,
+                    end = start + 5;
+                this.endPage = end;
+                return this.history.slice(start, end);
+            }
+
+        },
+        components:{
+            orderinfo,
+            confirmcancel
         }
+
     }
 </script>
 
 <style scoped>
+
+    #historyContainer * {
+        /*border:1px solid red;*/
+
+    }
     #historyContainer{
 
         display:flex;
@@ -76,23 +208,67 @@
     #historyTitle button:hover{
         color: var(--colorSecond);
      }
-    #historyList{
-        list-style-type:none;
-    }
-    #historyList > li{
+    /*#historyList{*/
+        /*list-style-type:none;*/
+    /*}*/
+    /*#historyList > li{*/
 
-        padding: 2% 3% 1% 3%;
+        /*padding: 2% 3% 1% 3%;*/
+        /*border-bottom:1px solid gray;*/
+        /*margin-top:1%;*/
+        /*display:flex;*/
+        /*justify-content: space-between;*/
+    /*}*/
+    /*#historyList > li > i {*/
+        /*font-size:150%;*/
+        /*color:red;*/
+    /*}*/
+    /*#historyList > li > i:hover {*/
+
+        /*color:black;*/
+    /*}*/
+    .historyItem{
         border-bottom:1px solid gray;
-        margin-top:1%;
-        display:flex;
-        justify-content: space-between;
+        padding:2% 5%;
     }
-    #historyList > li > i {
-        font-size:150%;
-        color:red;
-    }
-    #historyList > li > i:hover {
+    .historyInfo{
+        width:92%;
 
-        color:black;
+    }
+    .historyCancel{
+        width:8%;
+        font-size:100%;
+        display:flex;
+        justiy-content:center;
+        align-items:center;
+    }
+    /*.historyCancel>i{*/
+        /*width:100%;*/
+        /*height:100%;*/
+        /*margin:0px;*/
+        /**/
+    /*}*/
+    .historyItem p{
+        margin:0px;
+    }
+    .historyItem{
+        display:flex;
+    }
+    .historyItem:hover{
+        background-color:var(--colorBody);
+    }
+
+    .historyButton{
+        margin:0px;
+        width:50%;
+        border:none;
+    }
+    #historyPage{
+        display:flex;
+        justify-content:space-around;
+    }
+    .historySubInfo{
+        font-size:75%;
+        display:flex;
     }
 </style>
