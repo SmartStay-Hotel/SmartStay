@@ -57815,9 +57815,9 @@ new Vue({
             this.drinkSelected = [];
             this.drinkCant = [];
             this.drinkPrice = [];
-            this.numSnacks = [];
+            this.numSnacks = [0];
             this.nS = 1;
-            this.numDrinks = [];
+            this.numDrinks = [0];
             this.nD = 1;
             this.showSnack = ['true'];
             this.petWater = "";
@@ -58175,7 +58175,7 @@ new Vue({
     },
     components: {
         'tiny-slider': __WEBPACK_IMPORTED_MODULE_1_vue_tiny_slider___default.a,
-        'load-screen': __WEBPACK_IMPORTED_MODULE_2_epic_spinners__["a" /* LoopingRhombusesSpinner */]
+        'load-screen': __WEBPACK_IMPORTED_MODULE_2_epic_spinners__["a" /* FulfillingBouncingCircleSpinner */]
         // 'serviceshome': serviceshome
     }
 });
@@ -77627,11 +77627,11 @@ webpackContext.id = 174;
 /* unused harmony reexport BreedingRhombusSpinner */
 /* unused harmony reexport SwappingSquaresSpinner */
 /* unused harmony reexport ScalingSquaresSpinner */
-/* unused harmony reexport FulfillingBouncingCircleSpinner */
+/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_13__components_lib_FulfillingBouncingCircleSpinner_vue___default.a; });
 /* unused harmony reexport RadarSpinner */
 /* unused harmony reexport SelfBuildingSquareSpinner */
 /* unused harmony reexport SpringSpinner */
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_17__components_lib_LoopingRhombusesSpinner_vue___default.a; });
+/* unused harmony reexport LoopingRhombusesSpinner */
 /* unused harmony reexport HalfCircleSpinner */
 /* unused harmony reexport AtomSpinner */
 

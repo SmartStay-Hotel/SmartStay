@@ -434,32 +434,41 @@
                 <div class="windowContent row">
                     <form class="attribOrder col-md-5" action="#" method="post" v-on:submit.prevent="insertTrip" id="formIns5">
                         <div class="row">
-                            <label for="selTrips">
+                            <label for="selTrips" class="col-md-6">
                                 {{trans('smartstay.trips.select')}}
                             </label>
-                            <select name="selTrips" id="" v-model="tripSelected">
+                            <select name="selTrips" id="" v-model="tripSelected" class="col-md-6" style="width:50%;">
                                 <option v-for="trip in trips" v-bind:value="trip.id">@{{ trip.name }}</option>
                             </select>
                         </div>
                         <div class="row">
                             {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
-                            <p class="errorForm col-md-12" v-if="errorPlazas">*La fecha debe ser entre @{{dataActualFormat}} y @{{ checkoutDateFormat }}</p>
+                            <p class="errorForm col-md-12" v-if="errorPlazas">*Faltan plazas</p>
+                        </div>
+                        <div class="row">
+                    <label for="cantTrip" class="col-md-6" style="width:40%;">{{trans('smartstay.trips.numPersons')}}: </label>
+                            <input type="number" min="1" class="col-md-6" v-model="numPersonsTrip">
                         </div>
 
-                    <label for="cantTrip">{{trans('smartstay.trips.numPersons')}}: </label><input type="number" min="1" v-model="numPersonsTrip">
-
-                        <input type="submit">
-                        <div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">
+                    </form>
+                        <div class="windowInfo col-md-7" v-for="item in infoTrip" v-if="tripSelected != ''">
+                            <div class="col-md-7">
                             <p>{{trans('smartstay.trips.location')}}: @{{ item.location }}</p>
                             <p>{{trans('smartstay.trips.day')}}: @{{ item.day_week }}</p>
                             <p>{{trans('smartstay.trips.price')}}: @{{ setPriceTrip(item.price) }}</p>
+                            </div>
+                            <img v-bind:src="item.image" alt="Trip" class="col-md-5">
 
                         </div>
-                    </form>
+
                     <div v-if="showResult">
                         <p>Trip selected: @{{tripSelected}}</p>
                         <p>Number: @{{numPersonsTrip}}</p>
                     </div>
+
+                </div>
+                <div class="bttnSubmit">
+                    <button type="submit" form="formIns5" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
                 </div>
             </div>
             <div class="windowService" v-if="window[6]">
@@ -468,23 +477,30 @@
                     </button>
                     <h2>@{{ services[6].name }}</h2>
                 </div>
-
-
                 <p class="windowDesc">@{{ services[6].description }}</p>
                 <div class="windowContent row">
-                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertEvent">
-                        <label for="selEvent">
+                    <form class="attribOrder col-md-12" action="#" method="post" v-on:submit.prevent="insertEvent">
+                        <div class="row" >
+                        <label for="selEvent" class="col-md-6" style="width:40%;">
                             {{trans('smartstay.event.selectEvent')}}
                         </label>
-                        <select name="selEvent" v-model="eventSelected">
+                        <select name="selEvent" v-model="eventSelected" class="col-md-6" style="width:50%;">
                             <option v-for="event in events" v-bind:value="event.id">@{{ event.name }}</option>
                         </select>
-                        <input type="submit">
-                        <div class="windowInfo" v-for="item in infoEvent" v-if="eventSelected != ''">
-                            <p>{{trans('smartstay.event.location')}}: @{{ item.location }}</p>
-                            <p>{{trans('smartstay.event.day')}}: @{{ item.day_week }}</p>
                         </div>
+
                     </form>
+                    <div class="" style="margin-top:4%;">
+                        <div class="col-md-5">
+                    <div class="windowInfo col-md-12" v-for="item in infoEvent" v-if="eventSelected != ''">
+                        <p>{{trans('smartstay.event.location')}}: @{{ item.location }}</p>
+                        <p>{{trans('smartstay.event.day')}}: @{{ item.day_week }}</p>
+                    </div>
+                        </div>
+                        <div class="bttnSubmit col-md-7" style="display:flex; align-items: flex-end;padding-top:5%;">
+                            <button type="submit" class="row" form="formIns6" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="windowService" v-if="window[7]">

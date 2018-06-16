@@ -76,8 +76,8 @@
     <div id="loadingScreen" v-if="loadingScreen">
         <h2>Welcome</h2>
         <load-screen
-                :animation-duration="2500"
-                :rhombus-size="15"
+                :animation-duration="4000"
+                :size="60"
                 color="#ff1d5e"
         />
     </div>

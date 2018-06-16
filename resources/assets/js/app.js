@@ -50,7 +50,7 @@ import moment from 'moment'
 
 
 import VueTinySlider from 'vue-tiny-slider';
-import { LoopingRhombusesSpinner } from 'epic-spinners'
+import { FulfillingBouncingCircleSpinner } from 'epic-spinners'
 moment.lang('en');
 
 Vue.component('homeslider', require('./components/swiperHome.vue'))
@@ -261,9 +261,9 @@ toastr.options = {
                 this.drinkSelected=[];
                 this.drinkCant=[];
                 this.drinkPrice=[];
-                this.numSnacks=[];
+                this.numSnacks=[0];
                 this.nS=1;
-                this.numDrinks=[];
+                this.numDrinks=[0];
                 this.nD=1;
                 this.showSnack=['true'];
                 this.petWater="";
@@ -613,7 +613,7 @@ toastr.options = {
         },
         components: {
             'tiny-slider': VueTinySlider,
-            'load-screen':LoopingRhombusesSpinner
+            'load-screen':FulfillingBouncingCircleSpinner
             // 'serviceshome': serviceshome
         }
     });
