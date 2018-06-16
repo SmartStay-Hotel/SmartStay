@@ -54,12 +54,8 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('services', 'TranslatorAppController@services');
 
 
-    Route::get('trips', function () {
-        return \App\TripType::get();
-    });
-    Route::get('events', function () {
-         return \App\EventType::get();
-    });
+    Route::get('trips', 'TranslatorAppController@trips');
+    Route::get('events', 'TranslatorAppController@events');
 
     Route::get('spas', function () {
         return \App\SpaTreatmentType::get();

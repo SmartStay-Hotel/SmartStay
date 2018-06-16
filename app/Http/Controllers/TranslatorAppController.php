@@ -9,7 +9,9 @@
 namespace App\Http\Controllers;
 
 
+use App\EventType;
 use App\Services;
+use App\TripType;
 use Dedicated\GoogleTranslate\Translator;
 
 class TranslatorAppController extends Controller
@@ -29,7 +31,7 @@ class TranslatorAppController extends Controller
         $locale     = app()->getLocale();
         if ($array != null) {
             $result = $translator->setSourceLang('en')
-                ->setTargetLang($locale)
+                ->setTargetLang('it')
                 ->translate($array->toJson());
         } elseif ($string != null) {
             $result = $translator->setSourceLang('en')
@@ -46,14 +48,16 @@ class TranslatorAppController extends Controller
      */
     public function services()
     {
+        //no va 'ca'
         if (app()->getLocale() != 'en') {
             $data = Services::get(['name', 'description']);
             $data = self::translate($data);
             $data = htmlspecialchars_decode($data);
             $data = json_decode($data, true);
-            if ($data == null){
+            if ($data == null) {
                 return Services::get();
             }
+            $trans = [];
             foreach ($data as $k => $v) {
                 $values = [];
                 foreach ($v as $key => $field) {
@@ -72,6 +76,80 @@ class TranslatorAppController extends Controller
         }
 
         return $services;
+    }
+
+    /**
+     * @return mixed
+     * @throws \Dedicated\GoogleTranslate\TranslateException
+     */
+    public function trips()
+    {
+        //no va 'es'
+        if (app()->getLocale() != 'en') {
+            $data = TripType::get(['name', 'location', 'day_week']);
+            $data = self::translate($data);
+            $data = htmlspecialchars_decode($data);
+            $data = json_decode($data, true);
+            if ($data == null) {
+                return TripType::get();
+            }
+            $trans = [];
+            foreach ($data as $k => $v) {
+                $values = [];
+                foreach ($v as $key => $field) {
+                    $values[] = $v[$key];
+
+                }
+                $trans[] = $values;
+            }
+            $trips = TripType::get();
+            foreach ($trips as $key => $service) {
+                $service->name     = $trans[$key][0];
+                $service->location = $trans[$key][1];
+                $service->day_week = $trans[$key][1];
+            }
+        } else {
+            $trips = TripType::get();
+        }
+
+        return $trips;
+    }
+
+    /**
+     * @return mixed
+     * @throws \Dedicated\GoogleTranslate\TranslateException
+     */
+    public function events()
+    {
+        dd(EventType::get());
+        if (app()->getLocale() != 'en') {
+            $data = EventType::get(['name', 'location', 'day_week']);
+            $data = self::translate($data);
+            $data = htmlspecialchars_decode($data);
+            $data = json_decode($data, true);
+            if ($data == null) {
+                return EventType::get();
+            }
+            $trans = [];
+            foreach ($data as $k => $v) {
+                $values = [];
+                foreach ($v as $key => $field) {
+                    $values[] = $v[$key];
+
+                }
+                $trans[] = $values;
+            }
+            $events = EventType::get();
+            foreach ($events as $key => $service) {
+                $service->name     = $trans[$key][0];
+                $service->location = $trans[$key][1];
+                $service->day_week = $trans[$key][1];
+            }
+        } else {
+            $events = EventType::get();
+        }
+
+        return $events;
     }
 
 }
