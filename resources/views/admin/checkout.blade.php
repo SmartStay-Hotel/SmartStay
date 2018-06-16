@@ -33,11 +33,13 @@
                     <td>{{ $guest->checkin_date }}</td>
                     <td>{{ $guest->checkout_date }}</td>
                     <td>{{ $guest->number }}</td>
-                    <th scope="row">{{ $guest->balance }}</th>
-                    <td class="text-center">
-                        <a href="{{ route('summary.pdf', $guest->id) }}" target="_blank" class="edit-modal btn btn-info">
-                            <span class="fas fa-file-pdf"></span>
-                        </a>
+                    <td scope="row">{{ $guest->balance }}</td>
+                    <td class="text-right">
+                        @if($guest->balance > 0)
+                            <a href="{{ route('summary.pdf', $guest->rooms[0]->id) }}" target="_blank" class="edit-modal btn btn-info">
+                                <span class="fas fa-file-pdf"></span>
+                            </a>
+                        @endif
                         {!! Form::open(['method' => 'DELETE','route' => ['guests.destroy', $guest->id], 'style'=>'display:inline']) !!}
                         {!! Form::button('Checkout', array('type' => 'submit', 'class' => 'btn-delete btn btn-danger', 'id' => 'exitBtn')) !!}
                         {!! Form::close() !!}
