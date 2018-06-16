@@ -426,8 +426,8 @@
                 <div class="windowContent">
                     <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertPetCare">
                     <input type="checkbox" name="petWater" v-model="petWater" value="water">{{trans('smartstay.pet.water')}}
-                    <input type="radio" name="petFood" value="standard" v-model="petFood">{{trans('smartstay.pet.standardFood')}}
-                    <input type="radio" name="petFood" value="premium" v-model="petFood">{{trans('smartstay.pet.premiumFood')}}
+                    <input type="radio" name="petFood" value="standard_food" v-model="petFood">{{trans('smartstay.pet.standardFood')}}
+                    <input type="radio" name="petFood" value="premium_food" v-model="petFood">{{trans('smartstay.pet.premiumFood')}}
                     <input type="checkbox" v-model="petSnacks" name="petSnacks" value="snacks">{{trans('smartstay.pet.snacks')}}
                         <input type="submit">
                     </form>

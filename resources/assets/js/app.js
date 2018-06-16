@@ -142,8 +142,6 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
             showSnack:['true'],
 
             petWater:false,
-            petStandardFood:false,
-            petPremiumFood:false,
             petSnacks:false,
             petFood:"",
 
@@ -418,13 +416,12 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
             insertPetCare: function(){
                 var urlInsPetCare ='admin/service/petcare';
 
-
-                if(this.petFood =='standard') this.petStandardFood=true;
-                if(this.petFood == 'premium') this.petPremiumFood = true;
-                if(this.petFood != '') this.petFood = true;
+                if(this.petFood=='') this.petFood = false;
 
                 axios.post(urlInsPetCare,{
-                    water:false,
+                    food:this.petFood,
+                    water:this.petWater,
+                    snacks:this:petSnacks
                 }).then(response=>{
                     this.showResult = true;
                 toastr.success("adios");
