@@ -57550,9 +57550,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_tiny_slider__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_tiny_slider___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_tiny_slider__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_epic_spinners__ = __webpack_require__(176);
-var _data;
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /* ----------------------- REQUIRES ----------------------------------*/
 
@@ -57635,7 +57633,7 @@ new Vue({
 
     },
 
-    data: (_data = {
+    data: {
         loadingScreen: true,
 
         services: [],
@@ -57687,9 +57685,21 @@ new Vue({
         petWater: false,
         petStandardFood: false,
         petPremiumFood: false,
-        petSnacks: false
+        petSnacks: false,
+        petFood: "",
 
-    }, _defineProperty(_data, 'petSnacks', ""), _defineProperty(_data, 'errores', ""), _defineProperty(_data, 'errorDayHour', false), _defineProperty(_data, 'errorExists', false), _defineProperty(_data, 'errorPlazas', false), _defineProperty(_data, 'precioTotalSD', 0), _defineProperty(_data, 'showCancelConfirm', false), _defineProperty(_data, 'pedidoHecho', false), _data),
+        errores: "",
+        errorDayHour: false,
+        errorExists: false,
+        errorPlazas: false,
+
+        precioTotalSD: 0,
+
+        showCancelConfirm: false,
+
+        pedidoHecho: false
+
+    },
     methods: {
         falseLoadScreen: function falseLoadScreen() {
             this.loadingScreen = false;
@@ -57793,7 +57803,7 @@ new Vue({
             this.numDrinks = [0];
             this.nD = 1;
             this.showSnack = ['true'];
-            this.petWater = false, this.petStandardFood = false, this.petPremiumFood = false, this.petSnacks = false, this.petFood = false, this.errores = "";
+            this.petWater = false, this.petStandardFood = false, this.petPremiumFood = false, this.petSnacks = false, this.petFood = "", this.errores = "";
             this.errorExists = false;
             this.errorDayHour = false;
             this.precioTotalSD = 0;
@@ -57955,25 +57965,10 @@ new Vue({
 
             if (this.petFood == 'standard') this.petStandardFood = true;
             if (this.petFood == 'premium') this.petPremiumFood = true;
+            if (this.petFood != '') this.petFood = true;
 
-            if (this.water) this.water = 1;else {
-                this.water = 0;
-            }
-            if (this.petStandardFood) this.petStandardFood = 1;else {
-                this.petStandardFood = 0;
-            }
-            if (this.petPremiumFood) this.petPremiumFood = 1;else {
-                this.petPremimFood = 0;
-            }
-            if (this.petSnacks) this.petSnacks = 1;else {
-                this.petSnacks = 0;
-            }
             axios.post(urlInsPetCare, {
-                water: 1,
-                food: 1,
-                standard_food: 1,
-                premium_food: 0,
-                snacks: 0
+                water: false
             }).then(function (response) {
                 _this15.showResult = true;
                 toastr.success("adios");

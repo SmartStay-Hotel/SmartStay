@@ -145,8 +145,7 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
             petStandardFood:false,
             petPremiumFood:false,
             petSnacks:false,
-
-            petSnacks:"",
+            petFood:"",
 
             errores: "",
             errorDayHour: false,
@@ -256,7 +255,7 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                 this.petStandardFood=false,
                 this.petPremiumFood=false,
                 this.petSnacks=false,
-                this.petFood=false,
+                this.petFood="",
                 this.errores= "";
                 this.errorExists = false;
                 this.errorDayHour = false;
@@ -422,29 +421,10 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
 
                 if(this.petFood =='standard') this.petStandardFood=true;
                 if(this.petFood == 'premium') this.petPremiumFood = true;
+                if(this.petFood != '') this.petFood = true;
 
-                if(this.water) this.water=1;
-                else{
-                    this.water=0;
-                }
-                if(this.petStandardFood)this.petStandardFood=1;
-                else{
-                    this.petStandardFood=0;
-                }
-                if(this.petPremiumFood)this.petPremiumFood=1;
-                else{
-                    this.petPremimFood=0;
-                }
-                if(this.petSnacks) this.petSnacks = 1;
-                else{
-                    this.petSnacks=0;
-                }
                 axios.post(urlInsPetCare,{
-                    water: 1,
-                    food:1,
-                    standard_food:1,
-                    premium_food:0,
-                    snacks: 0
+                    water:false,
                 }).then(response=>{
                     this.showResult = true;
                 toastr.success("adios");
