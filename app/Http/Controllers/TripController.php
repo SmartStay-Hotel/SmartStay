@@ -68,7 +68,7 @@ class TripController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      * @throws \Exception
      */
     public function store(Request $request)
@@ -96,7 +96,7 @@ class TripController extends Controller
             $availablePlaces = $maxPeople - $peopleGoing;
             if ($availablePlaces < $input['people_num']) {
                 if ($request->ajax()) {
-                    return $availablePlaces;
+                    return ['tripPlaces' => $availablePlaces];
                 }
                 return redirect()->route('trip.create')->withErrors([
                     'Only ' . $availablePlaces . ' available places',
