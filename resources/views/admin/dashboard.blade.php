@@ -24,12 +24,12 @@
 
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body" id="newOrdersBody">
-                        <h5 class="card-title text-center flex-grid" style="border: none!important;">
-                            <div style="padding: 0px; flex: 2; margin-left: 10%;">Service</div>
+                        <h5 class="card-title text-center flex-grid">
+                            <div style="padding: 0px; flex: 2; margin-left: 8%; border-style: hidden!important; font-weight: bold;">Service</div>
 
-                            <div style="padding: 0px; flex: 2;">Customer</div>
+                            <div style="padding: 0px; flex: 2; border-style: hidden!important; font-weight: bold;">Customer</div>
 
-                            <div style="padding: 0px; flex: 2; margin-right: 10%;">Room Nr</div>
+                            <div style="padding: 0px; flex: 2; margin-right: 10%; border-style: hidden!important; font-weight: bold;">Room Nr</div>
                         </h5>
 
                         <div id="test-list3">
@@ -41,11 +41,11 @@
                                             <label class="container">
                                                 <a class="flex-grid"
                                                    href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
-                                                    <div style="padding: 0px;">{{ $service->serviceName }}</div>
-                                                    <div style="padding: 0px;">-</div>
-                                                    <div style="padding: 0px;">{{ $service->guest->firstname }}</div>
-                                                    <div style="padding: 0px;">-</div>
-                                                    <div style="padding: 0px;">{{ $service->roomNumber }}</div>
+                                                    <div style="padding: 0px; border-style: hidden!important;">{{ $service->serviceName }}</div>
+                                                    <div style="padding: 0px; border-style: hidden!important;">-</div>
+                                                    <div style="padding: 0px; border-style: hidden!important;">{{ $service->guest->firstname }}</div>
+                                                    <div style="padding: 0px; border-style: hidden!important;">-</div>
+                                                    <div style="padding: 0px; border-style: hidden!important;">{{ $service->roomNumber }}</div>
 
                                                 </a>
                                                 <input type="checkbox"
@@ -82,13 +82,12 @@
                     </div>
                     <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion2">
                         <div class="card-body" id="pendingOrdersBody">
-                            <h5 class="card-title text-center">
-                                <span style="padding: 10px;">Service</span>
-                                <span>-</span>
-                                <span style="padding: 10px;">Customer</span>
-                                <span>-</span>
-                                <span style="padding: 10px;">Room Nr</span>
+                            <h5 class="card-title text-center flex-grid">
+                                <div style="padding: 0px; flex: 2; margin-left: -2%; border-style: hidden!important; font-weight: bold;">Service</div>
 
+                                <div style="padding: 0px; flex: 2; border-style: hidden!important; font-weight: bold;">Customer</div>
+
+                                <div style="padding: 0px; flex: 2; margin-right: 2%; border-style: hidden!important; font-weight: bold;">Room Nr</div>
                             </h5>
                             <div id="test-list">
                                 <ul class="list" id="pendingOrdersList">
@@ -97,13 +96,14 @@
                                         @if($service->status == '1')
                                             <li class="text-center">
                                                 <label class="container">
-                                                    <a style=""
+                                                    <a class="flex-grid"
                                                        href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
-                                                        <span style="padding: 10px;">{{ $service->serviceName }}</span>
-                                                        <span style="padding: 10px;">-</span>
-                                                        <span style="padding: 10px;">{{ $service->guest->firstname }}</span>
-                                                        <span style="padding: 10px;">-</span>
-                                                        <span style="padding: 10px;">{{ $service->roomNumber }}</span>
+                                                        <div style="padding: 0px; border-style: hidden!important;">{{ $service->serviceName }}</div>
+                                                        <div style="padding: 0px; border-style: hidden!important;">-</div>
+                                                        <div style="padding: 0px; border-style: hidden!important;">{{ $service->guest->firstname }}</div>
+                                                        <div style="padding: 0px; border-style: hidden!important;">-</div>
+                                                        <div style="padding: 0px; border-style: hidden!important;">{{ $service->roomNumber }}</div>
+
                                                     </a>
                                                     <input type="checkbox"
                                                            name="{{ $service->serviceName .'/'.$service->id }}"
@@ -137,13 +137,12 @@
                          data-parent="#accordion3">
 
                         <div class="card-body" id="dispatchedOrdersBody">
-                            <h5 class="card-title text-center">
-                                <span style="padding: 10px;">Service</span>
-                                <span>-</span>
-                                <span style="padding: 10px;">Customer</span>
-                                <span>-</span>
-                                <span style="padding: 10px;">Room Nr</span>
+                            <h5 class="card-title text-center flex-grid">
+                                <div style="padding: 0px; flex: 2; margin-left: -2%; border-style: hidden!important; font-weight: bold;">Service</div>
 
+                                <div style="padding: 0px; flex: 2; border-style: hidden!important; font-weight: bold;">Customer</div>
+
+                                <div style="padding: 0px; flex: 2; margin-right: 2%; border-style: hidden!important; font-weight: bold;">Room Nr</div>
                             </h5>
                             <div id="test-list2">
                                 <ul class="list" id="dispatchedOrdersList">
@@ -152,12 +151,14 @@
                                         @if($service->status == 2)
                                             <li class="text-center">
                                                 <label class="container">
-                                                    <a href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
-                                                        <span style="padding: 10px;">{{ $service->serviceName }}</span>
-                                                        <span style="padding: 10px;">-</span>
-                                                        <span style="padding: 10px;">{{ $service->guest->firstname }}</span>
-                                                        <span style="padding: 10px;">-</span>
-                                                        <span style="padding: 10px;">{{ $service->roomNumber }}</span>
+                                                    <a class="flex-grid"
+                                                       href="{{ route( strtolower($service->serviceName) . '.show', $service->id) }}">
+                                                        <div style="padding: 0px; border-style: hidden!important;">{{ $service->serviceName }}</div>
+                                                        <div style="padding: 0px; border-style: hidden!important;">-</div>
+                                                        <div style="padding: 0px; border-style: hidden!important;">{{ $service->guest->firstname }}</div>
+                                                        <div style="padding: 0px; border-style: hidden!important;">-</div>
+                                                        <div style="padding: 0px; border-style: hidden!important;">{{ $service->roomNumber }}</div>
+
                                                     </a>
                                                     <input type="checkbox"
                                                            name="{{ $service->serviceName .'/'.$service->id  }}"
@@ -239,10 +240,12 @@
 
                     var li = $('<li class="text-center">\n' +
                         '<label class="container">' +
-                        '<a href="' + data.goToShow.toLowerCase() + '">\n' +
-                        '<span style="padding: 10px;">' + data.serviceName + '</span>\n' +
-                        '<span style="padding: 10px;">' + data.guestFullName + '</span>\n' +
-                        '<span style="padding: 10px;">' + data.roomNumber + '</span>\n' +
+                        '<a class="flex-grid" href="' + data.goToShow.toLowerCase() + '">\n' +
+                        '<div style="padding: 0px; border-style: hidden!important;">' + data.serviceName + '</div>\n' +
+                        '<div style="padding: 0px; border-style: hidden!important;">' + '-' + '</div>\n' +
+                        '<div style="padding: 0px; border-style: hidden!important;">' + data.guestFullName + '</div>\n' +
+                        '<div style="padding: 0px; border-style: hidden!important;">' + '-' + '</div>\n' +
+                        '<div style="padding: 0px; border-style: hidden!important;">' + data.roomNumber + '</div>\n' +
                         '</a>\n' +
                         '<input type="checkbox"' + 'name="' + data.serviceName + '/' + data.orderId + '" checked >\n' +
                         '<span class="checkmark"></span>\n' +

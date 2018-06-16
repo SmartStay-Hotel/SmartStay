@@ -31,7 +31,7 @@
                 </div>
             @endif
             <thead id="serviceTableHeader">
-            <tr><h2 id="serviceTitle"><i class="fas fa-music fa-xs" style="padding: 5px;"></i>Event<a
+            <tr><h2 id="serviceTitle"><i class="fas fa-music" style="padding: 5px;"></i>Event<a
                             href="{{ route('event.index') }}"><i
                                 id="addGuest" class="fas fa-user-plus fa-xs"
                                 style="padding-left: 70%; color: white; z-index: 1;"></i></a></h2>

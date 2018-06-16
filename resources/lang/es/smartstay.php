@@ -109,4 +109,7 @@ housekeeping
     'hk.blanket' => 'Manta',
     'hk.toiletries' => 'Artículos de aseo',
     'hk.pillow' => 'Almohada',
+
+/* layout.blade */
+    'layout.welcome' => 'Bienvenido',
 ];
