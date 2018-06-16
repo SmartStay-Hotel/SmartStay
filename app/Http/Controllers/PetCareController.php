@@ -85,10 +85,10 @@ class PetCareController extends Controller
             try {
                 DB::beginTransaction();
 
-                $input['water']  = (isset($input['water'])) ? true : false;
-                $input['snacks'] = (isset($input['snacks'])) ? true : false;
+                $input['water']  = (isset($input['water']) && $input['water'] == true) ? true : false;
+                $input['snacks'] = (isset($input['snacks']) && $input['snacks'] == true) ? true : false;
 
-                if (isset($input['food'])) {
+                if (isset($input['food']) && $input['food'] != false) {
                     $input['standard_food'] = ($input['food'] == 'standard_food') ? true : false;
                     $input['premium_food']  = ($input['food'] == 'premium_food') ? true : false;
                 } else {
@@ -182,10 +182,10 @@ class PetCareController extends Controller
             try {
                 DB::beginTransaction();
 
-                $input['water']  = (isset($input['water'])) ? true : false;
-                $input['snacks'] = (isset($input['snacks'])) ? true : false;
+                $input['water']  = (isset($input['water']) && $input['water'] == true) ? true : false;
+                $input['snacks'] = (isset($input['snacks']) && $input['snacks'] == true) ? true : false;
 
-                if (isset($input['food'])) {
+                if (isset($input['food']) && $input['food'] != false) {
                     $input['standard_food'] = ($input['food'] == 'standard_food') ? true : false;
                     $input['premium_food']  = ($input['food'] == 'premium_food') ? true : false;
                 } else {

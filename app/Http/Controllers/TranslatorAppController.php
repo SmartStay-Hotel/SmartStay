@@ -122,7 +122,7 @@ class TranslatorAppController extends Controller
     public function events()
     {
         dd(EventType::get());
-        if (app()->getLocale() != 'en') {
+        if (true) {
             $data = EventType::get(['name', 'location', 'day_week']);
             $data = self::translate($data);
             $data = htmlspecialchars_decode($data);
