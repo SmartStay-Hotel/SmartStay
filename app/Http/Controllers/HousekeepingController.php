@@ -87,7 +87,6 @@ class HousekeepingController extends Controller
         if ($validator->passes()) {
             try {
                 DB::beginTransaction();
-                //'bed_sheets' => ($request->bed_sheets) ? true : false,
                 $input['bed_sheets'] = (isset($input['bed_sheets'])) ? true : false;
                 $input['cleaning']   = (isset($input['cleaning'])) ? true : false;
                 $input['minibar']    = (isset($input['minibar'])) ? true : false;
@@ -103,7 +102,7 @@ class HousekeepingController extends Controller
 
                 if ($request->ajax()) {
                     //$return = ['status' => true];
-                    return; //cambio para Cristian
+                    return;
                 } else {
                     $return = redirect()->route('housekeeping.index')->with('status', 'Order added successfully.');
                 }
@@ -115,7 +114,7 @@ class HousekeepingController extends Controller
             // No pasó el validador
             if ($request->ajax()) {
                 //$return = ['status' => false];
-                //return; //cambio para Cristian
+                //return;
             } else {
                 $return = redirect()->route('housekeeping.create')->withErrors($validator->getMessageBag());
             }
@@ -168,7 +167,6 @@ class HousekeepingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //No hay nada que evaluar salvo el guest
         $input = Input::all();
         $rules = [
             'guest_id' => 'numeric',
@@ -181,7 +179,6 @@ class HousekeepingController extends Controller
         ];
 
         $validator = Validator::make($input, $rules);
-        //$housekeeping->Input::all();
         if ($validator->passes()) {
             try {
                 DB::beginTransaction();
@@ -224,7 +221,7 @@ class HousekeepingController extends Controller
                 'message' => 'Order number: ' . $id . ' was deleted',
             ]);
         } else {
-            $return = redirect()->back()->with('status', 'Guest deleted successfully');
+            $return = redirect()->back()->with('status', 'Order deleted successfully');
         }
 
         return $return;
@@ -239,6 +236,9 @@ class HousekeepingController extends Controller
         return response()->json($housekeeping->status);
     }
 
+    /**
+     * @return mixed
+     */
     public function orderList()
     {
         $housekeeping = Housekeeping::where('guest_id', Session::get('guest_id'))->get();

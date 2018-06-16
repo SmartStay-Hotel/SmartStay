@@ -78,7 +78,8 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     /*---------- ORDER HISTORY --------------*/
-    Route::GET('orderHistory', 'GuestController@getOrderHistoryByGuest');
+    Route::get('orderHistory/{id?}', 'GuestController@getOrderHistoryByGuest');
+    Route::get('admin/guests/invoice/{roomId}', 'GuestController@pdf')->name('summary.pdf');
 
     /*---------- END ORDER HISTORY --------------*/
 
@@ -95,9 +96,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::get('admin/checkin', 'AdminDashboardController@checkin');
     // STATISTICS
     Route::get('admin/dataStatistics', 'AdminDashboardController@statistics');
-    Route::get('admin/statistics', function() {
-        return view('admin.statistics');
-    });
+    Route::get('admin/statistics', 'AdminDashboardController@indexStatistics');
     Route::get('admin/checkout', 'AdminDashboardController@checkout');
     /*------------ END ADMIN ------------*/
 
@@ -124,7 +123,7 @@ Route::group(['middleware' => 'language'], function () {
 
     /* --->   ------------- STATUS SERVICES --------------   */
     Route::get('admin/service/statusRestaurant/{id}', 'RestaurantController@changeStatus');
-    Route::get('admin/service/statusSnacksAndDrinks/{id}', 'SnacksAndDrinkController@changeStatus');
+    Route::get('admin/service/statussnackdrink/{id}', 'SnacksAndDrinkController@changeStatus');
     Route::get('admin/service/statusTaxi/{id}', 'TaxiController@changeStatus');
     Route::get('admin/service/statusAlarm/{id}', 'AlarmController@changeStatus');
     Route::get('admin/service/statusSpa/{id}', 'SpaAppointmentController@changeStatus');

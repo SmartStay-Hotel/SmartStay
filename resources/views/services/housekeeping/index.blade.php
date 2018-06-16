@@ -91,7 +91,7 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $('.status').change(function (event) {
+            $(':checkbox').change(function (event) {
                 var $this = this;
                 var route = 'statusHousekeeping/' + event.target.name + '';
                 if ($($this).is(':checked')) {
@@ -114,6 +114,7 @@
                         $this.checked = false;
                     });
 
+
                 } else {
                     $.get(route, function (response, state) {
                         console.log("In process " + response);
@@ -124,6 +125,7 @@
                     });
                 }
             });
+
 
             $('.btn-delete').click(function (e) {
                 var $this = this;
@@ -145,6 +147,7 @@
                         toastr.options = {'closeButton': true, 'timeOut': 5000, 'closeOnHover': true, 'progressBar': true};
                         toastr.warning('Something went wront', 'Alert!');
                     });
+
                 });
             });
         });

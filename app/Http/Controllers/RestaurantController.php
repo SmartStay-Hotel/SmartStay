@@ -66,8 +66,6 @@ class RestaurantController extends Controller
     public function store(Request $request)
     {
         //dd($request->request);
-        //        Session::put('guest_id', '19');
-        //Session::forget('guest_id');
         $input = Input::all();
         if ($request->ajax()) {
             if (Session::exists('guest_id')) {
@@ -94,7 +92,7 @@ class RestaurantController extends Controller
 
                 if ($request->ajax()) {
                     //$return = ['status' => true];
-                    return; //cambio para Cristian
+                    return;
                 } else {
                     $return = redirect()->route('restaurant.index')->with('status', 'Order added successfully.');
                 }
@@ -106,7 +104,7 @@ class RestaurantController extends Controller
             // No pasó el validador
             if ($request->ajax()) {
                 //$return = ['status' => false];
-                //return; //cambio para Cristian
+                //return;
             } else {
                 $return = redirect()->route('restaurant.create')->withErrors($validator->getMessageBag());
             }
@@ -169,8 +167,6 @@ class RestaurantController extends Controller
         if ($validator->passes()) {
             try {
                 DB::beginTransaction();
-                //$input['order_date'] = Carbon::today();
-                //$input['status']     = 1;
                 $restaurant = Restaurant::find($id);
                 $restaurant->update($input);
                 DB::commit();

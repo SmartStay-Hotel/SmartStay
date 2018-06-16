@@ -114,7 +114,7 @@ class EventController extends Controller
 
                 if ($request->ajax()) {
                     //$return = ['status' => true];
-                    return; //cambio para Cristian
+                    return;
                 } else {
                     $return = redirect()->route('event.index')->with('status', 'Order added successfully.');
                 }
@@ -126,7 +126,7 @@ class EventController extends Controller
             // No pasó el validador
             if ($request->ajax()) {
                 //$return = ['status' => false];
-                //return; //cambio para Cristian
+                //return;
             } else {
                 $return = redirect()->route('event.create')->withErrors($validator->getMessageBag());
             }

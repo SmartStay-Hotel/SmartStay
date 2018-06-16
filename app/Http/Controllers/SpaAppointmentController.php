@@ -104,7 +104,7 @@ class SpaAppointmentController extends Controller
 
                 if ($request->ajax()) {
                     //$return = ['status' => true];
-                    return; //cambio para Cristian
+                    return;
                 } else {
                     $return = redirect()->route('spa.index')->with('status', 'Order added successfully.');
                 }
@@ -116,7 +116,7 @@ class SpaAppointmentController extends Controller
             // No pasó el validador
             if ($request->ajax()) {
                 //$return = ['status' => false];
-                //return; //cambio para Cristian
+                //return;
             } else {
                 $return = redirect()->route('spa.create')->withErrors($validator->getMessageBag());
             }

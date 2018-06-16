@@ -92,7 +92,7 @@ class AlarmController extends Controller
 
                 if ($request->ajax()) {
                     //$return = ['status' => true];
-                    return; //cambio para Cristian
+                    return;
                 } else {
                     $return = redirect()->route('alarm.index')->with('status', 'Order added successfully.');
                 }
@@ -103,7 +103,7 @@ class AlarmController extends Controller
         } else {
             if ($request->ajax()) {
                 //$return = ['status' => false];
-                //return; //cambio para Cristian
+                //return;
             } else {
                 $return = redirect()->route('alarm.create')->withErrors($validator->getMessageBag());
             }
@@ -121,7 +121,6 @@ class AlarmController extends Controller
      */
     public function show(Alarm $alarm)
     {
-        //Se consigue pasar el guest en función del guest_id del taxi
         $guest = Guest::find($alarm->guest_id);
 
         return view('services.alarm.show', compact('alarm', 'guest'));
@@ -143,7 +142,6 @@ class AlarmController extends Controller
         }
         $guests = $guests->pluck('guestRoomNumber', 'id');
 
-        //Falta que el select del edit.blade se quede seleccionado con el guest correcto
         return view('services.alarm.edit', compact('alarm', 'guests'));
     }
 
@@ -167,8 +165,6 @@ class AlarmController extends Controller
         if ($validator->passes()) {
             try {
                 DB::beginTransaction();
-                //$input['order_date'] = Carbon::today();
-                //$input['status']     = 1;
                 $alarm = Alarm::find($id);
                 $alarm->update($input);
                 DB::commit();
@@ -188,15 +184,25 @@ class AlarmController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param \Illuminate\Http\Request $request
+     * @param  int                     $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         Alarm::find($id)->delete();
+        $totalOrders = Alarm::all()->count();
+        if ($request->ajax()) {
+            $return = response()->json([
+                'total'   => $totalOrders,
+                'message' => 'Order number: ' . $id . ' was deleted',
+            ]);
+        } else {
+            $return = redirect()->back()->with('status', 'Order deleted successfully');
+        }
 
-        return redirect()->back()->with('status', 'Order deleted successfully');
+        return $return;
     }
 
     public function changeStatus($id)

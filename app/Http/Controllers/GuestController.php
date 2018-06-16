@@ -14,6 +14,7 @@ use App\SnacksAndDrink;
 use App\SpaAppointment;
 use App\Taxi;
 use App\Trip;
+use Barryvdh\DomPDF\Facade as PDF;
 use Faker\Factory as Faker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -189,17 +190,35 @@ class GuestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $guest      = Guest::find($id);
         $roomNumber = $guest->rooms[0]->number; //foreach si se quiere dar de baja a todas las habitaciones.
         $room       = Room::where('number', $roomNumber)->first();
         $room->update(['code' => null, 'status' => null]);//habitación queda libre.
         $guest->rooms()->sync([]);
+        $guest->alarms()->delete();
+        $guest->taxis()->delete();
+        $guest->restaurants()->delete();
+        $guest->snacks()->delete();
+        $guest->houseKeepings()->delete();
+        $guest->events()->delete();
+        $guest->trips()->delete();
+        $guest->petCares()->delete();
+        $guest->spas()->delete();
         $guest->delete();
 
-        //return redirect()->route('guests.index')->with('status', 'Guest deleted successfully');
-        return redirect()->back()->with('status', 'Guest deleted successfully');
+        $totalGuests = Guest::getGuestsByCheckoutDate()->count();
+        if ($request->ajax()) {
+            $return = response()->json([
+                'total'   => $totalGuests,
+                'message' => 'Guest number: ' . $id . ' was checked out',
+            ]);
+        } else {
+            $return = redirect()->back()->with('status', 'Guest deleted successfully');
+        }
+
+        return $return;
     }
 
     /**
@@ -263,9 +282,11 @@ class GuestController extends Controller
         return Guest::getCheckoutByGuestId(Session::get('guest_id'));
     }
 
-    public function getOrderHistoryByGuest()
+    public function getOrderHistoryByGuest($id = null)
     {
-        $id             = Session::get('guest_id');
+        if ($id == null) {
+            $id = Session::get('guest_id');
+        }
         $restaurants    = Restaurant::getOrderHistoryByGuest($id);
         $taxis          = Taxi::getOrderHistoryByGuest($id);
         $alarms         = Alarm::getOrderHistoryByGuest($id);
@@ -288,5 +309,18 @@ class GuestController extends Controller
         ]));
 
         return $orders;
+    }
+
+    public function pdf($roomId)
+    {
+        $room   = Room::find($roomId);
+        $guests = $room->guests;
+        $orders = [];
+        foreach ($guests as $guest) {
+            $orders[] = self::getOrderHistoryByGuest($guest->id);
+        }
+        $pdf = PDF::loadView('admin.guest.pdf.summary', compact('guests', 'orders'));
+
+        return $pdf->stream('summary.pdf');
     }
 }

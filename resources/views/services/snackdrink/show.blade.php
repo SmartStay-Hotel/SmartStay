@@ -43,14 +43,18 @@
                     <strong>Guest Name: </strong> {{ $guest->firstname. " ".$guest->lastname }}<br/>
                     <strong>Guest Phone: </strong> {{ $guest->telephone }}<br/>
                     <strong>More Details: </strong><br/>
+                    <ul>
                     @if($snackdrink->productType->type_id == 1)
-                        <strong class="orders">- Snack: </strong> {{ $snackdrink->productType->name }}<br/>
+                        <li class="orders"><strong>Snack: </strong> {{ $snackdrink->productType->name }}</li>
                     @elseif($snackdrink->productType->type_id == 2)
-                        <strong class="orders">- Drink: </strong> {{ $snackdrink->productType->name }}<br/>
+                        <li class="orders"><strong>Drink: </strong> {{ $snackdrink->productType->name }}</li>
                     @endif
-                    <strong class="orders">- Date hour: </strong> {{ $snackdrink->created_at }}<br/>
-                    <strong class="orders">- Quantity: </strong> {{ $snackdrink->quantity }} u.<br/>
-                    <strong class="orders">- Price total: </strong> {{ $snackdrink->price }} €<br/>
+
+                        <li class="orders"> <strong>Date hour: </strong> {{ $snackdrink->created_at }}</li>
+                        <li class="orders"><strong>Quantity: </strong> {{ $snackdrink->quantity }} u.</li>
+                        <li class="orders"><strong>Price total: </strong> {{ $snackdrink->price }} €</li>
+                    </ul>
+                    <br/>
                     <hr/>
                     <p>Order List</p>
                     @foreach($list as $key => $item)

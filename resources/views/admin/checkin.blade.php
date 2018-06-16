@@ -9,7 +9,6 @@
 @section('content')
     <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
     <h2 id="checkInTitle"><i class="fas fa-sign-in-alt" style="padding: 5px;"></i>Check in</h2>
-    <div class="flex-grid">
             @if (session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}
@@ -52,8 +51,10 @@
                 @endforeach
                 </tbody>
             </table>
-
-    </div>
+        {{ $guests->render() }}
+        <p>
+            <span id="checkoutTotal">{{ $guests->total() }}</span> checkin | page {{ $guests->currentPage() }} of {{ $guests->lastPage() }}
+        </p>
     </div>
 @endsection
 @section('scripts')
