@@ -488,6 +488,9 @@ toastr.options = {
             infoEvent: function(){
                 return this.events.filter((event) => event.id==this.eventSelected);
             },
+            infoSpa: function(){
+                return this.events.filter((event) => event.id==this.eventSelected);
+            },
             setPrecioSnack: function(precio, num){
                 this.snackPrice[num] = precio;
                 return precio;

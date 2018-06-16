@@ -26,7 +26,9 @@
 
                         <!-- Spa -->
                         <div v-if="order.service_id==3">
-                            <p>? Spa</p>
+                            <p>Treatment: {{order.treatment_type_id}}</p>
+                            <p>Booking date: {{order.day_hour}}</p>
+                            <p>Price: {{order.price}}</p>
                         </div>
 
                         <!-- Alarm -->
@@ -41,6 +43,26 @@
                             <p v-if="order.premium_food"> Premium food</p>
                             <p v-if="order.snacks"> Snacks</p>
                         </div>
+
+                        <!-- Trip -->
+                        <div v-if="order.service_id==6">
+                            <p>Trip: {{order.trip_type_id}}</p>
+                            <p>Number of persons: {{order.people_num}}</p>
+                            <p>Price: {{order.price}}</p>
+                        </div>
+
+                        <!-- Event -->
+                        <div v-if="order.service_id==7">
+                            <p>Event: {{order.event_type_id}}</p>
+                            <p>Number of persons: {{order.people_num}}</p>
+                        </div>
+
+                        <!-- Taxi -->
+                        <div v-if="order.service_id==7">
+                            <p>Day - hour: {{order.day_hour}}</p>
+
+                        </div>
+
                     </slot>
                 </div>
 

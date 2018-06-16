@@ -57981,6 +57981,13 @@ new Vue({
                 return event.id == _this19.eventSelected;
             });
         },
+        infoSpa: function infoSpa() {
+            var _this20 = this;
+
+            return this.events.filter(function (event) {
+                return event.id == _this20.eventSelected;
+            });
+        },
         setPrecioSnack: function setPrecioSnack(precio, num) {
             this.snackPrice[num] = precio;
             return precio;
@@ -86703,7 +86710,7 @@ exports = module.exports = __webpack_require__(15)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -86714,6 +86721,28 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -86843,7 +86872,19 @@ var render = function() {
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.order.service_id == 3
-                  ? _c("div", [_c("p", [_vm._v("? Spa")])])
+                  ? _c("div", [
+                      _c("p", [
+                        _vm._v(
+                          "Treatment: " + _vm._s(_vm.order.treatment_type_id)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v("Booking date: " + _vm._s(_vm.order.day_hour))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Price: " + _vm._s(_vm.order.price))])
+                    ])
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.order.service_id == 4
@@ -86867,6 +86908,44 @@ var render = function() {
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.order.snacks ? _c("p", [_vm._v(" Snacks")]) : _vm._e()
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.order.service_id == 6
+                  ? _c("div", [
+                      _c("p", [
+                        _vm._v("Trip: " + _vm._s(_vm.order.trip_type_id))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "Number of persons: " + _vm._s(_vm.order.people_num)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Price: " + _vm._s(_vm.order.price))])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.order.service_id == 7
+                  ? _c("div", [
+                      _c("p", [
+                        _vm._v("Event: " + _vm._s(_vm.order.event_type_id))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "Number of persons: " + _vm._s(_vm.order.people_num)
+                        )
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.order.service_id == 7
+                  ? _c("div", [
+                      _c("p", [
+                        _vm._v("Day - hour: " + _vm._s(_vm.order.day_hour))
+                      ])
                     ])
                   : _vm._e()
               ])
