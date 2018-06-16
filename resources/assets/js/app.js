@@ -170,6 +170,8 @@ toastr.options = {
 
             showCancelConfirm: false,
 
+            pedidoHecho: false,
+
 
         },
         methods:{
@@ -271,6 +273,7 @@ toastr.options = {
                 this.errorExists = false;
                 this.errorDayHour = false;
                 this.precioTotalSD= 0;
+                this.pedidoHecho= false,
 
                 this.actualDate();
                 this.getHistory();
@@ -311,10 +314,12 @@ toastr.options = {
                 var urlInsRest ='admin/service/restaurant';
                 axios.post(urlInsRest,{
                     day_hour: this.dayHourServ,
-                    quantity: this.quantityServ
+                    quantity: this.quantityServ,
+
                 }).then(response=>{
                     this.errorExists = false;
                     this.showResult = true;
+                    this.pedidoHecho=true;
 
                 }).catch(error=>{
                     this.errorExists = true;
@@ -322,6 +327,7 @@ toastr.options = {
 
                 })
                 }
+
                 this.getHistory();
                 // this.pruebaOrder=response.data;
             },
@@ -333,8 +339,10 @@ toastr.options = {
                     var urlInsSpa = 'admin/service/spa';
                     axios.post(urlInsSpa, {
                         treatment_type_id: this.spaSelected,
-                        day_hour: this.dayHourServ
+                        day_hour: this.dayHourServ,
+
                     }).then(response=> {
+                        this.pedidoHecho=true;
                         this.showResult = true;
                     this.errorExists = false;
                 }).

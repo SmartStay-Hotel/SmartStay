@@ -208,7 +208,8 @@
                         <p>Fecha: @{{ info.day_hour }}</p>
                         <p>Número de personas: @{{ info.quantity }}</p>
                         <div class="bttnSubmit">
-                            <button type="submit" v-on:click="showCancelConfirm=true" value="delete">Cancelar pedido</button>
+                            <button type="submit" v-if="!pedidoHecho" v-on:click="showCancelConfirm=true" value="delete">Cancelar pedido</button>
+                            <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">¡Pedido completado!</button>
                         </div>
                         <confirmcancel v-if="showCancelConfirm" @yes-cancel="deleteOrder(info.service_id,info.id)" @no-cancel="showCancelConfirm=false"></confirmcancel>
                     </div>
@@ -381,7 +382,8 @@
 
                 </div>
                 <div class="bttnSubmit">
-                    <button type="submit" form="formIns2" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
+                    <button type="submit" v-if="!pedidoHecho" form="formIns2" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
+                    <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">¡Pedido completado!</button>
                 </div>
 
             </div>

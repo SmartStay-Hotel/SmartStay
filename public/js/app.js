@@ -57659,7 +57659,9 @@ new Vue({
 
         precioTotalSD: 0,
 
-        showCancelConfirm: false
+        showCancelConfirm: false,
+
+        pedidoHecho: false
 
     },
     methods: {
@@ -57773,8 +57775,7 @@ new Vue({
             this.errorExists = false;
             this.errorDayHour = false;
             this.precioTotalSD = 0;
-
-            this.actualDate();
+            this.pedidoHecho = false, this.actualDate();
             this.getHistory();
         },
         showOut: function showOut() {
@@ -57812,14 +57813,17 @@ new Vue({
                 axios.post(urlInsRest, {
                     day_hour: this.dayHourServ,
                     quantity: this.quantityServ
+
                 }).then(function (response) {
                     _this9.errorExists = false;
                     _this9.showResult = true;
+                    _this9.pedidoHecho = true;
                 }).catch(function (error) {
                     _this9.errorExists = true;
                     _this9.errores = error.response.data;
                 });
             }
+
             this.getHistory();
             // this.pruebaOrder=response.data;
         },
@@ -57834,7 +57838,9 @@ new Vue({
                 axios.post(urlInsSpa, {
                     treatment_type_id: this.spaSelected,
                     day_hour: this.dayHourServ
+
                 }).then(function (response) {
+                    _this10.pedidoHecho = true;
                     _this10.showResult = true;
                     _this10.errorExists = false;
                 }).catch(function (error) {
