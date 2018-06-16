@@ -19,7 +19,7 @@ class TripTypesSeeder extends Seeder
             'max_num_people' => 10,
             'day_week'       => 'Sunday',
             'price'          => 45,
-            'image'      => '/img/home_services/snackdrink/flamencoPassion.jpg',
+            'image'      => '/img/home_services/trips/flamencoPassion.jpg',
             'created_at'     => new DateTime,
             'updated_at'     => new DateTime,
         ]);
@@ -31,7 +31,7 @@ class TripTypesSeeder extends Seeder
             'max_num_people' => 20,
             'day_week'       => 'Saturday',
             'price'          => 50,
-            'image'      => '/img/home_services/snackdrink/montserrat.jpg',
+            'image'      => '/img/home_services/trips/montserrat.jpg',
             'created_at'     => new DateTime,
             'updated_at'     => new DateTime,
         ]);
@@ -43,7 +43,7 @@ class TripTypesSeeder extends Seeder
             'max_num_people' => 10,
             'day_week'       => 'Friday',
             'price'          => 30,
-            'image'      => '/img/home_services/snackdrink/tapasWine.jpg',
+            'image'      => '/img/home_services/trips/tapasWine.jpg',
             'created_at'     => new DateTime,
             'updated_at'     => new DateTime,
         ]);
@@ -55,7 +55,7 @@ class TripTypesSeeder extends Seeder
             'max_num_people' => 15,
             'day_week'       => 'Friday',
             'price'          => 25,
-            'image'      => '/img/home_services/snackdrink/barcelonaTour.jpg',
+            'image'      => '/img/home_services/trips/barcelonaTour.jpg',
             'created_at'     => new DateTime,
             'updated_at'     => new DateTime,
         ]);
