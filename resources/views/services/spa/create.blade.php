@@ -32,7 +32,7 @@
                 </div>
     @endif
                 <thead id="serviceTableHeader">
-                <tr><h2 id="serviceTitle"><i class="fas fa-sun fa-xs" style="padding: 5px;"></i>Spa Appointment<a
+                <tr><h2 id="serviceTitle"><i class="fas fa-sun" style="padding: 5px;"></i>Spa Appointment<a
                                 href="{{ route('spa.index') }}"><i
                                     id="addGuest" class="fas fa-user-plus fa-xs"
                                     style="padding-left: 70%; color: white; z-index: 1;"></i></a></h2>

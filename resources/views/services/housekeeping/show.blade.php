@@ -31,10 +31,10 @@
 @section('content')
 
     <div class="card"
-         style="">
+         style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
         <table class="table table-sm table-hover text-center" id="serviceTable">
             <thead id="serviceTableHeader">
-            <tr><h2 id="serviceTitle"><i class="fas fa-broom fa-xs" style="padding: 5px;"></i>Housekeeping<a
+            <tr><h2 id="serviceTitle"><i class="fas fa-broom" style="padding: 5px;"></i>Housekeeping<a
                             href="{{ route('housekeeping.index') }}"><i
                                 id="addGuest" class="fas fa-user-plus fa-xs"
                                 style="padding-left: 70%; color: white; z-index: 1;"></i></a></h2>

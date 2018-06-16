@@ -31,7 +31,7 @@
                 </div>
             @endif
             <thead id="serviceTableHeader">
-            <tr><h2 id="serviceTitle"><i class="fas fa-suitcase fa-xs" style="padding: 5px;"></i>Trip<a
+            <tr><h2 id="serviceTitle"><i class="fas fa-suitcase" style="padding: 5px;"></i>Trip<a
                             href="{{ route('trip.index') }}"></a></h2>
             </tr>
             @if (count($errors) > 0)

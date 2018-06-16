@@ -29,7 +29,7 @@
          style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); padding: 10px;">
         <table class="table table-sm table-hover text-center" id="serviceTable">
             <thead id="serviceTableHeader">
-            <tr><h2 id="serviceTitle"><i class="far fa-clock fa-xs" style="padding: 5px;"></i>Alarm<a
+            <tr><h2 id="serviceTitle"><i class="far fa-clock" style="padding: 5px;"></i>Alarm<a
                             href="{{ route('alarm.index') }}"></a></h2>
             </tr>
             <tr>

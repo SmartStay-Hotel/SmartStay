@@ -32,7 +32,7 @@
                 </div>
             @endif
             <thead id="serviceTableHeader">
-            <tr><h2 id="serviceTitle"><i class="fas fa-taxi fa-xs" style="padding: 5px;"></i>Taxi<a
+            <tr><h2 id="serviceTitle"><i class="fas fa-taxi" style="padding: 5px;"></i>Taxi<a
                             href="{{ route('taxi.index') }}"></a></h2>
             </tr>
             @if (count($errors) > 0)

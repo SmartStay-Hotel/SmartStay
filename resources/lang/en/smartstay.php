@@ -60,7 +60,7 @@ spa
     /*
 alarm
 */
-    'alarm.date' => 'Date and Time',
+    'alarm.date' => 'Set Date and Time',
     'alarm.hour' => 'Hour',
 
     /*
@@ -108,4 +108,7 @@ housekeeping
     'hk.blanket' => 'Blanket',
     'hk.toiletries' => 'Toiletries',
     'hk.pillow' => 'Pillow',
+
+    /* layout.blade */
+    'layout.welcome' => 'Welcome',
 ];
