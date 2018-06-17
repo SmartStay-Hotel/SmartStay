@@ -98,5 +98,17 @@ taxi
     'taxi.name' => 'Taxi',
     'taxi.description' => 'Descripció taxi',
     'taxi.hour' => 'Hora',
+/*
+    housekeeping
+*/
+    'hk.sheets' => 'Llençol',
+    'hk.cleaning' => 'Neteja',
+    'hk.minibar' => 'Minibar',
+    'hk.blanket' => 'Flassada',
+    'hk.toiletries' => 'Articles de bany',
+    'hk.pillow' => 'Coxí',
+
+    /* layout.blade */
+    'layout.welcome' => 'Benvinguts',
 
 ];
