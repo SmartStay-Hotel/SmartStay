@@ -20,7 +20,6 @@
 </head>
 <body>
 <div id="container">
-@{{$data}}
     <div id="header">
         <nav>
             <div id="nav1">
