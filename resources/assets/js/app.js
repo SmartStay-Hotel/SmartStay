@@ -239,33 +239,33 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                 this.window[num]=!this.window[num];
                 this.showResult = false;
 
-                this.tripSelected="";
-                this.eventSelected="";
-                this.spaSelected="";
-                this.numPersonsTrip=1;
-                this.dayHourServ="";
-                this.quantityServ='';
-                this.hourTaxi='';
-                this.productSelected=[];
-                this.productCant=[1,1,1];
-                this.productPrice=[];
-                this.numProducts=[0];
-                this.nP=1;
-                this.numSnacks=[0];
-                this.nS=1;
-                this.numDrinks=[0];
-                this.nD=1;
-                this.showSnack=['true'];
-                this.petWater=false,
-                this.petStandardFood=false,
-                this.petPremiumFood=false,
-                this.petSnacks=false,
-                this.petFood="",
-                this.errores= "";
-                this.errorExists = false;
-                this.errorDayHour = false;
-                this.precioTotalSD= 0;
-                this.pedidoHecho= false,
+                    this.tripSelected="";
+                    this.eventSelected="";
+                    this.spaSelected="";
+                    this.numPersonsTrip=1;
+                    this.statusRoom="";
+                    this.dayHourServ='';
+                    this.quantityServ='';
+                    this.hourTaxi='';
+                    this.productSelected=[];
+                    this.productCant=[1,1,1];
+                    this.productPrice=[];
+                    this.numProducts=[0];
+                    this.nP=1;
+                    this.precioTotalSD= 0;
+                    this.showPrecioProduct=false;
+                    this.petWater=false;
+                    this.petSnacks=false;
+                    this.petFood="";
+                    this.errores= "";
+                    this.errorDayHour= false;
+                    this.errorExists = false;
+                    this.errorPlazas=false;
+                    this.errorPlazas=false;
+                    this.tripPlaces= 0;
+                    this.eventPlaces=0;
+                    this.showCancelConfirm= false;
+                    this.pedidoHecho= false;
 
                 this.actualDate();
                 this.getHistory();
@@ -354,7 +354,7 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
 
                     }).then(response=> {
                         this.pedidoHecho=true;
-                    this.showResult = true;
+
                     this.errorExists = false;
                 }).
                     catch(error=> {
@@ -399,7 +399,8 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                         people_num: this.numPersonsTrip
 
                     }).then(response => {
-                        this.showResult = true;
+
+                    this.pedidoHecho=true;
 
                 }).
                     catch(error => {
@@ -417,36 +418,35 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                     this.errorPlazas = false;
                     var urlInsEvent = 'admin/service/event';
                     axios.post(urlInsEvent, {
-                        event_type_id: this.eventSelected
+                        event_type_id: this.eventSelected,
+                        people_num:this.numPersonsTrip,
 
                     }).then(response => {
-                        this.showResult = true;
-                    toastr.success("adios");
-                    console.log("correcto eventtt");
+                        this.pedidoHecho=true;
                 }).
                     catch(error => {
                         this.errores = error.response.data;
-                    console.log("evevevvent no");
+
 
                 })
                 }
             },
             insertTaxi: function(){
-                var urlInsTaxi ='admin/service/taxi';
-                axios.post(urlInsTaxi,{
-                    day_hour: this.dayHourServ
+                if(this.dayHourServ<=this.dataActual){
+                    this.errorDayHour = true;
+                }else {
+                    var urlInsTaxi = 'admin/service/taxi';
+                    axios.post(urlInsTaxi, {
+                        day_hour: this.dayHourServ
 
-                }).then(response=>{
-                    this.showResult = true;
-                toastr.success("adios");
-                console.log("correcto taxiiii");
-            }).catch(error=>{
+                    }).then(response => {
+                        this.pedidoHecho=true;
 
-                    toastr.success("sdfsadf");
-                this.errores = error.response.data;
-                console.log("taxino no");
-
-            })
+                }).
+                    catch(error => {
+                    this.errores = error.response.data;
+                })
+                }
             },
             insertPetCare: function(){
                 var urlInsPetCare ='admin/service/petcare';
@@ -458,14 +458,10 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                     water:this.petWater,
                     snacks:this.petSnacks
                 }).then(response=>{
-                    this.showResult = true;
-                toastr.success("adios");
-                console.log("correcto dogg");
+                    this.pedidoHecho=true;
             }).catch(error=>{
-
-                    toastr.success("sdfsadf");
                 this.errores = error.response.data;
-                console.log("dooogg no");
+
 
             })
             },

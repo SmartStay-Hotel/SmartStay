@@ -20,6 +20,7 @@
 </head>
 <body>
 <div id="container">
+
     <div id="header">
         <nav>
             <div id="nav1">
@@ -59,11 +60,11 @@
     </transition>
 
 
-    <housekeeping v-if="!statusRoom && showModalHK" @close="showModalHK = false">
+    <housekeeping v-bind:trans="['']" v-if="!statusRoom && showModalHK" @close="showModalHK = false">
 
     </housekeeping>
 
-    <historyorders  v-if="showHistory && history.length>0" @close="closeHistory"></historyorders>
+    <historyorders v-bind:transHistory="['']" v-bind:transOrder="['']" v-bind:transCancel="['']" v-if="showHistory && history.length>0" @close="closeHistory"></historyorders>
 
 {{--@{{$data}}--}}
     <transition name="fade-out">

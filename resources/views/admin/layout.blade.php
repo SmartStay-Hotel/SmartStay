@@ -20,9 +20,10 @@
 <body>
 <div id="main_container">
     <nav class="sidenav">
-        <header id="titleAdmin">
-            <p id="titleApp">SmartStay</p>
-            <h5 id="hotelName">JAUME BALMES</h5>
+        <header>
+           <!-- <p id="titleApp">SmartStay <img src="{{ asset('img/icon/favicon-96x96.png') }}" style="width: 40px;"></p>
+            <h5 id="hotelName">JAUME BALMES</h5>-->
+               <img src="{{ asset('img/logoTransparente.png') }}" style="width: 95px; margin-left: 35px; margin-bottom: 10%; padding-top: 0px;">
         </header>
         <hr id="separator">
         <p><a id="guests" href="{{ route('guests.index') }}">Guests</a></p>
