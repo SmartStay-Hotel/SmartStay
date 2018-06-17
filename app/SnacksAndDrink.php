@@ -58,6 +58,7 @@ class SnacksAndDrink extends Model
         if (count($snackDrinks) > 0) {
             $serviceName = Services::getServiceName($snackDrinks[0]->service_id);
             foreach ($snackDrinks as $key => $snackDrink) {
+                $snackDrink->snackTypeName = $snackDrink->productType->name;
                 $snackDrink->serviceName = $serviceName;
                 $snackDrink->roomNumber  = ($snackDrink->guest->rooms[0]->number) ? $snackDrink->guest->rooms[0]->number
                     : 'Snack and DrinkErr id:' . $snackDrink->id;
