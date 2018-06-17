@@ -25,7 +25,7 @@
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body" id="newOrdersBody">
                         <h5 class="card-title text-center flex-grid">
-                            <div style="padding: 0px; flex: 2; margin-left: 8%; border-style: hidden!important; font-weight: bold;">Service</div>
+                            <div id="serviceListFirstElement" style="padding: 0px; flex: 2; margin-left: 8%; border-style: hidden!important; font-weight: bold;">Service</div>
 
                             <div style="padding: 0px; flex: 2; border-style: hidden!important; font-weight: bold;">Customer</div>
 

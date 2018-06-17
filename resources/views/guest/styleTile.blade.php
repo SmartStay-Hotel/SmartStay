@@ -80,12 +80,12 @@
         </div>
         <div class="col-4 border">
             <p>LOGO</p>
-            <img class="logo" src="{{('img/icon/favicon.ico')}}" style="width: 200px;">
+            <img class="logo" src="{{('img/logo.png')}}" style="width: 300px; margin-left: 30px;">
         </div>
     </div>
     <div class="row border">
         <div class="col-12 border" style="padding-bottom: 40px;">
-            <p>COLORS/IMAGES</p>
+            <p>COLORS</p>
             <div class="row">
                 <div id="m01-01" class="item"></div>
                 <div id="m01-02" class="item"></div>
@@ -97,7 +97,7 @@
     </div>
     <div class="row border">
         <div class="col-12 border" style="padding-bottom: 40px;">
-            <p>COLORS/IMAGES</p>
+            <p>IMAGES</p>
             <div class="row">
                 <div style="margin-left: 150px; margin-right:15px;"><img src="{{('img/home_services/snackdrink/snickers.jpg')}}" style="width: 150px; padding-top: 50px;"></div>
                 <div style="margin-right:15px;"><img src="{{('img/home_services/snackdrink/doritos.jpg')}}" style="width: 150px; padding-top: 25px;"></div>
