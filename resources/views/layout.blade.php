@@ -73,7 +73,7 @@
         <load-screen
                 :animation-duration="1000"
                 :size="60"
-                color="#46ce90"
+                color="#ff1d5e"
         />
     </div>
     </transition>

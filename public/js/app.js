@@ -57963,20 +57963,24 @@ new Vue({
         insertTaxi: function insertTaxi() {
             var _this17 = this;
 
-            var urlInsTaxi = 'admin/service/taxi';
-            axios.post(urlInsTaxi, {
-                day_hour: this.dayHourServ
+            if (this.dayHourServ <= this.dataActual) {
+                this.errorDayHour = true;
+            } else {
+                var urlInsTaxi = 'admin/service/taxi';
+                axios.post(urlInsTaxi, {
+                    day_hour: this.dayHourServ
 
-            }).then(function (response) {
-                _this17.showResult = true;
-                toastr.success("adios");
-                console.log("correcto taxiiii");
-            }).catch(function (error) {
+                }).then(function (response) {
+                    _this17.showResult = true;
+                    toastr.success("adios");
+                    console.log("correcto taxiiii");
+                }).catch(function (error) {
 
-                toastr.success("sdfsadf");
-                _this17.errores = error.response.data;
-                console.log("taxino no");
-            });
+                    toastr.success("sdfsadf");
+                    _this17.errores = error.response.data;
+                    console.log("taxino no");
+                });
+            }
         },
         insertPetCare: function insertPetCare() {
             var _this18 = this;

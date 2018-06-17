@@ -432,21 +432,26 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                 }
             },
             insertTaxi: function(){
-                var urlInsTaxi ='admin/service/taxi';
-                axios.post(urlInsTaxi,{
-                    day_hour: this.dayHourServ
+                if(this.dayHourServ<=this.dataActual){
+                    this.errorDayHour = true;
+                }else {
+                    var urlInsTaxi = 'admin/service/taxi';
+                    axios.post(urlInsTaxi, {
+                        day_hour: this.dayHourServ
 
-                }).then(response=>{
-                    this.showResult = true;
-                toastr.success("adios");
-                console.log("correcto taxiiii");
-            }).catch(error=>{
+                    }).then(response => {
+                        this.showResult = true;
+                    toastr.success("adios");
+                    console.log("correcto taxiiii");
+                }).
+                    catch(error => {
 
-                    toastr.success("sdfsadf");
-                this.errores = error.response.data;
-                console.log("taxino no");
+                        toastr.success("sdfsadf");
+                    this.errores = error.response.data;
+                    console.log("taxino no");
 
-            })
+                })
+                }
             },
             insertPetCare: function(){
                 var urlInsPetCare ='admin/service/petcare';
