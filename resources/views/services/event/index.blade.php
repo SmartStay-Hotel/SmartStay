@@ -28,7 +28,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($events->sortByDesc('updated_at') as $indexKey => $event)
+                @foreach($events as $indexKey => $event)
                     <tr>
                         <td>{{ ++$indexKey }}</td>
                         <td>{{ $event->guest->firstname . ' ' . $event->guest->lastname }}</td>
