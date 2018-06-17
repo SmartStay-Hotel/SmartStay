@@ -28,8 +28,9 @@ return [
     'dashboard.taxi' => 'Taxi',
     'dashboard.spa' => 'SpaAppointment',
     'dashboard.housekeeping' => 'Servicios de habitación',
-
+    'dashboard.selectProduct' => 'Seleccione un producto',
     'dashboard.send' => 'Enviar',
+    'dashboard.quantity' => 'Cantidad',
 
     /*
  restaurant

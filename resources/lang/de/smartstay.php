@@ -28,6 +28,8 @@ return [
     'dashboard.spa' => 'SpaAppointment',
     'dashboard.housekeeping' => 'Haushaltung',
     'dashboard.send' => 'Senden',
+    'dashboard.selectProduct' => 'Produkt auswählen',
+    'dashboard.quantity' => 'Menge',
 
     /*
 restaurant

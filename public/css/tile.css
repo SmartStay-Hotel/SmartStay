@@ -1,0 +1,43 @@
+header {
+    text-align: center; }
+
+main .container-01 {
+    justify-content: space-around !important; }
+
+main .item {
+    border-radius: 50%;
+    border: 1px solid black; }
+
+#m01-01 {
+    background-color: var(--colorBody);
+}
+
+#m01-02 {
+    background-color: #EFF9A6; }
+
+#m01-03 {
+    background-color: #C3CF68; }
+
+#m01-04 {
+    background-color: #674F91; }
+
+#m01-05 {
+    background-color: #674F91; }
+
+#f01-01 {
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif; }
+
+#f01-02 {
+    font-family: Georgia, serif; }
+
+#f01-03 {
+    font-family: "Times New Roman", Times, serif; }
+
+#f01-04 {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; }
+
+#f01-05 {
+    font-family: "Comic Sans MS", cursive, sans-serif; }
+
+.logo {
+    text-align: center; }
