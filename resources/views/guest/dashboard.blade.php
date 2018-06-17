@@ -204,11 +204,11 @@
                     </div>
                     <p class="windowDesc">Datos de tu reserva </p>
                     <div class="windowContent" v-for="info in existsRestaurant">
-                        <p>Nombre de la reserva: @{{ info.guest_id }} </p>
-                        <p>Fecha: @{{ info.day_hour }}</p>
-                        <p>Número de personas: @{{ info.quantity }}</p>
+                        <p><strong>Nombre de la reserva: </strong> @{{ info.guest_id }} </p>
+                        <p><strong>Fecha: </strong>@{{ info.day_hour }}</p>
+                        <p><strong>Número de personas:</strong> @{{ info.quantity }}</p>
                         <div class="bttnSubmit">
-                            <button type="submit" v-if="!pedidoHecho" v-on:click="showCancelConfirm=true" value="delete">Cancelar pedido</button>
+                            <button type="submit" v-if="!pedidoHecho" v-on:click="showCancelConfirm=true">Cancelar pedido</button>
                             <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">¡Pedido completado!</button>
                         </div>
                         <confirmcancel v-if="showCancelConfirm" @yes-cancel="deleteOrder(info.service_id,info.id)" @no-cancel="showCancelConfirm=false"></confirmcancel>
@@ -223,121 +223,73 @@
                     <h2>@{{ services[1].name }}</h2>
                 </div>
                 <p class="windowDesc" style="margin-bottom:0px;">@{{ services[1].description }}</p>
-                <div class="windowNav">
-
-                        <p @click="showSnack=true"
-                            v-bind:class="[showSnack ? 'windowNavSelected' : '']">{{trans('smartstay.snack.name')}}</p>
-                        <p @click="showSnack=false"
-                            v-bind:class="[!showSnack ? 'windowNavSelected' : '']">{{trans('smartstay.drink.name')}}</p>
-
-                </div>
                 <div class="windowContent">
-                    <form class="attribOrder col-md-12"  action="#" method="post" v-on:submit.prevent="insertRestaurant">
+                    <form class="attribOrder col-md-12"  action="#" method="post" id="formIns1" v-on:submit.prevent="insertProduct">
                         <div class="row" style="margin-bottom:5%;">
-                            <transition name="fade">
-                                <div v-if="showSnack">
+
                                     <div class="col-md-5">
                                     <div style="display:flex;">
-                                    <label for="orderSnack" style="padding-left:4%;width:80%" >{{trans('smartstay.snack.name')}}</label>
-                                    <label for="cantSnack" style="width:20%;">Cantidad </label>
+                                    <label for="orderProduct" style="padding-left:4%;width:80%" >Select a product</label>
+                                    <label for="cantProduct" style="width:20%;">Cantidad </label>
                                     </div>
-                                        <div class="selSnackDrinks" v-for="numS in numSnacks" style="display:flex; flex-direction: row; justify-content: space-around;">
+                                        <div class="selSnackDrinks" v-for="numP in numProducts" style="display:flex; flex-direction: row; justify-content: space-around;">
 
-                                        <select style="width:70%; height:25px;" name="orderSnack" id="snackOrder"  v-model="snackSelected[numS]" >
-                                            <option v-for="snack in snacks" v-bind:value="snack.id">@{{ snack.name }}</option>
+                                        <select style="width:70%; height:25px;" name="orderProduct" id="productOrder"  v-model="productSelected[numP]">
+                                            <option v-for="product in products" v-bind:value="product.id">@{{ product.name }}</option>
                                         </select>
-                                        <input type="number" name="cantSnack" min="1" v-model="snackCant[numS]" style="width:20%; height:25px" v-on:keyup="getPriceProducts()" v-on:change="getPriceProducts()" required>
+                                        <input type="number" name="cantProduct" min="1" v-model="productCant[numP]" style="width:20%; height:25px" required>
                                     </div>
+
 
                                         <div class="bttnSnackDrinks row">
                                             <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5 col-xl-5"
                                                  style="padding:0px">
-                                                <button @click="bttnMas('snack')" v-if="this.numSnacks.length<3"><i
-                                                            class="fas fa-plus"></i></button>
+                                                <p class="bttnSD" @click="bttnMas()" v-if="this.numProducts.length<3"><i
+                                                            class="fas fa-plus"></i></p>
                                             </div>
                                             <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5 col-xl-5"
                                                  style="padding:0px">
-                                                <button @click="bttnMenos('snack')" v-if="this.numSnacks.length>1"><i
-                                                            class="fas fa-minus"></i></button>
+                                                <p class="bttnSD" @click="bttnMenos()" v-if="this.numProducts.length>1"><i
+                                                            class="fas fa-minus"></i></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="windowInfo col-md-5 infoSnackDrink" >
 
-                                        <div v-if="snackSelected[0]!=''" v-for="infoProd in infoSnack(0)" class="col-md-4">
-                                            <p><span class="productPrice">@{{ setPrecioSnack(infoProd.price,0) }} </span> €</p>
-                                        <img v-bind:src="infoProd.image" alt="Product">
+                                        <div v-if="productSelected[0]!=''" v-for="infoProd in infoProduct(0)" class="col-md-4">
+                                            <p><span class="productPrice"  style="font-weight: bolder">@{{ infoProd.price }}</span> €</p>
+                                            <img v-bind:src="infoProd.image" style="width:50px" alt="Product">
                                         </div>
-                                        <div v-if="snackSelected[1]!=''" v-for="infoProd in infoSnack(1)" class="col-md-4">
-                                            <p><span class="productPrice">@{{ setPrecioSnack(infoProd.price,1) }} </span> €</p>
-                                            <img v-bind:src="infoProd.image" alt="Product">
+                                        <div v-if="productSelected[1]!=''" v-for="infoProd in infoProduct(1)" class="col-md-4">
+                                            <p><span class="productPrice" style="font-weight: bolder">@{{ infoProd.price }}</span> €</p>
+                                            <img v-bind:src="infoProd.image" style="width:50px" alt="Product">
                                         </div>
-                                        <div v-if="snackSelected[2]!=''" v-for="infoProd in infoSnack(2)" class="col-md-4">
-                                            <p><span class="productPrice">@{{ setPrecioSnack(infoProd.price,2) }} </span> €</p>
-                                            <img v-bind:src="infoProd.image" alt="Product">
+                                        <div v-if="productSelected[2]!=''" v-for="infoProd in infoProduct(2)" class="col-md-4">
+                                            <p><span class="productPrice" style="font-weight: bolder">@{{ infoProd.price }} </span> €</p>
+                                            <img v-bind:src="infoProd.image" style="width:50px" alt="Product">
 
                                         </div>
 
                                     </div>
-                                </div>
-                            </transition>
-                            <transition name="fade">
-                                <div v-if="!showSnack">
-                                    <div class="col-md-5">
-                                        <div style="display:flex;">
-                                            <label for="orderDrink" style="padding-left:4%;width:80%" >{{trans('smartstay.drink.name')}}</label>
-                                            <label for="cantDrink" style="width:20%;">Cantidad </label>
-                                        </div>
-                                        <div class="selSnackDrinks" v-for="numD in numDrinks" style="display:flex; flex-direction: row; justify-content: space-around;">
-
-                                            <select style="width:70%; height:25px;" name="orderDrink" id="drinkOrder"  v-model="drinkSelected[numD]" >
-                                                <option v-for="drink in drinks" v-bind:value="drink.id">@{{ drink.name }}</option>
-                                            </select>
-                                            <input type="number" name="cantDrink" min="1" v-model="drinkCant[numD]" style="width:20%; height:25px" v-on:keyup="getPriceProducts()" v-on:change="getPriceProducts()" required>
-                                        </div>
-
-                                        <div class="bttnSnackDrinks row">
-                                            <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5 col-xl-5"
-                                                 style="padding:0px">
-                                                <button @click="bttnMas('drink')" v-if="this.numDrinks.length<3"><i
-                                                            class="fas fa-plus"></i></button>
-                                            </div>
-                                            <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5 col-xl-5"
-                                                 style="padding:0px">
-                                                <button @click="bttnMenos('drink')" v-if="this.numDrinks.length>1"><i
-                                                            class="fas fa-minus"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="windowInfo col-md-5 infoSnackDrink" >
-
-                                        <div v-if="drinkSelected[0]!=''" v-for="infoProd in infoDrink(0)" class="col-md-4">
-                                            <p><span class="productPrice">@{{ setPrecioDrink(infoProd.price,0) }} </span> €</p>
-                                            <img v-bind:src="infoProd.image" alt="Product">
-                                        </div>
-                                        <div v-if="drinkSelected[1]!=''" v-for="infoProd in infoDrink(1)" class="col-md-4">
-                                            <p><span class="productPrice">@{{setPrecioDrink(infoProd.price,1) }} </span> €</p>
-                                            <img v-bind:src="infoProd.image" alt="Product">
-                                        </div>
-                                        <div v-if="drinkSelected[2]!=''" v-for="infoProd in infoDrink(2)" class="col-md-4">
-                                            <p><span class="productPrice">setPrecioDrink(infoProd.price,2) </span> €</p>
-                                            <img v-bind:src="infoProd.image" alt="Product">
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </transition>
 
 
                         </div>
-                        <div style="display:flex; justify-content:space-between">
-                            <p>Precio @{{ precioTotalSD.toFixed(2) }}</p>
-                        <input type="submit" name="{{trans('smartstay.dashboard.send')}}">
+                            {{--<div style="display:flex; justify-content:space-between">--}}
+                                {{--<p v-if="showPrecioProduct">Precio @{{ precioTotalSD.toFixed(2) }}</p>--}}
 
-                        </div>
+                            {{--</div>--}}
                     </form>
 
+                </div>
+                <div class="bttnSubmit col-md-12" style="display:flex; justify-content:flex-start; justify-content: space-between">
+                    <div>
+                        <p v-if="showPrecioProduct"><strong>Precio total:</strong> @{{ precioTotalSD.toFixed(2) }} €</p>
+                    </div>
+                    <div style="display:flex;">
+                        <button @click="showProdPrice" v-if="!pedidoHecho" style="width:150px">Calcular precio</button>
+                        <button type="submit" v-if="!pedidoHecho" form="formIns1" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
+                        <button type="submit" v-if="pedidoHecho" style="width:150px" class="bttnPedidoHecho">¡Pedido completado!</button>
+                    </div>
                 </div>
 
             </div>
@@ -371,10 +323,10 @@
                     <div class="resultOrder col-md-5">
                         <div class="windowInfo" v-for="item in infoSpa" v-if="spaSelected != ''">
                         <div class="col-md-5">
-                            <p>Duration: @{{ item.duration }}</p>
-                        <p>Precio: @{{ item.price }}</p>
+                            <p>Duration: @{{ item.duration }} min</p>
+                        <p>Precio: @{{ item.price }} €</p>
                         </div>
-                            <img v-bind:src="item.image" alt="Spa type" class="col-md-5">
+                            <img v-bind:src="item.image" alt="Spa type" style="width:200px;" class="col-md-5">
 
                         </div>
                     </div>
@@ -395,16 +347,23 @@
                 </div>
                 <p class="windowDesc">@{{ services[3].description }}</p>
                 <div class="windowContent row">
-                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertAlarm">
-                        <label for="dateAlarm">{{trans('smartstay.alarm.date')}}</label>
-                        <input type="datetime-local" name="dateAlarm" v-model="dayHourServ"><br>
-
-                        <br>
-                        <input type="submit" name="{{trans('smartstay.dashboard.send')}}">
+                    <div class="col-md-12" style="display:flex;justify-content: center;"><label for="dateAlarm" style="width:auto; font-weight: bolder; text-transform: uppercase; font-size:150%;">{{trans('smartstay.alarm.date')}}</label></div>
+                    <form class="attribOrder col-md-12" style="display:flex;justify-content: center;" action="#" method="post" v-on:submit.prevent="insertAlarm" id="formIns3">
+                        <input type="datetime-local" name="dateAlarm" v-model="dayHourServ" style="border:none; border:1px solid gray; border-radius:5px;"><br>
                     </form>
-                    <div v-if="showResult">
-                        <p>{{trans('smartstay.alarm.hour')}}: @{{dayHourServ}}</p>
+                    <div class="row">
+
+                            <div class="col-md-12" style="display:flex; justify-content: center; padding-top:2%;">
+                        {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
+                        <p class="errorForm errorDayHour" v-if="errorDayHour">*La fecha debe ser entre @{{dataActualFormat}} y @{{ checkoutDateFormat }}</p>
+                            </div>
+
                     </div>
+                    <div class="col-md-12 bttnSubmit" style="justify-content: center; padding-top:2%">
+                        <button type="submit" v-if="!pedidoHecho" form="formIns3" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
+                        <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">¡Pedido completado!</button>
+                    </div>
+
                 </div>
             </div>
             <div class="windowService" v-if="window[4]">
@@ -415,13 +374,17 @@
                 </div>
                 <p class="windowDesc">{{trans('smartstay.pet.description')}}</p>
                 <div class="windowContent">
-                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertPetCare">
-                    <input type="checkbox" name="petWater" v-model="petWater" value="water">{{trans('smartstay.pet.water')}}
-                    <input type="radio" name="petStandardFood" value="standard" v-model="petStandardFood">{{trans('smartstay.pet.standardFood')}}
-                    <input type="radio" name="petPremiumFood" value="premium" v-model="petPremiumFood">{{trans('smartstay.pet.premiumFood')}}
-                    <input type="checkbox" v-model="petSnacks" name="petSnacks" value="snacks">{{trans('smartstay.pet.snacks')}}
-                        <input type="submit">
+                    <form class="attribOrder col-md-12" action="#" method="post" id="formIns4" v-on:submit.prevent="insertPetCare" style="display:flex; justify-content: space-around">
+                    <div><input type="checkbox" name="petWater" v-model="petWater" value="water"><label for="petWater">{{trans('smartstay.pet.water')}}</label></div>
+                    <div><input type="radio" name="petFood" value="standard_food" v-model="petFood"><label for="petFood" style="width:auto">{{trans('smartstay.pet.standardFood')}}</label></div>
+                    <div><input type="radio" name="petFood" value="premium_food" v-model="petFood"><label for="premium_food" style="width:auto">{{trans('smartstay.pet.premiumFood')}}</label></div>
+                    <div><input type="checkbox" v-model="petSnacks" name="petSnacks" value="snacks"><label for="petSnacks">{{trans('smartstay.pet.snacks')}}</label></div>
+
                     </form>
+                    <div class="col-md-12 bttnSubmit" style="justify-content: center; padding-top:2%">
+                        <button type="submit" v-if="!pedidoHecho" form="formIns4" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
+                        <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">¡Pedido completado!</button>
+                    </div>
                 </div>
             </div>
             <div class="windowService" v-if="window[5]">
@@ -441,34 +404,34 @@
                                 <option v-for="trip in trips" v-bind:value="trip.id">@{{ trip.name }}</option>
                             </select>
                         </div>
-                        <div class="row">
-                            {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
-                            <p class="errorForm col-md-12" v-if="errorPlazas">*Faltan plazas</p>
-                        </div>
+
                         <div class="row">
                     <label for="cantTrip" class="col-md-6" style="width:40%;">{{trans('smartstay.trips.numPersons')}}: </label>
                             <input type="number" min="1" class="col-md-6" v-model="numPersonsTrip">
                         </div>
-
+                        <div class="row">
+                            {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
+                            <p class="errorForm col-md-12" v-if="errorPlazas">*No hay plazas suficientes.</p>
+                        </div>
                     </form>
-                        <div class="windowInfo col-md-7" v-for="item in infoTrip" v-if="tripSelected != ''">
-                            <div class="col-md-7">
-                            <p>{{trans('smartstay.trips.location')}}: @{{ item.location }}</p>
-                            <p>{{trans('smartstay.trips.day')}}: @{{ item.day_week }}</p>
-                            <p>{{trans('smartstay.trips.price')}}: @{{ setPriceTrip(item.price) }}</p>
+                        <div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">
+                            <div style="display:flex">
+                            <div class="col-md-8 col-sm-7 col-xs-7 col-lg-7 col-xl-7 ">
+                                <p><strong> Places available:</strong> @{{ getTripPlaces(item.id) }}</p>
+                            <p><strong>{{trans('smartstay.trips.location')}}:</strong> @{{ item.location }}</p>
+                            <p><strong>{{trans('smartstay.trips.day')}}: </strong>@{{ item.day_week }}</p>
+                            <p><strong>{{trans('smartstay.trips.price')}}: </strong>@{{ setPriceTrip(item.price) }} €</p>
                             </div>
-                            <img v-bind:src="item.image" alt="Trip" class="col-md-5">
-
+                            <img v-bind:src="item.image" alt="Trip image"  class="col-md-4 col-sm-5 col-xs-5 col-lg-5 col-xl-5">
+                            </div>
                         </div>
 
-                    <div v-if="showResult">
-                        <p>Trip selected: @{{tripSelected}}</p>
-                        <p>Number: @{{numPersonsTrip}}</p>
-                    </div>
+
 
                 </div>
                 <div class="bttnSubmit">
-                    <button type="submit" form="formIns5" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
+                    <button type="submit"  v-if="!pedidoHecho" form="formIns5" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
+                    <button type="submit" v-if="pedidoHecho" style="width:150px" class="bttnPedidoHecho">¡Pedido completado!</button>
                 </div>
             </div>
             <div class="windowService" v-if="window[6]">
@@ -479,7 +442,7 @@
                 </div>
                 <p class="windowDesc">@{{ services[6].description }}</p>
                 <div class="windowContent row">
-                    <form class="attribOrder col-md-12" action="#" method="post" v-on:submit.prevent="insertEvent">
+                    <form class="attribOrder col-md-5" action="#" method="post" id="formIns6" v-on:submit.prevent="insertEvent">
                         <div class="row" >
                         <label for="selEvent" class="col-md-6" style="width:40%;">
                             {{trans('smartstay.event.selectEvent')}}
@@ -488,19 +451,39 @@
                             <option v-for="event in events" v-bind:value="event.id">@{{ event.name }}</option>
                         </select>
                         </div>
+                        <div class="row">
+                            <label for="cantTrip" class="col-md-6" style="width:40%;">{{trans('smartstay.trips.numPersons')}}: </label>
+                            <input type="number" min="1" class="col-md-6" v-model="numPersonsTrip">
+                        </div>
+                        <div class="row">
+                            {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
+                            <p class="errorForm col-md-12" v-if="errorPlazas">*No hay plazas suficientes.</p>
+                        </div>
 
                     </form>
-                    <div class="" style="margin-top:4%;">
-                        <div class="col-md-5">
-                    <div class="windowInfo col-md-12" v-for="item in infoEvent" v-if="eventSelected != ''">
-                        <p>{{trans('smartstay.event.location')}}: @{{ item.location }}</p>
-                        <p>{{trans('smartstay.event.day')}}: @{{ item.day_week }}</p>
-                    </div>
+
+
+                    <div class="windowInfo" v-for="item in infoEvent" v-if="eventSelected != ''">
+                        <div style="display:flex">
+                        <div class="col-md-8 col-sm-7 col-xs-7 col-lg-7 col-xl-7">
+                            <p><strong>Places available: </strong>@{{ getEventPlaces(item.id) }}</p>
+                            <p><strong>{{trans('smartstay.event.location')}}:</strong> @{{ item.location }}</p>
+                            <p><strong>{{trans('smartstay.event.day')}}:</strong> @{{ item.day_week }}</p>
                         </div>
-                        <div class="bttnSubmit col-md-7" style="display:flex; align-items: flex-end;padding-top:5%;">
-                            <button type="submit" class="row" form="formIns6" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
+
+
+                            <img v-bind:src="item.image" style="width:150px;align-self: center" alt="Event image" class="col-md-5">
+
                         </div>
                     </div>
+
+
+
+
+                </div>
+                <div class="bttnSubmit">
+                    <button type="submit" v-if="!pedidoHecho" form="formIns6">{{trans('smartstay.dashboard.send')}}</button>
+                    <button type="submit" v-if="pedidoHecho" style="width:150px" class="bttnPedidoHecho">¡Pedido completado!</button>
                 </div>
             </div>
             <div class="windowService" v-if="window[7]">
@@ -510,14 +493,20 @@
                     <h2>{{trans('smartstay.taxi.name')}}</h2>
                 </div>
                 <p class="windowDesc">{{trans('smartstay.taxi.description')}}</p>
-                <div class="windowContent">
-                    <form class="attribOrder col-md-7" action="#" method="post" v-on:submit.prevent="insertTaxi">
-                    {{trans('smartstay.taxi.hour')}}<input type="datetime-local" v-model="dayHourServ">
-                        <input type="submit">
+                <div class="windowContent row">
+                    <div class="col-md-12" style="display:flex;justify-content: center;"><label for="dateTaxi" style="width:auto; font-weight: bolder; text-transform: uppercase; font-size:150%;">{{trans('smartstay.alarm.date')}}</label></div>
+                    <form class="attribOrder col-md-12" style="display:flex;justify-content: center;" action="#" method="post" v-on:submit.prevent="insertTaxi" if="formIns7">
+                    <input type="datetime-local" name="dateTaxi" v-model="dayHourServ">
                     </form>
-                    <div v-if="showResult">
-                        <p>Hour: @{{hourTaxi}}</p>
-
+                    <div class="row">
+                        <div class="col-md-12" style="display:flex; justify-content: center; padding-top:2%;">
+                            {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
+                            <p class="errorForm errorDayHour" v-if="errorDayHour">*La fecha debe ser entre @{{dataActualFormat}} y @{{ checkoutDateFormat }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 bttnSubmit" style="justify-content: center; padding-top:2%">
+                        <button type="submit" v-if="!pedidoHecho" form="formIns7" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
+                        <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">¡Pedido completado!</button>
                     </div>
                 </div>
             </div>
