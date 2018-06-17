@@ -141,4 +141,8 @@ Route::group(['middleware' => 'language'], function () {
         return "Order has been sent!";
     });
 
+
+    Route::get('styleTile', function () {
+        return view('guest.styleTile');
+    });
 });
