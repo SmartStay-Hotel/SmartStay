@@ -307,8 +307,11 @@ class GuestController extends Controller
             $spas,
             $trips,
         ]));
-
-        return $orders->sortByDesc('created_at')->toArray();
+        $orders = $orders->sortByDesc('created_at');
+        foreach ($orders as $order){
+            $order = $order->toArray();
+        }
+        return [$orders];
     }
 
     public function pdf($roomId)
