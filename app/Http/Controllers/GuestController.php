@@ -308,6 +308,13 @@ class GuestController extends Controller
             $trips,
         ]));
         //sortByDesc('created_at');
+        $orders = $orders->sortByDesc('created_at');
+        $list   = [];
+        foreach ($orders as $order) {
+            $list[] = $order;
+        }
+        $orders = $list;
+
         return $orders;
     }
 
