@@ -16,7 +16,7 @@ class TripType extends Model
         return self::find($id)->price;
     }
 
-    public static function getMaxPeopleByEvent($id) {
+    public static function getMaxPeopleByTrip($id) {
         return self::find($id)->max_num_people;
     }
 }

@@ -10,7 +10,9 @@ namespace App\Http\Controllers;
 
 
 use App\EventType;
+use App\ProductType;
 use App\Services;
+use App\SpaTreatmentType;
 use App\TripType;
 use Dedicated\GoogleTranslate\Translator;
 
@@ -31,7 +33,7 @@ class TranslatorAppController extends Controller
         $locale     = app()->getLocale();
         if ($array != null) {
             $result = $translator->setSourceLang('en')
-                ->setTargetLang('it')
+                ->setTargetLang($locale)
                 ->translate($array->toJson());
         } elseif ($string != null) {
             $result = $translator->setSourceLang('en')
@@ -50,26 +52,30 @@ class TranslatorAppController extends Controller
     {
         //no va 'ca'
         if (app()->getLocale() != 'en') {
-            $data = Services::get(['name', 'description']);
-            $data = self::translate($data);
-            $data = htmlspecialchars_decode($data);
-            $data = json_decode($data, true);
-            if ($data == null) {
+            $name = Services::pluck('name');
+            $name = self::translate($name);
+            $name = htmlspecialchars_decode($name);
+
+            $description = Services::pluck('description');
+            $description = self::translate($description);
+            $description = htmlspecialchars_decode($description);
+            if (app()->getLocale() == 'es') {
+                $description = str_replace('" "', '"', $description);
+            } elseif (app()->getLocale() == 'cat') {
+                $description = str_replace('""', '","', $description);
+            }
+
+            $name        = json_decode($name, true);
+            $description = json_decode($description, true);
+
+            if ($name == null || $description == null) {
                 return Services::get();
             }
-            $trans = [];
-            foreach ($data as $k => $v) {
-                $values = [];
-                foreach ($v as $key => $field) {
-                    $values[] = $v[$key];
 
-                }
-                $trans[] = $values;
-            }
             $services = Services::get();
             foreach ($services as $key => $service) {
-                $service->name        = $trans[$key][0];
-                $service->description = $trans[$key][1];
+                $service->name        = $name[$key];
+                $service->description = $description[$key];
             }
         } else {
             $services = Services::get();
@@ -121,8 +127,7 @@ class TranslatorAppController extends Controller
      */
     public function events()
     {
-        dd(EventType::get());
-        if (true) {
+        if (app()->getLocale() != 'en') {
             $data = EventType::get(['name', 'location', 'day_week']);
             $data = self::translate($data);
             $data = htmlspecialchars_decode($data);
@@ -150,6 +155,74 @@ class TranslatorAppController extends Controller
         }
 
         return $events;
+    }
+
+    /**
+     * @return mixed
+     * @throws \Dedicated\GoogleTranslate\TranslateException
+     */
+    public function spas()
+    {
+        if (app()->getLocale() != 'en') {
+            $data = SpaTreatmentType::get(['name']);
+            $data = self::translate($data);
+            $data = htmlspecialchars_decode($data);
+            $data = json_decode($data, true);
+            if ($data == null) {
+                return SpaTreatmentType::get();
+            }
+            $trans = [];
+            foreach ($data as $k => $v) {
+                $values = [];
+                foreach ($v as $key => $field) {
+                    $values[] = $v[$key];
+
+                }
+                $trans[] = $values;
+            }
+            $spas = SpaTreatmentType::get();
+            foreach ($spas as $key => $service) {
+                $service->name = $trans[$key][0];
+            }
+        } else {
+            $spas = SpaTreatmentType::get();
+        }
+
+        return $spas;
+    }
+
+    /**
+     * @return mixed
+     * @throws \Dedicated\GoogleTranslate\TranslateException
+     */
+    public function products()
+    {
+        if (app()->getLocale() != 'en') {
+            $data = ProductType::get(['name']);
+            $data = self::translate($data);
+            $data = htmlspecialchars_decode($data);
+            $data = json_decode($data, true);
+            if ($data == null) {
+                return ProductType::get();
+            }
+            $trans = [];
+            foreach ($data as $k => $v) {
+                $values = [];
+                foreach ($v as $key => $field) {
+                    $values[] = $v[$key];
+
+                }
+                $trans[] = $values;
+            }
+            $products = ProductType::get();
+            foreach ($products as $key => $service) {
+                $service->name = $trans[$key][0];
+            }
+        } else {
+            $products = ProductType::get();
+        }
+
+        return $products;
     }
 
 }

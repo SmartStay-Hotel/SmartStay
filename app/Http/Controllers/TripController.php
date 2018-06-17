@@ -91,7 +91,7 @@ class TripController extends Controller
         $validator = Validator::make($input, $rules);
 
         if ($validator->passes()) {
-            $maxPeople       = TripType::getMaxPeopleByEvent($input['trip_type_id']);
+            $maxPeople       = TripType::getMaxPeopleByTrip($input['trip_type_id']);
             $peopleGoing     = Trip::getNumPeopleOnTheList($input['trip_type_id']);
             $availablePlaces = $maxPeople - $peopleGoing;
             if ($availablePlaces < $input['people_num']) {
