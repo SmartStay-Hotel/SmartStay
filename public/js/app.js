@@ -57788,7 +57788,8 @@ new Vue({
             this.eventSelected = "";
             this.spaSelected = "";
             this.numPersonsTrip = 1;
-            this.dayHourServ = "";
+            this.statusRoom = "";
+            this.dayHourServ = '';
             this.quantityServ = '';
             this.hourTaxi = '';
             this.productSelected = [];
@@ -57796,16 +57797,22 @@ new Vue({
             this.productPrice = [];
             this.numProducts = [0];
             this.nP = 1;
-            this.numSnacks = [0];
-            this.nS = 1;
-            this.numDrinks = [0];
-            this.nD = 1;
-            this.showSnack = ['true'];
-            this.petWater = false, this.petStandardFood = false, this.petPremiumFood = false, this.petSnacks = false, this.petFood = "", this.errores = "";
-            this.errorExists = false;
-            this.errorDayHour = false;
             this.precioTotalSD = 0;
-            this.pedidoHecho = false, this.actualDate();
+            this.showPrecioProduct = false;
+            this.petWater = false;
+            this.petSnacks = false;
+            this.petFood = "";
+            this.errores = "";
+            this.errorDayHour = false;
+            this.errorExists = false;
+            this.errorPlazas = false;
+            this.errorPlazas = false;
+            this.tripPlaces = 0;
+            this.eventPlaces = 0;
+            this.showCancelConfirm = false;
+            this.pedidoHecho = false;
+
+            this.actualDate();
             this.getHistory();
         },
         showOut: function showOut() {
@@ -57889,7 +57896,7 @@ new Vue({
 
             }).then(function (response) {
                 _this13.pedidoHecho = true;
-                _this13.showResult = true;
+
                 _this13.errorExists = false;
             }).catch(function (error) {
                 _this13.errorExists = true;
@@ -57932,7 +57939,8 @@ new Vue({
                     people_num: this.numPersonsTrip
 
                 }).then(function (response) {
-                    _this15.showResult = true;
+
+                    _this15.pedidoHecho = true;
                 }).catch(function (error) {
 
                     _this15.errores = error.response.data;
@@ -57948,15 +57956,13 @@ new Vue({
                 this.errorPlazas = false;
                 var urlInsEvent = 'admin/service/event';
                 axios.post(urlInsEvent, {
-                    event_type_id: this.eventSelected
+                    event_type_id: this.eventSelected,
+                    people_num: this.numPersonsTrip
 
                 }).then(function (response) {
-                    _this16.showResult = true;
-                    toastr.success("adios");
-                    console.log("correcto eventtt");
+                    _this16.pedidoHecho = true;
                 }).catch(function (error) {
                     _this16.errores = error.response.data;
-                    console.log("evevevvent no");
                 });
             }
         },
@@ -57971,14 +57977,9 @@ new Vue({
                     day_hour: this.dayHourServ
 
                 }).then(function (response) {
-                    _this17.showResult = true;
-                    toastr.success("adios");
-                    console.log("correcto taxiiii");
+                    _this17.pedidoHecho = true;
                 }).catch(function (error) {
-
-                    toastr.success("sdfsadf");
                     _this17.errores = error.response.data;
-                    console.log("taxino no");
                 });
             }
         },
@@ -57994,14 +57995,9 @@ new Vue({
                 water: this.petWater,
                 snacks: this.petSnacks
             }).then(function (response) {
-                _this18.showResult = true;
-                toastr.success("adios");
-                console.log("correcto dogg");
+                _this18.pedidoHecho = true;
             }).catch(function (error) {
-
-                toastr.success("sdfsadf");
                 _this18.errores = error.response.data;
-                console.log("dooogg no");
             });
         },
         bttnMas: function bttnMas() {

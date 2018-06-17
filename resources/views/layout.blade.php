@@ -66,7 +66,7 @@
 
     <historyorders  v-if="showHistory && history.length>0" @close="closeHistory"></historyorders>
 
-{{--@{{$data}}--}}
+@{{$data}}
     <transition name="fade-out">
     <div id="loadingScreen" v-if="loadingScreen">
         <h2>Welcome</h2>

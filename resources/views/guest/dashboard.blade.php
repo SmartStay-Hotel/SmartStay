@@ -422,7 +422,7 @@
                             <p><strong>{{trans('smartstay.trips.day')}}: </strong>@{{ item.day_week }}</p>
                             <p><strong>{{trans('smartstay.trips.price')}}: </strong>@{{ setPriceTrip(item.price) }} €</p>
                             </div>
-                            <img v-bind:src="item.image" alt="Trip image" style="width:200px;align-self: center" class="col-md-4 col-sm-5 col-xs-5 col-lg-5 col-xl-5">
+                            <img v-bind:src="item.image" alt="Trip image" style="width:150px;align-self: center" class="col-md-4 col-sm-5 col-xs-5 col-lg-5 col-xl-5">
                             </div>
                         </div>
 
