@@ -3,11 +3,11 @@
 <html>
 <head>
     <title>SmartStay</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css"
-          rel="stylesheet">
+    {{--<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css"--}}
+          {{--rel="stylesheet">--}}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{asset('css/guest.css')}}">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="shortcut icon" href="{{asset('img/icon/icoTransparente.png')}}">
 {{--    <script type="text/javascript" src="{{asset('css/styleSwiper.css') }}"></script>--}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.3.5/tiny-slider.css">
@@ -38,6 +38,19 @@
                 <a href="{{url('logout')}}"><i class="fas fa-power-off"></i></a>
             </div>
             <div id="subMenu2">
+                <div class="dropdown" v-if="!loadingScreen" style="position:relative;">
+                    <div class="dropbtn" style="background-color:transparent"><img src="{{ Config::get('languages')[App::getLocale()]['flag']}}"/></div>
+                    <div class="dropdown-content" id="language">
+
+                        @foreach (Config::get('languages') as $lang => $language)
+                            @if ($lang != App::getLocale())
+                                <a href="{{ route('lang.switch', $lang) }}"><img src="{{$language['flag']}}"/></a>
+                            @endif
+                        @endforeach
+
+                    </div>
+
+                </div>
                 <div id="bttnHistory" v-if="history.length>0">
                     <i class="fas fa-history" v-if="history.length>0" @click="showHistory = !showHistory"></i>
                 </div>
