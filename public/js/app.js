@@ -57942,18 +57942,23 @@ new Vue({
         }, insertEvent: function insertEvent() {
             var _this16 = this;
 
-            var urlInsEvent = 'admin/service/event';
-            axios.post(urlInsEvent, {
-                event_type_id: this.eventSelected
+            if (this.numPersonsTrip > this.eventPlaces) {
+                this.errorPlazas = true;
+            } else {
+                this.errorPlazas = false;
+                var urlInsEvent = 'admin/service/event';
+                axios.post(urlInsEvent, {
+                    event_type_id: this.eventSelected
 
-            }).then(function (response) {
-                _this16.showResult = true;
-                toastr.success("adios");
-                console.log("correcto eventtt");
-            }).catch(function (error) {
-                _this16.errores = error.response.data;
-                console.log("evevevvent no");
-            });
+                }).then(function (response) {
+                    _this16.showResult = true;
+                    toastr.success("adios");
+                    console.log("correcto eventtt");
+                }).catch(function (error) {
+                    _this16.errores = error.response.data;
+                    console.log("evevevvent no");
+                });
+            }
         },
         insertTaxi: function insertTaxi() {
             var _this17 = this;
@@ -58001,9 +58006,12 @@ new Vue({
             this.nP++;
         },
         bttnMenos: function bttnMenos() {
+
+            if (this.productSelected.length == this.numProducts.length) {
+                this.productSelected.pop();
+            }
             this.numProducts.pop();
             this.nP = this.nP - 1;
-            this.productSelected[this.nP] = '';
         }, infoProduct: function infoProduct(num) {
             var _this19 = this;
 
@@ -89919,7 +89927,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.modal-mask[data-v-215b011a] {\n        position: fixed;\n        z-index: 9998;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        background-color: rgba(0, 0, 0, .5);\n        display: table;\n        transition: opacity .3s ease;\n        padding:0px;\n}\n.modal-wrapper[data-v-215b011a] {\n        display: table-cell;\n        vertical-align: middle;\n        padding:0px;\n}\n.modal-container[data-v-215b011a] {\n        width: 20%;\n        min-width:200px;\n        margin: 0px auto;\n        /*padding: 20px 30px;*/\n        background-color: #fff;\n        border-radius: 2px;\n        box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n        transition: all .3s ease;\n        font-family: Helvetica, Arial, sans-serif;\n}\n\n    /*.modal-header h3 {*/\n        /*margin-top: 0;*/\n        /*color: #42b983;*/\n    /*}*/\n.modal-header[data-v-215b011a]{\n        background-color: var(--colorSubMenu);\n        color:white;\n}\n/*.modal-header, .model-body{*/\n    /*border-bottom:none;*/\n/*}*/\n.modal-body[data-v-215b011a] {\n        /*margin: 20px 0;*/\n}\n.modal-default-button[data-v-215b011a] {\n        float: right;\n}\n\n    /*\n     * The following styles are auto-applied to elements with\n     * transition=\"modal\" when their visibility is toggled\n     * by Vue.js.\n     *\n     * You can easily play with the modal transition by editing\n     * these styles.\n     */\n.modal-enter[data-v-215b011a] {\n        opacity: 0;\n}\n.modal-leave-active[data-v-215b011a] {\n        opacity: 0;\n}\n.modal-enter .modal-container[data-v-215b011a],\n    .modal-leave-active .modal-container[data-v-215b011a] {\n        -webkit-transform: scale(1.1);\n        transform: scale(1.1);\n}\n", ""]);
+exports.push([module.i, "\n.modal-mask[data-v-215b011a] {\n        position: fixed;\n        z-index: 9998;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        background-color: rgba(0, 0, 0, .5);\n        display: table;\n        transition: opacity .3s ease;\n        padding:0px;\n}\n.modal-wrapper[data-v-215b011a] {\n        display: table-cell;\n        vertical-align: middle;\n        padding:0px;\n}\n.modal-container[data-v-215b011a] {\n        width: 20%;\n        min-width:200px;\n        margin: 0px auto;\n        /*padding: 20px 30px;*/\n        background-color: #fff;\n        border-radius: 2px;\n        box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n        transition: all .3s ease;\n        font-family: Helvetica, Arial, sans-serif;\n}\n\n    /*.modal-header h3 {*/\n        /*margin-top: 0;*/\n        /*color: #42b983;*/\n    /*}*/\n.modal-header[data-v-215b011a]{\n        background-color: var(--colorSubMenu);\n        color:white;\n}\n/*.modal-header, .model-body{*/\n    /*border-bottom:none;*/\n/*}*/\n.modal-body[data-v-215b011a] {\n        /*margin: 20px 0;*/\n}\n.modal-default-button[data-v-215b011a] {\n        float: right;\n}\n\n    /*\n     * The following styles are auto-applied to elements with\n     * transition=\"modal\" when their visibility is toggled\n     * by Vue.js.\n     *\n     * You can easily play with the modal transition by editing\n     * these styles.\n     */\n.modal-enter[data-v-215b011a] {\n        opacity: 0;\n}\n.modal-leave-active[data-v-215b011a] {\n        opacity: 0;\n}\n.modal-enter .modal-container[data-v-215b011a],\n    .modal-leave-active .modal-container[data-v-215b011a] {\n        -webkit-transform: scale(1.1);\n        transform: scale(1.1);\n}\n.closeHousekeeping[data-v-215b011a]{\n        border:none;\n        color:white;\n        background-color:transparent;\n}\n.housekeepingTitle[data-v-215b011a]{\n        display:flex;\n        justify-content:space-between;\n}\n", ""]);
 
 // exports
 
@@ -89930,6 +89938,8 @@ exports.push([module.i, "\n.modal-mask[data-v-215b011a] {\n        position: fix
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -90033,19 +90043,22 @@ var render = function() {
             { staticClass: "modal-header" },
             [
               _vm._t("header", [
-                _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        _vm.$emit("close")
+                _c("div", { staticClass: "housekeepingTitle" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "closeHousekeeping",
+                      on: {
+                        click: function($event) {
+                          _vm.$emit("close")
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("X")]
-                ),
-                _vm._v(" "),
-                _c("p", [_vm._v("Housekeeping")])
+                    },
+                    [_c("i", { staticClass: "fas fa-long-arrow-alt-left" })]
+                  ),
+                  _vm._v(" "),
+                  _c("h3", [_vm._v("Housekeeping")])
+                ])
               ])
             ],
             2
@@ -90311,18 +90324,25 @@ var render = function() {
             { staticClass: "modal-footer" },
             [
               _vm._t("footer", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "modal-default-button",
-                    on: { click: _vm.insertHousekeeping }
-                  },
-                  [
-                    _vm._v(
-                      "\n                            Send\n                        "
+                this.bedSheets ||
+                this.cleaning ||
+                this.minibar ||
+                this.blanket ||
+                this.toiletries ||
+                this.pillow
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "modal-default-button",
+                        on: { click: _vm.insertHousekeeping }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Send\n                        "
+                        )
+                      ]
                     )
-                  ]
-                )
+                  : _vm._e()
               ])
             ],
             2
@@ -90428,7 +90448,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n#historyContainer *[data-v-7a71db5c] {\n    /*border:1px solid red;*/\n}\n#historyContainer[data-v-7a71db5c]{\n\n    display:flex;\n    justify-content:center;\n    align-items:center;\n    height:70%;\n}\n#history[data-v-7a71db5c]{\n    background-color:white;\n\n    width:50%;\n    box-shadow: var(--shadows);\n}\n#historyTitle[data-v-7a71db5c]{\n    display:flex;\n    justify-content: space-between;\n    padding:2%;\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n#historyTitle button[data-v-7a71db5c]{\n    padding:0px;\n    border:none;\n    font-size:150%;\n    background-color:transparent;\n}\n#historyTitle button[data-v-7a71db5c]:hover{\n    color: var(--colorSecond);\n}\n/*#historyList{*/\n    /*list-style-type:none;*/\n/*}*/\n/*#historyList > li{*/\n\n    /*padding: 2% 3% 1% 3%;*/\n    /*border-bottom:1px solid gray;*/\n    /*margin-top:1%;*/\n    /*display:flex;*/\n    /*justify-content: space-between;*/\n/*}*/\n/*#historyList > li > i {*/\n    /*font-size:150%;*/\n    /*color:red;*/\n/*}*/\n/*#historyList > li > i:hover {*/\n\n    /*color:black;*/\n/*}*/\n.historyItem[data-v-7a71db5c]{\n    border-bottom:1px solid var(--colorBody);\n    padding:2% 5%;\n}\n.historyInfo[data-v-7a71db5c]{\n    width:92%;\n}\n.historyCancel[data-v-7a71db5c]{\n    width:8%;\n    font-size:100%;\n    display:flex;\n    justiy-content:center;\n    align-items:center;\n}\n.historyCancel button[data-v-7a71db5c]{\n    background: transparent;\n    border:none;\n}\n.historyCancel[data-v-7a71db5c]:hover{\n    color:red;\n}\n/*.historyCancel>i{*/\n    /*width:100%;*/\n    /*height:100%;*/\n    /*margin:0px;*/\n    /**/\n/*}*/\n.historyItem p[data-v-7a71db5c]{\n    margin:0px;\n}\n.historyItem[data-v-7a71db5c]{\n    display:flex;\n}\n.historyItem[data-v-7a71db5c]:hover{\n    background-color:var(--colorBody);\n    curson:pointer;\n}\n.historyButton[data-v-7a71db5c]{\n    margin:0px;\n    width:50%;\n    border:none;\n    background-color:var(--colorNav)\n}\n#historyPage[data-v-7a71db5c]{\n    display:flex;\n    justify-content:space-around;\n}\n.historySubInfo[data-v-7a71db5c]{\n    font-size:75%;\n    display:flex;\n}\n@media (max-width: 450px) {\n#history[data-v-7a71db5c] {\n        width: 100%;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n#historyContainer *[data-v-7a71db5c] {\n    /*border:1px solid red;*/\n}\n#historyContainer[data-v-7a71db5c]{\n\n    display:flex;\n    justify-content:center;\n    align-items:center;\n    height:70%;\n}\n#history[data-v-7a71db5c]{\n    background-color:white;\n\n    width:50%;\n    box-shadow: var(--shadows);\n}\n#historyTitle[data-v-7a71db5c]{\n    display:flex;\n    justify-content: space-between;\n    padding:2%;\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n#historyTitle button[data-v-7a71db5c]{\n    padding:0px;\n    border:none;\n    font-size:150%;\n    background-color:transparent;\n}\n#historyTitle button[data-v-7a71db5c]:hover{\n    color: var(--colorSecond);\n}\n/*#historyList{*/\n    /*list-style-type:none;*/\n/*}*/\n/*#historyList > li{*/\n\n    /*padding: 2% 3% 1% 3%;*/\n    /*border-bottom:1px solid gray;*/\n    /*margin-top:1%;*/\n    /*display:flex;*/\n    /*justify-content: space-between;*/\n/*}*/\n/*#historyList > li > i {*/\n    /*font-size:150%;*/\n    /*color:red;*/\n/*}*/\n/*#historyList > li > i:hover {*/\n\n    /*color:black;*/\n/*}*/\n.historyItem[data-v-7a71db5c]{\n    border-bottom:1px solid var(--colorBody);\n    padding:2% 5%;\n}\n.historyInfo[data-v-7a71db5c]{\n    width:92%;\n}\n.historyCancel[data-v-7a71db5c]{\n    width:8%;\n    font-size:100%;\n    display:flex;\n    justiy-content:center;\n    align-items:center;\n}\n.historyCancel button[data-v-7a71db5c]{\n    background: transparent;\n    border:none;\n}\n.historyCancel[data-v-7a71db5c]:hover{\n    color:red;\n}\n/*.historyCancel>i{*/\n    /*width:100%;*/\n    /*height:100%;*/\n    /*margin:0px;*/\n    /**/\n/*}*/\n.historyItem p[data-v-7a71db5c]{\n    margin:0px;\n}\n.historyItem[data-v-7a71db5c]{\n    display:flex;\n}\n.historyItem[data-v-7a71db5c]:hover{\n    background-color:var(--colorBody);\n    cursor:pointer;\n}\n.historyButton[data-v-7a71db5c]{\n    margin:0px;\n    width:50%;\n    border:none;\n    background-color:var(--colorNav)\n}\n#historyPage[data-v-7a71db5c]{\n    display:flex;\n    justify-content:space-around;\n}\n.historySubInfo[data-v-7a71db5c]{\n    font-size:75%;\n    display:flex;\n}\n@media (max-width: 450px) {\n#history[data-v-7a71db5c] {\n        width: 100%;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -90706,7 +90726,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.modal-mask[data-v-5935e6b8] {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity .3s ease;\n    padding:0px;\n}\n.modal-wrapper[data-v-5935e6b8] {\n    display: table-cell;\n    vertical-align: middle;\n    padding:0px;\n}\n.modal-container[data-v-5935e6b8] {\n    width: 20%;\n    min-width:200px;\n    margin: 0px auto;\n    /*padding: 20px 30px;*/\n    background-color: #fff;\n    border-radius: 2px;\n    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n    transition: all .3s ease;\n    font-family: Helvetica, Arial, sans-serif;\n}\n\n/*.modal-header h3 {*/\n/*margin-top: 0;*/\n/*color: #42b983;*/\n/*}*/\n.modal-header[data-v-5935e6b8]{\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n/*.modal-header, .model-body{*/\n/*border-bottom:none;*/\n/*}*/\n.modal-body[data-v-5935e6b8] {\n    /*margin: 20px 0;*/\n}\n.modal-default-button[data-v-5935e6b8] {\n    float: right;\n}\n\n/*\n * The following styles are auto-applied to elements with\n * transition=\"modal\" when their visibility is toggled\n * by Vue.js.\n *\n * You can easily play with the modal transition by editing\n * these styles.\n */\n.modal-enter[data-v-5935e6b8] {\n    opacity: 0;\n}\n.modal-leave-active[data-v-5935e6b8] {\n    opacity: 0;\n}\n.modal-enter .modal-container[data-v-5935e6b8],\n.modal-leave-active .modal-container[data-v-5935e6b8] {\n    -webkit-transform: scale(1.1);\n    transform: scale(1.1);\n}\n", ""]);
+exports.push([module.i, "\n.modal-mask[data-v-5935e6b8] {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity .3s ease;\n    padding:0px;\n}\n.modal-wrapper[data-v-5935e6b8] {\n    display: table-cell;\n    vertical-align: middle;\n    padding:0px;\n}\n.modal-container[data-v-5935e6b8] {\n    width: 30%;\n    min-width:200px;\n    margin: 0px auto;\n    /*padding: 20px 30px;*/\n    background-color: #fff;\n    border-radius: 2px;\n    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n    transition: all .3s ease;\n    font-family: Helvetica, Arial, sans-serif;\n}\n\n/*.modal-header h3 {*/\n/*margin-top: 0;*/\n/*color: #42b983;*/\n/*}*/\n.modal-header[data-v-5935e6b8]{\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n/*.modal-header, .model-body{*/\n/*border-bottom:none;*/\n/*}*/\n.modal-body[data-v-5935e6b8] {\n    /*margin: 20px 0;*/\n}\n.modal-default-button[data-v-5935e6b8] {\n    float: right;\n}\n\n/*\n * The following styles are auto-applied to elements with\n * transition=\"modal\" when their visibility is toggled\n * by Vue.js.\n *\n * You can easily play with the modal transition by editing\n * these styles.\n */\n.modal-enter[data-v-5935e6b8] {\n    opacity: 0;\n}\n.modal-leave-active[data-v-5935e6b8] {\n    opacity: 0;\n}\n.modal-enter .modal-container[data-v-5935e6b8],\n.modal-leave-active .modal-container[data-v-5935e6b8] {\n    -webkit-transform: scale(1.1);\n    transform: scale(1.1);\n}\n.bttnBackOrder[data-v-5935e6b8]{\n    border:none;\n    color:white;\n    background-color:transparent;\n}\n.modalOrderTitle[data-v-5935e6b8]{\n    display:flex;\n    justify-content:space-between;\n}\n", ""]);
 
 // exports
 
@@ -90746,7 +90766,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -90757,6 +90777,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -90873,21 +90894,24 @@ var render = function() {
             { staticClass: "modal-header" },
             [
               _vm._t("header", [
-                _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        _vm.$emit("close")
+                _c("div", { staticClass: "modalOrderTitle" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "bttnBackOrder",
+                      on: {
+                        click: function($event) {
+                          _vm.$emit("close")
+                        }
                       }
-                    }
-                  },
-                  [_c("i", { staticClass: "fas fa-long-arrow-alt-left" })]
-                ),
-                _vm._v(" "),
-                _vm.order.service_id == 2
-                  ? _c("p", [_vm._v(" Snacks and drinks")])
-                  : _c("p", [_vm._v(_vm._s(_vm.order.serviceName))])
+                    },
+                    [_c("i", { staticClass: "fas fa-long-arrow-alt-left" })]
+                  ),
+                  _vm._v(" "),
+                  _vm.order.service_id == 2
+                    ? _c("h3", [_vm._v(" Snacks and drinks")])
+                    : _c("h3", [_vm._v(_vm._s(_vm.order.serviceName))])
+                ])
               ])
             ],
             2
@@ -90901,17 +90925,18 @@ var render = function() {
                 _vm.order.service_id == 1
                   ? _c("div", [
                       _c("p", [
-                        _vm._v("Date booking: " + _vm._s(_vm.order.day_hour))
+                        _c("strong", [_vm._v("Date booking: ")]),
+                        _vm._v(" " + _vm._s(_vm.order.day_hour))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _vm._v(
-                          "Quantity of persons: " + _vm._s(_vm.order.quantity)
-                        )
+                        _c("strong", [_vm._v("Quantity of persons: ")]),
+                        _vm._v(" " + _vm._s(_vm.order.quantity))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _vm._v("Name of booking: " + _vm._s(_vm.order.guest_id))
+                        _c("strong", [_vm._v("Name of booking: ")]),
+                        _vm._v(_vm._s(_vm.order.guest_id))
                       ])
                     ])
                   : _vm._e(),
@@ -90919,35 +90944,46 @@ var render = function() {
                 _vm.order.service_id == 2
                   ? _c("div", [
                       _c("p", [
-                        _vm._v("Product: " + _vm._s(_vm.order.snackTypeName))
+                        _c("strong", [_vm._v("Product: ")]),
+                        _vm._v(_vm._s(_vm.order.snackTypeName))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _vm._v("Quantity: " + _vm._s(_vm.order.quantity))
+                        _c("strong", [_vm._v("Quantity: ")]),
+                        _vm._v(_vm._s(_vm.order.quantity))
                       ]),
                       _vm._v(" "),
-                      _c("p", [_vm._v("Price: " + _vm._s(_vm.order.price))])
+                      _c("p", [
+                        _c("strong", [_vm._v("Price: ")]),
+                        _vm._v(_vm._s(_vm.order.price))
+                      ])
                     ])
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.order.service_id == 3
                   ? _c("div", [
                       _c("p", [
-                        _vm._v("Treatment: " + _vm._s(_vm.order.spaTypeName))
+                        _c("strong", [_vm._v("Treatment:")]),
+                        _vm._v(" " + _vm._s(_vm.order.spaTypeName))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _vm._v("Booking date: " + _vm._s(_vm.order.day_hour))
+                        _c("strong", [_vm._v("Booking date:")]),
+                        _vm._v(" " + _vm._s(_vm.order.day_hour))
                       ]),
                       _vm._v(" "),
-                      _c("p", [_vm._v("Price: " + _vm._s(_vm.order.price))])
+                      _c("p", [
+                        _c("strong", [_vm._v("Price: ")]),
+                        _vm._v(_vm._s(_vm.order.price))
+                      ])
                     ])
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.order.service_id == 4
                   ? _c("div", [
                       _c("p", [
-                        _vm._v("Alarm setted: " + _vm._s(_vm.order.day_hour))
+                        _c("strong", [_vm._v("Alarm setted:")]),
+                        _vm._v(" " + _vm._s(_vm.order.day_hour))
                       ])
                     ])
                   : _vm._e(),
@@ -90970,28 +91006,33 @@ var render = function() {
                 _vm._v(" "),
                 _vm.order.service_id == 6
                   ? _c("div", [
-                      _c("p", [_vm._v("Trip: {{order.tripTypeName}")]),
-                      _vm._v(" "),
                       _c("p", [
-                        _vm._v(
-                          "Number of persons: " + _vm._s(_vm.order.people_num)
-                        )
+                        _c("strong", [_vm._v("Trip:")]),
+                        _vm._v(" {{order.tripTypeName}")
                       ]),
                       _vm._v(" "),
-                      _c("p", [_vm._v("Price: " + _vm._s(_vm.order.price))])
+                      _c("p", [
+                        _c("strong", [_vm._v("Number of persons:")]),
+                        _vm._v(" " + _vm._s(_vm.order.people_num))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c("strong", [_vm._v("Price: ")]),
+                        _vm._v(_vm._s(_vm.order.price))
+                      ])
                     ])
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.order.service_id == 7
                   ? _c("div", [
                       _c("p", [
-                        _vm._v("Event: " + _vm._s(_vm.order.eventTypeName))
+                        _c("strong", [_vm._v("Event:")]),
+                        _vm._v(" " + _vm._s(_vm.order.eventTypeName))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _vm._v(
-                          "Number of persons: " + _vm._s(_vm.order.people_num)
-                        )
+                        _c("strong", [_vm._v("Number of persons:")]),
+                        _vm._v(" " + _vm._s(_vm.order.people_num))
                       ])
                     ])
                   : _vm._e(),
@@ -90999,7 +91040,8 @@ var render = function() {
                 _vm.order.service_id == 8
                   ? _c("div", [
                       _c("p", [
-                        _vm._v("Day - hour: " + _vm._s(_vm.order.day_hour))
+                        _c("strong", [_vm._v("Day - hour: ")]),
+                        _vm._v(_vm._s(_vm.order.day_hour))
                       ])
                     ])
                   : _vm._e(),
@@ -91379,19 +91421,21 @@ var render = function() {
           })
         ),
         _vm._v(" "),
-        _c("div", { attrs: { id: "historyPage" } }, [
-          _c(
-            "button",
-            { staticClass: "historyButton", on: { click: _vm.prevPage } },
-            [_vm._v("\n                    <\n                ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "historyButton", on: { click: _vm.nextPage } },
-            [_vm._v("\n                    >\n                ")]
-          )
-        ])
+        _vm.paginatedData.length > 5
+          ? _c("div", { attrs: { id: "historyPage" } }, [
+              _c(
+                "button",
+                { staticClass: "historyButton", on: { click: _vm.prevPage } },
+                [_c("i", { staticClass: "fas fa-caret-left" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "historyButton", on: { click: _vm.nextPage } },
+                [_c("i", { staticClass: "fas fa-caret-right" })]
+              )
+            ])
+          : _vm._e()
       ])
     ])
   ])

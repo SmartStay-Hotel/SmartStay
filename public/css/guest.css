@@ -1,10 +1,10 @@
 /*---------------------FONTS-------------------------*/
 :root {
     --colorBody: #E1E1E1 /*#2B2B2B*/; /*E1E1E1*/
-    --colorSecond: #46CE90 /*#252C4B*/;
-    --colorNav: /*#E1E1E1*/ #36A7FC /*#CF4946*/;
+    --colorSecond: #062f4f /*#252C4B*/;
+    --colorNav: /*#E1E1E1*/ #46ce90 /*#CF4946*/;
 
-    --colorSubMenu: #151515; /*#E1E1E1*/
+    --colorSubMenu: black /*#151515; /*#E1E1E1*/;
     --shadows: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -46,6 +46,9 @@ select {
 
 body {
     background-color: var(--colorBody);
+    /*background-image: url("../img/background-dashGuest.jpg");*/
+    /*background-size: revert;*/
+    /*background-repeat: no-repeat;*/
 }
 
 #container {
@@ -59,6 +62,7 @@ body {
     position: relative;
     height: 25%;
     width: 100%;
+
 }
 
 nav {
@@ -337,15 +341,17 @@ label[for^="order"]{
     align-items:center;
 }
 .bttnSubmit button {
+    margin-left:4px;
     border: none;
-    width:20%;
-    padding-top:2%;
-    padding-bottom:2%;
+    /*width:20%;*/
+    padding:1% 2%;
 
     text-align: center;
     box-shadow: var(--shadows);
-    background-color: var(--colorSubMenu);
-    color: white;
+    background-color: var(--colorSecond);
+    color:white;
+
+
 }
 
 button[type="submit"]:hover{
@@ -378,7 +384,7 @@ button[type="submit"]:active {
 .bttnSnackDrinks p {
     width: 100%;
     border: none;
-    background-color:gray;
+    background-color:var(--colorBody);
     cursor: pointer;
     text-align:center;
 

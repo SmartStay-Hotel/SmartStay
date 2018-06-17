@@ -38,8 +38,8 @@
                 <a href="{{url('logout')}}"><i class="fas fa-power-off"></i></a>
             </div>
             <div id="subMenu2">
-                <div id="bttnHistory">
-                    <i class="fas fa-history" @click="showHistory = !showHistory"></i>
+                <div id="bttnHistory" v-if="history.length>0">
+                    <i class="fas fa-history" v-if="history.length>0" @click="showHistory = !showHistory"></i>
                 </div>
                 <div id="inOut">
 
@@ -63,7 +63,9 @@
     <housekeeping v-if="!statusRoom && showModalHK" @close="showModalHK = false">
 
     </housekeeping>
-    <historyorders  v-if="showHistory" @close="closeHistory"></historyorders>
+
+    <historyorders  v-if="showHistory && history.length>0" @close="closeHistory"></historyorders>
+
 {{--@{{$data}}--}}
     <transition name="fade-out">
     <div id="loadingScreen" v-if="loadingScreen">
@@ -71,7 +73,7 @@
         <load-screen
                 :animation-duration="1000"
                 :size="60"
-                color="#ff1d5e"
+                color="#46ce90"
         />
     </div>
     </transition>

@@ -411,19 +411,25 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                 })
                 }
             },insertEvent: function(){
-                var urlInsEvent ='admin/service/event';
-                axios.post(urlInsEvent,{
-                    event_type_id: this.eventSelected
+                if(this.numPersonsTrip >this.eventPlaces){
+                    this.errorPlazas = true;
+                }else {
+                    this.errorPlazas = false;
+                    var urlInsEvent = 'admin/service/event';
+                    axios.post(urlInsEvent, {
+                        event_type_id: this.eventSelected
 
-                }).then(response=>{
-                    this.showResult = true;
-                toastr.success("adios");
-                console.log("correcto eventtt");
-            }).catch(error=>{
-                this.errores = error.response.data;
-                console.log("evevevvent no");
+                    }).then(response => {
+                        this.showResult = true;
+                    toastr.success("adios");
+                    console.log("correcto eventtt");
+                }).
+                    catch(error => {
+                        this.errores = error.response.data;
+                    console.log("evevevvent no");
 
-            })
+                })
+                }
             },
             insertTaxi: function(){
                 var urlInsTaxi ='admin/service/taxi';
@@ -471,9 +477,14 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
 
             },
             bttnMenos: function(){
+
+                    if(this.productSelected.length == this.numProducts.length){
+                        this.productSelected.pop();
+                    }
                     this.numProducts.pop();
                     this.nP = this.nP-1;
-                    this.productSelected[this.nP] = '';
+
+
 
             }, infoProduct:function(num){
                 return this.products.filter((product) => product.id==this.productSelected[num]);

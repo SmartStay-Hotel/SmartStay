@@ -6,38 +6,39 @@
             <div class="modal-container">
                 <div class="modal-header">
                     <slot name="header">
-                        <button @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button>
-                        <p v-if="order.service_id==2"> Snacks and drinks</p>
-                        <p v-else>{{order.serviceName}}</p>
-
+                        <div class="modalOrderTitle">
+                        <button class="bttnBackOrder" @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button>
+                        <h3 v-if="order.service_id==2"> Snacks and drinks</h3>
+                        <h3 v-else>{{order.serviceName}}</h3>
+                        </div>
                     </slot>
                 </div>
                 <div class="modal-body">
                     <slot name="body">
                         <!-- Restaurant -->
                         <div v-if="order.service_id==1">
-                            <p>Date booking: {{order.day_hour}}</p>
-                            <p>Quantity of persons: {{order.quantity}}</p>
-                            <p>Name of booking: {{order.guest_id}}</p>
+                            <p><strong>Date booking: </strong> {{order.day_hour}}</p>
+                            <p><strong>Quantity of persons: </strong> {{order.quantity}}</p>
+                            <p><strong>Name of booking: </strong>{{order.guest_id}}</p>
                         </div>
 
                         <!-- Snack and drinks -->
                         <div v-if="order.service_id==2">
-                            <p>Product: {{order.snackTypeName}}</p>
-                            <p>Quantity: {{order.quantity}}</p>
-                            <p>Price: {{order.price}}</p>
+                            <p><strong>Product: </strong>{{order.snackTypeName}}</p>
+                            <p><strong>Quantity: </strong>{{order.quantity}}</p>
+                            <p><strong>Price: </strong>{{order.price}}</p>
                         </div>
 
                         <!-- Spa -->
                         <div v-if="order.service_id==3">
-                            <p>Treatment: {{order.spaTypeName}}</p>
-                            <p>Booking date: {{order.day_hour}}</p>
-                            <p>Price: {{order.price}}</p>
+                            <p><strong>Treatment:</strong> {{order.spaTypeName}}</p>
+                            <p><strong>Booking date:</strong> {{order.day_hour}}</p>
+                            <p><strong>Price: </strong>{{order.price}}</p>
                         </div>
 
                         <!-- Alarm -->
                         <div v-if="order.service_id==4">
-                            <p>Alarm setted: {{order.day_hour}}</p>
+                            <p><strong>Alarm setted:</strong> {{order.day_hour}}</p>
                         </div>
 
                         <!-- Pet care -->
@@ -50,20 +51,20 @@
 
                         <!-- Trip -->
                         <div v-if="order.service_id==6">
-                            <p>Trip: {{order.tripTypeName}</p>
-                            <p>Number of persons: {{order.people_num}}</p>
-                            <p>Price: {{order.price}}</p>
+                            <p><strong>Trip:</strong> {{order.tripTypeName}</p>
+                            <p><strong>Number of persons:</strong> {{order.people_num}}</p>
+                            <p><strong>Price: </strong>{{order.price}}</p>
                         </div>
 
                         <!-- Event -->
                         <div v-if="order.service_id==7">
-                            <p>Event: {{order.eventTypeName}}</p>
-                            <p>Number of persons: {{order.people_num}}</p>
+                            <p><strong>Event:</strong> {{order.eventTypeName}}</p>
+                            <p><strong>Number of persons:</strong> {{order.people_num}}</p>
                         </div>
 
                         <!-- Taxi -->
                         <div v-if="order.service_id==8">
-                            <p>Day - hour: {{order.day_hour}}</p>
+                            <p><strong>Day - hour: </strong>{{order.day_hour}}</p>
 
                         </div>
                         <!-- Housekeeping -->
@@ -118,7 +119,7 @@
     }
 
     .modal-container {
-        width: 20%;
+        width: 30%;
         min-width:200px;
         margin: 0px auto;
         /*padding: 20px 30px;*/
@@ -169,6 +170,16 @@
     .modal-leave-active .modal-container {
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
+    }
+
+    .bttnBackOrder{
+        border:none;
+        color:white;
+        background-color:transparent;
+    }
+    .modalOrderTitle{
+        display:flex;
+        justify-content:space-between;
     }
 </style>
 

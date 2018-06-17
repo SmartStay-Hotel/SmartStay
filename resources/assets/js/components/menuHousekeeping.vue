@@ -5,8 +5,10 @@
                 <div class="modal-container">
                     <div class="modal-header">
                         <slot name="header">
-                            <button @click="$emit('close')">X</button>
-                            <p>Housekeeping</p>
+                            <div class="housekeepingTitle">
+                            <button class="closeHousekeeping" @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button>
+                            <h3>Housekeeping</h3>
+                            </div>
                         </slot>
                     </div>
                     <div class="modal-body">
@@ -23,7 +25,7 @@
                     <div class="modal-footer">
                         <slot name="footer">
 
-                            <button class="modal-default-button" @click="insertHousekeeping">
+                            <button class="modal-default-button" @click="insertHousekeeping" v-if="this.bedSheets || this.cleaning || this.minibar || this.blanket || this.toiletries || this.pillow">
                                 Send
                             </button>
                         </slot>
@@ -159,5 +161,14 @@
     .modal-leave-active .modal-container {
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
+    }
+    .closeHousekeeping{
+        border:none;
+        color:white;
+        background-color:transparent;
+    }
+    .housekeepingTitle{
+        display:flex;
+        justify-content:space-between;
     }
 </style>

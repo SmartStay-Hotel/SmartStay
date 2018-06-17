@@ -40,12 +40,12 @@
                     <!--<li><p>Pedido 4 </p><i class="far fa-times-circle"></i></li>-->
 
             </div>
-            <div id="historyPage">
+            <div id="historyPage" v-if="paginatedData.length>5">
                 <button @click="prevPage" class="historyButton">
-                    <
+                    <i class="fas fa-caret-left"></i>
                 </button>
                 <button @click="nextPage" class="historyButton">
-                    >
+                    <i class="fas fa-caret-right"></i>
                 </button>
             </div>
         </div>
@@ -263,7 +263,7 @@
     }
     .historyItem:hover{
         background-color:var(--colorBody);
-        curson:pointer;
+        cursor:pointer;
     }
 
     .historyButton{
