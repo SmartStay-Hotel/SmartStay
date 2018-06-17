@@ -58,9 +58,18 @@
                         </div>
 
                         <!-- Taxi -->
-                        <div v-if="order.service_id==7">
+                        <div v-if="order.service_id==8">
                             <p>Day - hour: {{order.day_hour}}</p>
 
+                        </div>
+                        <!-- Housekeeping -->
+                        <div v-if="order.service_id==9">
+                            <p v-if="order.bed_sheets"> Bed sheets</p>
+                            <p v-if="order.cleaning"> Cleaning </p>
+                            <p v-if="order.minibar"> Minibar</p>
+                            <p v-if="order.blanket"> Blanket</p>
+                            <p v-if="order.toiletries"> Toiletries</p>
+                            <p v-if="order.pillow"> Pillow</p>
                         </div>
 
                     </slot>

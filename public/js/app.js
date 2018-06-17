@@ -57550,7 +57550,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_tiny_slider__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_tiny_slider___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_tiny_slider__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_epic_spinners__ = __webpack_require__(176);
+var _data;
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /* ----------------------- REQUIRES ----------------------------------*/
 
@@ -57634,7 +57636,7 @@ new Vue({
 
     },
 
-    data: {
+    data: (_data = {
         loadingScreen: true,
 
         services: [],
@@ -57682,13 +57684,8 @@ new Vue({
         errores: "",
         errorDayHour: false,
         errorExists: false,
-        errorPlazas: false,
-
-        showCancelConfirm: false,
-
-        pedidoHecho: false
-
-    },
+        errorPlazas: false
+    }, _defineProperty(_data, 'errorPlazas', false), _defineProperty(_data, 'tripPlaces', 0), _defineProperty(_data, 'eventPlaces', 0), _defineProperty(_data, 'showCancelConfirm', false), _defineProperty(_data, 'pedidoHecho', false), _data),
     methods: {
         falseLoadScreen: function falseLoadScreen() {
             this.loadingScreen = false;
@@ -57714,52 +57711,71 @@ new Vue({
                 _this2.checkoutDateFormat = __WEBPACK_IMPORTED_MODULE_0_moment___default()(response.data).format('YYYY-MM-DD');
             });
         },
-        getHistory: function getHistory() {
+        getTripPlaces: function getTripPlaces(id) {
             var _this3 = this;
+
+            var urlTripPlaces = 'tripPlaces/' + id;
+            axios.get(urlTripPlaces).then(function (response) {
+                _this3.tripPlaces = response.data;
+            });
+            return this.tripPlaces;
+        },
+        getEventPlaces: function getEventPlaces(id) {
+            var _this4 = this;
+
+            var urlEventPlaces = 'eventPlaces/' + id;
+            axios.get(urlEventPlaces).then(function (response) {
+                _this4.eventPlaces = response.data;
+            });
+            return this.eventPlaces;
+        },
+
+        getHistory: function getHistory() {
+            var _this5 = this;
 
             var urlHistory = 'orderHistory';
             axios.get(urlHistory).then(function (response) {
-                _this3.history = response.data;
+                _this5.history = response.data;
             });
         },
         getProductTypes: function getProductTypes() {
-            var _this4 = this;
+            var _this6 = this;
 
             var urlProducts = 'products';
 
             axios.get(urlProducts).then(function (response) {
-                _this4.products = response.data;
+                _this6.products = response.data;
             });
         },
         getStatusRoom: function getStatusRoom() {
-            var _this5 = this;
+            var _this7 = this;
 
             axios.get(urlGetStatusRoom).then(function (response) {
-                _this5.statusRoom = response.data;
+                _this7.statusRoom = response.data;
             });
         },
         getTrips: function getTrips() {
-            var _this6 = this;
+            var _this8 = this;
 
             var urlTrips = 'trips';
             axios.get(urlTrips).then(function (response) {
-                _this6.trips = response.data;
+                _this8.trips = response.data;
             });
         },
         getEvents: function getEvents() {
-            var _this7 = this;
+            var _this9 = this;
 
             var urlEvents = 'events';
             axios.get(urlEvents).then(function (response) {
-                _this7.events = response.data;
+                _this9.events = response.data;
             });
         },
         getSpaTypes: function getSpaTypes() {
-            var _this8 = this;
+            var _this10 = this;
 
             var urlSpaTypes = 'spas';
             axios.get(urlSpaTypes).then(function (response) {
-                _this8.spaTypes = response.data;
+                _this10.spaTypes = response.data;
             });
         },
 
@@ -57817,7 +57833,7 @@ new Vue({
             // this.dataActual = d;
         },
         insertRestaurant: function insertRestaurant() {
-            var _this9 = this;
+            var _this11 = this;
 
             if (this.dayHourServ <= this.dataActual) {
                 this.errorDayHour = true;
@@ -57829,12 +57845,12 @@ new Vue({
                     quantity: this.quantityServ
 
                 }).then(function (response) {
-                    _this9.errorExists = false;
-                    _this9.showResult = true;
-                    _this9.pedidoHecho = true;
+                    _this11.errorExists = false;
+                    _this11.showResult = true;
+                    _this11.pedidoHecho = true;
                 }).catch(function (error) {
-                    _this9.errorExists = true;
-                    _this9.errores = error.response.data;
+                    _this11.errorExists = true;
+                    _this11.errores = error.response.data;
                 });
             }
 
@@ -57842,7 +57858,7 @@ new Vue({
             // this.pruebaOrder=response.data;
         },
         insertSpa: function insertSpa() {
-            var _this10 = this;
+            var _this12 = this;
 
             if (this.dayHourServ <= this.dataActual) {
                 this.errorDayHour = true;
@@ -57854,17 +57870,17 @@ new Vue({
                     day_hour: this.dayHourServ
 
                 }).then(function (response) {
-                    _this10.pedidoHecho = true;
-                    _this10.showResult = true;
-                    _this10.errorExists = false;
+                    _this12.pedidoHecho = true;
+                    _this12.showResult = true;
+                    _this12.errorExists = false;
                 }).catch(function (error) {
-                    _this10.errorExists = true;
-                    _this10.errores = error.response.data;
+                    _this12.errorExists = true;
+                    _this12.errores = error.response.data;
                 });
             }
         },
         insertProduct: function insertProduct() {
-            var _this11 = this;
+            var _this13 = this;
 
             var urlInsProd = 'admin/service/snackdrink';
             axios.post(urlInsProd, {
@@ -57872,16 +57888,16 @@ new Vue({
                 quantity: this.productCant
 
             }).then(function (response) {
-                _this11.pedidoHecho = true;
-                _this11.showResult = true;
-                _this11.errorExists = false;
+                _this13.pedidoHecho = true;
+                _this13.showResult = true;
+                _this13.errorExists = false;
             }).catch(function (error) {
-                _this11.errorExists = true;
-                _this11.errores = error.response.data;
+                _this13.errorExists = true;
+                _this13.errores = error.response.data;
             });
         },
         insertAlarm: function insertAlarm() {
-            var _this12 = this;
+            var _this14 = this;
 
             if (this.dayHourServ <= this.dataActual) {
                 this.errorDayHour = true;
@@ -57892,68 +57908,73 @@ new Vue({
                     day_hour: this.dayHourServ
 
                 }).then(function (response) {
-                    _this12.pedidoHecho = true;
+                    _this14.pedidoHecho = true;
 
                     toastr.success("adios");
                     console.log("coorecto alaramaaa");
                 }).catch(function (error) {
 
-                    _this12.errorExists = true;
-                    _this12.errores = error.response.data;
+                    _this14.errorExists = true;
+                    _this14.errores = error.response.data;
                 });
             }
         },
         insertTrip: function insertTrip() {
-            var _this13 = this;
+            var _this15 = this;
 
-            var urlInsTrip = 'admin/service/trip';
-            axios.post(urlInsTrip, {
-                trip_type_id: this.tripSelected,
-                people_num: this.numPersonsTrip
+            if (this.numPersonsTrip > this.tripPlaces) {
+                this.errorPlazas = true;
+            } else {
+                this.errorPlazas = false;
+                var urlInsTrip = 'admin/service/trip';
+                axios.post(urlInsTrip, {
+                    trip_type_id: this.tripSelected,
+                    people_num: this.numPersonsTrip
 
-            }).then(function (response) {
-                _this13.showResult = true;
-            }).catch(function (error) {
+                }).then(function (response) {
+                    _this15.showResult = true;
+                }).catch(function (error) {
 
-                _this13.errores = error.response.data;
-                console.log("tripppp no");
-            });
+                    _this15.errores = error.response.data;
+                    console.log("tripppp no");
+                });
+            }
         }, insertEvent: function insertEvent() {
-            var _this14 = this;
+            var _this16 = this;
 
             var urlInsEvent = 'admin/service/event';
             axios.post(urlInsEvent, {
                 event_type_id: this.eventSelected
 
             }).then(function (response) {
-                _this14.showResult = true;
+                _this16.showResult = true;
                 toastr.success("adios");
                 console.log("correcto eventtt");
             }).catch(function (error) {
-                _this14.errores = error.response.data;
+                _this16.errores = error.response.data;
                 console.log("evevevvent no");
             });
         },
         insertTaxi: function insertTaxi() {
-            var _this15 = this;
+            var _this17 = this;
 
             var urlInsTaxi = 'admin/service/taxi';
             axios.post(urlInsTaxi, {
                 day_hour: this.dayHourServ
 
             }).then(function (response) {
-                _this15.showResult = true;
+                _this17.showResult = true;
                 toastr.success("adios");
                 console.log("correcto taxiiii");
             }).catch(function (error) {
 
                 toastr.success("sdfsadf");
-                _this15.errores = error.response.data;
+                _this17.errores = error.response.data;
                 console.log("taxino no");
             });
         },
         insertPetCare: function insertPetCare() {
-            var _this16 = this;
+            var _this18 = this;
 
             var urlInsPetCare = 'admin/service/petcare';
 
@@ -57964,13 +57985,13 @@ new Vue({
                 water: this.petWater,
                 snacks: this.petSnacks
             }).then(function (response) {
-                _this16.showResult = true;
+                _this18.showResult = true;
                 toastr.success("adios");
                 console.log("correcto dogg");
             }).catch(function (error) {
 
                 toastr.success("sdfsadf");
-                _this16.errores = error.response.data;
+                _this18.errores = error.response.data;
                 console.log("dooogg no");
             });
         },
@@ -57984,10 +58005,10 @@ new Vue({
             this.nP = this.nP - 1;
             this.productSelected[this.nP] = '';
         }, infoProduct: function infoProduct(num) {
-            var _this17 = this;
+            var _this19 = this;
 
             return this.products.filter(function (product) {
-                return product.id == _this17.productSelected[num];
+                return product.id == _this19.productSelected[num];
             });
         },
 
@@ -58032,7 +58053,7 @@ new Vue({
         },
 
         deleteOrder: function deleteOrder(idServ, idOrder) {
-            var _this18 = this;
+            var _this20 = this;
 
             var nameService = "";
             switch (idServ) {
@@ -58067,7 +58088,7 @@ new Vue({
                 var urlDeleteOrder = "/admin/service/" + nameService + "/" + idOrder;
 
                 axios.delete(urlDeleteOrder).then(function (response) {
-                    _this18.getHistory();
+                    _this20.getHistory();
                 });
             }
             this.showCancelConfirm = false;
@@ -58081,24 +58102,24 @@ new Vue({
     },
     computed: {
         infoTrip: function infoTrip() {
-            var _this19 = this;
+            var _this21 = this;
 
             return this.trips.filter(function (trip) {
-                return trip.id == _this19.tripSelected;
+                return trip.id == _this21.tripSelected;
             });
         },
         infoEvent: function infoEvent() {
-            var _this20 = this;
+            var _this22 = this;
 
             return this.events.filter(function (event) {
-                return event.id == _this20.eventSelected;
+                return event.id == _this22.eventSelected;
             });
         },
         infoSpa: function infoSpa() {
-            var _this21 = this;
+            var _this23 = this;
 
             return this.spaTypes.filter(function (spatype) {
-                return spatype.id == _this21.spaSelected;
+                return spatype.id == _this23.spaSelected;
             });
         },
         existsRestaurant: function existsRestaurant() {
@@ -90407,7 +90428,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n#historyContainer *[data-v-7a71db5c] {\n    /*border:1px solid red;*/\n}\n#historyContainer[data-v-7a71db5c]{\n\n    display:flex;\n    justify-content:center;\n    align-items:center;\n    height:70%;\n}\n#history[data-v-7a71db5c]{\n    background-color:white;\n\n    width:50%;\n    box-shadow: var(--shadows);\n}\n#historyTitle[data-v-7a71db5c]{\n    display:flex;\n    justify-content: space-between;\n    padding:2%;\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n#historyTitle button[data-v-7a71db5c]{\n    padding:0px;\n    border:none;\n    font-size:150%;\n    background-color:transparent;\n}\n#historyTitle button[data-v-7a71db5c]:hover{\n    color: var(--colorSecond);\n}\n/*#historyList{*/\n    /*list-style-type:none;*/\n/*}*/\n/*#historyList > li{*/\n\n    /*padding: 2% 3% 1% 3%;*/\n    /*border-bottom:1px solid gray;*/\n    /*margin-top:1%;*/\n    /*display:flex;*/\n    /*justify-content: space-between;*/\n/*}*/\n/*#historyList > li > i {*/\n    /*font-size:150%;*/\n    /*color:red;*/\n/*}*/\n/*#historyList > li > i:hover {*/\n\n    /*color:black;*/\n/*}*/\n.historyItem[data-v-7a71db5c]{\n    border-bottom:1px solid gray;\n    padding:2% 5%;\n}\n.historyInfo[data-v-7a71db5c]{\n    width:92%;\n}\n.historyCancel[data-v-7a71db5c]{\n    width:8%;\n    font-size:100%;\n    display:flex;\n    justiy-content:center;\n    align-items:center;\n}\n/*.historyCancel>i{*/\n    /*width:100%;*/\n    /*height:100%;*/\n    /*margin:0px;*/\n    /**/\n/*}*/\n.historyItem p[data-v-7a71db5c]{\n    margin:0px;\n}\n.historyItem[data-v-7a71db5c]{\n    display:flex;\n}\n.historyItem[data-v-7a71db5c]:hover{\n    background-color:var(--colorBody);\n}\n.historyButton[data-v-7a71db5c]{\n    margin:0px;\n    width:50%;\n    border:none;\n}\n#historyPage[data-v-7a71db5c]{\n    display:flex;\n    justify-content:space-around;\n}\n.historySubInfo[data-v-7a71db5c]{\n    font-size:75%;\n    display:flex;\n}\n@media (max-width: 450px) {\n#history[data-v-7a71db5c] {\n        width: 100%;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n#historyContainer *[data-v-7a71db5c] {\n    /*border:1px solid red;*/\n}\n#historyContainer[data-v-7a71db5c]{\n\n    display:flex;\n    justify-content:center;\n    align-items:center;\n    height:70%;\n}\n#history[data-v-7a71db5c]{\n    background-color:white;\n\n    width:50%;\n    box-shadow: var(--shadows);\n}\n#historyTitle[data-v-7a71db5c]{\n    display:flex;\n    justify-content: space-between;\n    padding:2%;\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n#historyTitle button[data-v-7a71db5c]{\n    padding:0px;\n    border:none;\n    font-size:150%;\n    background-color:transparent;\n}\n#historyTitle button[data-v-7a71db5c]:hover{\n    color: var(--colorSecond);\n}\n/*#historyList{*/\n    /*list-style-type:none;*/\n/*}*/\n/*#historyList > li{*/\n\n    /*padding: 2% 3% 1% 3%;*/\n    /*border-bottom:1px solid gray;*/\n    /*margin-top:1%;*/\n    /*display:flex;*/\n    /*justify-content: space-between;*/\n/*}*/\n/*#historyList > li > i {*/\n    /*font-size:150%;*/\n    /*color:red;*/\n/*}*/\n/*#historyList > li > i:hover {*/\n\n    /*color:black;*/\n/*}*/\n.historyItem[data-v-7a71db5c]{\n    border-bottom:1px solid var(--colorBody);\n    padding:2% 5%;\n}\n.historyInfo[data-v-7a71db5c]{\n    width:92%;\n}\n.historyCancel[data-v-7a71db5c]{\n    width:8%;\n    font-size:100%;\n    display:flex;\n    justiy-content:center;\n    align-items:center;\n}\n.historyCancel button[data-v-7a71db5c]{\n    background: transparent;\n    border:none;\n}\n.historyCancel[data-v-7a71db5c]:hover{\n    color:red;\n}\n/*.historyCancel>i{*/\n    /*width:100%;*/\n    /*height:100%;*/\n    /*margin:0px;*/\n    /**/\n/*}*/\n.historyItem p[data-v-7a71db5c]{\n    margin:0px;\n}\n.historyItem[data-v-7a71db5c]{\n    display:flex;\n}\n.historyItem[data-v-7a71db5c]:hover{\n    background-color:var(--colorBody);\n    curson:pointer;\n}\n.historyButton[data-v-7a71db5c]{\n    margin:0px;\n    width:50%;\n    border:none;\n    background-color:var(--colorNav)\n}\n#historyPage[data-v-7a71db5c]{\n    display:flex;\n    justify-content:space-around;\n}\n.historySubInfo[data-v-7a71db5c]{\n    font-size:75%;\n    display:flex;\n}\n@media (max-width: 450px) {\n#history[data-v-7a71db5c] {\n        width: 100%;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -90424,8 +90445,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__confirmCancel___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__confirmCancel__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_moment__);
-//
-//
 //
 //
 //
@@ -90725,7 +90744,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -90736,6 +90755,15 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -90954,11 +90982,37 @@ var render = function() {
                     ])
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.order.service_id == 7
+                _vm.order.service_id == 8
                   ? _c("div", [
                       _c("p", [
                         _vm._v("Day - hour: " + _vm._s(_vm.order.day_hour))
                       ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.order.service_id == 9
+                  ? _c("div", [
+                      _vm.order.bed_sheets
+                        ? _c("p", [_vm._v(" Bed sheets")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.order.cleaning
+                        ? _c("p", [_vm._v(" Cleaning ")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.order.minibar
+                        ? _c("p", [_vm._v(" Minibar")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.order.blanket
+                        ? _c("p", [_vm._v(" Blanket")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.order.toiletries
+                        ? _c("p", [_vm._v(" Toiletries")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.order.pillow ? _c("p", [_vm._v(" Pillow")]) : _vm._e()
                     ])
                   : _vm._e()
               ])
@@ -91017,7 +91071,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.modal-mask[data-v-0e1d4693] {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity .3s ease;\n    padding:0px;\n}\n.modal-wrapper[data-v-0e1d4693] {\n    display: table-cell;\n    vertical-align: middle;\n    padding:0px;\n}\n.modal-container[data-v-0e1d4693] {\n    width: 20%;\n    min-width:200px;\n    margin: 0px auto;\n    /*padding: 20px 30px;*/\n    background-color: #fff;\n    border-radius: 2px;\n    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n    transition: all .3s ease;\n    font-family: Helvetica, Arial, sans-serif;\n}\n\n/*.modal-header h3 {*/\n/*margin-top: 0;*/\n/*color: #42b983;*/\n/*}*/\n.modal-header[data-v-0e1d4693]{\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n/*.modal-header, .model-body{*/\n/*border-bottom:none;*/\n/*}*/\n.modal-body[data-v-0e1d4693] {\n    /*margin: 20px 0;*/\n}\n.modal-default-button[data-v-0e1d4693] {\n    float: right;\n}\n\n/*\n * The following styles are auto-applied to elements with\n * transition=\"modal\" when their visibility is toggled\n * by Vue.js.\n *\n * You can easily play with the modal transition by editing\n * these styles.\n */\n.modal-enter[data-v-0e1d4693] {\n    opacity: 0;\n}\n.modal-leave-active[data-v-0e1d4693] {\n    opacity: 0;\n}\n.modal-enter .modal-container[data-v-0e1d4693],\n.modal-leave-active .modal-container[data-v-0e1d4693] {\n    -webkit-transform: scale(1.1);\n    transform: scale(1.1);\n}\n", ""]);
+exports.push([module.i, "\n.modal-mask[data-v-0e1d4693] {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity .3s ease;\n    padding:0px;\n}\n.modal-wrapper[data-v-0e1d4693] {\n    display: table-cell;\n    vertical-align: middle;\n    padding:0px;\n}\n.modal-container[data-v-0e1d4693] {\n    width: 30%;\n    min-width:200px;\n    margin: 0px auto;\n    /*padding: 20px 30px;*/\n    background-color: #fff;\n    border-radius: 2px;\n    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n    transition: all .3s ease;\n    font-family: Helvetica, Arial, sans-serif;\n}\n\n/*.modal-header h3 {*/\n/*margin-top: 0;*/\n/*color: #42b983;*/\n/*}*/\n.modal-header[data-v-0e1d4693]{\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n/*.modal-header, .model-body{*/\n/*border-bottom:none;*/\n/*}*/\n.modal-body[data-v-0e1d4693] {\n    /*margin: 20px 0;*/\n}\n.modal-default-button[data-v-0e1d4693] {\n    float: right;\n}\n\n/*\n * The following styles are auto-applied to elements with\n * transition=\"modal\" when their visibility is toggled\n * by Vue.js.\n *\n * You can easily play with the modal transition by editing\n * these styles.\n */\n.modal-enter[data-v-0e1d4693] {\n    opacity: 0;\n}\n.modal-leave-active[data-v-0e1d4693] {\n    opacity: 0;\n}\n.modal-enter .modal-container[data-v-0e1d4693],\n.modal-leave-active .modal-container[data-v-0e1d4693] {\n    -webkit-transform: scale(1.1);\n    transform: scale(1.1);\n}\n.bttnsCancel[data-v-0e1d4693]{\n    display:flex;\n    justify-content:flex-end;\n}\n.cancelBttn[data-v-0e1d4693]{\n    border:none;\n    /*float:right;*/\n    width:20%;\n    margin-left:2px;\n}\n", ""]);
 
 // exports
 
@@ -91057,7 +91111,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -91068,6 +91122,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -91125,29 +91180,33 @@ var render = function() {
             { staticClass: "modal-body" },
             [
               _vm._t("body", [
-                _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        _vm.$emit("no-cancel")
+                _c("div", { staticClass: "bttnsCancel" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "cancelBttn",
+                      on: {
+                        click: function($event) {
+                          _vm.$emit("no-cancel")
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("No")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        _vm.$emit("yes-cancel")
+                    },
+                    [_vm._v("No")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "cancelBttn",
+                      on: {
+                        click: function($event) {
+                          _vm.$emit("yes-cancel")
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("Si")]
-                )
+                    },
+                    [_vm._v("Si")]
+                  )
+                ])
               ])
             ],
             2
@@ -91210,7 +91269,9 @@ var render = function() {
                     }
                   },
                   [
-                    _c("p", [_vm._v(_vm._s(order.serviceName))]),
+                    _c("p", { staticStyle: { "font-weight": "bolder" } }, [
+                      _vm._v(_vm._s(order.serviceName))
+                    ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "historySubInfo" }, [
                       _c("p", { staticClass: "historyDate" }, [
@@ -91242,25 +91303,16 @@ var render = function() {
                 order.status == 0
                   ? _c("div", { staticClass: "historyCancel" }, [
                       _c(
-                        "form",
+                        "button",
                         {
-                          attrs: {
-                            method: "POST",
-                            action: "#",
-                            "accept-charset": "UTF-8"
-                          },
+                          attrs: { type: "submit" },
                           on: {
-                            submit: function($event) {
-                              $event.preventDefault()
+                            click: function($event) {
                               _vm.showConfirmCancel(order.service_id, order.id)
                             }
                           }
                         },
-                        [
-                          _c("button", { attrs: { type: "submit" } }, [
-                            _c("i", { staticClass: "far fa-times-circle" })
-                          ])
-                        ]
+                        [_c("i", { staticClass: "far fa-times-circle" })]
                       )
                     ])
                   : _vm._e()
@@ -91269,7 +91321,20 @@ var render = function() {
               _vm.showInfo &&
               _vm.infoServID == order.service_id &&
               _vm.infoOrderID == order.id
-                ? _c("div", [_c("orderinfo")], 1)
+                ? _c(
+                    "div",
+                    [
+                      _c("orderinfo", {
+                        attrs: { order: order },
+                        on: {
+                          close: function($event) {
+                            _vm.showInfo = false
+                          }
+                        }
+                      })
+                    ],
+                    1
+                  )
                 : _vm._e(),
               _vm._v(" "),
               _vm.confirmCancelOrder &&

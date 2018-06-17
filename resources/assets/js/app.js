@@ -143,6 +143,10 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
             errorDayHour: false,
             errorExists : false,
             errorPlazas:false,
+            errorPlazas:false,
+
+            tripPlaces: 0,
+            eventPlaces:0,
 
 
 
@@ -173,6 +177,21 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                     this.checkoutDate = response.data+"T00:00";
                     this.checkoutDateFormat = moment(response.data).format('YYYY-MM-DD');
             })
+
+            },
+            getTripPlaces(id){
+                var urlTripPlaces = 'tripPlaces/'+id;
+                axios.get(urlTripPlaces).then(response=>{
+                    this.tripPlaces = response.data;
+            })
+                return this.tripPlaces;
+            },
+            getEventPlaces(id){
+                var urlEventPlaces = 'eventPlaces/'+id;
+                axios.get(urlEventPlaces).then(response=>{
+                    this.eventPlaces = response.data;
+            })
+                return this.eventPlaces;
             },
             getHistory:function(){
               var urlHistory = 'orderHistory';
@@ -370,21 +389,27 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                 }
             },
             insertTrip: function(){
-                var urlInsTrip ='admin/service/trip';
-                axios.post(urlInsTrip,{
-                    trip_type_id: this.tripSelected,
-                    people_num: this.numPersonsTrip
+                if(this.numPersonsTrip >this.tripPlaces){
+                    this.errorPlazas = true;
+                }else {
+                    this.errorPlazas = false;
+                    var urlInsTrip = 'admin/service/trip';
+                    axios.post(urlInsTrip, {
+                        trip_type_id: this.tripSelected,
+                        people_num: this.numPersonsTrip
 
-                }).then(response=>{
-                    this.showResult = true;
+                    }).then(response => {
+                        this.showResult = true;
 
-            }).catch(error=>{
+                }).
+                    catch(error => {
 
 
-                this.errores = error.response.data;
-                console.log("tripppp no");
+                        this.errores = error.response.data;
+                    console.log("tripppp no");
 
-            })
+                })
+                }
             },insertEvent: function(){
                 var urlInsEvent ='admin/service/event';
                 axios.post(urlInsEvent,{

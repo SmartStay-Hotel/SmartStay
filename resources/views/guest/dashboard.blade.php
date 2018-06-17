@@ -347,12 +347,12 @@
                         <input type="datetime-local" name="dateAlarm" v-model="dayHourServ" style="border:none; border:1px solid gray; border-radius:5px;"><br>
                     </form>
                     <div class="row">
-                        <transition name="fade">
+
                             <div class="col-md-12" style="display:flex; justify-content: center; padding-top:2%;">
                         {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
                         <p class="errorForm errorDayHour" v-if="errorDayHour">*La fecha debe ser entre @{{dataActualFormat}} y @{{ checkoutDateFormat }}</p>
                             </div>
-                        </transition>
+
                     </div>
                     <div class="col-md-12 bttnSubmit" style="justify-content: center; padding-top:2%">
                         <button type="submit" v-if="!pedidoHecho" form="formIns3" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
@@ -397,18 +397,19 @@
                                 <option v-for="trip in trips" v-bind:value="trip.id">@{{ trip.name }}</option>
                             </select>
                         </div>
-                        <div class="row">
-                            {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
-                            <p class="errorForm col-md-12" v-if="errorPlazas">*Faltan plazas</p>
-                        </div>
+
                         <div class="row">
                     <label for="cantTrip" class="col-md-6" style="width:40%;">{{trans('smartstay.trips.numPersons')}}: </label>
                             <input type="number" min="1" class="col-md-6" v-model="numPersonsTrip">
                         </div>
-
+                        <div class="row">
+                            {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
+                            <p class="errorForm col-md-12" v-if="errorPlazas">*No hay plazas suficientes.</p>
+                        </div>
                     </form>
                         <div class="windowInfo col-md-7" v-for="item in infoTrip" v-if="tripSelected != ''">
                             <div class="col-md-7">
+                            <p>Places available: @{{ getTripPlaces(item.id) }}</p>
                             <p>{{trans('smartstay.trips.location')}}: @{{ item.location }}</p>
                             <p>{{trans('smartstay.trips.day')}}: @{{ item.day_week }}</p>
                             <p>{{trans('smartstay.trips.price')}}: @{{ setPriceTrip(item.price) }}</p>
@@ -451,6 +452,7 @@
                         </div>
 
                         <div class="col-md-6">
+                        <p>Places available: @{{ getEventPlaces(item.id) }}</p>
                         <p>{{trans('smartstay.event.location')}}: @{{ item.location }}</p>
                         <p>{{trans('smartstay.event.day')}}: @{{ item.day_week }}</p>
                         </div>
