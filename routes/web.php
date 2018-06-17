@@ -53,21 +53,10 @@ Route::group(['middleware' => 'language'], function () {
 
     Route::get('services', 'TranslatorAppController@services');
 
-
-    Route::get('trips', function () {
-        return \App\TripType::get();
-    });
-    Route::get('events', function () {
-         return \App\EventType::get();
-    });
-
-    Route::get('spas', function () {
-        return \App\SpaTreatmentType::get();
-    });
-
-    Route::get('products', function () {
-        return \App\ProductType::get();
-    });
+    Route::get('trips', 'TranslatorAppController@trips');
+    Route::get('events', 'TranslatorAppController@events');
+    Route::get('spas', 'TranslatorAppController@spas');
+    Route::get('products', 'TranslatorAppController@products');
 
     Route::get('snacks', function () {
         return \App\ProductType::where('type_id', 1)->get();
@@ -75,6 +64,20 @@ Route::group(['middleware' => 'language'], function () {
 
     Route::get('drinks', function () {
         return \App\ProductType::where('type_id', 2)->get();
+    });
+
+    Route::get('eventPlaces/{event_type_id}', function ($eventTypeId) {
+        $maxPeople       = \App\EventType::getMaxPeopleByEvent($eventTypeId);
+        $peopleGoing     = \App\Event::getNumPeopleOnTheList($eventTypeId);
+        $availablePlaces = $maxPeople - $peopleGoing;
+        return $availablePlaces;
+    });
+
+    Route::get('tripPlaces/{trip_type_id}', function ($tripTypeId) {
+        $maxPeople       = \App\TripType::getMaxPeopleByTrip($tripTypeId);
+        $peopleGoing     = \App\Trip::getNumPeopleOnTheList($tripTypeId);
+        $availablePlaces = $maxPeople - $peopleGoing;
+        return $availablePlaces;
     });
 
     /*---------- ORDER HISTORY --------------*/

@@ -68,7 +68,7 @@ class TripController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      * @throws \Exception
      */
     public function store(Request $request)
@@ -91,12 +91,12 @@ class TripController extends Controller
         $validator = Validator::make($input, $rules);
 
         if ($validator->passes()) {
-            $maxPeople       = TripType::getMaxPeopleByEvent($input['trip_type_id']);
+            $maxPeople       = TripType::getMaxPeopleByTrip($input['trip_type_id']);
             $peopleGoing     = Trip::getNumPeopleOnTheList($input['trip_type_id']);
             $availablePlaces = $maxPeople - $peopleGoing;
             if ($availablePlaces < $input['people_num']) {
                 if ($request->ajax()) {
-                    return $availablePlaces;
+                    return ['tripPlaces' => $availablePlaces];
                 }
                 return redirect()->route('trip.create')->withErrors([
                     'Only ' . $availablePlaces . ' available places',
