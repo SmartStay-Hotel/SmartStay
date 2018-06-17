@@ -1,9 +1,9 @@
 <template>
     <transition name="fade">
         <div id="historyContainer">
-        <div id="history">
+        <div id="history" >
             <div id="historyTitle">
-                <button @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button><h3>History</h3>
+                <button @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button><h3>{{transHistory[0]}}</h3>
             </div>
             <div id="historyContent">
                 <!--<p v-for="order in history">{{order.guest_id}}</p>-->
@@ -12,26 +12,26 @@
 
                         <div class="historyItem" >
                             <div class="historyInfo" v-on:click="showInfoOrder(order.service_id, order.id)">
-                            <p>{{order.serviceName}}</p>
+
+                            <p style="font-weight: bolder" v-if="order.service_id==2">Snacks and drinks</p>
+                                <p style="font-weight: bolder" v-else>{{order.serviceName}}</p>
                                 <div class="historySubInfo">
                             <p class="historyDate">{{formatDate(order.created_at)}}</p>
-                                <p v-if="order.status==1" style="margin-left:3%">In process</p>
-                                <p v-if="order.status==2" style="color:green; margin-left:3%">Completed</p>
+                                <p v-if="order.status==1" style="margin-left:3%">{{transHistory[1]}}</p>
+                                <p v-if="order.status==2" style="color:green; margin-left:3%">{{transHistory[2]}}</p>
                                 </div>
                             </div>
                             <div class="historyCancel" v-if="order.status==0">
-                                <form method="POST" action="#" v-on:submit.prevent="showConfirmCancel(order.service_id, order.id)" accept-charset="UTF-8">
+                                <button type="submit" @click="showConfirmCancel(order.service_id, order.id)"><i class="far fa-times-circle"></i></button>
 
-                                <button type="submit"><i class="far fa-times-circle"></i></button>
-                                </form>
                             </div>
                             <!--<h2>{{infoServID[order.service_id]}} // {{infoOrderID[order.id]}}</h2>-->
                         </div>
                         <div v-if="showInfo && infoServID == order.service_id && infoOrderID == order.id">
-                            <orderinfo v-bind:order="order" @close="showInfo = false" @cancel="deleteOrder(order.service_id, order.id)"></orderinfo>
+                            <orderinfo v-bind:order="order" v-bind:transOrder="transOrder" @close="showInfo = false"></orderinfo>
                         </div>
                         <div v-if="confirmCancelOrder && infoServID == order.service_id && infoOrderID == order.id">
-                            <confirmcancel @yes-cancel="deleteOrder(order.service_id, order.id)" @no-cancel="confirmCancelOrder=false"></confirmcancel>
+                            <confirmcancel v-bind:transCancel="transCancel" @yes-cancel="deleteOrder(order.service_id, order.id)" @no-cancel="confirmCancelOrder=false"></confirmcancel>
                         </div>
 
                     </div>
@@ -40,12 +40,12 @@
                     <!--<li><p>Pedido 4 </p><i class="far fa-times-circle"></i></li>-->
 
             </div>
-            <div id="historyPage">
+            <div id="historyPage" v-if="paginatedData.length>5">
                 <button @click="prevPage" class="historyButton">
-                    <
+                    <i class="fas fa-caret-left"></i>
                 </button>
                 <button @click="nextPage" class="historyButton">
-                    >
+                    <i class="fas fa-caret-right"></i>
                 </button>
             </div>
         </div>
@@ -61,7 +61,7 @@
     import moment from 'moment'
     moment.lang('en')
     export default {
-
+        props:['transHistory', 'transOrder','transCancel'],
         created: function(){
             this.getHistory();
         },
@@ -188,7 +188,7 @@
     #history{
         background-color:white;
 
-        width:40%;
+        width:50%;
         box-shadow: var(--shadows);
 
     }
@@ -228,7 +228,7 @@
         /*color:black;*/
     /*}*/
     .historyItem{
-        border-bottom:1px solid gray;
+        border-bottom:1px solid var(--colorBody);
         padding:2% 5%;
     }
     .historyInfo{
@@ -241,6 +241,13 @@
         display:flex;
         justiy-content:center;
         align-items:center;
+    }
+    .historyCancel button{
+        background: transparent;
+        border:none;
+    }
+    .historyCancel:hover{
+        color:red;
     }
     /*.historyCancel>i{*/
         /*width:100%;*/
@@ -256,19 +263,29 @@
     }
     .historyItem:hover{
         background-color:var(--colorBody);
+        cursor:pointer;
     }
 
     .historyButton{
         margin:0px;
         width:50%;
         border:none;
+        background-color:var(--colorNav)
     }
     #historyPage{
         display:flex;
         justify-content:space-around;
+
     }
     .historySubInfo{
         font-size:75%;
         display:flex;
     }
+
+    @media (max-width: 450px) {
+        #history {
+            width: 100%;
+        }
+    }
+
 </style>

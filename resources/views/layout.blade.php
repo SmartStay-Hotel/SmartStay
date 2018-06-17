@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('css/guest.css')}}">
-
+    <link rel="shortcut icon" href="{{asset('img/icon/icoTransparente.png')}}">
 {{--    <script type="text/javascript" src="{{asset('css/styleSwiper.css') }}"></script>--}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.3.5/tiny-slider.css">
     <meta name="viewport" content="height=device-height, initial-scale=1.0">
@@ -38,8 +38,8 @@
                 <a href="{{url('logout')}}"><i class="fas fa-power-off"></i></a>
             </div>
             <div id="subMenu2">
-                <div id="bttnHistory">
-                    <i class="fas fa-history" @click="showHistory = !showHistory"></i>
+                <div id="bttnHistory" v-if="history.length>0">
+                    <i class="fas fa-history" v-if="history.length>0" @click="showHistory = !showHistory"></i>
                 </div>
                 <div id="inOut">
 
@@ -60,25 +60,20 @@
     </transition>
 
 
-    <housekeeping v-if="!statusRoom && showModalHK" @close="showModalHK = false">
-        <div slot="body">
-        <div class="menuOut"><input type="checkbox"> {{trans('smartstay.hk.sheets')}}</div>
-        <div class="menuOut"><input type="checkbox"> {{trans('smartstay.hk.cleaning')}}</div>
-        <div class="menuOut"><input type="checkbox"> {{trans('smartstay.hk.minibar')}}</div>
-        <div class="menuOut"><input type="checkbox"> {{trans('smartstay.hk.blanket')}}</div>
-        <div class="menuOut"><input type="checkbox"> {{trans('smartstay.hk.toiletries')}}</div>
-        <div class="menuOut"><input type="checkbox"> {{trans('smartstay.hk.pillow')}}</div>
-        </div>
+    <housekeeping v-bind:trans="['']" v-if="!statusRoom && showModalHK" @close="showModalHK = false">
+
     </housekeeping>
-    <historyorders  v-if="showHistory" @close="closeHistory"></historyorders>
+
+    <historyorders v-bind:transHistory="['']" v-bind:transOrder="['']" v-bind:transCancel="['']" v-if="showHistory && history.length>0" @close="closeHistory"></historyorders>
+
 {{--@{{$data}}--}}
     <transition name="fade-out">
     <div id="loadingScreen" v-if="loadingScreen">
         <h2>Welcome</h2>
         <load-screen
-                :animation-duration="4000"
+                :animation-duration="1000"
                 :size="60"
-                color="#ff1d5e"
+                color="#46ce90"
         />
     </div>
     </transition>

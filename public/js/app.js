@@ -57550,7 +57550,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_tiny_slider__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_tiny_slider___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_tiny_slider__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_epic_spinners__ = __webpack_require__(176);
+var _data;
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /* ----------------------- REQUIRES ----------------------------------*/
 
@@ -57604,6 +57606,7 @@ Vue.component('housekeeping', __webpack_require__(289));
 Vue.component('serviceshome', __webpack_require__(167));
 Vue.component('historyorders', __webpack_require__(294));
 Vue.component('confirmcancel', __webpack_require__(168));
+// Vue.component('confirmproduct', require('./components/confirmProduct.vue'))
 // Vue.component('modal', {
 //     template: '#hola'
 // })
@@ -57613,24 +57616,6 @@ Vue.component('confirmcancel', __webpack_require__(168));
 
 var urlGetStatusRoom = 'seeStatus';
 var urlChangeStatusRoom = 'changeStatus';
-
-toastr.options = {
-    "closeButton": true,
-    "debug": false,
-    "newestOnTop": false,
-    "progressBar": false,
-    "positionClass": "toast-top-right",
-    "preventDuplicates": false,
-    "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": false,
-    "extendedTimeOut": "3000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut",
-    "closeOnHover": false
-};
 
 new Vue({
     el: '#container',
@@ -57651,15 +57636,14 @@ new Vue({
 
     },
 
-    data: {
+    data: (_data = {
         loadingScreen: true,
 
         services: [],
         trips: [],
         events: [],
         spaTypes: [],
-        snacks: [],
-        drinks: [],
+        products: [],
         history: [],
 
         statusGuest: false,
@@ -57685,38 +57669,23 @@ new Vue({
         hourTaxi: '',
 
         productSelected: [],
-        productCant: [],
+        productCant: [1, 1, 1],
         productPrice: [],
-        snackSelected: [],
-        snackCant: [],
-        snackPrice: [],
-        drinkSelected: [],
-        drinkCant: [],
-        drinkPrice: [],
 
-        numSnacks: [0],
-        nS: 1,
-        numDrinks: [0],
-        nD: 1,
-        showSnack: ['true'],
+        numProducts: [0],
+        nP: 1,
+        precioTotalSD: 0,
+        showPrecioProduct: false,
 
-        petWater: "",
-        petStandardFood: "",
-        petPremiumFood: "",
-        petSnacks: "",
+        petWater: false,
+        petSnacks: false,
+        petFood: "",
 
         errores: "",
         errorDayHour: false,
         errorExists: false,
-        errorPlazas: false,
-
-        precioTotalSD: 0,
-
-        showCancelConfirm: false,
-
-        pedidoHecho: false
-
-    },
+        errorPlazas: false
+    }, _defineProperty(_data, 'errorPlazas', false), _defineProperty(_data, 'tripPlaces', 0), _defineProperty(_data, 'eventPlaces', 0), _defineProperty(_data, 'showCancelConfirm', false), _defineProperty(_data, 'pedidoHecho', false), _data),
     methods: {
         falseLoadScreen: function falseLoadScreen() {
             this.loadingScreen = false;
@@ -57742,55 +57711,71 @@ new Vue({
                 _this2.checkoutDateFormat = __WEBPACK_IMPORTED_MODULE_0_moment___default()(response.data).format('YYYY-MM-DD');
             });
         },
-        getHistory: function getHistory() {
+        getTripPlaces: function getTripPlaces(id) {
             var _this3 = this;
+
+            var urlTripPlaces = 'tripPlaces/' + id;
+            axios.get(urlTripPlaces).then(function (response) {
+                _this3.tripPlaces = response.data;
+            });
+            return this.tripPlaces;
+        },
+        getEventPlaces: function getEventPlaces(id) {
+            var _this4 = this;
+
+            var urlEventPlaces = 'eventPlaces/' + id;
+            axios.get(urlEventPlaces).then(function (response) {
+                _this4.eventPlaces = response.data;
+            });
+            return this.eventPlaces;
+        },
+
+        getHistory: function getHistory() {
+            var _this5 = this;
 
             var urlHistory = 'orderHistory';
             axios.get(urlHistory).then(function (response) {
-                _this3.history = response.data;
+                _this5.history = response.data;
             });
         },
         getProductTypes: function getProductTypes() {
-            var _this4 = this;
+            var _this6 = this;
 
-            var urlSnacks = 'snacks';
-            var urlDrinks = 'drinks';
-            axios.get(urlSnacks).then(function (response) {
-                _this4.snacks = response.data;
-            });
-            axios.get(urlDrinks).then(function (response) {
-                _this4.drinks = response.data;
+            var urlProducts = 'products';
+
+            axios.get(urlProducts).then(function (response) {
+                _this6.products = response.data;
             });
         },
         getStatusRoom: function getStatusRoom() {
-            var _this5 = this;
+            var _this7 = this;
 
             axios.get(urlGetStatusRoom).then(function (response) {
-                _this5.statusRoom = response.data;
+                _this7.statusRoom = response.data;
             });
         },
         getTrips: function getTrips() {
-            var _this6 = this;
+            var _this8 = this;
 
             var urlTrips = 'trips';
             axios.get(urlTrips).then(function (response) {
-                _this6.trips = response.data;
+                _this8.trips = response.data;
             });
         },
         getEvents: function getEvents() {
-            var _this7 = this;
+            var _this9 = this;
 
             var urlEvents = 'events';
             axios.get(urlEvents).then(function (response) {
-                _this7.events = response.data;
+                _this9.events = response.data;
             });
         },
         getSpaTypes: function getSpaTypes() {
-            var _this8 = this;
+            var _this10 = this;
 
             var urlSpaTypes = 'spas';
             axios.get(urlSpaTypes).then(function (response) {
-                _this8.spaTypes = response.data;
+                _this10.spaTypes = response.data;
             });
         },
 
@@ -57803,32 +57788,31 @@ new Vue({
             this.eventSelected = "";
             this.spaSelected = "";
             this.numPersonsTrip = 1;
-            this.dayHourServ = "";
+            this.statusRoom = "";
+            this.dayHourServ = '';
             this.quantityServ = '';
             this.hourTaxi = '';
             this.productSelected = [];
-            this.productCant = [];
+            this.productCant = [1, 1, 1];
             this.productPrice = [];
-            this.snackSelected = [];
-            this.snackCant = [];
-            this.snackPrice = [];
-            this.drinkSelected = [];
-            this.drinkCant = [];
-            this.drinkPrice = [];
-            this.numSnacks = [0];
-            this.nS = 1;
-            this.numDrinks = [0];
-            this.nD = 1;
-            this.showSnack = ['true'];
-            this.petWater = "";
-            this.petStandardFood = "";
-            this.petPremiumFood = "";
-            this.petSnacks = "";
-            this.errores = "";
-            this.errorExists = false;
-            this.errorDayHour = false;
+            this.numProducts = [0];
+            this.nP = 1;
             this.precioTotalSD = 0;
-            this.pedidoHecho = false, this.actualDate();
+            this.showPrecioProduct = false;
+            this.petWater = false;
+            this.petSnacks = false;
+            this.petFood = "";
+            this.errores = "";
+            this.errorDayHour = false;
+            this.errorExists = false;
+            this.errorPlazas = false;
+            this.errorPlazas = false;
+            this.tripPlaces = 0;
+            this.eventPlaces = 0;
+            this.showCancelConfirm = false;
+            this.pedidoHecho = false;
+
+            this.actualDate();
             this.getHistory();
         },
         showOut: function showOut() {
@@ -57856,7 +57840,7 @@ new Vue({
             // this.dataActual = d;
         },
         insertRestaurant: function insertRestaurant() {
-            var _this9 = this;
+            var _this11 = this;
 
             if (this.dayHourServ <= this.dataActual) {
                 this.errorDayHour = true;
@@ -57868,12 +57852,12 @@ new Vue({
                     quantity: this.quantityServ
 
                 }).then(function (response) {
-                    _this9.errorExists = false;
-                    _this9.showResult = true;
-                    _this9.pedidoHecho = true;
+                    _this11.errorExists = false;
+                    _this11.showResult = true;
+                    _this11.pedidoHecho = true;
                 }).catch(function (error) {
-                    _this9.errorExists = true;
-                    _this9.errores = error.response.data;
+                    _this11.errorExists = true;
+                    _this11.errores = error.response.data;
                 });
             }
 
@@ -57881,7 +57865,7 @@ new Vue({
             // this.pruebaOrder=response.data;
         },
         insertSpa: function insertSpa() {
-            var _this10 = this;
+            var _this12 = this;
 
             if (this.dayHourServ <= this.dataActual) {
                 this.errorDayHour = true;
@@ -57893,178 +57877,165 @@ new Vue({
                     day_hour: this.dayHourServ
 
                 }).then(function (response) {
-                    _this10.pedidoHecho = true;
-                    _this10.showResult = true;
-                    _this10.errorExists = false;
+                    _this12.pedidoHecho = true;
+                    _this12.showResult = true;
+                    _this12.errorExists = false;
                 }).catch(function (error) {
-                    _this10.errorExists = true;
-                    _this10.errores = error.response.data;
+                    _this12.errorExists = true;
+                    _this12.errores = error.response.data;
                 });
             }
         },
-        insertAlarm: function insertAlarm() {
-            var _this11 = this;
-
-            var urlInsAlarm = 'admin/service/alarm';
-            axios.post(urlInsAlarm, {
-                day_hour: this.dayHourServ
-
-            }).then(function (response) {
-                _this11.showResult = true;
-                toastr.success("adios");
-                console.log("coorecto alaramaaa");
-            }).catch(function (error) {
-
-                toastr.success("sdfsadf");
-                _this11.errores = error.response.data;
-                console.log("alarm no");
-            });
-        },
-        insertTrip: function insertTrip() {
-            var _this12 = this;
-
-            var urlInsTrip = 'admin/service/trip';
-            axios.post(urlInsTrip, {
-                trip_type_id: this.tripSelected,
-                people_num: this.numPersonsTrip
-
-            }).then(function (response) {
-                _this12.showResult = true;
-                toastr.success("adios");
-                console.log("correcto trip");
-            }).catch(function (error) {
-
-                toastr.success("sdfsadf");
-                _this12.errores = error.response.data;
-                console.log("tripppp no");
-            });
-        }, insertEvent: function insertEvent() {
+        insertProduct: function insertProduct() {
             var _this13 = this;
 
-            var urlInsEvent = 'admin/service/event';
-            axios.post(urlInsEvent, {
-                event_type_id: this.eventSelected
+            var urlInsProd = 'admin/service/snackdrink';
+            axios.post(urlInsProd, {
+                product_type_id: this.productSelected,
+                quantity: this.productCant
 
             }).then(function (response) {
-                _this13.showResult = true;
-                toastr.success("adios");
-                console.log("correcto eventtt");
-            }).catch(function (error) {
+                _this13.pedidoHecho = true;
 
-                toastr.success("sdfsadf");
+                _this13.errorExists = false;
+            }).catch(function (error) {
+                _this13.errorExists = true;
                 _this13.errores = error.response.data;
-                console.log("evevevvent no");
             });
         },
-        insertTaxi: function insertTaxi() {
+        insertAlarm: function insertAlarm() {
             var _this14 = this;
 
-            var urlInsTaxi = 'admin/service/taxi';
-            axios.post(urlInsTaxi, {
-                day_hour: this.dayHourServ
+            if (this.dayHourServ <= this.dataActual) {
+                this.errorDayHour = true;
+            } else {
+                this.errorDayHour = false;
+                var urlInsAlarm = 'admin/service/alarm';
+                axios.post(urlInsAlarm, {
+                    day_hour: this.dayHourServ
 
-            }).then(function (response) {
-                _this14.showResult = true;
-                toastr.success("adios");
-                console.log("correcto taxiiii");
-            }).catch(function (error) {
+                }).then(function (response) {
+                    _this14.pedidoHecho = true;
 
-                toastr.success("sdfsadf");
-                _this14.errores = error.response.data;
-                console.log("taxino no");
-            });
+                    toastr.success("adios");
+                    console.log("coorecto alaramaaa");
+                }).catch(function (error) {
+
+                    _this14.errorExists = true;
+                    _this14.errores = error.response.data;
+                });
+            }
         },
-        insertPetCare: function insertPetCare() {
+        insertTrip: function insertTrip() {
             var _this15 = this;
 
-            var urlInsPetCare = 'admin/service/petcare';
-            var water = 0;
-            var standard = 0;
-            var premium = 0;
-            var snacks = 0;
-            if (this.petWater != '') water = 1;
-            if (this.petStandardFood != '') standard = 1;
-            if (this.petPremiumFood != '') premium = 1;
-            if (this.snacks != '') snacks = 1;
-            axios.post(urlInsPetCare, {
+            if (this.numPersonsTrip > this.tripPlaces) {
+                this.errorPlazas = true;
+            } else {
+                this.errorPlazas = false;
+                var urlInsTrip = 'admin/service/trip';
+                axios.post(urlInsTrip, {
+                    trip_type_id: this.tripSelected,
+                    people_num: this.numPersonsTrip
 
-                water: water,
-                standard_food: standard,
-                premium_food: premium,
-                snacks: snacks
+                }).then(function (response) {
 
-            }).then(function (response) {
-                _this15.showResult = true;
-                toastr.success("adios");
-                console.log("correcto dogg");
-            }).catch(function (error) {
+                    _this15.pedidoHecho = true;
+                }).catch(function (error) {
 
-                toastr.success("sdfsadf");
-                _this15.errores = error.response.data;
-                console.log("dooogg no");
-            });
-        },
-        bttnMas: function bttnMas(tipo) {
-            if (tipo == 'snack') {
-                this.numSnacks.push(this.nS);
-                this.nS = this.nS + 1;
-            } else if (tipo == 'drink') {
-                this.numDrinks.push(this.nD);
-                this.nD = this.nD + 1;
+                    _this15.errores = error.response.data;
+                    console.log("tripppp no");
+                });
             }
-        },
-        bttnMenos: function bttnMenos(tipo) {
-            if (tipo == 'snack') {
-                this.numSnacks.pop();
-                this.nS = this.nS - 1;
-                this.snackSelected[this.nS] = '';
-            } else if (tipo == 'drink') {
-                this.numDrinks.pop();
-                this.nD = this.nD - 1;
-                this.snackSelected[this.nD] = '';
-            }
-        }, infoSnack: function infoSnack(num) {
+        }, insertEvent: function insertEvent() {
             var _this16 = this;
 
-            return this.snacks.filter(function (product) {
-                return product.id == _this16.snackSelected[num];
-            });
+            if (this.numPersonsTrip > this.eventPlaces) {
+                this.errorPlazas = true;
+            } else {
+                this.errorPlazas = false;
+                var urlInsEvent = 'admin/service/event';
+                axios.post(urlInsEvent, {
+                    event_type_id: this.eventSelected,
+                    people_num: this.numPersonsTrip
+
+                }).then(function (response) {
+                    _this16.pedidoHecho = true;
+                }).catch(function (error) {
+                    _this16.errores = error.response.data;
+                });
+            }
         },
-        infoDrink: function infoDrink(num) {
+        insertTaxi: function insertTaxi() {
             var _this17 = this;
 
-            return this.drinks.filter(function (product) {
-                return product.id == _this17.drinkSelected[num];
+            if (this.dayHourServ <= this.dataActual) {
+                this.errorDayHour = true;
+            } else {
+                var urlInsTaxi = 'admin/service/taxi';
+                axios.post(urlInsTaxi, {
+                    day_hour: this.dayHourServ
+
+                }).then(function (response) {
+                    _this17.pedidoHecho = true;
+                }).catch(function (error) {
+                    _this17.errores = error.response.data;
+                });
+            }
+        },
+        insertPetCare: function insertPetCare() {
+            var _this18 = this;
+
+            var urlInsPetCare = 'admin/service/petcare';
+
+            if (this.petFood == '') this.petFood = false;
+
+            axios.post(urlInsPetCare, {
+                food: this.petFood,
+                water: this.petWater,
+                snacks: this.petSnacks
+            }).then(function (response) {
+                _this18.pedidoHecho = true;
+            }).catch(function (error) {
+                _this18.errores = error.response.data;
+            });
+        },
+        bttnMas: function bttnMas() {
+
+            this.numProducts.push(this.nP);
+            this.nP++;
+        },
+        bttnMenos: function bttnMenos() {
+
+            if (this.productSelected.length == this.numProducts.length) {
+                this.productSelected.pop();
+            }
+            this.numProducts.pop();
+            this.nP = this.nP - 1;
+        }, infoProduct: function infoProduct(num) {
+            var _this19 = this;
+
+            return this.products.filter(function (product) {
+                return product.id == _this19.productSelected[num];
             });
         },
 
         getPriceProducts: function getPriceProducts() {
             var i = 0;
             this.productPrice = [];
-            this.productSelected = [];
-            this.productCant = [];
+            // this.productSelected = [];
+            // this.productCant = [];
             this.precioTotalSD = 0;
             // console.log("length snack "+this.snackSelected.length);
-            // var prodPrice = document.getElementsByClassName("productPrice");
+            var prodPrice = document.getElementsByClassName("productPrice");
 
-            for (i = 0; i < snackPrice.length; i++) {
-                this.productPrice.push(snackPrice[i]);
+            for (i = 0; i < prodPrice.length; i++) {
+                this.productPrice.push(prodPrice[i].innerHTML);
             }
-            for (i = 0; i < drinkPrice.length; i++) {
-                this.productPrice.push(drinkPrice[i]);
-            }
-            for (i = 0; i < this.snackSelected.length; i++) {
-                this.productSelected.push(this.snackSelected[i]);
-            }
-            for (i = 0; i < this.drinkSelected.length; i++) {
-                this.productSelected.push(this.drinkSelected[i]);
-            }
-            for (i = 0; i < this.snackCant.length; i++) {
-                this.productCant.push(this.snackCant[i]);
-            }
-            for (i = 0; i < this.drinkCant.length; i++) {
-                this.productCant.push(this.snackCant[i]);
-            }
+            // for(i = 0; i < drinkPrice.length; i++){
+            //     this.productPrice.push(prodPrice[i].innerHTML);
+            // }
+
 
             for (i = 0; i < this.productSelected.length; i++) {
                 console.log("parseee precio" + parseInt(this.productPrice[i]));
@@ -58090,7 +58061,7 @@ new Vue({
         },
 
         deleteOrder: function deleteOrder(idServ, idOrder) {
-            var _this18 = this;
+            var _this20 = this;
 
             var nameService = "";
             switch (idServ) {
@@ -58125,33 +58096,38 @@ new Vue({
                 var urlDeleteOrder = "/admin/service/" + nameService + "/" + idOrder;
 
                 axios.delete(urlDeleteOrder).then(function (response) {
-                    _this18.getHistory();
+                    _this20.getHistory();
                 });
             }
             this.showCancelConfirm = false;
+        },
+
+        showProdPrice: function showProdPrice() {
+            this.getPriceProducts();
+            this.showPrecioProduct = true;
         }
 
     },
     computed: {
         infoTrip: function infoTrip() {
-            var _this19 = this;
+            var _this21 = this;
 
             return this.trips.filter(function (trip) {
-                return trip.id == _this19.tripSelected;
+                return trip.id == _this21.tripSelected;
             });
         },
         infoEvent: function infoEvent() {
-            var _this20 = this;
+            var _this22 = this;
 
             return this.events.filter(function (event) {
-                return event.id == _this20.eventSelected;
+                return event.id == _this22.eventSelected;
             });
         },
         infoSpa: function infoSpa() {
-            var _this21 = this;
+            var _this23 = this;
 
             return this.spaTypes.filter(function (spatype) {
-                return spatype.id == _this21.spaSelected;
+                return spatype.id == _this23.spaSelected;
             });
         },
         existsRestaurant: function existsRestaurant() {
@@ -58163,19 +58139,15 @@ new Vue({
             return rest;
         },
 
-        setPrecioSnack: function setPrecioSnack(precio, num) {
-            this.snackPrice[num] = precio;
-            return precio;
-        },
-        setPrecioDrink: function setPrecioDrink(precio, num) {
-            this.drinkPrice[num] = precio;
+        setProductPrice: function setProductPrice(precio, num) {
+            this.productPrice[num] = precio;
             return precio;
         }
 
     },
     components: {
         'tiny-slider': __WEBPACK_IMPORTED_MODULE_1_vue_tiny_slider___default.a,
-        'load-screen': __WEBPACK_IMPORTED_MODULE_2_epic_spinners__["a" /* FulfillingBouncingCircleSpinner */]
+        'load-screen': __WEBPACK_IMPORTED_MODULE_2_epic_spinners__["a" /* AtomSpinner */]
         // 'serviceshome': serviceshome
     }
 });
@@ -77627,13 +77599,13 @@ webpackContext.id = 174;
 /* unused harmony reexport BreedingRhombusSpinner */
 /* unused harmony reexport SwappingSquaresSpinner */
 /* unused harmony reexport ScalingSquaresSpinner */
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_13__components_lib_FulfillingBouncingCircleSpinner_vue___default.a; });
+/* unused harmony reexport FulfillingBouncingCircleSpinner */
 /* unused harmony reexport RadarSpinner */
 /* unused harmony reexport SelfBuildingSquareSpinner */
 /* unused harmony reexport SpringSpinner */
 /* unused harmony reexport LoopingRhombusesSpinner */
 /* unused harmony reexport HalfCircleSpinner */
-/* unused harmony reexport AtomSpinner */
+/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_19__components_lib_AtomSpinner_vue___default.a; });
 
 
 
@@ -89955,7 +89927,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.modal-mask[data-v-215b011a] {\n        position: fixed;\n        z-index: 9998;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        background-color: rgba(0, 0, 0, .5);\n        display: table;\n        transition: opacity .3s ease;\n        padding:0px;\n}\n.modal-wrapper[data-v-215b011a] {\n        display: table-cell;\n        vertical-align: middle;\n        padding:0px;\n}\n.modal-container[data-v-215b011a] {\n        width: 20%;\n        min-width:200px;\n        margin: 0px auto;\n        /*padding: 20px 30px;*/\n        background-color: #fff;\n        border-radius: 2px;\n        box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n        transition: all .3s ease;\n        font-family: Helvetica, Arial, sans-serif;\n}\n\n    /*.modal-header h3 {*/\n        /*margin-top: 0;*/\n        /*color: #42b983;*/\n    /*}*/\n.modal-header[data-v-215b011a]{\n        background-color: var(--colorSubMenu);\n        color:white;\n}\n/*.modal-header, .model-body{*/\n    /*border-bottom:none;*/\n/*}*/\n.modal-body[data-v-215b011a] {\n        /*margin: 20px 0;*/\n}\n.modal-default-button[data-v-215b011a] {\n        float: right;\n}\n\n    /*\n     * The following styles are auto-applied to elements with\n     * transition=\"modal\" when their visibility is toggled\n     * by Vue.js.\n     *\n     * You can easily play with the modal transition by editing\n     * these styles.\n     */\n.modal-enter[data-v-215b011a] {\n        opacity: 0;\n}\n.modal-leave-active[data-v-215b011a] {\n        opacity: 0;\n}\n.modal-enter .modal-container[data-v-215b011a],\n    .modal-leave-active .modal-container[data-v-215b011a] {\n        -webkit-transform: scale(1.1);\n        transform: scale(1.1);\n}\n", ""]);
+exports.push([module.i, "\n.modal-mask[data-v-215b011a] {\n        position: fixed;\n        z-index: 9998;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        background-color: rgba(0, 0, 0, .5);\n        display: table;\n        transition: opacity .3s ease;\n        padding:0px;\n}\n.modal-wrapper[data-v-215b011a] {\n        display: table-cell;\n        vertical-align: middle;\n        padding:0px;\n}\n.modal-container[data-v-215b011a] {\n        width: 20%;\n        min-width:200px;\n        margin: 0px auto;\n        /*padding: 20px 30px;*/\n        background-color: #fff;\n        border-radius: 2px;\n        box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n        transition: all .3s ease;\n        font-family: Helvetica, Arial, sans-serif;\n}\n\n    /*.modal-header h3 {*/\n        /*margin-top: 0;*/\n        /*color: #42b983;*/\n    /*}*/\n.modal-header[data-v-215b011a]{\n        background-color: var(--colorSubMenu);\n        color:white;\n}\n/*.modal-header, .model-body{*/\n    /*border-bottom:none;*/\n/*}*/\n.modal-body[data-v-215b011a] {\n        /*margin: 20px 0;*/\n}\n.modal-default-button[data-v-215b011a] {\n        float: right;\n}\n\n    /*\n     * The following styles are auto-applied to elements with\n     * transition=\"modal\" when their visibility is toggled\n     * by Vue.js.\n     *\n     * You can easily play with the modal transition by editing\n     * these styles.\n     */\n.modal-enter[data-v-215b011a] {\n        opacity: 0;\n}\n.modal-leave-active[data-v-215b011a] {\n        opacity: 0;\n}\n.modal-enter .modal-container[data-v-215b011a],\n    .modal-leave-active .modal-container[data-v-215b011a] {\n        -webkit-transform: scale(1.1);\n        transform: scale(1.1);\n}\n.closeHousekeeping[data-v-215b011a]{\n        border:none;\n        color:white;\n        background-color:transparent;\n}\n.housekeepingTitle[data-v-215b011a]{\n        display:flex;\n        justify-content:space-between;\n}\n", ""]);
 
 // exports
 
@@ -90002,16 +89974,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['trans'],
     data: function data() {
         return {
-            bedSheets: '',
-            cleaning: '',
-            minibar: '',
-            blanket: '',
-            toiletries: '',
-            pillow: ''
+            bedSheets: false,
+            cleaning: false,
+            minibar: false,
+            blanket: false,
+            toiletries: false,
+            pillow: false,
+            errores: ''
         };
     },
 
@@ -90020,26 +89996,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             var urlInsHousekeeping = 'admin/service/housekeeping';
-            var ibedSheets = 0;
-            var icleaning = 0;
-            var iminibar = 0;
-            var iblanket = 0;
-            var itoiletries = 0;
-            var ipillow = 0;
-            if (this.bedSheets != '') ibedSheets = 1;
-            if (this.cleaning != '') icleaning = 1;
-            if (this.minibar != '') iminibar = 1;
-            if (this.blanket != '') iblanket = 1;
-            if (this.toiletries != '') itoiletries = 1;
-            if (this.pillow != '') ipillow = 1;
 
             axios.post(urlInsHousekeeping, {
-                bed_sheets: ibedSheets,
-                cleaning: icleaning,
-                minibar: iminibar,
-                blanket: iblanket,
-                toiletries: itoiletries,
-                pillow: ipillow
+                bed_sheets: this.bedSheets,
+                cleaning: this.cleaning,
+                minibar: this.minibar,
+                blanket: this.blanket,
+                toiletries: this.toiletries,
+                pillow: this.pillow
 
             }).then(function (response) {
                 _this.showResult = true;
@@ -90051,6 +90015,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.errores = error.response.data;
                 console.log("noot houseee no");
             });
+            // this.bedSheets ='',
+            // this.cleaning ='',
+            // this.minibar ='',
+            // this.blanket ='',
+            // this.toiletries ='',
+            // this.pillow ='',
             this.$emit('close');
         }
 
@@ -90074,19 +90044,22 @@ var render = function() {
             { staticClass: "modal-header" },
             [
               _vm._t("header", [
-                _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        _vm.$emit("close")
+                _c("div", { staticClass: "housekeepingTitle" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "closeHousekeeping",
+                      on: {
+                        click: function($event) {
+                          _vm.$emit("close")
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("X")]
-                ),
-                _vm._v(" "),
-                _c("p", [_vm._v("Housekeeping")])
+                    },
+                    [_c("i", { staticClass: "fas fa-long-arrow-alt-left" })]
+                  ),
+                  _vm._v(" "),
+                  _c("h3", [_vm._v("Housekeeping")])
+                ])
               ])
             ],
             2
@@ -90135,7 +90108,7 @@ var render = function() {
                       }
                     }
                   }),
-                  _vm._v(" Bed Sheets")
+                  _vm._v(" " + _vm._s(_vm.trans[0]))
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "menuOut" }, [
@@ -90176,7 +90149,7 @@ var render = function() {
                       }
                     }
                   }),
-                  _vm._v(" Cleaning ")
+                  _vm._v(" " + _vm._s(_vm.trans[1]) + " ")
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "menuOut" }, [
@@ -90217,7 +90190,7 @@ var render = function() {
                       }
                     }
                   }),
-                  _vm._v(" Minibar")
+                  _vm._v(" " + _vm._s(_vm.trans[2]))
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "menuOut" }, [
@@ -90258,7 +90231,7 @@ var render = function() {
                       }
                     }
                   }),
-                  _vm._v(" Blanket")
+                  _vm._v(" " + _vm._s(_vm.trans[3]))
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "menuOut" }, [
@@ -90299,7 +90272,7 @@ var render = function() {
                       }
                     }
                   }),
-                  _vm._v(" Toiletries")
+                  _vm._v(" " + _vm._s(_vm.trans[4]))
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "menuOut" }, [
@@ -90340,7 +90313,7 @@ var render = function() {
                       }
                     }
                   }),
-                  _vm._v(" Pillow")
+                  _vm._v(" " + _vm._s(_vm.trans[5]))
                 ])
               ])
             ],
@@ -90352,18 +90325,25 @@ var render = function() {
             { staticClass: "modal-footer" },
             [
               _vm._t("footer", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "modal-default-button",
-                    on: { click: _vm.insertHousekeeping }
-                  },
-                  [
-                    _vm._v(
-                      "\n                            Send\n                        "
+                this.bedSheets ||
+                this.cleaning ||
+                this.minibar ||
+                this.blanket ||
+                this.toiletries ||
+                this.pillow
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "modal-default-button",
+                        on: { click: _vm.insertHousekeeping }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Send\n                        "
+                        )
+                      ]
                     )
-                  ]
-                )
+                  : _vm._e()
               ])
             ],
             2
@@ -90469,7 +90449,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n#historyContainer *[data-v-7a71db5c] {\n    /*border:1px solid red;*/\n}\n#historyContainer[data-v-7a71db5c]{\n\n    display:flex;\n    justify-content:center;\n    align-items:center;\n    height:70%;\n}\n#history[data-v-7a71db5c]{\n    background-color:white;\n\n    width:40%;\n    box-shadow: var(--shadows);\n}\n#historyTitle[data-v-7a71db5c]{\n    display:flex;\n    justify-content: space-between;\n    padding:2%;\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n#historyTitle button[data-v-7a71db5c]{\n    padding:0px;\n    border:none;\n    font-size:150%;\n    background-color:transparent;\n}\n#historyTitle button[data-v-7a71db5c]:hover{\n    color: var(--colorSecond);\n}\n/*#historyList{*/\n    /*list-style-type:none;*/\n/*}*/\n/*#historyList > li{*/\n\n    /*padding: 2% 3% 1% 3%;*/\n    /*border-bottom:1px solid gray;*/\n    /*margin-top:1%;*/\n    /*display:flex;*/\n    /*justify-content: space-between;*/\n/*}*/\n/*#historyList > li > i {*/\n    /*font-size:150%;*/\n    /*color:red;*/\n/*}*/\n/*#historyList > li > i:hover {*/\n\n    /*color:black;*/\n/*}*/\n.historyItem[data-v-7a71db5c]{\n    border-bottom:1px solid gray;\n    padding:2% 5%;\n}\n.historyInfo[data-v-7a71db5c]{\n    width:92%;\n}\n.historyCancel[data-v-7a71db5c]{\n    width:8%;\n    font-size:100%;\n    display:flex;\n    justiy-content:center;\n    align-items:center;\n}\n/*.historyCancel>i{*/\n    /*width:100%;*/\n    /*height:100%;*/\n    /*margin:0px;*/\n    /**/\n/*}*/\n.historyItem p[data-v-7a71db5c]{\n    margin:0px;\n}\n.historyItem[data-v-7a71db5c]{\n    display:flex;\n}\n.historyItem[data-v-7a71db5c]:hover{\n    background-color:var(--colorBody);\n}\n.historyButton[data-v-7a71db5c]{\n    margin:0px;\n    width:50%;\n    border:none;\n}\n#historyPage[data-v-7a71db5c]{\n    display:flex;\n    justify-content:space-around;\n}\n.historySubInfo[data-v-7a71db5c]{\n    font-size:75%;\n    display:flex;\n}\n", ""]);
+exports.push([module.i, "\n#historyContainer *[data-v-7a71db5c] {\n    /*border:1px solid red;*/\n}\n#historyContainer[data-v-7a71db5c]{\n\n    display:flex;\n    justify-content:center;\n    align-items:center;\n    height:70%;\n}\n#history[data-v-7a71db5c]{\n    background-color:white;\n\n    width:50%;\n    box-shadow: var(--shadows);\n}\n#historyTitle[data-v-7a71db5c]{\n    display:flex;\n    justify-content: space-between;\n    padding:2%;\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n#historyTitle button[data-v-7a71db5c]{\n    padding:0px;\n    border:none;\n    font-size:150%;\n    background-color:transparent;\n}\n#historyTitle button[data-v-7a71db5c]:hover{\n    color: var(--colorSecond);\n}\n/*#historyList{*/\n    /*list-style-type:none;*/\n/*}*/\n/*#historyList > li{*/\n\n    /*padding: 2% 3% 1% 3%;*/\n    /*border-bottom:1px solid gray;*/\n    /*margin-top:1%;*/\n    /*display:flex;*/\n    /*justify-content: space-between;*/\n/*}*/\n/*#historyList > li > i {*/\n    /*font-size:150%;*/\n    /*color:red;*/\n/*}*/\n/*#historyList > li > i:hover {*/\n\n    /*color:black;*/\n/*}*/\n.historyItem[data-v-7a71db5c]{\n    border-bottom:1px solid var(--colorBody);\n    padding:2% 5%;\n}\n.historyInfo[data-v-7a71db5c]{\n    width:92%;\n}\n.historyCancel[data-v-7a71db5c]{\n    width:8%;\n    font-size:100%;\n    display:flex;\n    justiy-content:center;\n    align-items:center;\n}\n.historyCancel button[data-v-7a71db5c]{\n    background: transparent;\n    border:none;\n}\n.historyCancel[data-v-7a71db5c]:hover{\n    color:red;\n}\n/*.historyCancel>i{*/\n    /*width:100%;*/\n    /*height:100%;*/\n    /*margin:0px;*/\n    /**/\n/*}*/\n.historyItem p[data-v-7a71db5c]{\n    margin:0px;\n}\n.historyItem[data-v-7a71db5c]{\n    display:flex;\n}\n.historyItem[data-v-7a71db5c]:hover{\n    background-color:var(--colorBody);\n    cursor:pointer;\n}\n.historyButton[data-v-7a71db5c]{\n    margin:0px;\n    width:50%;\n    border:none;\n    background-color:var(--colorNav)\n}\n#historyPage[data-v-7a71db5c]{\n    display:flex;\n    justify-content:space-around;\n}\n.historySubInfo[data-v-7a71db5c]{\n    font-size:75%;\n    display:flex;\n}\n@media (max-width: 450px) {\n#history[data-v-7a71db5c] {\n        width: 100%;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -90549,7 +90529,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __WEBPACK_IMPORTED_MODULE_2_moment___default.a.lang('en');
 /* harmony default export */ __webpack_exports__["default"] = ({
-
+    props: ['transHistory', 'transOrder', 'transCancel'],
     created: function created() {
         this.getHistory();
     },
@@ -90747,7 +90727,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.modal-mask[data-v-5935e6b8] {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity .3s ease;\n    padding:0px;\n}\n.modal-wrapper[data-v-5935e6b8] {\n    display: table-cell;\n    vertical-align: middle;\n    padding:0px;\n}\n.modal-container[data-v-5935e6b8] {\n    width: 20%;\n    min-width:200px;\n    margin: 0px auto;\n    /*padding: 20px 30px;*/\n    background-color: #fff;\n    border-radius: 2px;\n    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n    transition: all .3s ease;\n    font-family: Helvetica, Arial, sans-serif;\n}\n\n/*.modal-header h3 {*/\n/*margin-top: 0;*/\n/*color: #42b983;*/\n/*}*/\n.modal-header[data-v-5935e6b8]{\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n/*.modal-header, .model-body{*/\n/*border-bottom:none;*/\n/*}*/\n.modal-body[data-v-5935e6b8] {\n    /*margin: 20px 0;*/\n}\n.modal-default-button[data-v-5935e6b8] {\n    float: right;\n}\n\n/*\n * The following styles are auto-applied to elements with\n * transition=\"modal\" when their visibility is toggled\n * by Vue.js.\n *\n * You can easily play with the modal transition by editing\n * these styles.\n */\n.modal-enter[data-v-5935e6b8] {\n    opacity: 0;\n}\n.modal-leave-active[data-v-5935e6b8] {\n    opacity: 0;\n}\n.modal-enter .modal-container[data-v-5935e6b8],\n.modal-leave-active .modal-container[data-v-5935e6b8] {\n    -webkit-transform: scale(1.1);\n    transform: scale(1.1);\n}\n", ""]);
+exports.push([module.i, "\n.modal-mask[data-v-5935e6b8] {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity .3s ease;\n    padding:0px;\n}\n.modal-wrapper[data-v-5935e6b8] {\n    display: table-cell;\n    vertical-align: middle;\n    padding:0px;\n}\n.modal-container[data-v-5935e6b8] {\n    width: 30%;\n    min-width:200px;\n    margin: 0px auto;\n    /*padding: 20px 30px;*/\n    background-color: #fff;\n    border-radius: 2px;\n    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n    transition: all .3s ease;\n    font-family: Helvetica, Arial, sans-serif;\n}\n\n/*.modal-header h3 {*/\n/*margin-top: 0;*/\n/*color: #42b983;*/\n/*}*/\n.modal-header[data-v-5935e6b8]{\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n/*.modal-header, .model-body{*/\n/*border-bottom:none;*/\n/*}*/\n.modal-body[data-v-5935e6b8] {\n    /*margin: 20px 0;*/\n}\n.modal-default-button[data-v-5935e6b8] {\n    float: right;\n}\n\n/*\n * The following styles are auto-applied to elements with\n * transition=\"modal\" when their visibility is toggled\n * by Vue.js.\n *\n * You can easily play with the modal transition by editing\n * these styles.\n */\n.modal-enter[data-v-5935e6b8] {\n    opacity: 0;\n}\n.modal-leave-active[data-v-5935e6b8] {\n    opacity: 0;\n}\n.modal-enter .modal-container[data-v-5935e6b8],\n.modal-leave-active .modal-container[data-v-5935e6b8] {\n    -webkit-transform: scale(1.1);\n    transform: scale(1.1);\n}\n.bttnBackOrder[data-v-5935e6b8]{\n    border:none;\n    color:white;\n    background-color:transparent;\n}\n.modalOrderTitle[data-v-5935e6b8]{\n    display:flex;\n    justify-content:space-between;\n}\n", ""]);
 
 // exports
 
@@ -90787,7 +90767,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -90881,9 +90861,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['order']
+    props: ['order', 'transOrder']
 });
 
 /***/ }),
@@ -90903,19 +90895,24 @@ var render = function() {
             { staticClass: "modal-header" },
             [
               _vm._t("header", [
-                _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        _vm.$emit("close")
+                _c("div", { staticClass: "modalOrderTitle" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "bttnBackOrder",
+                      on: {
+                        click: function($event) {
+                          _vm.$emit("close")
+                        }
                       }
-                    }
-                  },
-                  [_c("i", { staticClass: "fas fa-long-arrow-alt-left" })]
-                ),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.order.serviceName))])
+                    },
+                    [_c("i", { staticClass: "fas fa-long-arrow-alt-left" })]
+                  ),
+                  _vm._v(" "),
+                  _vm.order.service_id == 2
+                    ? _c("h3", [_vm._v(" Snacks and drinks")])
+                    : _c("h3", [_vm._v(_vm._s(_vm.order.serviceName))])
+                ])
               ])
             ],
             2
@@ -90929,91 +90926,105 @@ var render = function() {
                 _vm.order.service_id == 1
                   ? _c("div", [
                       _c("p", [
-                        _vm._v("Date booking: " + _vm._s(_vm.order.day_hour))
+                        _c("strong", [_vm._v(_vm._s(_vm.transOrder[0]) + " ")]),
+                        _vm._v(" " + _vm._s(_vm.order.day_hour))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _vm._v(
-                          "Quantity of persons: " + _vm._s(_vm.order.quantity)
-                        )
+                        _c("strong", [_vm._v(_vm._s(_vm.transOrder[1]) + " ")]),
+                        _vm._v(" " + _vm._s(_vm.order.quantity))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _vm._v("Name of booking: " + _vm._s(_vm.order.guest_id))
+                        _c("strong", [_vm._v(_vm._s(_vm.transOrder[2]) + " ")]),
+                        _vm._v(_vm._s(_vm.order.guest_id))
                       ])
                     ])
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.order.service_id == 2
-                  ? _c("div", [_c("p", [_vm._v("? Snack and drink")])])
+                  ? _c("div", [
+                      _c("p", [
+                        _c("strong", [_vm._v(_vm._s(_vm.transOrder[3]) + " ")]),
+                        _vm._v(_vm._s(_vm.order.snackTypeName))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c("strong", [_vm._v(_vm._s(_vm.transOrder[4]))]),
+                        _vm._v(_vm._s(_vm.order.quantity))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c("strong", [_vm._v(_vm._s(_vm.transOrder[5]) + " ")]),
+                        _vm._v(_vm._s(_vm.order.price))
+                      ])
+                    ])
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.order.service_id == 3
                   ? _c("div", [
                       _c("p", [
-                        _vm._v(
-                          "Treatment: " + _vm._s(_vm.order.treatment_type_id)
-                        )
+                        _c("strong", [_vm._v(_vm._s(_vm.transOrder[6]))]),
+                        _vm._v(" " + _vm._s(_vm.order.spaTypeName))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _vm._v("Booking date: " + _vm._s(_vm.order.day_hour))
+                        _c("strong", [_vm._v(_vm._s(_vm.transOrder[7]))]),
+                        _vm._v(" " + _vm._s(_vm.order.day_hour))
                       ]),
                       _vm._v(" "),
-                      _c("p", [_vm._v("Price: " + _vm._s(_vm.order.price))])
+                      _c("p", [
+                        _c("strong", [_vm._v(_vm._s(_vm.transOrder[8]) + " ")]),
+                        _vm._v(_vm._s(_vm.order.price))
+                      ])
                     ])
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.order.service_id == 4
                   ? _c("div", [
                       _c("p", [
-                        _vm._v("Alarm setted: " + _vm._s(_vm.order.day_hour))
+                        _c("strong", [_vm._v(_vm._s(_vm.transOrder[9]))]),
+                        _vm._v(" " + _vm._s(_vm.order.day_hour))
                       ])
                     ])
                   : _vm._e(),
+                _vm._v("t\r\n\r\n                        "),
                 _vm._v(" "),
                 _vm.order.service_id == 5
                   ? _c("div", [
-                      _vm.order.water ? _c("p", [_vm._v(" Water")]) : _vm._e(),
+                      _vm.order.water
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transOrder[10]))])
+                        : _vm._e(),
                       _vm._v(" "),
                       _vm.order.standard_food
-                        ? _c("p", [_vm._v(" Standard food")])
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transOrder[11]))])
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.order.premium_food
-                        ? _c("p", [_vm._v(" Premium food")])
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transOrder[12]))])
                         : _vm._e(),
                       _vm._v(" "),
-                      _vm.order.snacks ? _c("p", [_vm._v(" Snacks")]) : _vm._e()
+                      _vm.order.snacks
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transOrder[13]))])
+                        : _vm._e()
                     ])
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.order.service_id == 6
                   ? _c("div", [
                       _c("p", [
-                        _vm._v("Trip: " + _vm._s(_vm.order.trip_type_id))
+                        _c("strong", [_vm._v(_vm._s(_vm.transOrder[14]))]),
+                        _vm._v(" {{order.tripTypeName}")
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _vm._v(
-                          "Number of persons: " + _vm._s(_vm.order.people_num)
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("Price: " + _vm._s(_vm.order.price))])
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.order.service_id == 7
-                  ? _c("div", [
-                      _c("p", [
-                        _vm._v("Event: " + _vm._s(_vm.order.event_type_id))
+                        _c("strong", [_vm._v(_vm._s(_vm.transOrder[1]))]),
+                        _vm._v(" " + _vm._s(_vm.order.people_num))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _vm._v(
-                          "Number of persons: " + _vm._s(_vm.order.people_num)
-                        )
+                        _c("strong", [_vm._v(_vm._s(_vm.transOrder[5]) + " ")]),
+                        _vm._v(_vm._s(_vm.order.price))
                       ])
                     ])
                   : _vm._e(),
@@ -91021,8 +91032,53 @@ var render = function() {
                 _vm.order.service_id == 7
                   ? _c("div", [
                       _c("p", [
-                        _vm._v("Day - hour: " + _vm._s(_vm.order.day_hour))
+                        _c("strong", [_vm._v(_vm._s(_vm.transOrder[15]))]),
+                        _vm._v(" " + _vm._s(_vm.order.eventTypeName))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c("strong", [_vm._v(_vm._s(_vm.transOrder[1]))]),
+                        _vm._v(" " + _vm._s(_vm.order.people_num))
                       ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.order.service_id == 8
+                  ? _c("div", [
+                      _c("p", [
+                        _c("strong", [
+                          _vm._v(_vm._s(_vm.transOrder[16]) + " ")
+                        ]),
+                        _vm._v(_vm._s(_vm.order.day_hour))
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.order.service_id == 9
+                  ? _c("div", [
+                      _vm.order.bed_sheets
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transOrder[17]))])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.order.cleaning
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transOrder[18]))])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.order.minibar
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transOrder[19]))])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.order.blanket
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transOrder[20]))])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.order.toiletries
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transOrder[21]))])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.order.pillow
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transOrder[22]))])
+                        : _vm._e()
                     ])
                   : _vm._e()
               ])
@@ -91030,33 +91086,7 @@ var render = function() {
             2
           ),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "modal-footer" },
-            [
-              _vm._t("footer", [
-                _vm.order.status == 0
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "modal-default-button",
-                        on: {
-                          click: function($event) {
-                            _vm.$emit("cancel")
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\r\n                            Cancel the order\r\n                        "
-                        )
-                      ]
-                    )
-                  : _vm._e()
-              ])
-            ],
-            2
-          )
+          _c("div", { staticClass: "modal-footer" }, [_vm._t("footer")], 2)
         ])
       ])
     ])
@@ -91107,7 +91137,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.modal-mask[data-v-0e1d4693] {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity .3s ease;\n    padding:0px;\n}\n.modal-wrapper[data-v-0e1d4693] {\n    display: table-cell;\n    vertical-align: middle;\n    padding:0px;\n}\n.modal-container[data-v-0e1d4693] {\n    width: 20%;\n    min-width:200px;\n    margin: 0px auto;\n    /*padding: 20px 30px;*/\n    background-color: #fff;\n    border-radius: 2px;\n    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n    transition: all .3s ease;\n    font-family: Helvetica, Arial, sans-serif;\n}\n\n/*.modal-header h3 {*/\n/*margin-top: 0;*/\n/*color: #42b983;*/\n/*}*/\n.modal-header[data-v-0e1d4693]{\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n/*.modal-header, .model-body{*/\n/*border-bottom:none;*/\n/*}*/\n.modal-body[data-v-0e1d4693] {\n    /*margin: 20px 0;*/\n}\n.modal-default-button[data-v-0e1d4693] {\n    float: right;\n}\n\n/*\n * The following styles are auto-applied to elements with\n * transition=\"modal\" when their visibility is toggled\n * by Vue.js.\n *\n * You can easily play with the modal transition by editing\n * these styles.\n */\n.modal-enter[data-v-0e1d4693] {\n    opacity: 0;\n}\n.modal-leave-active[data-v-0e1d4693] {\n    opacity: 0;\n}\n.modal-enter .modal-container[data-v-0e1d4693],\n.modal-leave-active .modal-container[data-v-0e1d4693] {\n    -webkit-transform: scale(1.1);\n    transform: scale(1.1);\n}\n", ""]);
+exports.push([module.i, "\n.modal-mask[data-v-0e1d4693] {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity .3s ease;\n    padding:0px;\n}\n.modal-wrapper[data-v-0e1d4693] {\n    display: table-cell;\n    vertical-align: middle;\n    padding:0px;\n}\n.modal-container[data-v-0e1d4693] {\n    width: 30%;\n    min-width:200px;\n    margin: 0px auto;\n    /*padding: 20px 30px;*/\n    background-color: #fff;\n    border-radius: 2px;\n    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n    transition: all .3s ease;\n    font-family: Helvetica, Arial, sans-serif;\n}\n\n/*.modal-header h3 {*/\n/*margin-top: 0;*/\n/*color: #42b983;*/\n/*}*/\n.modal-header[data-v-0e1d4693]{\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n/*.modal-header, .model-body{*/\n/*border-bottom:none;*/\n/*}*/\n.modal-body[data-v-0e1d4693] {\n    /*margin: 20px 0;*/\n}\n.modal-default-button[data-v-0e1d4693] {\n    float: right;\n}\n\n/*\n * The following styles are auto-applied to elements with\n * transition=\"modal\" when their visibility is toggled\n * by Vue.js.\n *\n * You can easily play with the modal transition by editing\n * these styles.\n */\n.modal-enter[data-v-0e1d4693] {\n    opacity: 0;\n}\n.modal-leave-active[data-v-0e1d4693] {\n    opacity: 0;\n}\n.modal-enter .modal-container[data-v-0e1d4693],\n.modal-leave-active .modal-container[data-v-0e1d4693] {\n    -webkit-transform: scale(1.1);\n    transform: scale(1.1);\n}\n.bttnsCancel[data-v-0e1d4693]{\n    display:flex;\n    justify-content:flex-end;\n}\n.cancelBttn[data-v-0e1d4693]{\n    border:none;\n    /*float:right;*/\n    width:20%;\n    margin-left:2px;\n}\n", ""]);
 
 // exports
 
@@ -91147,7 +91177,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -91184,8 +91214,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['transCancel']
+});
 
 /***/ }),
 /* 310 */
@@ -91202,11 +91235,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "modal-header" },
-            [
-              _vm._t("header", [
-                _c("p", [_vm._v("¿Seguro que quiere cancelar el pedido?")])
-              ])
-            ],
+            [_vm._t("header", [_c("p", [_vm._v(_vm._s(_vm.transCancel[0]))])])],
             2
           ),
           _vm._v(" "),
@@ -91215,29 +91244,33 @@ var render = function() {
             { staticClass: "modal-body" },
             [
               _vm._t("body", [
-                _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        _vm.$emit("no-cancel")
+                _c("div", { staticClass: "bttnsCancel" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "cancelBttn",
+                      on: {
+                        click: function($event) {
+                          _vm.$emit("no-cancel")
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("No")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        _vm.$emit("yes-cancel")
+                    },
+                    [_vm._v(_vm._s(_vm.transCancel[1]))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "cancelBttn",
+                      on: {
+                        click: function($event) {
+                          _vm.$emit("yes-cancel")
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("Si")]
-                )
+                    },
+                    [_vm._v(_vm._s(_vm.transCancel[2]))]
+                  )
+                ])
               ])
             ],
             2
@@ -91280,7 +91313,7 @@ var render = function() {
             },
             [_c("i", { staticClass: "fas fa-long-arrow-alt-left" })]
           ),
-          _c("h3", [_vm._v("History")])
+          _c("h3", [_vm._v(_vm._s(_vm.transHistory[0]))])
         ]),
         _vm._v(" "),
         _c(
@@ -91300,7 +91333,13 @@ var render = function() {
                     }
                   },
                   [
-                    _c("p", [_vm._v(_vm._s(order.serviceName))]),
+                    order.service_id == 2
+                      ? _c("p", { staticStyle: { "font-weight": "bolder" } }, [
+                          _vm._v("Snacks and drinks")
+                        ])
+                      : _c("p", { staticStyle: { "font-weight": "bolder" } }, [
+                          _vm._v(_vm._s(order.serviceName))
+                        ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "historySubInfo" }, [
                       _c("p", { staticClass: "historyDate" }, [
@@ -91309,7 +91348,7 @@ var render = function() {
                       _vm._v(" "),
                       order.status == 1
                         ? _c("p", { staticStyle: { "margin-left": "3%" } }, [
-                            _vm._v("In process")
+                            _vm._v(_vm._s(_vm.transHistory[1]))
                           ])
                         : _vm._e(),
                       _vm._v(" "),
@@ -91322,7 +91361,7 @@ var render = function() {
                                 "margin-left": "3%"
                               }
                             },
-                            [_vm._v("Completed")]
+                            [_vm._v(_vm._s(_vm.transHistory[2]))]
                           )
                         : _vm._e()
                     ])
@@ -91332,25 +91371,16 @@ var render = function() {
                 order.status == 0
                   ? _c("div", { staticClass: "historyCancel" }, [
                       _c(
-                        "form",
+                        "button",
                         {
-                          attrs: {
-                            method: "POST",
-                            action: "#",
-                            "accept-charset": "UTF-8"
-                          },
+                          attrs: { type: "submit" },
                           on: {
-                            submit: function($event) {
-                              $event.preventDefault()
+                            click: function($event) {
                               _vm.showConfirmCancel(order.service_id, order.id)
                             }
                           }
                         },
-                        [
-                          _c("button", { attrs: { type: "submit" } }, [
-                            _c("i", { staticClass: "far fa-times-circle" })
-                          ])
-                        ]
+                        [_c("i", { staticClass: "far fa-times-circle" })]
                       )
                     ])
                   : _vm._e()
@@ -91363,13 +91393,10 @@ var render = function() {
                     "div",
                     [
                       _c("orderinfo", {
-                        attrs: { order: order },
+                        attrs: { order: order, transOrder: _vm.transOrder },
                         on: {
                           close: function($event) {
                             _vm.showInfo = false
-                          },
-                          cancel: function($event) {
-                            _vm.deleteOrder(order.service_id, order.id)
                           }
                         }
                       })
@@ -91385,6 +91412,7 @@ var render = function() {
                     "div",
                     [
                       _c("confirmcancel", {
+                        attrs: { transCancel: _vm.transCancel },
                         on: {
                           "yes-cancel": function($event) {
                             _vm.deleteOrder(order.service_id, order.id)
@@ -91402,19 +91430,21 @@ var render = function() {
           })
         ),
         _vm._v(" "),
-        _c("div", { attrs: { id: "historyPage" } }, [
-          _c(
-            "button",
-            { staticClass: "historyButton", on: { click: _vm.prevPage } },
-            [_vm._v("\n                    <\n                ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "historyButton", on: { click: _vm.nextPage } },
-            [_vm._v("\n                    >\n                ")]
-          )
-        ])
+        _vm.paginatedData.length > 5
+          ? _c("div", { attrs: { id: "historyPage" } }, [
+              _c(
+                "button",
+                { staticClass: "historyButton", on: { click: _vm.prevPage } },
+                [_c("i", { staticClass: "fas fa-caret-left" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "historyButton", on: { click: _vm.nextPage } },
+                [_c("i", { staticClass: "fas fa-caret-right" })]
+              )
+            ])
+          : _vm._e()
       ])
     ])
   ])

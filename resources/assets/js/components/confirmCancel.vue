@@ -6,14 +6,15 @@
                 <div class="modal-container">
                     <div class="modal-header">
                         <slot name="header">
-                            <p>¿Seguro que quiere cancelar el pedido?</p>
+                            <p>{{transCancel[0]}}</p>
                         </slot>
                     </div>
                     <div class="modal-body">
                         <slot name="body">
-                            <button @click="$emit('no-cancel')">No</button>
-                            <button @click="$emit('yes-cancel')">Si</button>
-
+                            <div class="bttnsCancel">
+                            <button class="cancelBttn" @click="$emit('no-cancel')">{{transCancel[1]}}</button>
+                            <button class="cancelBttn" @click="$emit('yes-cancel')">{{transCancel[2]}}</button>
+                            </div>
                         </slot>
                     </div>
 
@@ -26,7 +27,7 @@
 
 <script>
     export default {
-
+        props:['transCancel'],
     }
 </script>
 <style scoped>
@@ -50,7 +51,7 @@
     }
 
     .modal-container {
-        width: 20%;
+        width: 30%;
         min-width:200px;
         margin: 0px auto;
         /*padding: 20px 30px;*/
@@ -101,6 +102,17 @@
     .modal-leave-active .modal-container {
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
+    }
+    .bttnsCancel{
+        display:flex;
+        justify-content:flex-end;
+    }
+    .cancelBttn{
+        border:none;
+        /*float:right;*/
+        width:20%;
+        margin-left:2px;
+
     }
 </style>
 

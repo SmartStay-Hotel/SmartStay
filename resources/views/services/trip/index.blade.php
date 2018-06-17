@@ -29,7 +29,7 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($trips->sortByDesc('updated_at') as $indexKey => $trip)
+            @foreach($trips as $indexKey => $trip)
                 <tr>
                     <td>{{ ++$indexKey }}</td>
                     <td>{{ $trip->guest->firstname . ' ' . $trip->guest->lastname }}</td>

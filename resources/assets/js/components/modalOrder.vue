@@ -6,61 +6,75 @@
             <div class="modal-container">
                 <div class="modal-header">
                     <slot name="header">
-                        <button @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button>
-                        <p>{{order.serviceName}}</p>
+                        <div class="modalOrderTitle">
+                        <button class="bttnBackOrder" @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button>
+                        <h3 v-if="order.service_id==2"> Snacks and drinks</h3>
+                        <h3 v-else>{{order.serviceName}}</h3>
+                        </div>
                     </slot>
                 </div>
                 <div class="modal-body">
                     <slot name="body">
                         <!-- Restaurant -->
                         <div v-if="order.service_id==1">
-                            <p>Date booking: {{order.day_hour}}</p>
-                            <p>Quantity of persons: {{order.quantity}}</p>
-                            <p>Name of booking: {{order.guest_id}}</p>
+                            <p><strong>{{transOrder[0]}} </strong> {{order.day_hour}}</p>
+                            <p><strong>{{transOrder[1]}} </strong> {{order.quantity}}</p>
+                            <p><strong>{{transOrder[2]}} </strong>{{order.guest_id}}</p>
                         </div>
 
                         <!-- Snack and drinks -->
                         <div v-if="order.service_id==2">
-                            <p>? Snack and drink</p>
+                            <p><strong>{{transOrder[3]}} </strong>{{order.snackTypeName}}</p>
+                            <p><strong>{{transOrder[4]}}</strong>{{order.quantity}}</p>
+                            <p><strong>{{transOrder[5]}} </strong>{{order.price}}</p>
                         </div>
 
                         <!-- Spa -->
                         <div v-if="order.service_id==3">
-                            <p>Treatment: {{order.treatment_type_id}}</p>
-                            <p>Booking date: {{order.day_hour}}</p>
-                            <p>Price: {{order.price}}</p>
+                            <p><strong>{{transOrder[6]}}</strong> {{order.spaTypeName}}</p>
+                            <p><strong>{{transOrder[7]}}</strong> {{order.day_hour}}</p>
+                            <p><strong>{{transOrder[8]}} </strong>{{order.price}}</p>
                         </div>
 
                         <!-- Alarm -->
                         <div v-if="order.service_id==4">
-                            <p>Alarm setted: {{order.day_hour}}</p>
-                        </div>
+                            <p><strong>{{transOrder[9]}}</strong> {{order.day_hour}}</p>
+                        </div>t
 
                         <!-- Pet care -->
                         <div v-if="order.service_id==5">
-                            <p v-if="order.water"> Water</p>
-                            <p v-if="order.standard_food"> Standard food</p>
-                            <p v-if="order.premium_food"> Premium food</p>
-                            <p v-if="order.snacks"> Snacks</p>
+                            <p v-if="order.water"> {{transOrder[10]}}</p>
+                            <p v-if="order.standard_food"> {{transOrder[11]}}</p>
+                            <p v-if="order.premium_food"> {{transOrder[12]}}</p>
+                            <p v-if="order.snacks"> {{transOrder[13]}}</p>
                         </div>
 
                         <!-- Trip -->
                         <div v-if="order.service_id==6">
-                            <p>Trip: {{order.trip_type_id}}</p>
-                            <p>Number of persons: {{order.people_num}}</p>
-                            <p>Price: {{order.price}}</p>
+                            <p><strong>{{transOrder[14]}}</strong> {{order.tripTypeName}</p>
+                            <p><strong>{{transOrder[1]}}</strong> {{order.people_num}}</p>
+                            <p><strong>{{transOrder[5]}} </strong>{{order.price}}</p>
                         </div>
 
                         <!-- Event -->
                         <div v-if="order.service_id==7">
-                            <p>Event: {{order.event_type_id}}</p>
-                            <p>Number of persons: {{order.people_num}}</p>
+                            <p><strong>{{transOrder[15]}}</strong> {{order.eventTypeName}}</p>
+                            <p><strong>{{transOrder[1]}}</strong> {{order.people_num}}</p>
                         </div>
 
                         <!-- Taxi -->
-                        <div v-if="order.service_id==7">
-                            <p>Day - hour: {{order.day_hour}}</p>
+                        <div v-if="order.service_id==8">
+                            <p><strong>{{transOrder[16]}} </strong>{{order.day_hour}}</p>
 
+                        </div>
+                        <!-- Housekeeping -->
+                        <div v-if="order.service_id==9">
+                            <p v-if="order.bed_sheets"> {{transOrder[17]}}</p>
+                            <p v-if="order.cleaning"> {{transOrder[18]}}</p>
+                            <p v-if="order.minibar"> {{transOrder[19]}}</p>
+                            <p v-if="order.blanket"> {{transOrder[20]}}</p>
+                            <p v-if="order.toiletries"> {{transOrder[21]}}</p>
+                            <p v-if="order.pillow"> {{transOrder[22]}}</p>
                         </div>
 
                     </slot>
@@ -69,9 +83,7 @@
                 <div class="modal-footer">
                     <slot name="footer">
 
-                        <button class="modal-default-button" v-if="order.status==0" @click="$emit('cancel')">
-                            Cancel the order
-                        </button>
+
                     </slot>
                 </div>
             </div>
@@ -83,7 +95,7 @@
 
 <script>
     export default {
-        props:['order'],
+        props:['order','transOrder'],
     }
 </script>
 <style scoped>
@@ -107,7 +119,7 @@
     }
 
     .modal-container {
-        width: 20%;
+        width: 30%;
         min-width:200px;
         margin: 0px auto;
         /*padding: 20px 30px;*/
@@ -158,6 +170,16 @@
     .modal-leave-active .modal-container {
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
+    }
+
+    .bttnBackOrder{
+        border:none;
+        color:white;
+        background-color:transparent;
+    }
+    .modalOrderTitle{
+        display:flex;
+        justify-content:space-between;
     }
 </style>
 

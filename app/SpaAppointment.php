@@ -54,6 +54,7 @@ class SpaAppointment extends Model
         if (count($spaAppointments) > 0) {
             $serviceName = Services::getServiceName($spaAppointments[0]->service_id);
             foreach ($spaAppointments as $key => $spaAppointment) {
+                $spaAppointment->spaTypeName = $spaAppointment->spaTreatmentType->name;
                 $spaAppointment->serviceName = $serviceName;
                 $spaAppointment->roomNumber  = ($spaAppointment->guest->rooms[0]->number) ? $spaAppointment->guest->rooms[0]->number
                     : 'SpaErr Appointment id:' . $spaAppointment->id;

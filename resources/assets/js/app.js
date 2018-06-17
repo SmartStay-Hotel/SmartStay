@@ -50,7 +50,7 @@ import moment from 'moment'
 
 
 import VueTinySlider from 'vue-tiny-slider';
-import { FulfillingBouncingCircleSpinner } from 'epic-spinners'
+import { AtomSpinner  } from 'epic-spinners'
 moment.lang('en');
 
 Vue.component('homeslider', require('./components/swiperHome.vue'))
@@ -58,6 +58,7 @@ Vue.component('housekeeping', require('./components/menuHousekeeping.vue'));
 Vue.component('serviceshome', require('./components/servicesHome.vue'));
 Vue.component('historyorders', require('./components/historyOrders.vue'))
 Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
+// Vue.component('confirmproduct', require('./components/confirmProduct.vue'))
 // Vue.component('modal', {
 //     template: '#hola'
 // })
@@ -70,37 +71,21 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
     var urlGetStatusRoom ='seeStatus';
     var urlChangeStatusRoom = 'changeStatus';
 
-toastr.options = {
-    "closeButton": true,
-    "debug": false,
-    "newestOnTop": false,
-    "progressBar": false,
-    "positionClass": "toast-top-right",
-    "preventDuplicates": false,
-    "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": false,
-    "extendedTimeOut": "3000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut",
-    "closeOnHover": false
-};
+
 
     new Vue({
         el: '#container',
         created: function(){
             this.stopLoadingScreen();
-        this.getServices();
-        this.getTrips();
-        this.getEvents();
-        this.getSpaTypes();
-        this.getStatusRoom();
-        this.actualDate();
-        this.getCheckOutDate();
-        this.getProductTypes();
-        this.getHistory();
+            this.getServices();
+            this.getTrips();
+            this.getEvents();
+            this.getSpaTypes();
+            this.getStatusRoom();
+            this.actualDate();
+            this.getCheckOutDate();
+            this.getProductTypes();
+            this.getHistory();
 
         // this.bttnMas();
         // this.setPriceTrip();
@@ -115,8 +100,7 @@ toastr.options = {
             trips:[],
             events:[],
             spaTypes:[],
-            snacks:[],
-            drinks:[],
+            products:[],
             history:[],
 
             statusGuest: false,
@@ -142,32 +126,29 @@ toastr.options = {
             hourTaxi:'',
 
             productSelected:[],
-            productCant:[],
+            productCant:[1,1,1],
             productPrice:[],
-            snackSelected:[],
-            snackCant:[],
-            snackPrice:[],
-            drinkSelected:[],
-            drinkCant:[],
-            drinkPrice:[],
 
-            numSnacks:[0],
-            nS:1,
-            numDrinks:[0],
-            nD:1,
-            showSnack:['true'],
+            numProducts:[0],
+            nP:1,
+            precioTotalSD: 0,
+            showPrecioProduct:false,
 
-            petWater:"",
-            petStandardFood:"",
-            petPremiumFood:"",
-            petSnacks:"",
+
+            petWater:false,
+            petSnacks:false,
+            petFood:"",
 
             errores: "",
             errorDayHour: false,
             errorExists : false,
             errorPlazas:false,
+            errorPlazas:false,
 
-            precioTotalSD: 0,
+            tripPlaces: 0,
+            eventPlaces:0,
+
+
 
             showCancelConfirm: false,
 
@@ -196,6 +177,21 @@ toastr.options = {
                     this.checkoutDate = response.data+"T00:00";
                     this.checkoutDateFormat = moment(response.data).format('YYYY-MM-DD');
             })
+
+            },
+            getTripPlaces(id){
+                var urlTripPlaces = 'tripPlaces/'+id;
+                axios.get(urlTripPlaces).then(response=>{
+                    this.tripPlaces = response.data;
+            })
+                return this.tripPlaces;
+            },
+            getEventPlaces(id){
+                var urlEventPlaces = 'eventPlaces/'+id;
+                axios.get(urlEventPlaces).then(response=>{
+                    this.eventPlaces = response.data;
+            })
+                return this.eventPlaces;
             },
             getHistory:function(){
               var urlHistory = 'orderHistory';
@@ -204,14 +200,12 @@ toastr.options = {
               })
             },
             getProductTypes: function(){
-                var urlSnacks= 'snacks';
-                var urlDrinks = 'drinks';
-                axios.get(urlSnacks).then(response=>{
-                    this.snacks = response.data
+                var urlProducts= 'products';
+
+                axios.get(urlProducts).then(response=>{
+                    this.products = response.data
             });
-                axios.get(urlDrinks).then(response=>{
-                    this.drinks = response.data
-            });
+
 
             },
             getStatusRoom:function(){
@@ -245,36 +239,33 @@ toastr.options = {
                 this.window[num]=!this.window[num];
                 this.showResult = false;
 
-                this.tripSelected="";
-                this.eventSelected="";
-                this.spaSelected="";
-                this.numPersonsTrip=1;
-                this.dayHourServ="";
-                this.quantityServ='';
-                this.hourTaxi='';
-                this.productSelected=[];
-                this.productCant=[];
-                this.productPrice=[];
-                this.snackSelected=[];
-                this.snackCant=[];
-                this.snackPrice=[];
-                this.drinkSelected=[];
-                this.drinkCant=[];
-                this.drinkPrice=[];
-                this.numSnacks=[0];
-                this.nS=1;
-                this.numDrinks=[0];
-                this.nD=1;
-                this.showSnack=['true'];
-                this.petWater="";
-                this.petStandardFood="";
-                this.petPremiumFood="";
-                this.petSnacks="";
-                this.errores= "";
-                this.errorExists = false;
-                this.errorDayHour = false;
-                this.precioTotalSD= 0;
-                this.pedidoHecho= false,
+                    this.tripSelected="";
+                    this.eventSelected="";
+                    this.spaSelected="";
+                    this.numPersonsTrip=1;
+                    this.statusRoom="";
+                    this.dayHourServ='';
+                    this.quantityServ='';
+                    this.hourTaxi='';
+                    this.productSelected=[];
+                    this.productCant=[1,1,1];
+                    this.productPrice=[];
+                    this.numProducts=[0];
+                    this.nP=1;
+                    this.precioTotalSD= 0;
+                    this.showPrecioProduct=false;
+                    this.petWater=false;
+                    this.petSnacks=false;
+                    this.petFood="";
+                    this.errores= "";
+                    this.errorDayHour= false;
+                    this.errorExists = false;
+                    this.errorPlazas=false;
+                    this.errorPlazas=false;
+                    this.tripPlaces= 0;
+                    this.eventPlaces=0;
+                    this.showCancelConfirm= false;
+                    this.pedidoHecho= false;
 
                 this.actualDate();
                 this.getHistory();
@@ -283,7 +274,7 @@ toastr.options = {
 
             },
             showOut: function(){
-                axios.get(urlChangeStatusRoom)
+                axios.get(urlChangeStatusRoom);
                 this.showModalHK = true
 
             },
@@ -354,163 +345,164 @@ toastr.options = {
                 }
 
             },
-            insertAlarm: function(){
-                var urlInsAlarm ='admin/service/alarm';
-                axios.post(urlInsAlarm,{
-                    day_hour: this.dayHourServ
+            insertProduct: function(){
 
-                }).then(response=>{
-                    this.showResult = true;
+                    var urlInsProd = 'admin/service/snackdrink';
+                    axios.post(urlInsProd, {
+                        product_type_id: this.productSelected,
+                        quantity: this.productCant,
+
+                    }).then(response=> {
+                        this.pedidoHecho=true;
+
+                    this.errorExists = false;
+                }).
+                    catch(error=> {
+                        this.errorExists = true;
+                    this.errores = error.response.data;
+                })
+
+
+            },
+            insertAlarm: function(){
+                if(this.dayHourServ<=this.dataActual){
+                    this.errorDayHour = true;
+                }else {
+                    this.errorDayHour = false;
+                    var urlInsAlarm = 'admin/service/alarm';
+                    axios.post(urlInsAlarm, {
+                        day_hour: this.dayHourServ
+
+                    }).then(response => {
+                        this.pedidoHecho=true;
+
                     toastr.success("adios");
                     console.log("coorecto alaramaaa");
 
-            }).catch(error=>{
+                }).
+                    catch(error => {
 
-                    toastr.success("sdfsadf");
-                this.errores = error.response.data;
-                console.log("alarm no");
+                        this.errorExists = true;
+                    this.errores = error.response.data;
 
-            })
+                })
+                }
             },
             insertTrip: function(){
-                var urlInsTrip ='admin/service/trip';
-                axios.post(urlInsTrip,{
-                    trip_type_id: this.tripSelected,
-                    people_num: this.numPersonsTrip
+                if(this.numPersonsTrip >this.tripPlaces){
+                    this.errorPlazas = true;
+                }else {
+                    this.errorPlazas = false;
+                    var urlInsTrip = 'admin/service/trip';
+                    axios.post(urlInsTrip, {
+                        trip_type_id: this.tripSelected,
+                        people_num: this.numPersonsTrip
 
-                }).then(response=>{
-                    this.showResult = true;
-                toastr.success("adios");
-                console.log("correcto trip");
-            }).catch(error=>{
+                    }).then(response => {
 
-                    toastr.success("sdfsadf");
-                this.errores = error.response.data;
-                console.log("tripppp no");
+                    this.pedidoHecho=true;
 
-            })
+                }).
+                    catch(error => {
+
+
+                        this.errores = error.response.data;
+                    console.log("tripppp no");
+
+                })
+                }
             },insertEvent: function(){
-                var urlInsEvent ='admin/service/event';
-                axios.post(urlInsEvent,{
-                    event_type_id: this.eventSelected
+                if(this.numPersonsTrip >this.eventPlaces){
+                    this.errorPlazas = true;
+                }else {
+                    this.errorPlazas = false;
+                    var urlInsEvent = 'admin/service/event';
+                    axios.post(urlInsEvent, {
+                        event_type_id: this.eventSelected,
+                        people_num:this.numPersonsTrip,
 
-                }).then(response=>{
-                    this.showResult = true;
-                toastr.success("adios");
-                console.log("correcto eventtt");
-            }).catch(error=>{
+                    }).then(response => {
+                        this.pedidoHecho=true;
+                }).
+                    catch(error => {
+                        this.errores = error.response.data;
 
-                    toastr.success("sdfsadf");
-                this.errores = error.response.data;
-                console.log("evevevvent no");
 
-            })
+                })
+                }
             },
             insertTaxi: function(){
-                var urlInsTaxi ='admin/service/taxi';
-                axios.post(urlInsTaxi,{
-                    day_hour: this.dayHourServ
+                if(this.dayHourServ<=this.dataActual){
+                    this.errorDayHour = true;
+                }else {
+                    var urlInsTaxi = 'admin/service/taxi';
+                    axios.post(urlInsTaxi, {
+                        day_hour: this.dayHourServ
 
-                }).then(response=>{
-                    this.showResult = true;
-                toastr.success("adios");
-                console.log("correcto taxiiii");
-            }).catch(error=>{
+                    }).then(response => {
+                        this.pedidoHecho=true;
 
-                    toastr.success("sdfsadf");
-                this.errores = error.response.data;
-                console.log("taxino no");
-
-            })
+                }).
+                    catch(error => {
+                    this.errores = error.response.data;
+                })
+                }
             },
             insertPetCare: function(){
                 var urlInsPetCare ='admin/service/petcare';
-                var water = 0;
-                var standard = 0;
-                var premium = 0;
-                var snacks = 0;
-                if(this.petWater != '') water=1;
-                if(this.petStandardFood !='') standard=1;
-                if(this.petPremiumFood != '') premium = 1;
-                if(this.snacks != '') snacks = 1;
+
+                if(this.petFood=='') this.petFood = false;
+
                 axios.post(urlInsPetCare,{
-
-                    water: water,
-                    standard_food:standard,
-                    premium_food:premium,
-                    snacks: snacks
-
-
+                    food:this.petFood,
+                    water:this.petWater,
+                    snacks:this.petSnacks
                 }).then(response=>{
-                    this.showResult = true;
-                toastr.success("adios");
-                console.log("correcto dogg");
+                    this.pedidoHecho=true;
             }).catch(error=>{
-
-                    toastr.success("sdfsadf");
                 this.errores = error.response.data;
-                console.log("dooogg no");
+
 
             })
             },
-            bttnMas: function(tipo){
-                if(tipo=='snack'){
-                    this.numSnacks.push(this.nS);
-                    this.nS = this.nS+1;
-                }else if(tipo=='drink'){
-                    this.numDrinks.push(this.nD);
-                    this.nD = this.nD+1;
-                }
+            bttnMas: function(){
+
+                    this.numProducts.push(this.nP);
+                    this.nP++;
+
 
             },
-            bttnMenos: function(tipo){
-                if(tipo=='snack'){
-                    this.numSnacks.pop();
-                    this.nS = this.nS-1;
-                    this.snackSelected[this.nS] = '';
+            bttnMenos: function(){
 
-                }else if(tipo=='drink'){
-                    this.numDrinks.pop();
-                    this.nD = this.nD-1;
-                    this.snackSelected[this.nD] = '';
-                }
+                    if(this.productSelected.length == this.numProducts.length){
+                        this.productSelected.pop();
+                    }
+                    this.numProducts.pop();
+                    this.nP = this.nP-1;
 
 
-            }, infoSnack:function(num){
-                return this.snacks.filter((product) => product.id==this.snackSelected[num]);
-            },
-            infoDrink:function(num){
-                return this.drinks.filter((product) => product.id==this.drinkSelected[num]);
+
+            }, infoProduct:function(num){
+                return this.products.filter((product) => product.id==this.productSelected[num]);
             },
 
 
             getPriceProducts:function(){
                 var i = 0;
                 this.productPrice = [];
-                this.productSelected = [];
-                this.productCant = [];
+                // this.productSelected = [];
+                // this.productCant = [];
                 this.precioTotalSD = 0;
                 // console.log("length snack "+this.snackSelected.length);
-                // var prodPrice = document.getElementsByClassName("productPrice");
+                var prodPrice = document.getElementsByClassName("productPrice");
 
-                for(i = 0; i < snackPrice.length; i++){
-                    this.productPrice.push(snackPrice[i]);
+                for(i = 0; i < prodPrice.length; i++){
+                    this.productPrice.push(prodPrice[i].innerHTML);
                 }
-                for(i = 0; i < drinkPrice.length; i++){
-                    this.productPrice.push(drinkPrice[i]);
-                }
-                for(i = 0; i < this.snackSelected.length; i++){
-                    this.productSelected.push(this.snackSelected[i]);
-                }
-                for(i = 0; i < this.drinkSelected.length; i++){
-                    this.productSelected.push(this.drinkSelected[i]);
-                }
-                for(i = 0; i < this.snackCant.length; i++){
-                    this.productCant.push(this.snackCant[i]);
-                }
-                for(i = 0; i < this.drinkCant.length; i++){
-                    this.productCant.push(this.snackCant[i]);
-                }
+                // for(i = 0; i < drinkPrice.length; i++){
+                //     this.productPrice.push(prodPrice[i].innerHTML);
+                // }
+
 
 
                 for(i = 0; i < this.productSelected.length; i++){
@@ -578,6 +570,11 @@ toastr.options = {
                 this.showCancelConfirm = false;
             },
 
+            showProdPrice:function(){
+                this.getPriceProducts();
+                this.showPrecioProduct = true;
+            }
+
 
 
 
@@ -599,21 +596,18 @@ toastr.options = {
                 return rest;
             },
 
-            setPrecioSnack: function(precio, num){
-                this.snackPrice[num] = precio;
+            setProductPrice: function(precio, num){
+                this.productPrice[num] = precio;
                 return precio;
             },
-            setPrecioDrink: function(precio, num){
-                this.drinkPrice[num] = precio;
-                return precio;
-            },
+
 
 
 
         },
         components: {
             'tiny-slider': VueTinySlider,
-            'load-screen':FulfillingBouncingCircleSpinner
+            'load-screen':AtomSpinner
             // 'serviceshome': serviceshome
         }
     });
