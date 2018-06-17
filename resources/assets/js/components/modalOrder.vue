@@ -69,9 +69,7 @@
                 <div class="modal-footer">
                     <slot name="footer">
 
-                        <button class="modal-default-button" v-if="order.status==0" @click="$emit('cancel')">
-                            Cancel the order
-                        </button>
+
                     </slot>
                 </div>
             </div>

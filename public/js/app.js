@@ -57604,6 +57604,7 @@ Vue.component('housekeeping', __webpack_require__(289));
 Vue.component('serviceshome', __webpack_require__(167));
 Vue.component('historyorders', __webpack_require__(294));
 Vue.component('confirmcancel', __webpack_require__(168));
+// Vue.component('confirmproduct', require('./components/confirmProduct.vue'))
 // Vue.component('modal', {
 //     template: '#hola'
 // })
@@ -57640,8 +57641,7 @@ new Vue({
         trips: [],
         events: [],
         spaTypes: [],
-        snacks: [],
-        drinks: [],
+        products: [],
         history: [],
 
         statusGuest: false,
@@ -57667,20 +57667,13 @@ new Vue({
         hourTaxi: '',
 
         productSelected: [],
-        productCant: [],
+        productCant: [1, 1, 1],
         productPrice: [],
-        snackSelected: [],
-        snackCant: [],
-        snackPrice: [],
-        drinkSelected: [],
-        drinkCant: [],
-        drinkPrice: [],
 
-        numSnacks: [0],
-        nS: 1,
-        numDrinks: [0],
-        nD: 1,
-        showSnack: ['true'],
+        numProducts: [0],
+        nP: 1,
+        precioTotalSD: 0,
+        showPrecioProduct: false,
 
         petWater: false,
         petSnacks: false,
@@ -57690,8 +57683,6 @@ new Vue({
         errorDayHour: false,
         errorExists: false,
         errorPlazas: false,
-
-        precioTotalSD: 0,
 
         showCancelConfirm: false,
 
@@ -57734,13 +57725,10 @@ new Vue({
         getProductTypes: function getProductTypes() {
             var _this4 = this;
 
-            var urlSnacks = 'snacks';
-            var urlDrinks = 'drinks';
-            axios.get(urlSnacks).then(function (response) {
-                _this4.snacks = response.data;
-            });
-            axios.get(urlDrinks).then(function (response) {
-                _this4.drinks = response.data;
+            var urlProducts = 'products';
+
+            axios.get(urlProducts).then(function (response) {
+                _this4.products = response.data;
             });
         },
         getStatusRoom: function getStatusRoom() {
@@ -57788,14 +57776,10 @@ new Vue({
             this.quantityServ = '';
             this.hourTaxi = '';
             this.productSelected = [];
-            this.productCant = [];
+            this.productCant = [1, 1, 1];
             this.productPrice = [];
-            this.snackSelected = [];
-            this.snackCant = [];
-            this.snackPrice = [];
-            this.drinkSelected = [];
-            this.drinkCant = [];
-            this.drinkPrice = [];
+            this.numProducts = [0];
+            this.nP = 1;
             this.numSnacks = [0];
             this.nS = 1;
             this.numDrinks = [0];
@@ -57879,8 +57863,25 @@ new Vue({
                 });
             }
         },
-        insertAlarm: function insertAlarm() {
+        insertProduct: function insertProduct() {
             var _this11 = this;
+
+            var urlInsProd = 'admin/service/snackdrink';
+            axios.post(urlInsProd, {
+                product_type_id: this.productSelected,
+                quantity: this.productCant
+
+            }).then(function (response) {
+                _this11.pedidoHecho = true;
+                _this11.showResult = true;
+                _this11.errorExists = false;
+            }).catch(function (error) {
+                _this11.errorExists = true;
+                _this11.errores = error.response.data;
+            });
+        },
+        insertAlarm: function insertAlarm() {
+            var _this12 = this;
 
             if (this.dayHourServ <= this.dataActual) {
                 this.errorDayHour = true;
@@ -57891,19 +57892,19 @@ new Vue({
                     day_hour: this.dayHourServ
 
                 }).then(function (response) {
-                    _this11.pedidoHecho = true;
+                    _this12.pedidoHecho = true;
 
                     toastr.success("adios");
                     console.log("coorecto alaramaaa");
                 }).catch(function (error) {
 
-                    _this11.errorExists = true;
-                    _this11.errores = error.response.data;
+                    _this12.errorExists = true;
+                    _this12.errores = error.response.data;
                 });
             }
         },
         insertTrip: function insertTrip() {
-            var _this12 = this;
+            var _this13 = this;
 
             var urlInsTrip = 'admin/service/trip';
             axios.post(urlInsTrip, {
@@ -57911,48 +57912,48 @@ new Vue({
                 people_num: this.numPersonsTrip
 
             }).then(function (response) {
-                _this12.showResult = true;
+                _this13.showResult = true;
             }).catch(function (error) {
 
-                _this12.errores = error.response.data;
+                _this13.errores = error.response.data;
                 console.log("tripppp no");
             });
         }, insertEvent: function insertEvent() {
-            var _this13 = this;
+            var _this14 = this;
 
             var urlInsEvent = 'admin/service/event';
             axios.post(urlInsEvent, {
                 event_type_id: this.eventSelected
 
             }).then(function (response) {
-                _this13.showResult = true;
+                _this14.showResult = true;
                 toastr.success("adios");
                 console.log("correcto eventtt");
             }).catch(function (error) {
-                _this13.errores = error.response.data;
+                _this14.errores = error.response.data;
                 console.log("evevevvent no");
             });
         },
         insertTaxi: function insertTaxi() {
-            var _this14 = this;
+            var _this15 = this;
 
             var urlInsTaxi = 'admin/service/taxi';
             axios.post(urlInsTaxi, {
                 day_hour: this.dayHourServ
 
             }).then(function (response) {
-                _this14.showResult = true;
+                _this15.showResult = true;
                 toastr.success("adios");
                 console.log("correcto taxiiii");
             }).catch(function (error) {
 
                 toastr.success("sdfsadf");
-                _this14.errores = error.response.data;
+                _this15.errores = error.response.data;
                 console.log("taxino no");
             });
         },
         insertPetCare: function insertPetCare() {
-            var _this15 = this;
+            var _this16 = this;
 
             var urlInsPetCare = 'admin/service/petcare';
 
@@ -57963,77 +57964,49 @@ new Vue({
                 water: this.petWater,
                 snacks: this.petSnacks
             }).then(function (response) {
-                _this15.showResult = true;
+                _this16.showResult = true;
                 toastr.success("adios");
                 console.log("correcto dogg");
             }).catch(function (error) {
 
                 toastr.success("sdfsadf");
-                _this15.errores = error.response.data;
+                _this16.errores = error.response.data;
                 console.log("dooogg no");
             });
         },
-        bttnMas: function bttnMas(tipo) {
-            if (tipo == 'snack') {
-                this.numSnacks.push(this.nS);
-                this.nS = this.nS + 1;
-            } else if (tipo == 'drink') {
-                this.numDrinks.push(this.nD);
-                this.nD = this.nD + 1;
-            }
-        },
-        bttnMenos: function bttnMenos(tipo) {
-            if (tipo == 'snack') {
-                this.numSnacks.pop();
-                this.nS = this.nS - 1;
-                this.snackSelected[this.nS] = '';
-            } else if (tipo == 'drink') {
-                this.numDrinks.pop();
-                this.nD = this.nD - 1;
-                this.snackSelected[this.nD] = '';
-            }
-        }, infoSnack: function infoSnack(num) {
-            var _this16 = this;
+        bttnMas: function bttnMas() {
 
-            return this.snacks.filter(function (product) {
-                return product.id == _this16.snackSelected[num];
-            });
+            this.numProducts.push(this.nP);
+            this.nP++;
         },
-        infoDrink: function infoDrink(num) {
+        bttnMenos: function bttnMenos() {
+            this.numProducts.pop();
+            this.nP = this.nP - 1;
+            this.productSelected[this.nP] = '';
+        }, infoProduct: function infoProduct(num) {
             var _this17 = this;
 
-            return this.drinks.filter(function (product) {
-                return product.id == _this17.drinkSelected[num];
+            return this.products.filter(function (product) {
+                return product.id == _this17.productSelected[num];
             });
         },
 
         getPriceProducts: function getPriceProducts() {
             var i = 0;
             this.productPrice = [];
-            this.productSelected = [];
-            this.productCant = [];
+            // this.productSelected = [];
+            // this.productCant = [];
             this.precioTotalSD = 0;
             // console.log("length snack "+this.snackSelected.length);
-            // var prodPrice = document.getElementsByClassName("productPrice");
+            var prodPrice = document.getElementsByClassName("productPrice");
 
-            for (i = 0; i < snackPrice.length; i++) {
-                this.productPrice.push(snackPrice[i]);
+            for (i = 0; i < prodPrice.length; i++) {
+                this.productPrice.push(prodPrice[i].innerHTML);
             }
-            for (i = 0; i < drinkPrice.length; i++) {
-                this.productPrice.push(drinkPrice[i]);
-            }
-            for (i = 0; i < this.snackSelected.length; i++) {
-                this.productSelected.push(this.snackSelected[i]);
-            }
-            for (i = 0; i < this.drinkSelected.length; i++) {
-                this.productSelected.push(this.drinkSelected[i]);
-            }
-            for (i = 0; i < this.snackCant.length; i++) {
-                this.productCant.push(this.snackCant[i]);
-            }
-            for (i = 0; i < this.drinkCant.length; i++) {
-                this.productCant.push(this.snackCant[i]);
-            }
+            // for(i = 0; i < drinkPrice.length; i++){
+            //     this.productPrice.push(prodPrice[i].innerHTML);
+            // }
+
 
             for (i = 0; i < this.productSelected.length; i++) {
                 console.log("parseee precio" + parseInt(this.productPrice[i]));
@@ -58098,6 +58071,11 @@ new Vue({
                 });
             }
             this.showCancelConfirm = false;
+        },
+
+        showProdPrice: function showProdPrice() {
+            this.getPriceProducts();
+            this.showPrecioProduct = true;
         }
 
     },
@@ -58132,12 +58110,8 @@ new Vue({
             return rest;
         },
 
-        setPrecioSnack: function setPrecioSnack(precio, num) {
-            this.snackPrice[num] = precio;
-            return precio;
-        },
-        setPrecioDrink: function setPrecioDrink(precio, num) {
-            this.drinkPrice[num] = precio;
+        setProductPrice: function setProductPrice(precio, num) {
+            this.productPrice[num] = precio;
             return precio;
         }
 
@@ -90438,7 +90412,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n#historyContainer *[data-v-7a71db5c] {\n    /*border:1px solid red;*/\n}\n#historyContainer[data-v-7a71db5c]{\n\n    display:flex;\n    justify-content:center;\n    align-items:center;\n    height:70%;\n}\n#history[data-v-7a71db5c]{\n    background-color:white;\n\n    width:40%;\n    box-shadow: var(--shadows);\n}\n#historyTitle[data-v-7a71db5c]{\n    display:flex;\n    justify-content: space-between;\n    padding:2%;\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n#historyTitle button[data-v-7a71db5c]{\n    padding:0px;\n    border:none;\n    font-size:150%;\n    background-color:transparent;\n}\n#historyTitle button[data-v-7a71db5c]:hover{\n    color: var(--colorSecond);\n}\n/*#historyList{*/\n    /*list-style-type:none;*/\n/*}*/\n/*#historyList > li{*/\n\n    /*padding: 2% 3% 1% 3%;*/\n    /*border-bottom:1px solid gray;*/\n    /*margin-top:1%;*/\n    /*display:flex;*/\n    /*justify-content: space-between;*/\n/*}*/\n/*#historyList > li > i {*/\n    /*font-size:150%;*/\n    /*color:red;*/\n/*}*/\n/*#historyList > li > i:hover {*/\n\n    /*color:black;*/\n/*}*/\n.historyItem[data-v-7a71db5c]{\n    border-bottom:1px solid gray;\n    padding:2% 5%;\n}\n.historyInfo[data-v-7a71db5c]{\n    width:92%;\n}\n.historyCancel[data-v-7a71db5c]{\n    width:8%;\n    font-size:100%;\n    display:flex;\n    justiy-content:center;\n    align-items:center;\n}\n/*.historyCancel>i{*/\n    /*width:100%;*/\n    /*height:100%;*/\n    /*margin:0px;*/\n    /**/\n/*}*/\n.historyItem p[data-v-7a71db5c]{\n    margin:0px;\n}\n.historyItem[data-v-7a71db5c]{\n    display:flex;\n}\n.historyItem[data-v-7a71db5c]:hover{\n    background-color:var(--colorBody);\n}\n.historyButton[data-v-7a71db5c]{\n    margin:0px;\n    width:50%;\n    border:none;\n}\n#historyPage[data-v-7a71db5c]{\n    display:flex;\n    justify-content:space-around;\n}\n.historySubInfo[data-v-7a71db5c]{\n    font-size:75%;\n    display:flex;\n}\n", ""]);
+exports.push([module.i, "\n#historyContainer *[data-v-7a71db5c] {\n    /*border:1px solid red;*/\n}\n#historyContainer[data-v-7a71db5c]{\n\n    display:flex;\n    justify-content:center;\n    align-items:center;\n    height:70%;\n}\n#history[data-v-7a71db5c]{\n    background-color:white;\n\n    width:50%;\n    box-shadow: var(--shadows);\n}\n#historyTitle[data-v-7a71db5c]{\n    display:flex;\n    justify-content: space-between;\n    padding:2%;\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n#historyTitle button[data-v-7a71db5c]{\n    padding:0px;\n    border:none;\n    font-size:150%;\n    background-color:transparent;\n}\n#historyTitle button[data-v-7a71db5c]:hover{\n    color: var(--colorSecond);\n}\n/*#historyList{*/\n    /*list-style-type:none;*/\n/*}*/\n/*#historyList > li{*/\n\n    /*padding: 2% 3% 1% 3%;*/\n    /*border-bottom:1px solid gray;*/\n    /*margin-top:1%;*/\n    /*display:flex;*/\n    /*justify-content: space-between;*/\n/*}*/\n/*#historyList > li > i {*/\n    /*font-size:150%;*/\n    /*color:red;*/\n/*}*/\n/*#historyList > li > i:hover {*/\n\n    /*color:black;*/\n/*}*/\n.historyItem[data-v-7a71db5c]{\n    border-bottom:1px solid gray;\n    padding:2% 5%;\n}\n.historyInfo[data-v-7a71db5c]{\n    width:92%;\n}\n.historyCancel[data-v-7a71db5c]{\n    width:8%;\n    font-size:100%;\n    display:flex;\n    justiy-content:center;\n    align-items:center;\n}\n/*.historyCancel>i{*/\n    /*width:100%;*/\n    /*height:100%;*/\n    /*margin:0px;*/\n    /**/\n/*}*/\n.historyItem p[data-v-7a71db5c]{\n    margin:0px;\n}\n.historyItem[data-v-7a71db5c]{\n    display:flex;\n}\n.historyItem[data-v-7a71db5c]:hover{\n    background-color:var(--colorBody);\n}\n.historyButton[data-v-7a71db5c]{\n    margin:0px;\n    width:50%;\n    border:none;\n}\n#historyPage[data-v-7a71db5c]{\n    display:flex;\n    justify-content:space-around;\n}\n.historySubInfo[data-v-7a71db5c]{\n    font-size:75%;\n    display:flex;\n}\n@media (max-width: 450px) {\n#history[data-v-7a71db5c] {\n        width: 100%;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -90756,7 +90730,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -90767,8 +90741,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
 //
 //
 //
@@ -90999,33 +90971,7 @@ var render = function() {
             2
           ),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "modal-footer" },
-            [
-              _vm._t("footer", [
-                _vm.order.status == 0
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "modal-default-button",
-                        on: {
-                          click: function($event) {
-                            _vm.$emit("cancel")
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\r\n                            Cancel the order\r\n                        "
-                        )
-                      ]
-                    )
-                  : _vm._e()
-              ])
-            ],
-            2
-          )
+          _c("div", { staticClass: "modal-footer" }, [_vm._t("footer")], 2)
         ])
       ])
     ])
@@ -91328,23 +91274,7 @@ var render = function() {
               _vm.showInfo &&
               _vm.infoServID == order.service_id &&
               _vm.infoOrderID == order.id
-                ? _c(
-                    "div",
-                    [
-                      _c("orderinfo", {
-                        attrs: { order: order },
-                        on: {
-                          close: function($event) {
-                            _vm.showInfo = false
-                          },
-                          cancel: function($event) {
-                            _vm.deleteOrder(order.service_id, order.id)
-                          }
-                        }
-                      })
-                    ],
-                    1
-                  )
+                ? _c("div", [_c("orderinfo")], 1)
                 : _vm._e(),
               _vm._v(" "),
               _vm.confirmCancelOrder &&

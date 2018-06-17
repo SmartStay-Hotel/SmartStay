@@ -223,121 +223,68 @@
                     <h2>@{{ services[1].name }}</h2>
                 </div>
                 <p class="windowDesc" style="margin-bottom:0px;">@{{ services[1].description }}</p>
-                <div class="windowNav">
-
-                        <p @click="showSnack=true"
-                            v-bind:class="[showSnack ? 'windowNavSelected' : '']">{{trans('smartstay.snack.name')}}</p>
-                        <p @click="showSnack=false"
-                            v-bind:class="[!showSnack ? 'windowNavSelected' : '']">{{trans('smartstay.drink.name')}}</p>
-
-                </div>
                 <div class="windowContent">
-                    <form class="attribOrder col-md-12"  action="#" method="post" v-on:submit.prevent="insertRestaurant">
+                    <form class="attribOrder col-md-12"  action="#" method="post" id="formIns1" v-on:submit.prevent="insertProduct">
                         <div class="row" style="margin-bottom:5%;">
-                            <transition name="fade">
-                                <div v-if="showSnack">
+
                                     <div class="col-md-5">
                                     <div style="display:flex;">
-                                    <label for="orderSnack" style="padding-left:4%;width:80%" >{{trans('smartstay.snack.name')}}</label>
-                                    <label for="cantSnack" style="width:20%;">Cantidad </label>
+                                    <label for="orderProduct" style="padding-left:4%;width:80%" >Select a product</label>
+                                    <label for="cantProduct" style="width:20%;">Cantidad </label>
                                     </div>
-                                        <div class="selSnackDrinks" v-for="numS in numSnacks" style="display:flex; flex-direction: row; justify-content: space-around;">
+                                        <div class="selSnackDrinks" v-for="numP in numProducts" style="display:flex; flex-direction: row; justify-content: space-around;">
 
-                                        <select style="width:70%; height:25px;" name="orderSnack" id="snackOrder"  v-model="snackSelected[numS]" >
-                                            <option v-for="snack in snacks" v-bind:value="snack.id">@{{ snack.name }}</option>
+                                        <select style="width:70%; height:25px;" name="orderProduct" id="productOrder"  v-model="productSelected[numP]">
+                                            <option v-for="product in products" v-bind:value="product.id">@{{ product.name }}</option>
                                         </select>
-                                        <input type="number" name="cantSnack" min="1" v-model="snackCant[numS]" style="width:20%; height:25px" v-on:keyup="getPriceProducts()" v-on:change="getPriceProducts()" required>
+                                        <input type="number" name="cantProduct" min="1" v-model="productCant[numP]" style="width:20%; height:25px" required>
                                     </div>
+
 
                                         <div class="bttnSnackDrinks row">
                                             <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5 col-xl-5"
                                                  style="padding:0px">
-                                                <button @click="bttnMas('snack')" v-if="this.numSnacks.length<3"><i
-                                                            class="fas fa-plus"></i></button>
+                                                <p class="bttnSD" @click="bttnMas()" v-if="this.numProducts.length<3"><i
+                                                            class="fas fa-plus"></i></p>
                                             </div>
                                             <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5 col-xl-5"
                                                  style="padding:0px">
-                                                <button @click="bttnMenos('snack')" v-if="this.numSnacks.length>1"><i
-                                                            class="fas fa-minus"></i></button>
+                                                <p class="bttnSD" @click="bttnMenos()" v-if="this.numProducts.length>1"><i
+                                                            class="fas fa-minus"></i></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="windowInfo col-md-5 infoSnackDrink" >
 
-                                        <div v-if="snackSelected[0]!=''" v-for="infoProd in infoSnack(0)" class="col-md-4">
-                                            <p><span class="productPrice">@{{ setPrecioSnack(infoProd.price,0) }} </span> €</p>
+                                        <div v-if="productSelected[0]!=''" v-for="infoProd in infoProduct(0)" class="col-md-4">
+                                            <p><span class="productPrice" >@{{ infoProd.price }} </span> €</p>
                                         <img v-bind:src="infoProd.image" alt="Product">
                                         </div>
-                                        <div v-if="snackSelected[1]!=''" v-for="infoProd in infoSnack(1)" class="col-md-4">
-                                            <p><span class="productPrice">@{{ setPrecioSnack(infoProd.price,1) }} </span> €</p>
+                                        <div v-if="productSelected[1]!=''" v-for="infoProd in infoProduct(1)" class="col-md-4">
+                                            <p><span class="productPrice">@{{ infoProd.price }} </span> €</p>
                                             <img v-bind:src="infoProd.image" alt="Product">
                                         </div>
-                                        <div v-if="snackSelected[2]!=''" v-for="infoProd in infoSnack(2)" class="col-md-4">
-                                            <p><span class="productPrice">@{{ setPrecioSnack(infoProd.price,2) }} </span> €</p>
-                                            <img v-bind:src="infoProd.image" alt="Product">
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </transition>
-                            <transition name="fade">
-                                <div v-if="!showSnack">
-                                    <div class="col-md-5">
-                                        <div style="display:flex;">
-                                            <label for="orderDrink" style="padding-left:4%;width:80%" >{{trans('smartstay.drink.name')}}</label>
-                                            <label for="cantDrink" style="width:20%;">Cantidad </label>
-                                        </div>
-                                        <div class="selSnackDrinks" v-for="numD in numDrinks" style="display:flex; flex-direction: row; justify-content: space-around;">
-
-                                            <select style="width:70%; height:25px;" name="orderDrink" id="drinkOrder"  v-model="drinkSelected[numD]" >
-                                                <option v-for="drink in drinks" v-bind:value="drink.id">@{{ drink.name }}</option>
-                                            </select>
-                                            <input type="number" name="cantDrink" min="1" v-model="drinkCant[numD]" style="width:20%; height:25px" v-on:keyup="getPriceProducts()" v-on:change="getPriceProducts()" required>
-                                        </div>
-
-                                        <div class="bttnSnackDrinks row">
-                                            <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5 col-xl-5"
-                                                 style="padding:0px">
-                                                <button @click="bttnMas('drink')" v-if="this.numDrinks.length<3"><i
-                                                            class="fas fa-plus"></i></button>
-                                            </div>
-                                            <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5 col-xl-5"
-                                                 style="padding:0px">
-                                                <button @click="bttnMenos('drink')" v-if="this.numDrinks.length>1"><i
-                                                            class="fas fa-minus"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="windowInfo col-md-5 infoSnackDrink" >
-
-                                        <div v-if="drinkSelected[0]!=''" v-for="infoProd in infoDrink(0)" class="col-md-4">
-                                            <p><span class="productPrice">@{{ setPrecioDrink(infoProd.price,0) }} </span> €</p>
-                                            <img v-bind:src="infoProd.image" alt="Product">
-                                        </div>
-                                        <div v-if="drinkSelected[1]!=''" v-for="infoProd in infoDrink(1)" class="col-md-4">
-                                            <p><span class="productPrice">@{{setPrecioDrink(infoProd.price,1) }} </span> €</p>
-                                            <img v-bind:src="infoProd.image" alt="Product">
-                                        </div>
-                                        <div v-if="drinkSelected[2]!=''" v-for="infoProd in infoDrink(2)" class="col-md-4">
-                                            <p><span class="productPrice">setPrecioDrink(infoProd.price,2) </span> €</p>
+                                        <div v-if="productSelected[2]!=''" v-for="infoProd in infoProduct(2)" class="col-md-4">
+                                            <p><span class="productPrice">@{{ infoProd.price }} </span> €</p>
                                             <img v-bind:src="infoProd.image" alt="Product">
 
                                         </div>
 
                                     </div>
-                                </div>
-                            </transition>
 
 
                         </div>
                         <div style="display:flex; justify-content:space-between">
-                            <p>Precio @{{ precioTotalSD.toFixed(2) }}</p>
-                        <input type="submit" name="{{trans('smartstay.dashboard.send')}}">
+                            <p v-if="showPrecioProduct">Precio @{{ precioTotalSD.toFixed(2) }}</p>
 
                         </div>
                     </form>
 
+                </div>
+                <div class="bttnSubmit col-md-12">
+                    <button @click="showProdPrice">Calcular precio</button>
+                    <button type="submit" v-if="!pedidoHecho" form="formIns1" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
+                    <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">¡Pedido completado!</button>
                 </div>
 
             </div>

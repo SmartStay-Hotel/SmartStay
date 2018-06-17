@@ -375,9 +375,12 @@ button[type="submit"]:active {
     display:flex;
     justify-content: center;
 }
-.bttnSnackDrinks button {
+.bttnSnackDrinks p {
     width: 100%;
     border: none;
+    background-color:gray;
+    cursor: pointer;
+    text-align:center;
 
 }
 .windowNav{

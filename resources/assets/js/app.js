@@ -58,6 +58,7 @@ Vue.component('housekeeping', require('./components/menuHousekeeping.vue'));
 Vue.component('serviceshome', require('./components/servicesHome.vue'));
 Vue.component('historyorders', require('./components/historyOrders.vue'))
 Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
+// Vue.component('confirmproduct', require('./components/confirmProduct.vue'))
 // Vue.component('modal', {
 //     template: '#hola'
 // })
@@ -99,8 +100,7 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
             trips:[],
             events:[],
             spaTypes:[],
-            snacks:[],
-            drinks:[],
+            products:[],
             history:[],
 
             statusGuest: false,
@@ -126,20 +126,14 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
             hourTaxi:'',
 
             productSelected:[],
-            productCant:[],
+            productCant:[1,1,1],
             productPrice:[],
-            snackSelected:[],
-            snackCant:[],
-            snackPrice:[],
-            drinkSelected:[],
-            drinkCant:[],
-            drinkPrice:[],
 
-            numSnacks:[0],
-            nS:1,
-            numDrinks:[0],
-            nD:1,
-            showSnack:['true'],
+            numProducts:[0],
+            nP:1,
+            precioTotalSD: 0,
+            showPrecioProduct:false,
+
 
             petWater:false,
             petSnacks:false,
@@ -150,7 +144,7 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
             errorExists : false,
             errorPlazas:false,
 
-            precioTotalSD: 0,
+
 
             showCancelConfirm: false,
 
@@ -187,14 +181,12 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
               })
             },
             getProductTypes: function(){
-                var urlSnacks= 'snacks';
-                var urlDrinks = 'drinks';
-                axios.get(urlSnacks).then(response=>{
-                    this.snacks = response.data
+                var urlProducts= 'products';
+
+                axios.get(urlProducts).then(response=>{
+                    this.products = response.data
             });
-                axios.get(urlDrinks).then(response=>{
-                    this.drinks = response.data
-            });
+
 
             },
             getStatusRoom:function(){
@@ -236,14 +228,10 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                 this.quantityServ='';
                 this.hourTaxi='';
                 this.productSelected=[];
-                this.productCant=[];
+                this.productCant=[1,1,1];
                 this.productPrice=[];
-                this.snackSelected=[];
-                this.snackCant=[];
-                this.snackPrice=[];
-                this.drinkSelected=[];
-                this.drinkCant=[];
-                this.drinkPrice=[];
+                this.numProducts=[0];
+                this.nP=1;
                 this.numSnacks=[0];
                 this.nS=1;
                 this.numDrinks=[0];
@@ -336,6 +324,25 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                         this.errores = error.response.data;
                 })
                 }
+
+            },
+            insertProduct: function(){
+
+                    var urlInsProd = 'admin/service/snackdrink';
+                    axios.post(urlInsProd, {
+                        product_type_id: this.productSelected,
+                        quantity: this.productCant,
+
+                    }).then(response=> {
+                        this.pedidoHecho=true;
+                    this.showResult = true;
+                    this.errorExists = false;
+                }).
+                    catch(error=> {
+                        this.errorExists = true;
+                    this.errores = error.response.data;
+                })
+
 
             },
             insertAlarm: function(){
@@ -431,64 +438,39 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
 
             })
             },
-            bttnMas: function(tipo){
-                if(tipo=='snack'){
-                    this.numSnacks.push(this.nS);
-                    this.nS = this.nS+1;
-                }else if(tipo=='drink'){
-                    this.numDrinks.push(this.nD);
-                    this.nD = this.nD+1;
-                }
+            bttnMas: function(){
+
+                    this.numProducts.push(this.nP);
+                    this.nP++;
+
 
             },
-            bttnMenos: function(tipo){
-                if(tipo=='snack'){
-                    this.numSnacks.pop();
-                    this.nS = this.nS-1;
-                    this.snackSelected[this.nS] = '';
+            bttnMenos: function(){
+                    this.numProducts.pop();
+                    this.nP = this.nP-1;
+                    this.productSelected[this.nP] = '';
 
-                }else if(tipo=='drink'){
-                    this.numDrinks.pop();
-                    this.nD = this.nD-1;
-                    this.snackSelected[this.nD] = '';
-                }
-
-
-            }, infoSnack:function(num){
-                return this.snacks.filter((product) => product.id==this.snackSelected[num]);
-            },
-            infoDrink:function(num){
-                return this.drinks.filter((product) => product.id==this.drinkSelected[num]);
+            }, infoProduct:function(num){
+                return this.products.filter((product) => product.id==this.productSelected[num]);
             },
 
 
             getPriceProducts:function(){
                 var i = 0;
                 this.productPrice = [];
-                this.productSelected = [];
-                this.productCant = [];
+                // this.productSelected = [];
+                // this.productCant = [];
                 this.precioTotalSD = 0;
                 // console.log("length snack "+this.snackSelected.length);
-                // var prodPrice = document.getElementsByClassName("productPrice");
+                var prodPrice = document.getElementsByClassName("productPrice");
 
-                for(i = 0; i < snackPrice.length; i++){
-                    this.productPrice.push(snackPrice[i]);
+                for(i = 0; i < prodPrice.length; i++){
+                    this.productPrice.push(prodPrice[i].innerHTML);
                 }
-                for(i = 0; i < drinkPrice.length; i++){
-                    this.productPrice.push(drinkPrice[i]);
-                }
-                for(i = 0; i < this.snackSelected.length; i++){
-                    this.productSelected.push(this.snackSelected[i]);
-                }
-                for(i = 0; i < this.drinkSelected.length; i++){
-                    this.productSelected.push(this.drinkSelected[i]);
-                }
-                for(i = 0; i < this.snackCant.length; i++){
-                    this.productCant.push(this.snackCant[i]);
-                }
-                for(i = 0; i < this.drinkCant.length; i++){
-                    this.productCant.push(this.snackCant[i]);
-                }
+                // for(i = 0; i < drinkPrice.length; i++){
+                //     this.productPrice.push(prodPrice[i].innerHTML);
+                // }
+
 
 
                 for(i = 0; i < this.productSelected.length; i++){
@@ -556,6 +538,11 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                 this.showCancelConfirm = false;
             },
 
+            showProdPrice:function(){
+                this.getPriceProducts();
+                this.showPrecioProduct = true;
+            }
+
 
 
 
@@ -577,14 +564,11 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                 return rest;
             },
 
-            setPrecioSnack: function(precio, num){
-                this.snackPrice[num] = precio;
+            setProductPrice: function(precio, num){
+                this.productPrice[num] = precio;
                 return precio;
             },
-            setPrecioDrink: function(precio, num){
-                this.drinkPrice[num] = precio;
-                return precio;
-            },
+
 
 
 

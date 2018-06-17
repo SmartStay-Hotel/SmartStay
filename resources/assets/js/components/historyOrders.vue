@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <div id="historyContainer">
-        <div id="history">
+        <div id="history" >
             <div id="historyTitle">
                 <button @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button><h3>History</h3>
             </div>
@@ -28,7 +28,7 @@
                             <!--<h2>{{infoServID[order.service_id]}} // {{infoOrderID[order.id]}}</h2>-->
                         </div>
                         <div v-if="showInfo && infoServID == order.service_id && infoOrderID == order.id">
-                            <orderinfo v-bind:order="order" @close="showInfo = false" @cancel="deleteOrder(order.service_id, order.id)"></orderinfo>
+                            <orderinfo></orderinfo>
                         </div>
                         <div v-if="confirmCancelOrder && infoServID == order.service_id && infoOrderID == order.id">
                             <confirmcancel @yes-cancel="deleteOrder(order.service_id, order.id)" @no-cancel="confirmCancelOrder=false"></confirmcancel>
@@ -188,7 +188,7 @@
     #history{
         background-color:white;
 
-        width:40%;
+        width:50%;
         box-shadow: var(--shadows);
 
     }
@@ -271,4 +271,11 @@
         font-size:75%;
         display:flex;
     }
+
+    @media (max-width: 450px) {
+        #history {
+            width: 100%;
+        }
+    }
+
 </style>
