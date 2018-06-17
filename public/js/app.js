@@ -90500,6 +90500,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -90744,7 +90746,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -90755,6 +90757,10 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -90879,7 +90885,9 @@ var render = function() {
                   [_c("i", { staticClass: "fas fa-long-arrow-alt-left" })]
                 ),
                 _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.order.serviceName))])
+                _vm.order.service_id == 2
+                  ? _c("p", [_vm._v(" Snacks and drinks")])
+                  : _c("p", [_vm._v(_vm._s(_vm.order.serviceName))])
               ])
             ],
             2
@@ -90909,15 +90917,23 @@ var render = function() {
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.order.service_id == 2
-                  ? _c("div", [_c("p", [_vm._v("? Snack and drink")])])
+                  ? _c("div", [
+                      _c("p", [
+                        _vm._v("Product: " + _vm._s(_vm.order.snackTypeName))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v("Quantity: " + _vm._s(_vm.order.quantity))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Price: " + _vm._s(_vm.order.price))])
+                    ])
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.order.service_id == 3
                   ? _c("div", [
                       _c("p", [
-                        _vm._v(
-                          "Treatment: " + _vm._s(_vm.order.treatment_type_id)
-                        )
+                        _vm._v("Treatment: " + _vm._s(_vm.order.spaTypeName))
                       ]),
                       _vm._v(" "),
                       _c("p", [
@@ -90954,9 +90970,7 @@ var render = function() {
                 _vm._v(" "),
                 _vm.order.service_id == 6
                   ? _c("div", [
-                      _c("p", [
-                        _vm._v("Trip: " + _vm._s(_vm.order.trip_type_id))
-                      ]),
+                      _c("p", [_vm._v("Trip: {{order.tripTypeName}")]),
                       _vm._v(" "),
                       _c("p", [
                         _vm._v(
@@ -90971,7 +90985,7 @@ var render = function() {
                 _vm.order.service_id == 7
                   ? _c("div", [
                       _c("p", [
-                        _vm._v("Event: " + _vm._s(_vm.order.event_type_id))
+                        _vm._v("Event: " + _vm._s(_vm.order.eventTypeName))
                       ]),
                       _vm._v(" "),
                       _c("p", [
@@ -91269,9 +91283,13 @@ var render = function() {
                     }
                   },
                   [
-                    _c("p", { staticStyle: { "font-weight": "bolder" } }, [
-                      _vm._v(_vm._s(order.serviceName))
-                    ]),
+                    order.service_id == 2
+                      ? _c("p", { staticStyle: { "font-weight": "bolder" } }, [
+                          _vm._v("Snacks and drinks")
+                        ])
+                      : _c("p", { staticStyle: { "font-weight": "bolder" } }, [
+                          _vm._v(_vm._s(order.serviceName))
+                        ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "historySubInfo" }, [
                       _c("p", { staticClass: "historyDate" }, [

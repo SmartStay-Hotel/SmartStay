@@ -7,7 +7,9 @@
                 <div class="modal-header">
                     <slot name="header">
                         <button @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button>
-                        <p>{{order.serviceName}}</p>
+                        <p v-if="order.service_id==2"> Snacks and drinks</p>
+                        <p v-else>{{order.serviceName}}</p>
+
                     </slot>
                 </div>
                 <div class="modal-body">
@@ -21,12 +23,14 @@
 
                         <!-- Snack and drinks -->
                         <div v-if="order.service_id==2">
-                            <p>? Snack and drink</p>
+                            <p>Product: {{order.snackTypeName}}</p>
+                            <p>Quantity: {{order.quantity}}</p>
+                            <p>Price: {{order.price}}</p>
                         </div>
 
                         <!-- Spa -->
                         <div v-if="order.service_id==3">
-                            <p>Treatment: {{order.treatment_type_id}}</p>
+                            <p>Treatment: {{order.spaTypeName}}</p>
                             <p>Booking date: {{order.day_hour}}</p>
                             <p>Price: {{order.price}}</p>
                         </div>
@@ -46,14 +50,14 @@
 
                         <!-- Trip -->
                         <div v-if="order.service_id==6">
-                            <p>Trip: {{order.trip_type_id}}</p>
+                            <p>Trip: {{order.tripTypeName}</p>
                             <p>Number of persons: {{order.people_num}}</p>
                             <p>Price: {{order.price}}</p>
                         </div>
 
                         <!-- Event -->
                         <div v-if="order.service_id==7">
-                            <p>Event: {{order.event_type_id}}</p>
+                            <p>Event: {{order.eventTypeName}}</p>
                             <p>Number of persons: {{order.people_num}}</p>
                         </div>
 

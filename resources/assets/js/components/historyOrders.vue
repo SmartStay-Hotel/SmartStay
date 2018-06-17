@@ -12,7 +12,9 @@
 
                         <div class="historyItem" >
                             <div class="historyInfo" v-on:click="showInfoOrder(order.service_id, order.id)">
-                            <p style="font-weight: bolder">{{order.serviceName}}</p>
+
+                            <p style="font-weight: bolder" v-if="order.service_id==2">Snacks and drinks</p>
+                                <p style="font-weight: bolder" v-else>{{order.serviceName}}</p>
                                 <div class="historySubInfo">
                             <p class="historyDate">{{formatDate(order.created_at)}}</p>
                                 <p v-if="order.status==1" style="margin-left:3%">In process</p>

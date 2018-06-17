@@ -318,10 +318,10 @@
                     <div class="resultOrder col-md-5">
                         <div class="windowInfo" v-for="item in infoSpa" v-if="spaSelected != ''">
                         <div class="col-md-5">
-                            <p>Duration: @{{ item.duration }}</p>
-                        <p>Precio: @{{ item.price }}</p>
+                            <p>Duration: @{{ item.duration }} min</p>
+                        <p>Precio: @{{ item.price }} €</p>
                         </div>
-                            <img v-bind:src="item.image" alt="Spa type" class="col-md-5">
+                            <img v-bind:src="item.image" alt="Spa type" style="width:200px;" class="col-md-5">
 
                         </div>
                     </div>
@@ -407,15 +407,16 @@
                             <p class="errorForm col-md-12" v-if="errorPlazas">*No hay plazas suficientes.</p>
                         </div>
                     </form>
-                        <div class="windowInfo col-md-7" v-for="item in infoTrip" v-if="tripSelected != ''">
-                            <div class="col-md-7">
-                            <p>Places available: @{{ getTripPlaces(item.id) }}</p>
-                            <p>{{trans('smartstay.trips.location')}}: @{{ item.location }}</p>
-                            <p>{{trans('smartstay.trips.day')}}: @{{ item.day_week }}</p>
-                            <p>{{trans('smartstay.trips.price')}}: @{{ setPriceTrip(item.price) }}</p>
+                        <div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">
+                            <div style="display:flex">
+                            <div class="col-md-4 col-sm-5 col-xs-5 col-lg-5 col-xl-5 ">
+                                <p><strong> Places available:</strong> @{{ getTripPlaces(item.id) }}</p>
+                            <p><strong>{{trans('smartstay.trips.location')}}:</strong> @{{ item.location }}</p>
+                            <p><strong>{{trans('smartstay.trips.day')}}: </strong>@{{ item.day_week }}</p>
+                            <p><strong>{{trans('smartstay.trips.price')}}: </strong>@{{ setPriceTrip(item.price) }}</p>
                             </div>
-                            {{--<img v-bind:src="item.image" alt="Trip image" class="col-md-5">--}}
-
+                            <img v-bind:src="item.image" alt="Trip image" style="width:150px;align-self: center" class="col-md-4 col-sm-5 col-xs-5 col-lg-5 col-xl-5">
+                            </div>
                         </div>
 
 
@@ -447,11 +448,11 @@
                     <div class="col-md-12" style="margin-top:4%;">
                         <div class="col-md-10">
                     <div class="windowInfo col-md-12" v-for="item in infoEvent" v-if="eventSelected != ''">
-                        <div class="col-md-6" >
-                            <img v-bind:src="item.image" style="width:100%" alt="Event image" class="col-md-5">
+                        <div class="col-md-4 col-sm-5 col-xs-5 col-lg-5 col-xl-5" >
+                            <img v-bind:src="item.image" style="width:100px" alt="Event image" class="col-md-5">
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-7 col-sm-7 col-xs-7 col-lg-7 col-xl-7">
                         <p>Places available: @{{ getEventPlaces(item.id) }}</p>
                         <p>{{trans('smartstay.event.location')}}: @{{ item.location }}</p>
                         <p>{{trans('smartstay.event.day')}}: @{{ item.day_week }}</p>
@@ -459,10 +460,12 @@
 
                     </div>
                         </div>
-                        <div class="bttnSubmit col-md-2" style="display:flex; align-items: flex-end;padding-top:5%;">
-                            <button type="submit" style="width:100%" class="row" form="formIns6" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
-                        </div>
+
                     </div>
+
+                </div>
+                <div class="bttnSubmit col-md-2" style="display:flex; align-items: flex-end;padding-top:5%;">
+                    <button type="submit" style="width:100%" class="row" form="formIns6" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
                 </div>
             </div>
             <div class="windowService" v-if="window[7]">
