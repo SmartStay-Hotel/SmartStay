@@ -306,7 +306,7 @@ class GuestController extends Controller
             $snackAndDrinks,
             $spas,
             $trips,
-        ]));
+        ]))->sortByDesc('created_at');
 
         return $orders;
     }
