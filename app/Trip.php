@@ -58,6 +58,7 @@ class Trip extends Model
         if (count($trips) > 0) {
             $serviceName = Services::getServiceName($trips[0]->service_id);
             foreach ($trips as $key => $trip) {
+                $trip->tripTypeName = $trip->tripType->name;
                 $trip->serviceName = $serviceName;
                 $trip->roomNumber = ($trip->guest->rooms[0]->number) ? $trip->guest->rooms[0]->number
                     : 'TripErr id:' . $trip->id;

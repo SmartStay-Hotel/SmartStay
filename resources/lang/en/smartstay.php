@@ -28,9 +28,9 @@ guest dashboard
     'dashboard.taxi' => 'Taxi',
     'dashboard.spa' => 'SpaAppointment',
     'dashboard.housekeeping' => 'Housekeeping',
-
+    'dashboard.selectProduct' => 'Select a product',
     'dashboard.send' => 'Send',
-
+    'dashboard.quantity' => 'Quantity',
     /*
 restaurant
 */
