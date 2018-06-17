@@ -11,9 +11,10 @@
                     </div>
                     <div class="modal-body">
                         <slot name="body">
-                            <button @click="$emit('no-cancel')">No</button>
-                            <button @click="$emit('yes-cancel')">Si</button>
-
+                            <div class="bttnsCancel">
+                            <button class="cancelBttn" @click="$emit('no-cancel')">No</button>
+                            <button class="cancelBttn" @click="$emit('yes-cancel')">Si</button>
+                            </div>
                         </slot>
                     </div>
 
@@ -50,7 +51,7 @@
     }
 
     .modal-container {
-        width: 20%;
+        width: 30%;
         min-width:200px;
         margin: 0px auto;
         /*padding: 20px 30px;*/
@@ -101,6 +102,17 @@
     .modal-leave-active .modal-container {
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
+    }
+    .bttnsCancel{
+        display:flex;
+        justify-content:flex-end;
+    }
+    .cancelBttn{
+        border:none;
+        /*float:right;*/
+        width:20%;
+        margin-left:2px;
+
     }
 </style>
 

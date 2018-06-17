@@ -18,14 +18,15 @@
 <body>
 
 <div class="container">
-    <div class="row text-right">
-        <p>SmartStay</p>
+    <div class="row">
+        <div class="text-left">
+            <img src="{{ '../public/img/icon/logoTransparente.png' }}" width="100" alt="logo smartstay">
+        </div>
     </div>
-    <div class="row text-right">
+    <div class="text-right">
         <h5>JAUME BALMES</h5>
     </div>
     <hr>
-
     <div class="row" style="margin-bottom: 20px;">
         <h3 class="text-right">INVOICE</h3>
     </div>
@@ -33,7 +34,7 @@
     <div class="row" style="margin-bottom: -40px;">
         <div class="col-sm-7">
             <div class="card" style="margin-left: -20px;">
-                <h5 class="card-header">From: SmartStay</h5>
+                <h5 class="card-header">From: Jaume Balmes</h5>
                 <div class="card-body">
                     <p class="card-text" style="margin-top:40px;"><strong>Address:</strong> Carrer de Pau Claris 121,
                         08009 Barcelona<br>

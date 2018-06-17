@@ -5,25 +5,27 @@
                 <div class="modal-container">
                     <div class="modal-header">
                         <slot name="header">
-                            <button @click="$emit('close')">X</button>
-                            <p>Housekeeping</p>
+                            <div class="housekeepingTitle">
+                            <button class="closeHousekeeping" @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button>
+                            <h3>Housekeeping</h3>
+                            </div>
                         </slot>
                     </div>
                     <div class="modal-body">
                         <slot name="body">
-                            <div class="menuOut"><input type="checkbox" name="bedSheets" value="1" v-model="bedSheets"> Bed Sheets</div>
-                            <div class="menuOut"><input type="checkbox" name="cleaning" value="1" v-model="cleaning"> Cleaning </div>
-                            <div class="menuOut"><input type="checkbox" name="minibar" value="1" v-model="minibar"> Minibar</div>
-                            <div class="menuOut"><input type="checkbox" name="blanket" value="1" v-model="blanket"> Blanket</div>
-                            <div class="menuOut"><input type="checkbox" name="toiletries" value="1" v-model="toiletries"> Toiletries</div>
-                            <div class="menuOut"><input type="checkbox" name="pillow" value="1" v-model="pillow"> Pillow</div>
+                            <div class="menuOut"><input type="checkbox"  name="bedSheets"  value="1" v-model="bedSheets"> Bed Sheets</div>
+                            <div class="menuOut"><input type="checkbox"  name="cleaning"  value="1" v-model="cleaning"> Cleaning </div>
+                            <div class="menuOut"><input type="checkbox"  name="minibar"  value="1" v-model="minibar"> Minibar</div>
+                            <div class="menuOut"><input type="checkbox"  name="blanket"  value="1" v-model="blanket"> Blanket</div>
+                            <div class="menuOut"><input type="checkbox"  name="toiletries" value="1" v-model="toiletries"> Toiletries</div>
+                            <div class="menuOut"><input type="checkbox"  name="pillow"  value="1" v-model="pillow"> Pillow</div>
                         </slot>
                     </div>
 
                     <div class="modal-footer">
                         <slot name="footer">
 
-                            <button class="modal-default-button" @click="insertHousekeeping">
+                            <button class="modal-default-button" @click="insertHousekeeping" v-if="this.bedSheets || this.cleaning || this.minibar || this.blanket || this.toiletries || this.pillow">
                                 Send
                             </button>
                         </slot>
@@ -38,38 +40,29 @@
     export default {
         data: function(){
             return {
-            bedSheets :'',
-            cleaning :'',
-            minibar :'',
-            blanket :'',
-            toiletries :'',
-            pillow :'',
+            bedSheets :false,
+            cleaning :false,
+            minibar :false,
+            blanket :false,
+            toiletries :false,
+            pillow :false,
+                errores:'',
             }
         },
 
         methods:{
             insertHousekeeping:function(){
                 var urlInsHousekeeping ='admin/service/housekeeping';
-                var ibedSheets = 0;
-                var icleaning = 0;
-                var iminibar = 0;
-                var iblanket = 0;
-                var itoiletries = 0;
-                var ipillow = 0;
-                if(this.bedSheets != '') ibedSheets=1;
-                if(this.cleaning !='') icleaning=1;
-                if(this.minibar != '') iminibar = 1;
-                if(this.blanket != '') iblanket = 1;
-                if(this.toiletries != '') itoiletries = 1;
-                if(this.pillow != '') ipillow = 1;
+
 
                 axios.post(urlInsHousekeeping,{
-                    bed_sheets:ibedSheets,
-                    cleaning:icleaning,
-                    minibar:iminibar,
-                    blanket:iblanket,
-                    toiletries:itoiletries,
-                    pillow:ipillow
+                    bed_sheets:this.bedSheets,
+                    cleaning:this.cleaning,
+                    minibar:this.minibar,
+                    blanket:this.blanket,
+                    toiletries:this.toiletries,
+                    pillow:this.pillow
+
 
 
                 }).then(response=>{
@@ -83,6 +76,12 @@
                 console.log("noot houseee no");
 
             })
+                    // this.bedSheets ='',
+                    // this.cleaning ='',
+                    // this.minibar ='',
+                    // this.blanket ='',
+                    // this.toiletries ='',
+                    // this.pillow ='',
                 this.$emit('close');
             }
 
@@ -162,5 +161,14 @@
     .modal-leave-active .modal-container {
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
+    }
+    .closeHousekeeping{
+        border:none;
+        color:white;
+        background-color:transparent;
+    }
+    .housekeepingTitle{
+        display:flex;
+        justify-content:space-between;
     }
 </style>
