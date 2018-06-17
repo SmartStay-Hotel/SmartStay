@@ -54,6 +54,7 @@ class Event extends Model
         if (count($events) > 0) {
             $serviceName = Services::getServiceName($events[0]->service_id);
             foreach ($events as $key => $event) {
+                $event->eventTypeName = $event->eventType->name;
                 $event->serviceName = $serviceName;
                 $event->roomNumber  = ($event->guest->rooms[0]->number) ? $event->guest->rooms[0]->number
                     : 'EventErr id:' . $event->id;
