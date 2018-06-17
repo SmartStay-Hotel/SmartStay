@@ -1,43 +1,57 @@
-header {
-    text-align: center; }
+body{
+    background-color: white;
+}
 
-main .container-01 {
-    justify-content: space-around !important; }
+#tileTitle{
+    color: var(--colorNav);
+}
 
-main .item {
-    border-radius: 50%;
-    border: 1px solid black; }
+#tilesubTitle{
+    color: var(--colorSecond);
+}
 
 #m01-01 {
     background-color: var(--colorBody);
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    margin:20px;
+    margin-left: 25%;
 }
 
 #m01-02 {
-    background-color: #EFF9A6; }
+    background-color: var(--colorSecond);
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    margin:20px;
+}
+
 
 #m01-03 {
-    background-color: #C3CF68; }
+    background-color: var(--colorNav);
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    margin:20px;
+}
 
 #m01-04 {
-    background-color: #674F91; }
+    background-color: var(--colorSubMenu);
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    margin:20px;
+}
 
 #m01-05 {
-    background-color: #674F91; }
+    background-color: var(--shadows);
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    margin:20px;
+}
 
-#f01-01 {
-    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif; }
-
-#f01-02 {
-    font-family: Georgia, serif; }
-
-#f01-03 {
-    font-family: "Times New Roman", Times, serif; }
-
-#f01-04 {
-    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; }
-
-#f01-05 {
-    font-family: "Comic Sans MS", cursive, sans-serif; }
 
 .logo {
     text-align: center; }
