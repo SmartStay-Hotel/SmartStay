@@ -52,7 +52,7 @@
 
                 </div>
                 <div id="bttnHistory" v-if="history.length>0">
-                    <i class="fas fa-history" v-if="history.length>0" @click="showHistory = !showHistory"></i>
+                    <i class="fas fa-history" @click="showHistory = !showHistory"></i>
                 </div>
                 <div id="inOut">
 
@@ -77,7 +77,7 @@
 
     </housekeeping>
 
-    <historyorders v-bind:transHistory="['']" v-bind:transOrder="['']" v-bind:transCancel="['']" v-if="showHistory && history.length>0" @close="closeHistory"></historyorders>
+    <historyorders v-bind:trans-history="['']" v-bind:trans-order="['']" v-bind:trans-cancel="['']" v-if="showHistory && history.length>0" @close="closeHistory"></historyorders>
 
 {{--@{{$data}}--}}
     <transition name="fade-out">
