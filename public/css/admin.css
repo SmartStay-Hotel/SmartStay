@@ -546,6 +546,7 @@ legend {
     #addGuestManage {padding-left: 50% !important;}
     #addGuest {line-height: 100% !important;}
     #bookingsBtn, #newBookingBtn, #checkOutBtn, #checkInBtn{font-size: 20px;}
+    #serviceListFirstElement {margin-left: -20%;}
 }
 
 @media screen and (max-width: 1023px) and (min-width: 400px){
@@ -563,6 +564,7 @@ legend {
     #serviceTableHeader{width:40%;}
     #serviceTable{font-size: 2.3vw;}
     #guestTable{font-size: 3px;}
+    #serviceListFirstElement {margin-left: -20%;}
 }
 
 /*@media screen and (min-width: 1024px){

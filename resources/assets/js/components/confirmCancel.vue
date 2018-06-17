@@ -6,14 +6,14 @@
                 <div class="modal-container">
                     <div class="modal-header">
                         <slot name="header">
-                            <p>¿Seguro que quiere cancelar el pedido?</p>
+                            <p>{{trans-cancel[0]}}</p>
                         </slot>
                     </div>
                     <div class="modal-body">
                         <slot name="body">
                             <div class="bttnsCancel">
-                            <button class="cancelBttn" @click="$emit('no-cancel')">No</button>
-                            <button class="cancelBttn" @click="$emit('yes-cancel')">Si</button>
+                            <button class="cancelBttn" @click="$emit('no-cancel')">{{trans-cancel[1]}}</button>
+                            <button class="cancelBttn" @click="$emit('yes-cancel')">{{trans-cancel[2]}}</button>
                             </div>
                         </slot>
                     </div>
@@ -27,7 +27,7 @@
 
 <script>
     export default {
-
+        props:['trans-cancel'],
     }
 </script>
 <style scoped>

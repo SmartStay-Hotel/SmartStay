@@ -3,7 +3,7 @@
         <div id="historyContainer">
         <div id="history" >
             <div id="historyTitle">
-                <button @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button><h3>History</h3>
+                <button @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button><h3>{{trans-history[0]}}</h3>
             </div>
             <div id="historyContent">
                 <!--<p v-for="order in history">{{order.guest_id}}</p>-->
@@ -13,12 +13,12 @@
                         <div class="historyItem" >
                             <div class="historyInfo" v-on:click="showInfoOrder(order.service_id, order.id)">
 
-                            <p style="font-weight: bolder" v-if="order.service_id==2">Snacks and drinks</p>
+                            <p style="font-weight: bolder" v-if="order.service_id==2">{{trans-history[4]}}</p>
                                 <p style="font-weight: bolder" v-else>{{order.serviceName}}</p>
                                 <div class="historySubInfo">
                             <p class="historyDate">{{formatDate(order.created_at)}}</p>
-                                <p v-if="order.status==1" style="margin-left:3%">In process</p>
-                                <p v-if="order.status==2" style="color:green; margin-left:3%">Completed</p>
+                                <p v-if="order.status==1" style="margin-left:3%">{{trans-history[1]}}</p>
+                                <p v-if="order.status==2" style="color:green; margin-left:3%">{{trans-history[2]}}</p>
                                 </div>
                             </div>
                             <div class="historyCancel" v-if="order.status==0">
@@ -28,10 +28,10 @@
                             <!--<h2>{{infoServID[order.service_id]}} // {{infoOrderID[order.id]}}</h2>-->
                         </div>
                         <div v-if="showInfo && infoServID == order.service_id && infoOrderID == order.id">
-                            <orderinfo v-bind:order="order" @close="showInfo = false"></orderinfo>
+                            <orderinfo v-bind:order="order" v-bind:trans-order="trans-order" @close="showInfo = false"></orderinfo>
                         </div>
                         <div v-if="confirmCancelOrder && infoServID == order.service_id && infoOrderID == order.id">
-                            <confirmcancel @yes-cancel="deleteOrder(order.service_id, order.id)" @no-cancel="confirmCancelOrder=false"></confirmcancel>
+                            <confirmcancel v-bind:trans-cancel="trans-cancel" @yes-cancel="deleteOrder(order.service_id, order.id)" @no-cancel="confirmCancelOrder=false"></confirmcancel>
                         </div>
 
                     </div>
@@ -61,7 +61,7 @@
     import moment from 'moment'
     moment.lang('en')
     export default {
-
+        props:['trans-history', 'trans-order','trans-cancel'],
         created: function(){
             this.getHistory();
         },

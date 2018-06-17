@@ -13,12 +13,12 @@
                     </div>
                     <div class="modal-body">
                         <slot name="body">
-                            <div class="menuOut"><input type="checkbox"  name="bedSheets"  value="1" v-model="bedSheets"> Bed Sheets</div>
-                            <div class="menuOut"><input type="checkbox"  name="cleaning"  value="1" v-model="cleaning"> Cleaning </div>
-                            <div class="menuOut"><input type="checkbox"  name="minibar"  value="1" v-model="minibar"> Minibar</div>
-                            <div class="menuOut"><input type="checkbox"  name="blanket"  value="1" v-model="blanket"> Blanket</div>
-                            <div class="menuOut"><input type="checkbox"  name="toiletries" value="1" v-model="toiletries"> Toiletries</div>
-                            <div class="menuOut"><input type="checkbox"  name="pillow"  value="1" v-model="pillow"> Pillow</div>
+                            <div class="menuOut"><input type="checkbox"  name="bedSheets"  value="1" v-model="bedSheets"> {{trans[0]}}</div>
+                            <div class="menuOut"><input type="checkbox"  name="cleaning"  value="1" v-model="cleaning"> {{trans[1]}} </div>
+                            <div class="menuOut"><input type="checkbox"  name="minibar"  value="1" v-model="minibar"> {{trans[2]}}</div>
+                            <div class="menuOut"><input type="checkbox"  name="blanket"  value="1" v-model="blanket"> {{trans[3]}}</div>
+                            <div class="menuOut"><input type="checkbox"  name="toiletries" value="1" v-model="toiletries"> {{trans[4]}}</div>
+                            <div class="menuOut"><input type="checkbox"  name="pillow"  value="1" v-model="pillow"> {{trans[5]}}</div>
                         </slot>
                     </div>
 
@@ -38,6 +38,7 @@
 
 <script>
     export default {
+        props:['trans'],
         data: function(){
             return {
             bedSheets :false,

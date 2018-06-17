@@ -416,13 +416,13 @@
                     </form>
                         <div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">
                             <div style="display:flex">
-                            <div class="col-md-8 col-sm-7 col-xs-7 col-lg-7 col-xl-7 ">
+                            <div class="col-md-8 col-sm-7 col-xs-7 col-lg-7 col-xl-7">
                                 <p><strong> Places available:</strong> @{{ getTripPlaces(item.id) }}</p>
                             <p><strong>{{trans('smartstay.trips.location')}}:</strong> @{{ item.location }}</p>
                             <p><strong>{{trans('smartstay.trips.day')}}: </strong>@{{ item.day_week }}</p>
                             <p><strong>{{trans('smartstay.trips.price')}}: </strong>@{{ setPriceTrip(item.price) }} €</p>
                             </div>
-                            <img v-bind:src="item.image" alt="Trip image"  class="col-md-4 col-sm-5 col-xs-5 col-lg-5 col-xl-5">
+                            <img v-bind:src="item.image" alt="Trip image" style="width:150px;align-self: center" class="col-md-4 col-sm-5 col-xs-5 col-lg-5 col-xl-5">
                             </div>
                         </div>
 
@@ -470,8 +470,6 @@
                             <p><strong>{{trans('smartstay.event.location')}}:</strong> @{{ item.location }}</p>
                             <p><strong>{{trans('smartstay.event.day')}}:</strong> @{{ item.day_week }}</p>
                         </div>
-
-
                             <img v-bind:src="item.image" style="width:150px;align-self: center" alt="Event image" class="col-md-5">
 
                         </div>
