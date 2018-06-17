@@ -13,7 +13,7 @@
                         <div class="historyItem" >
                             <div class="historyInfo" v-on:click="showInfoOrder(order.service_id, order.id)">
 
-                            <p style="font-weight: bolder" v-if="order.service_id==2">trans-history[4]</p>
+                            <p style="font-weight: bolder" v-if="order.service_id==2">{{trans-history[4]}}</p>
                                 <p style="font-weight: bolder" v-else>{{order.serviceName}}</p>
                                 <div class="historySubInfo">
                             <p class="historyDate">{{formatDate(order.created_at)}}</p>
