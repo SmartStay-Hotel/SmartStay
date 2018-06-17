@@ -50,7 +50,6 @@ class TranslatorAppController extends Controller
      */
     public function services()
     {
-        //no va 'ca'
         if (app()->getLocale() != 'en') {
             $name = Services::pluck('name');
             $name = self::translate($name);
@@ -90,29 +89,31 @@ class TranslatorAppController extends Controller
      */
     public function trips()
     {
-        //no va 'es'
         if (app()->getLocale() != 'en') {
-            $data = TripType::get(['name', 'location', 'day_week']);
-            $data = self::translate($data);
-            $data = htmlspecialchars_decode($data);
-            $data = json_decode($data, true);
-            if ($data == null) {
+            $name = TripType::pluck('name');
+            $name = self::translate($name);
+            $name = htmlspecialchars_decode($name);
+
+            $location = TripType::pluck('location');
+            $location = self::translate($location);
+            $location = htmlspecialchars_decode($location);
+
+            $day = TripType::pluck('day_week');
+            $day = self::translate($day);
+            $day = htmlspecialchars_decode($day);
+
+            $name = json_decode($name, true);
+            $location = json_decode($location, true);
+            $day = json_decode($day, true);
+            if ($name == null || $location == null || $day == null) {
                 return TripType::get();
             }
-            $trans = [];
-            foreach ($data as $k => $v) {
-                $values = [];
-                foreach ($v as $key => $field) {
-                    $values[] = $v[$key];
 
-                }
-                $trans[] = $values;
-            }
             $trips = TripType::get();
-            foreach ($trips as $key => $service) {
-                $service->name     = $trans[$key][0];
-                $service->location = $trans[$key][1];
-                $service->day_week = $trans[$key][1];
+            foreach ($trips as $key => $trip) {
+                $trip->name     = $name[$key];
+                $trip->location = $location[$key];
+                $trip->day_week = $day[$key];
             }
         } else {
             $trips = TripType::get();
@@ -128,27 +129,30 @@ class TranslatorAppController extends Controller
     public function events()
     {
         if (app()->getLocale() != 'en') {
-            $data = EventType::get(['name', 'location', 'day_week']);
-            $data = self::translate($data);
-            $data = htmlspecialchars_decode($data);
-            $data = json_decode($data, true);
-            if ($data == null) {
+            $name = EventType::pluck('name');
+            $name = self::translate($name);
+            $name = htmlspecialchars_decode($name);
+
+            $location = EventType::pluck('location');
+            $location = self::translate($location);
+            $location = htmlspecialchars_decode($location);
+
+            $day = EventType::pluck('day_week');
+            $day = self::translate($day);
+            $day = htmlspecialchars_decode($day);
+
+            $name = json_decode($name, true);
+            $location = json_decode($location, true);
+            $day = json_decode($day, true);
+            if ($name == null || $location == null || $day == null) {
                 return EventType::get();
             }
-            $trans = [];
-            foreach ($data as $k => $v) {
-                $values = [];
-                foreach ($v as $key => $field) {
-                    $values[] = $v[$key];
 
-                }
-                $trans[] = $values;
-            }
             $events = EventType::get();
-            foreach ($events as $key => $service) {
-                $service->name     = $trans[$key][0];
-                $service->location = $trans[$key][1];
-                $service->day_week = $trans[$key][1];
+            foreach ($events as $key => $event) {
+                $event->name     = $name[$key];
+                $event->location = $location[$key];
+                $event->day_week = $day[$key];
             }
         } else {
             $events = EventType::get();
@@ -164,25 +168,18 @@ class TranslatorAppController extends Controller
     public function spas()
     {
         if (app()->getLocale() != 'en') {
-            $data = SpaTreatmentType::get(['name']);
-            $data = self::translate($data);
-            $data = htmlspecialchars_decode($data);
-            $data = json_decode($data, true);
-            if ($data == null) {
+            $name = SpaTreatmentType::pluck('name');
+            $name = self::translate($name);
+            $name = htmlspecialchars_decode($name);
+
+            $name = json_decode($name, true);
+            if ($name == null) {
                 return SpaTreatmentType::get();
             }
-            $trans = [];
-            foreach ($data as $k => $v) {
-                $values = [];
-                foreach ($v as $key => $field) {
-                    $values[] = $v[$key];
 
-                }
-                $trans[] = $values;
-            }
             $spas = SpaTreatmentType::get();
-            foreach ($spas as $key => $service) {
-                $service->name = $trans[$key][0];
+            foreach ($spas as $key => $spa) {
+                $spa->name = $name[$key];
             }
         } else {
             $spas = SpaTreatmentType::get();
@@ -198,25 +195,19 @@ class TranslatorAppController extends Controller
     public function products()
     {
         if (app()->getLocale() != 'en') {
-            $data = ProductType::get(['name']);
-            $data = self::translate($data);
-            $data = htmlspecialchars_decode($data);
-            $data = json_decode($data, true);
-            if ($data == null) {
+            $name = ProductType::pluck('name');
+            $name = self::translate($name);
+            $name = htmlspecialchars_decode($name);
+            $name = str_replace(['\\ u00c9X', '\\ u00ae', '\\"', '\\ "', '\\ u00e' , 'A"'], '', $name);
+            $name = str_replace(['ACQU ,'], 'ACQU",', $name);
+            $name = str_replace(['" MAHOU "'], ' MAHOU', $name);
+            $name = json_decode($name, true);
+            if ($name == null) {
                 return ProductType::get();
             }
-            $trans = [];
-            foreach ($data as $k => $v) {
-                $values = [];
-                foreach ($v as $key => $field) {
-                    $values[] = $v[$key];
-
-                }
-                $trans[] = $values;
-            }
             $products = ProductType::get();
-            foreach ($products as $key => $service) {
-                $service->name = $trans[$key][0];
+            foreach ($products as $key => $product) {
+                $product->name = $name[$key];
             }
         } else {
             $products = ProductType::get();
