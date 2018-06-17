@@ -91389,7 +91389,7 @@ var render = function() {
                   [
                     order.service_id == 2
                       ? _c("p", { staticStyle: { "font-weight": "bolder" } }, [
-                          _vm._v("trans-history[4]")
+                          _vm._v(_vm._s(_vm.trans - _vm.history[4]))
                         ])
                       : _c("p", { staticStyle: { "font-weight": "bolder" } }, [
                           _vm._v(_vm._s(order.serviceName))
