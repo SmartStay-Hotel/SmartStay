@@ -20,6 +20,7 @@
 </head>
 <body>
 <div id="container">
+
     <div id="header">
         <nav>
             <div id="nav1">
@@ -72,7 +73,7 @@
         <load-screen
                 :animation-duration="1000"
                 :size="60"
-                color="#ff1d5e"
+                color="#46ce90"
         />
     </div>
     </transition>
