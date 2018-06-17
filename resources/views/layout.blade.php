@@ -61,17 +61,10 @@
 
 
     <housekeeping v-if="!statusRoom && showModalHK" @close="showModalHK = false">
-        <div slot="body">
-        <div class="menuOut"><input type="checkbox"> {{trans('smartstay.hk.sheets')}}</div>
-        <div class="menuOut"><input type="checkbox"> {{trans('smartstay.hk.cleaning')}}</div>
-        <div class="menuOut"><input type="checkbox"> {{trans('smartstay.hk.minibar')}}</div>
-        <div class="menuOut"><input type="checkbox"> {{trans('smartstay.hk.blanket')}}</div>
-        <div class="menuOut"><input type="checkbox"> {{trans('smartstay.hk.toiletries')}}</div>
-        <div class="menuOut"><input type="checkbox"> {{trans('smartstay.hk.pillow')}}</div>
-        </div>
+
     </housekeeping>
     <historyorders  v-if="showHistory" @close="closeHistory"></historyorders>
-@{{$data}}
+{{--@{{$data}}--}}
     <transition name="fade-out">
     <div id="loadingScreen" v-if="loadingScreen">
         <h2>Welcome</h2>

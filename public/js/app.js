@@ -89949,12 +89949,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            bedSheets: '',
-            cleaning: '',
-            minibar: '',
-            blanket: '',
-            toiletries: '',
-            pillow: ''
+            bedSheets: false,
+            cleaning: false,
+            minibar: false,
+            blanket: false,
+            toiletries: false,
+            pillow: false,
+            errores: ''
         };
     },
 
@@ -89963,26 +89964,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             var urlInsHousekeeping = 'admin/service/housekeeping';
-            var ibedSheets = 0;
-            var icleaning = 0;
-            var iminibar = 0;
-            var iblanket = 0;
-            var itoiletries = 0;
-            var ipillow = 0;
-            if (this.bedSheets != '') ibedSheets = 1;
-            if (this.cleaning != '') icleaning = 1;
-            if (this.minibar != '') iminibar = 1;
-            if (this.blanket != '') iblanket = 1;
-            if (this.toiletries != '') itoiletries = 1;
-            if (this.pillow != '') ipillow = 1;
 
             axios.post(urlInsHousekeeping, {
-                bed_sheets: ibedSheets,
-                cleaning: icleaning,
-                minibar: iminibar,
-                blanket: iblanket,
-                toiletries: itoiletries,
-                pillow: ipillow
+                bed_sheets: this.bedSheets,
+                cleaning: this.cleaning,
+                minibar: this.minibar,
+                blanket: this.blanket,
+                toiletries: this.toiletries,
+                pillow: this.pillow
 
             }).then(function (response) {
                 _this.showResult = true;
@@ -89994,7 +89983,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.errores = error.response.data;
                 console.log("noot houseee no");
             });
-            this.bedSheets = '', this.cleaning = '', this.minibar = '', this.blanket = '', this.toiletries = '', this.pillow = '', this.$emit('close');
+            // this.bedSheets ='',
+            // this.cleaning ='',
+            // this.minibar ='',
+            // this.blanket ='',
+            // this.toiletries ='',
+            // this.pillow ='',
+            this.$emit('close');
         }
 
     }
