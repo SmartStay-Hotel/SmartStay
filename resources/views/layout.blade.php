@@ -60,7 +60,7 @@
     </transition>
 
 
-    <housekeeping v-bind:trans="['']" v-if="!statusRoom && showModalHK" @close="showModalHK = false">
+    <housekeeping v-bind:trans="['trans{{'hk.sheets'}}']" v-if="!statusRoom && showModalHK" @close="showModalHK = false">
 
     </housekeeping>
 

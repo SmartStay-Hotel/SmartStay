@@ -172,7 +172,7 @@
                         </div>
                         <div class="row">
                             {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
-                            <p class="errorForm errorDayHour col-md-12" v-if="errorDayHour">*La fecha debe ser entre @{{dataActualFormat}} y @{{ checkoutDateFormat }}</p>
+                            <p class="errorForm errorDayHour col-md-12" v-if="errorDayHour">*{{trans('smartstay.dashboard.errorFecha')}} @{{dataActualFormat}} {{trans('smartstay.dashboard.and')}} @{{ checkoutDateFormat }}</p>
                         </div>
                         <div class="row">
                             <label for="numPersonRest" class="col-md-6" style="width:40%;">{{trans('smartstay.restaurant.numPers')}}</label>

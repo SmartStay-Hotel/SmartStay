@@ -31,6 +31,12 @@ return [
     'dashboard.selectProduct' => 'Seleccione un producto',
     'dashboard.send' => 'Enviar',
     'dashboard.quantity' => 'Cantidad',
+    'dashboard.errorFecha' => 'La fecha debe ser entre',
+    'dashboard.and' => ' y ',
+    'dashboard.history' => 'Historial',
+    'dashboard.process' => 'En proceso',
+    'dashboard.completado' => 'Completado',
+    'dashboard.snackDrinks' => 'Snacks y Bebidas',
 
     /*
  restaurant
