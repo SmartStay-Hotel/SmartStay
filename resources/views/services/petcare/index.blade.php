@@ -31,7 +31,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($petcares->sortByDesc('updated_at') as $indexKey => $petcare)
+            @foreach($petcares as $indexKey => $petcare)
                 <tr>
                     <td>{{ ++$indexKey }}</td>
                     <td>{{ $petcare->guest->firstname . ' ' . $petcare->guest->lastname }}</td>
