@@ -243,7 +243,7 @@
                         '<a class="flex-grid" href="' + data.goToShow.toLowerCase() + '">\n' +
                         '<div style="padding: 0px; border-style: hidden!important;">' + data.serviceName + '</div>\n' +
                         '<div style="padding: 0px; border-style: hidden!important;">' + '-' + '</div>\n' +
-                        '<div style="padding: 0px; border-style: hidden!important;">' + data.guestFullName + '</div>\n' +
+                        '<div style="padding: 0px; border-style: hidden!important;">' + data.guestName + '</div>\n' +
                         '<div style="padding: 0px; border-style: hidden!important;">' + '-' + '</div>\n' +
                         '<div style="padding: 0px; border-style: hidden!important;">' + data.roomNumber + '</div>\n' +
                         '</a>\n' +
