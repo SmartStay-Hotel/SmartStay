@@ -211,7 +211,7 @@
                             <button type="submit" v-if="!pedidoHecho" v-on:click="showCancelConfirm=true">{{trans('smartstay.dashboard.cancelOrder')}}</button>
                             <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">{{trans('smartstay.dashboard.completedOrder')}}</button>
                         </div>
-                        <confirmcancel v-if="showCancelConfirm" @yes-cancel="deleteOrder(info.service_id,info.id)" @no-cancel="showCancelConfirm=false"></confirmcancel>
+                        <confirmcancel v-if="showCancelConfirm" v-bind:transcancel="['{{trans('smartstay.dashboard.cancelConfirmation')}}', '{{trans('smartstay.dashboard.cancelNo')}}', '{{trans('smartstay.dashboard.cancelYes')}}']" @yes-cancel="deleteOrder(info.service_id,info.id)" @no-cancel="showCancelConfirm=false"></confirmcancel>
                     </div>
 
                 </div>

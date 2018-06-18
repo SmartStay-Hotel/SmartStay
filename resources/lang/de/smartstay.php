@@ -58,6 +58,7 @@ return [
     'spa.duration' => 'Dauer',
     'product.totPrice' => 'Gesamtpreis',
     'trips.available' => 'Verfügbarkeit',
+    'product.select' => 'Produkt auswählen',
 
     /*
 restaurant
