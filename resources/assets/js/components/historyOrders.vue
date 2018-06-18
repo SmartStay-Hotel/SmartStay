@@ -3,7 +3,7 @@
         <div id="historyContainer">
             <div id="history" >
                 <div id="historyTitle">
-                    <button @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button><h3>{{transhistory[0]}}</h3>
+                    <button @click="$emit('close')"><i class="fas fa-long-arrow-alt-left" style="color:white"></i></button><h3>{{transhistory[0]}}</h3>
                 </div>
                 <div id="historyContent">
                     <!--<p v-for="order in history">{{order.guest_id}}</p>-->

@@ -243,7 +243,7 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                     this.eventSelected="";
                     this.spaSelected="";
                     this.numPersonsTrip=1;
-                    this.statusRoom="";
+
                     this.dayHourServ='';
                     this.quantityServ='';
                     this.hourTaxi='';
@@ -376,8 +376,6 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
                     }).then(response => {
                         this.pedidoHecho=true;
 
-                    toastr.success("adios");
-                    console.log("coorecto alaramaaa");
 
                 }).
                     catch(error => {
@@ -407,7 +405,7 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
 
 
                         this.errores = error.response.data;
-                    console.log("tripppp no");
+
 
                 })
                 }
@@ -506,8 +504,7 @@ Vue.component('confirmcancel', require('./components/confirmCancel.vue'))
 
 
                 for(i = 0; i < this.productSelected.length; i++){
-                    console.log("parseee precio"+parseInt(this.productPrice[i]));
-                    console.log("i "+i);
+
                     var cant = 1;
                     if(this.productCant[i] != null) cant = this.productCant[i];
                     this.precioTotalSD += (this.productPrice[i] * cant);

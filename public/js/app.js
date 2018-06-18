@@ -57788,7 +57788,7 @@ new Vue({
             this.eventSelected = "";
             this.spaSelected = "";
             this.numPersonsTrip = 1;
-            this.statusRoom = "";
+
             this.dayHourServ = '';
             this.quantityServ = '';
             this.hourTaxi = '';
@@ -57916,9 +57916,6 @@ new Vue({
 
                 }).then(function (response) {
                     _this14.pedidoHecho = true;
-
-                    toastr.success("adios");
-                    console.log("coorecto alaramaaa");
                 }).catch(function (error) {
 
                     _this14.errorExists = true;
@@ -57944,7 +57941,6 @@ new Vue({
                 }).catch(function (error) {
 
                     _this15.errores = error.response.data;
-                    console.log("tripppp no");
                 });
             }
         }, insertEvent: function insertEvent() {
@@ -58038,8 +58034,7 @@ new Vue({
 
 
             for (i = 0; i < this.productSelected.length; i++) {
-                console.log("parseee precio" + parseInt(this.productPrice[i]));
-                console.log("i " + i);
+
                 var cant = 1;
                 if (this.productCant[i] != null) cant = this.productCant[i];
                 this.precioTotalSD += this.productPrice[i] * cant;
@@ -75924,7 +75919,7 @@ Swiper.use(components);
 /* unused harmony export scroll */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ssr_window__ = __webpack_require__(43);
 /**
- * Dom7 2.0.7
+ * Dom7 2.0.6
  * Minimalistic JavaScript library for DOM manipulation, with a jQuery-compatible API
  * http://framework7.io/docs/dom.html
  *
@@ -75934,7 +75929,7 @@ Swiper.use(components);
  *
  * Licensed under MIT
  *
- * Released on: June 14, 2018
+ * Released on: May 27, 2018
  */
 
 
@@ -76036,7 +76031,7 @@ function addClass(className) {
   const classes = className.split(' ');
   for (let i = 0; i < classes.length; i += 1) {
     for (let j = 0; j < this.length; j += 1) {
-      if (typeof this[j] !== 'undefined' && typeof this[j].classList !== 'undefined') this[j].classList.add(classes[i]);
+      if (typeof this[j].classList !== 'undefined') this[j].classList.add(classes[i]);
     }
   }
   return this;
@@ -76045,7 +76040,7 @@ function removeClass(className) {
   const classes = className.split(' ');
   for (let i = 0; i < classes.length; i += 1) {
     for (let j = 0; j < this.length; j += 1) {
-      if (typeof this[j] !== 'undefined' && typeof this[j].classList !== 'undefined') this[j].classList.remove(classes[i]);
+      if (typeof this[j].classList !== 'undefined') this[j].classList.remove(classes[i]);
     }
   }
   return this;
@@ -76058,7 +76053,7 @@ function toggleClass(className) {
   const classes = className.split(' ');
   for (let i = 0; i < classes.length; i += 1) {
     for (let j = 0; j < this.length; j += 1) {
-      if (typeof this[j] !== 'undefined' && typeof this[j].classList !== 'undefined') this[j].classList.toggle(classes[i]);
+      if (typeof this[j].classList !== 'undefined') this[j].classList.toggle(classes[i]);
     }
   }
   return this;
@@ -91310,7 +91305,12 @@ var render = function() {
                 }
               }
             },
-            [_c("i", { staticClass: "fas fa-long-arrow-alt-left" })]
+            [
+              _c("i", {
+                staticClass: "fas fa-long-arrow-alt-left",
+                staticStyle: { color: "white" }
+              })
+            ]
           ),
           _c("h3", [_vm._v(_vm._s(_vm.transhistory[0]))])
         ]),
