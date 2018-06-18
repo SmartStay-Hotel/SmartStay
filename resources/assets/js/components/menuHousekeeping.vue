@@ -7,7 +7,7 @@
                         <slot name="header">
                             <div class="housekeepingTitle">
                             <button class="closeHousekeeping" @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button>
-                            <h3>Housekeeping</h3>
+                            <h3>{{trans[6]}}</h3>
                             </div>
                         </slot>
                     </div>

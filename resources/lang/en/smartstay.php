@@ -31,6 +31,35 @@ guest dashboard
     'dashboard.selectProduct' => 'Select a product',
     'dashboard.send' => 'Send',
     'dashboard.quantity' => 'Quantity',
+
+    'dashboard.errorFecha' => 'Date must be between ',
+    'dashboard.and' => ' and ',
+    'dashboard.history' => 'History',
+    'dashboard.process' => 'In process',
+    'dashboard.completed' => 'Completed',
+    'dashboard.snacksDrinks' => 'Snacks and Drinks',
+    'dashboard.bookingDate' => 'Booking Date',
+    'dashboard.numPers' => 'Number of people',
+    'dashboard.bookingName' => 'Booking name',
+    'dashboard.product' => 'Product',
+    'dashboard.price' => 'Price',
+    'dashboard.treatment' => 'Treatment',
+    'dashboard.alarmSet' => 'Alarm set at',
+    'dashboard.cancelConfirmation' => 'Are you sure you want to cancel the order?',
+    'dashboard.cancelYes' => 'Yes',
+    'dashboard.cancelNo' => 'No',
+
+    'dashboard.yourBooking' => 'Your booking',
+    'dashboard.yourBookingData' => 'Your booking details',
+    'dashboard.date' => 'Date',
+    'dashboard.cancelOrder' => 'Cancel order',
+    'dashboard.completedOrder' => 'Order sent',
+    'dashboard.noPlace' => 'No more tickets available',
+    'product.calcPrice' => 'Calculate price',
+    'spa.duration' => 'Duration',
+    'product.totPrice' => 'Total price',
+    'trips.available' => 'Available tickets',
+
     /*
 restaurant
 */
@@ -87,6 +116,7 @@ trips
     /*
 events
 */
+    'event.name' => 'Events',
     'event.selectEvent' => 'Select an Event',
     'event.location' => 'Location',
     'event.day' => 'Day',
@@ -96,7 +126,7 @@ taxi
 */
     'taxi.name' => 'Taxi',
     'taxi.description' => 'Taxi Description',
-    'taxi.hour' => 'Hour',
+    'taxi.hour' => 'Date and Time',
 
 
     /*

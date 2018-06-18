@@ -11,8 +11,8 @@
     <link rel="shortcut icon" href="{{asset('img/icon/icoTransparente.png')}}">
 {{--    <script type="text/javascript" src="{{asset('css/styleSwiper.css') }}"></script>--}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.3.5/tiny-slider.css">
-    <meta name="viewport" content="height=device-height, initial-scale=1.0">
-    {{--<meta name="viewport" content="width=device-width, initial-scale=1.0">--}}
+     <meta name="viewport" content="height=device-height, initial-scale=1.0">
+     {{--<meta name="viewport" content="width=device-width, initial-scale=1.0">--}}
     <meta name="csrf-token" content="{{csrf_token()}}">
     <script>
     </script>
@@ -73,16 +73,16 @@
     </transition>
 
 
-    <housekeeping v-bind:trans="['trans{{'hk.sheets'}}']" v-if="!statusRoom && showModalHK" @close="showModalHK = false">
+    <housekeeping v-bind:trans="['{{trans('smartstay.hk.sheets')}}', '{{trans('smartstay.hk.cleaning')}}', '{{trans('smartstay.hk.minibar')}}', '{{trans('smartstay.hk.blanket')}}', '{{trans('smartstay.hk.toiletries')}}', '{{trans('smartstay.hk.pillow')}}', '{{trans('smartstay.dashboard.housekeeping')}}']" v-if="!statusRoom && showModalHK" @close="showModalHK = false">
 
     </housekeeping>
 
-    <historyorders v-bind:trans-history="['']" v-bind:trans-order="['']" v-bind:trans-cancel="['']" v-if="showHistory && history.length>0" @close="closeHistory"></historyorders>
+    <historyorders v-bind:transhistory="['{{trans('smartstay.dashboard.history')}}', '{{trans('smartstay.dashboard.process')}}', '{{trans('smartstay.dashboard.completed')}}', '{{trans('smartstay.dashboard.snacksDrinks')}}']" v-bind:transorder="['{{trans('smartstay.dashboard.bookingDate')}}', '{{trans('smartstay.dashboard.numPers')}}', '{{trans('smartstay.dashboard.bookingName')}}', '{{trans('smartstay.dashboard.product')}}', '{{trans('smartstay.dashboard.quantity')}}', '{{trans('smartstay.dashboard.price')}}', '{{trans('smartstay.dashboard.treatment')}}', '{{trans('smartstay.dashboard.bookingDate')}}', '{{trans('smartstay.dashboard.price')}}', '{{trans('smartstay.dashboard.alarmSet')}}', '{{trans('smartstay.pet.water')}}', '{{trans('smartstay.pet.standardFood')}}', '{{trans('smartstay.pet.premiumFood')}}', '{{trans('smartstay.pet.snacks')}}', '{{trans('smartstay.trips.name')}}', '{{trans('smartstay.event.name')}}', '{{trans('smartstay.taxi.hour')}}', '{{trans('smartstay.hk.sheets')}}', '{{trans('smartstay.hk.cleaning')}}', '{{trans('smartstay.hk.minibar')}}', '{{trans('smartstay.hk.blanket')}}', '{{trans('smartstay.hk.toiletries')}}', '{{trans('smartstay.hk.pillow')}}', '{{trans('smartstay.dashboard.snacksDrinks')}}']" v-bind:transcancel="['{{trans('smartstay.dashboard.cancelConfirmation')}}', '{{trans('smartstay.dashboard.cancelNo')}}', '{{trans('smartstay.dashboard.cancelYes')}}']" v-if="showHistory && history.length>0" @close="closeHistory"></historyorders>
 
 {{--@{{$data}}--}}
     <transition name="fade-out">
     <div id="loadingScreen" v-if="loadingScreen">
-        <h2>Welcome</h2>
+        <h2>{{trans('smartstay.layout.welcome')}}</h2>
         <load-screen
                 :animation-duration="1000"
                 :size="60"

@@ -8,7 +8,7 @@
                     <slot name="header">
                         <div class="modalOrderTitle">
                         <button class="bttnBackOrder" @click="$emit('close')"><i class="fas fa-long-arrow-alt-left"></i></button>
-                        <h3 v-if="order.service_id==2"> Snacks and drinks</h3>
+                        <h3 v-if="order.service_id==2"> {{transorder[23]}}</h3>
                         <h3 v-else>{{order.serviceName}}</h3>
                         </div>
                     </slot>
@@ -17,64 +17,64 @@
                     <slot name="body">
                         <!-- Restaurant -->
                         <div v-if="order.service_id==1">
-                            <p><strong>{{trans-order[0]}} </strong> {{order.day_hour}}</p>
-                            <p><strong>{{trans-order[1]}} </strong> {{order.quantity}}</p>
-                            <p><strong>{{trans-order[2]}} </strong>{{order.guest_id}}</p>
+                            <p><strong>{{transorder[0]}} </strong> {{order.day_hour}}</p>
+                            <p><strong>{{transorder[1]}} </strong> {{order.quantity}}</p>
+                            <p><strong>{{transorder[2]}} </strong>{{order.guest_id}}</p>
                         </div>
 
                         <!-- Snack and drinks -->
                         <div v-if="order.service_id==2">
-                            <p><strong>{{trans-order[3]}} </strong>{{order.snackTypeName}}</p>
-                            <p><strong>{{trans-order[4]}}</strong>{{order.quantity}}</p>
-                            <p><strong>{{trans-order[5]}} </strong>{{order.price}}</p>
+                            <p><strong>{{transorder[3]}} </strong>{{order.snackTypeName}}</p>
+                            <p><strong>{{transorder[4]}}</strong>{{order.quantity}}</p>
+                            <p><strong>{{transorder[5]}} </strong>{{order.price}}</p>
                         </div>
 
                         <!-- Spa -->
                         <div v-if="order.service_id==3">
-                            <p><strong>{{trans-order[6]}}</strong> {{order.spaTypeName}}</p>
-                            <p><strong>{{trans-order[7]}}</strong> {{order.day_hour}}</p>
-                            <p><strong>{{trans-order[8]}} </strong>{{order.price}}</p>
+                            <p><strong>{{transorder[6]}}</strong> {{order.spaTypeName}}</p>
+                            <p><strong>{{transorder[7]}}</strong> {{order.day_hour}}</p>
+                            <p><strong>{{transorder[8]}} </strong>{{order.price}}</p>
                         </div>
 
                         <!-- Alarm -->
                         <div v-if="order.service_id==4">
-                            <p><strong>{{trans-order[9]}}</strong> {{order.day_hour}}</p>
-                        </div>t
+                            <p><strong>{{transorder[9]}}</strong> {{order.day_hour}}</p>
+                        </div>
 
                         <!-- Pet care -->
                         <div v-if="order.service_id==5">
-                            <p v-if="order.water"> {{trans-order[10]}}</p>
-                            <p v-if="order.standard_food"> {{trans-order[11]}}</p>
-                            <p v-if="order.premium_food"> {{trans-order[12]}}</p>
-                            <p v-if="order.snacks"> {{trans-order[13]}}</p>
+                            <p v-if="order.water"> {{transorder[10]}}</p>
+                            <p v-if="order.standard_food"> {{transorder[11]}}</p>
+                            <p v-if="order.premium_food"> {{transorder[12]}}</p>
+                            <p v-if="order.snacks"> {{transorder[13]}}</p>
                         </div>
 
                         <!-- Trip -->
                         <div v-if="order.service_id==6">
-                            <p><strong>{{trans-order[14]}}</strong> {{order.tripTypeName}</p>
-                            <p><strong>{{trans-order[1]}}</strong> {{order.people_num}}</p>
-                            <p><strong>{{trans-order[5]}} </strong>{{order.price}}</p>
+                            <p><strong>{{transorder[14]}}</strong> {{order.tripTypeName}</p>
+                            <p><strong>{{transorder[1]}}</strong> {{order.people_num}}</p>
+                            <p><strong>{{transorder[5]}} </strong>{{order.price}}</p>
                         </div>
 
                         <!-- Event -->
                         <div v-if="order.service_id==7">
-                            <p><strong>{{trans-order[15]}}</strong> {{order.eventTypeName}}</p>
-                            <p><strong>{{trans-order[1]}}</strong> {{order.people_num}}</p>
+                            <p><strong>{{transorder[15]}}</strong> {{order.eventTypeName}}</p>
+                            <p><strong>{{transorder[1]}}</strong> {{order.people_num}}</p>
                         </div>
 
                         <!-- Taxi -->
                         <div v-if="order.service_id==8">
-                            <p><strong>{{trans-order[16]}} </strong>{{order.day_hour}}</p>
+                            <p><strong>{{transorder[16]}} </strong>{{order.day_hour}}</p>
 
                         </div>
                         <!-- Housekeeping -->
                         <div v-if="order.service_id==9">
-                            <p v-if="order.bed_sheets"> {{trans-order[17]}}</p>
-                            <p v-if="order.cleaning"> {{trans-order[18]}}</p>
-                            <p v-if="order.minibar"> {{trans-order[19]}}</p>
-                            <p v-if="order.blanket"> {{trans-order[20]}}</p>
-                            <p v-if="order.toiletries"> {{trans-order[21]}}</p>
-                            <p v-if="order.pillow"> {{trans-order[22]}}</p>
+                            <p v-if="order.bed_sheets"> {{transorder[17]}}</p>
+                            <p v-if="order.cleaning"> {{transorder[18]}}</p>
+                            <p v-if="order.minibar"> {{transorder[19]}}</p>
+                            <p v-if="order.blanket"> {{transorder[20]}}</p>
+                            <p v-if="order.toiletries"> {{transorder[21]}}</p>
+                            <p v-if="order.pillow"> {{transorder[22]}}</p>
                         </div>
 
                     </slot>
@@ -95,7 +95,7 @@
 
 <script>
     export default {
-        props:['order','trans-order'],
+        props:['order','transorder'],
     }
 </script>
 <style scoped>

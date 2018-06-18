@@ -75924,7 +75924,7 @@ Swiper.use(components);
 /* unused harmony export scroll */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ssr_window__ = __webpack_require__(43);
 /**
- * Dom7 2.0.6
+ * Dom7 2.0.7
  * Minimalistic JavaScript library for DOM manipulation, with a jQuery-compatible API
  * http://framework7.io/docs/dom.html
  *
@@ -75934,7 +75934,7 @@ Swiper.use(components);
  *
  * Licensed under MIT
  *
- * Released on: May 27, 2018
+ * Released on: June 14, 2018
  */
 
 
@@ -76036,7 +76036,7 @@ function addClass(className) {
   const classes = className.split(' ');
   for (let i = 0; i < classes.length; i += 1) {
     for (let j = 0; j < this.length; j += 1) {
-      if (typeof this[j].classList !== 'undefined') this[j].classList.add(classes[i]);
+      if (typeof this[j] !== 'undefined' && typeof this[j].classList !== 'undefined') this[j].classList.add(classes[i]);
     }
   }
   return this;
@@ -76045,7 +76045,7 @@ function removeClass(className) {
   const classes = className.split(' ');
   for (let i = 0; i < classes.length; i += 1) {
     for (let j = 0; j < this.length; j += 1) {
-      if (typeof this[j].classList !== 'undefined') this[j].classList.remove(classes[i]);
+      if (typeof this[j] !== 'undefined' && typeof this[j].classList !== 'undefined') this[j].classList.remove(classes[i]);
     }
   }
   return this;
@@ -76058,7 +76058,7 @@ function toggleClass(className) {
   const classes = className.split(' ');
   for (let i = 0; i < classes.length; i += 1) {
     for (let j = 0; j < this.length; j += 1) {
-      if (typeof this[j].classList !== 'undefined') this[j].classList.toggle(classes[i]);
+      if (typeof this[j] !== 'undefined' && typeof this[j].classList !== 'undefined') this[j].classList.toggle(classes[i]);
     }
   }
   return this;
@@ -90058,7 +90058,7 @@ var render = function() {
                     [_c("i", { staticClass: "fas fa-long-arrow-alt-left" })]
                   ),
                   _vm._v(" "),
-                  _c("h3", [_vm._v("Housekeeping")])
+                  _c("h3", [_vm._v(_vm._s(_vm.trans[6]))])
                 ])
               ])
             ],
@@ -90449,7 +90449,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n#historyContainer *[data-v-7a71db5c] {\n    /*border:1px solid red;*/\n}\n#historyContainer[data-v-7a71db5c]{\n\n    display:flex;\n    justify-content:center;\n    align-items:center;\n    height:70%;\n}\n#history[data-v-7a71db5c]{\n    background-color:white;\n\n    width:50%;\n    box-shadow: var(--shadows);\n}\n#historyTitle[data-v-7a71db5c]{\n    display:flex;\n    justify-content: space-between;\n    padding:2%;\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n#historyTitle button[data-v-7a71db5c]{\n    padding:0px;\n    border:none;\n    font-size:150%;\n    background-color:transparent;\n}\n#historyTitle button[data-v-7a71db5c]:hover{\n    color: var(--colorSecond);\n}\n/*#historyList{*/\n    /*list-style-type:none;*/\n/*}*/\n/*#historyList > li{*/\n\n    /*padding: 2% 3% 1% 3%;*/\n    /*border-bottom:1px solid gray;*/\n    /*margin-top:1%;*/\n    /*display:flex;*/\n    /*justify-content: space-between;*/\n/*}*/\n/*#historyList > li > i {*/\n    /*font-size:150%;*/\n    /*color:red;*/\n/*}*/\n/*#historyList > li > i:hover {*/\n\n    /*color:black;*/\n/*}*/\n.historyItem[data-v-7a71db5c]{\n    border-bottom:1px solid var(--colorBody);\n    padding:2% 5%;\n}\n.historyInfo[data-v-7a71db5c]{\n    width:92%;\n}\n.historyCancel[data-v-7a71db5c]{\n    width:8%;\n    font-size:100%;\n    display:flex;\n    justiy-content:center;\n    align-items:center;\n}\n.historyCancel button[data-v-7a71db5c]{\n    background: transparent;\n    border:none;\n}\n.historyCancel[data-v-7a71db5c]:hover{\n    color:red;\n}\n/*.historyCancel>i{*/\n    /*width:100%;*/\n    /*height:100%;*/\n    /*margin:0px;*/\n    /**/\n/*}*/\n.historyItem p[data-v-7a71db5c]{\n    margin:0px;\n}\n.historyItem[data-v-7a71db5c]{\n    display:flex;\n}\n.historyItem[data-v-7a71db5c]:hover{\n    background-color:var(--colorBody);\n    cursor:pointer;\n}\n.historyButton[data-v-7a71db5c]{\n    margin:0px;\n    width:50%;\n    border:none;\n    background-color:var(--colorNav)\n}\n#historyPage[data-v-7a71db5c]{\n    display:flex;\n    justify-content:space-around;\n}\n.historySubInfo[data-v-7a71db5c]{\n    font-size:75%;\n    display:flex;\n}\n@media (max-width: 450px) {\n#history[data-v-7a71db5c] {\n        width: 100%;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n#historyContainer *[data-v-7a71db5c] {\n    /*border:1px solid red;*/\n}\n#historyContainer[data-v-7a71db5c]{\n\n    display:flex;\n    justify-content:center;\n    align-items:center;\n    height:70%;\n}\n#history[data-v-7a71db5c]{\n    background-color:white;\n\n    width:50%;\n    box-shadow: var(--shadows);\n}\n#historyTitle[data-v-7a71db5c]{\n    display:flex;\n    justify-content: space-between;\n    padding:2%;\n    background-color: var(--colorSubMenu);\n    color:white;\n}\n#historyTitle button[data-v-7a71db5c]{\n    padding:0px;\n    border:none;\n    font-size:150%;\n    background-color:transparent;\n}\n#historyTitle button[data-v-7a71db5c]:hover{\n    color: var(--colorSecond);\n}\n/*#historyList{*/\n/*list-style-type:none;*/\n/*}*/\n/*#historyList > li{*/\n\n/*padding: 2% 3% 1% 3%;*/\n/*border-bottom:1px solid gray;*/\n/*margin-top:1%;*/\n/*display:flex;*/\n/*justify-content: space-between;*/\n/*}*/\n/*#historyList > li > i {*/\n/*font-size:150%;*/\n/*color:red;*/\n/*}*/\n/*#historyList > li > i:hover {*/\n\n/*color:black;*/\n/*}*/\n.historyItem[data-v-7a71db5c]{\n    border-bottom:1px solid var(--colorBody);\n    padding:2% 5%;\n}\n.historyInfo[data-v-7a71db5c]{\n    width:92%;\n}\n.historyCancel[data-v-7a71db5c]{\n    width:8%;\n    font-size:100%;\n    display:flex;\n    justiy-content:center;\n    align-items:center;\n}\n.historyCancel button[data-v-7a71db5c]{\n    background: transparent;\n    border:none;\n}\n.historyCancel[data-v-7a71db5c]:hover{\n    color:red;\n}\n/*.historyCancel>i{*/\n/*width:100%;*/\n/*height:100%;*/\n/*margin:0px;*/\n/**/\n/*}*/\n.historyItem p[data-v-7a71db5c]{\n    margin:0px;\n}\n.historyItem[data-v-7a71db5c]{\n    display:flex;\n}\n.historyItem[data-v-7a71db5c]:hover{\n    background-color:var(--colorBody);\n    cursor:pointer;\n}\n.historyButton[data-v-7a71db5c]{\n    margin:0px;\n    width:50%;\n    border:none;\n    background-color:var(--colorNav)\n}\n#historyPage[data-v-7a71db5c]{\n    display:flex;\n    justify-content:space-around;\n}\n.historySubInfo[data-v-7a71db5c]{\n    font-size:75%;\n    display:flex;\n}\n@media (max-width: 450px) {\n#history[data-v-7a71db5c] {\n        width: 100%;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -90529,7 +90529,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __WEBPACK_IMPORTED_MODULE_2_moment___default.a.lang('en');
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['trans-history', 'trans-order', 'trans-cancel'],
+    props: ['transhistory', 'transorder', 'transcancel'],
     created: function created() {
         this.getHistory();
     },
@@ -90875,7 +90875,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['order', 'trans-order']
+    props: ['order', 'transorder']
 });
 
 /***/ }),
@@ -90910,7 +90910,7 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _vm.order.service_id == 2
-                    ? _c("h3", [_vm._v(" Snacks and drinks")])
+                    ? _c("h3", [_vm._v(" " + _vm._s(_vm.transorder[23]))])
                     : _c("h3", [_vm._v(_vm._s(_vm.order.serviceName))])
                 ])
               ])
@@ -90926,23 +90926,17 @@ var render = function() {
                 _vm.order.service_id == 1
                   ? _c("div", [
                       _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[0]) + " ")
-                        ]),
+                        _c("strong", [_vm._v(_vm._s(_vm.transorder[0]) + " ")]),
                         _vm._v(" " + _vm._s(_vm.order.day_hour))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[1]) + " ")
-                        ]),
+                        _c("strong", [_vm._v(_vm._s(_vm.transorder[1]) + " ")]),
                         _vm._v(" " + _vm._s(_vm.order.quantity))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[2]) + " ")
-                        ]),
+                        _c("strong", [_vm._v(_vm._s(_vm.transorder[2]) + " ")]),
                         _vm._v(_vm._s(_vm.order.guest_id))
                       ])
                     ])
@@ -90951,23 +90945,17 @@ var render = function() {
                 _vm.order.service_id == 2
                   ? _c("div", [
                       _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[3]) + " ")
-                        ]),
+                        _c("strong", [_vm._v(_vm._s(_vm.transorder[3]) + " ")]),
                         _vm._v(_vm._s(_vm.order.snackTypeName))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[4]))
-                        ]),
+                        _c("strong", [_vm._v(_vm._s(_vm.transorder[4]))]),
                         _vm._v(_vm._s(_vm.order.quantity))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[5]) + " ")
-                        ]),
+                        _c("strong", [_vm._v(_vm._s(_vm.transorder[5]) + " ")]),
                         _vm._v(_vm._s(_vm.order.price))
                       ])
                     ])
@@ -90976,23 +90964,17 @@ var render = function() {
                 _vm.order.service_id == 3
                   ? _c("div", [
                       _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[6]))
-                        ]),
+                        _c("strong", [_vm._v(_vm._s(_vm.transorder[6]))]),
                         _vm._v(" " + _vm._s(_vm.order.spaTypeName))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[7]))
-                        ]),
+                        _c("strong", [_vm._v(_vm._s(_vm.transorder[7]))]),
                         _vm._v(" " + _vm._s(_vm.order.day_hour))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[8]) + " ")
-                        ]),
+                        _c("strong", [_vm._v(_vm._s(_vm.transorder[8]) + " ")]),
                         _vm._v(_vm._s(_vm.order.price))
                       ])
                     ])
@@ -91001,39 +90983,28 @@ var render = function() {
                 _vm.order.service_id == 4
                   ? _c("div", [
                       _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[9]))
-                        ]),
+                        _c("strong", [_vm._v(_vm._s(_vm.transorder[9]))]),
                         _vm._v(" " + _vm._s(_vm.order.day_hour))
                       ])
                     ])
                   : _vm._e(),
-                _vm._v("t\r\n\r\n                        "),
                 _vm._v(" "),
                 _vm.order.service_id == 5
                   ? _c("div", [
                       _vm.order.water
-                        ? _c("p", [
-                            _vm._v(" " + _vm._s(_vm.trans - _vm.order[10]))
-                          ])
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transorder[10]))])
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.order.standard_food
-                        ? _c("p", [
-                            _vm._v(" " + _vm._s(_vm.trans - _vm.order[11]))
-                          ])
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transorder[11]))])
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.order.premium_food
-                        ? _c("p", [
-                            _vm._v(" " + _vm._s(_vm.trans - _vm.order[12]))
-                          ])
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transorder[12]))])
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.order.snacks
-                        ? _c("p", [
-                            _vm._v(" " + _vm._s(_vm.trans - _vm.order[13]))
-                          ])
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transorder[13]))])
                         : _vm._e()
                     ])
                   : _vm._e(),
@@ -91041,23 +91012,17 @@ var render = function() {
                 _vm.order.service_id == 6
                   ? _c("div", [
                       _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[14]))
-                        ]),
+                        _c("strong", [_vm._v(_vm._s(_vm.transorder[14]))]),
                         _vm._v(" {{order.tripTypeName}")
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[1]))
-                        ]),
+                        _c("strong", [_vm._v(_vm._s(_vm.transorder[1]))]),
                         _vm._v(" " + _vm._s(_vm.order.people_num))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[5]) + " ")
-                        ]),
+                        _c("strong", [_vm._v(_vm._s(_vm.transorder[5]) + " ")]),
                         _vm._v(_vm._s(_vm.order.price))
                       ])
                     ])
@@ -91066,16 +91031,12 @@ var render = function() {
                 _vm.order.service_id == 7
                   ? _c("div", [
                       _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[15]))
-                        ]),
+                        _c("strong", [_vm._v(_vm._s(_vm.transorder[15]))]),
                         _vm._v(" " + _vm._s(_vm.order.eventTypeName))
                       ]),
                       _vm._v(" "),
                       _c("p", [
-                        _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[1]))
-                        ]),
+                        _c("strong", [_vm._v(_vm._s(_vm.transorder[1]))]),
                         _vm._v(" " + _vm._s(_vm.order.people_num))
                       ])
                     ])
@@ -91085,7 +91046,7 @@ var render = function() {
                   ? _c("div", [
                       _c("p", [
                         _c("strong", [
-                          _vm._v(_vm._s(_vm.trans - _vm.order[16]) + " ")
+                          _vm._v(_vm._s(_vm.transorder[16]) + " ")
                         ]),
                         _vm._v(_vm._s(_vm.order.day_hour))
                       ])
@@ -91095,39 +91056,27 @@ var render = function() {
                 _vm.order.service_id == 9
                   ? _c("div", [
                       _vm.order.bed_sheets
-                        ? _c("p", [
-                            _vm._v(" " + _vm._s(_vm.trans - _vm.order[17]))
-                          ])
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transorder[17]))])
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.order.cleaning
-                        ? _c("p", [
-                            _vm._v(" " + _vm._s(_vm.trans - _vm.order[18]))
-                          ])
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transorder[18]))])
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.order.minibar
-                        ? _c("p", [
-                            _vm._v(" " + _vm._s(_vm.trans - _vm.order[19]))
-                          ])
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transorder[19]))])
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.order.blanket
-                        ? _c("p", [
-                            _vm._v(" " + _vm._s(_vm.trans - _vm.order[20]))
-                          ])
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transorder[20]))])
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.order.toiletries
-                        ? _c("p", [
-                            _vm._v(" " + _vm._s(_vm.trans - _vm.order[21]))
-                          ])
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transorder[21]))])
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.order.pillow
-                        ? _c("p", [
-                            _vm._v(" " + _vm._s(_vm.trans - _vm.order[22]))
-                          ])
+                        ? _c("p", [_vm._v(" " + _vm._s(_vm.transorder[22]))])
                         : _vm._e()
                     ])
                   : _vm._e()
@@ -91267,7 +91216,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['trans-cancel']
+    props: ['transcancel']
 });
 
 /***/ }),
@@ -91285,11 +91234,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "modal-header" },
-            [
-              _vm._t("header", [
-                _c("p", [_vm._v(_vm._s(_vm.trans - _vm.cancel[0]))])
-              ])
-            ],
+            [_vm._t("header", [_c("p", [_vm._v(_vm._s(_vm.transcancel[0]))])])],
             2
           ),
           _vm._v(" "),
@@ -91309,7 +91254,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v(_vm._s(_vm.trans - _vm.cancel[1]))]
+                    [_vm._v(_vm._s(_vm.transcancel[1]))]
                   ),
                   _vm._v(" "),
                   _c(
@@ -91322,7 +91267,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v(_vm._s(_vm.trans - _vm.cancel[2]))]
+                    [_vm._v(_vm._s(_vm.transcancel[2]))]
                   )
                 ])
               ])
@@ -91367,7 +91312,7 @@ var render = function() {
             },
             [_c("i", { staticClass: "fas fa-long-arrow-alt-left" })]
           ),
-          _c("h3", [_vm._v(_vm._s(_vm.trans - _vm.history[0]))])
+          _c("h3", [_vm._v(_vm._s(_vm.transhistory[0]))])
         ]),
         _vm._v(" "),
         _c(
@@ -91389,7 +91334,7 @@ var render = function() {
                   [
                     order.service_id == 2
                       ? _c("p", { staticStyle: { "font-weight": "bolder" } }, [
-                          _vm._v(_vm._s(_vm.trans - _vm.history[4]))
+                          _vm._v(_vm._s(_vm.transhistory[4]))
                         ])
                       : _c("p", { staticStyle: { "font-weight": "bolder" } }, [
                           _vm._v(_vm._s(order.serviceName))
@@ -91402,7 +91347,7 @@ var render = function() {
                       _vm._v(" "),
                       order.status == 1
                         ? _c("p", { staticStyle: { "margin-left": "3%" } }, [
-                            _vm._v(_vm._s(_vm.trans - _vm.history[1]))
+                            _vm._v(_vm._s(_vm.transhistory[1]))
                           ])
                         : _vm._e(),
                       _vm._v(" "),
@@ -91415,7 +91360,7 @@ var render = function() {
                                 "margin-left": "3%"
                               }
                             },
-                            [_vm._v(_vm._s(_vm.trans - _vm.history[2]))]
+                            [_vm._v(_vm._s(_vm.transhistory[2]))]
                           )
                         : _vm._e()
                     ])
@@ -91447,10 +91392,7 @@ var render = function() {
                     "div",
                     [
                       _c("orderinfo", {
-                        attrs: {
-                          order: order,
-                          "trans-order": _vm.trans - order
-                        },
+                        attrs: { order: order, transorder: _vm.transorder },
                         on: {
                           close: function($event) {
                             _vm.showInfo = false
@@ -91469,7 +91411,7 @@ var render = function() {
                     "div",
                     [
                       _c("confirmcancel", {
-                        attrs: { "trans-cancel": _vm.trans - _vm.cancel },
+                        attrs: { transcancel: _vm.transcancel },
                         on: {
                           "yes-cancel": function($event) {
                             _vm.deleteOrder(order.service_id, order.id)

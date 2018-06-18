@@ -35,11 +35,31 @@ return [
     'dashboard.and' => ' y ',
     'dashboard.history' => 'Historial',
     'dashboard.process' => 'En proceso',
-    'dashboard.completado' => 'Completado',
-    'dashboard.snackDrinks' => 'Snacks y Bebidas',
+    'dashboard.completed' => 'Completado',
+    'dashboard.snacksDrinks' => 'Snacks y Bebidas',
+    'dashboard.bookingDate' => 'Fecha de reserva',
+    'dashboard.numPers' => 'Número de personas',
+    'dashboard.bookingName' => 'Nombre de reserva',
+    'dashboard.product' => 'Producto',
+    'dashboard.price' => 'Precio',
+    'dashboard.treatment' => 'Tratamiento',
+    'dashboard.alarmSet' => 'Alarma puesta a las',
+    'dashboard.cancelConfirmation' => 'Está seguro que quiere cancelar el pedido?',
+    'dashboard.cancelYes' => 'Si',
+    'dashboard.cancelNo' => 'No',
 
-    /*
- restaurant
+    'dashboard.yourBooking' => 'Tu reserva',
+    'dashboard.yourBookingData' => 'Datos de tu reserva',
+    'dashboard.date' => 'Fecha',
+    'dashboard.cancelOrder' => 'Cancelar pedido',
+    'dashboard.completedOrder' => 'Pedido completado',
+    'dashboard.noPlace' => 'No hay plazas suficientes',
+    'product.calcPrice' => 'Calcular precio',
+    'spa.duration' => 'Duración',
+    'product.totPrice' => 'Precio total',
+    'trips.available' => 'Plazas disponibles',
+
+/* restaurant
  */
 
     'restaurant.date' => 'Día y hora',
@@ -55,6 +75,7 @@ snack
     'snack.select' => 'Selecciona un snack',
     'drink.name' => 'Bebida',
     'drink.select' => 'Selecciona una bebida',
+    'product.select' => 'Selecciona un producto',
 
     /*
 spa
@@ -96,16 +117,17 @@ trips
     /*
 events
 */
+    'event.name' => 'Eventos',
     'event.selectEvent' => 'Selecciona un evento',
     'event.location' => 'Lugar',
-    'event.day' => 'Día',
+    'event.day' => 'Día y hora',
 
     /*
 taxi
 */
     'taxi.name' => 'Taxi',
     'taxi.description' => 'Descripción taxi',
-    'taxi.hour' => 'Hora',
+    'taxi.hour' => 'Dia y Hora',
 
     /*
 housekeeping
