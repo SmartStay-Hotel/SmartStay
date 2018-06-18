@@ -59,6 +59,7 @@ guest dashboard
     'spa.duration' => 'Duration',
     'product.totPrice' => 'Total price',
     'trips.available' => 'Available tickets',
+    'product.select' => 'Choose a product',
 
     /*
 restaurant
