@@ -60,7 +60,6 @@ class GuestController extends Controller
     public function store(Request $request)
     {
         $input     = Input::all();
-        dd($input);
         $rules     = [
             'firstname'     => 'required|max:30',
             'lastname'      => 'required|max:30',
