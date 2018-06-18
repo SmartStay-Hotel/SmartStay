@@ -32,6 +32,35 @@ return [
     'dashboard.send' => 'Invia',
     'dashboard.quantity' => 'Cantidad',
 
+    'dashboard.errorFecha' => 'La data deve essere tra',
+    'dashboard.and' => ' e ',
+    'dashboard.history' => 'Lista ordini',
+    'dashboard.process' => 'In processo',
+    'dashboard.completed' => 'Completato',
+    'dashboard.snacksDrinks' => 'Snacks e bibite',
+    'dashboard.bookingDate' => 'Data di prenotazione',
+    'dashboard.numPers' => 'Número persone',
+    'dashboard.bookingName' => 'Nome prenotazione',
+    'dashboard.product' => 'Prodotto',
+    'dashboard.price' => 'Prezzo',
+    'dashboard.treatment' => 'Trattamento',
+    'dashboard.alarmSet' => 'Sveglia fissata per le ore',
+    'dashboard.cancelConfirmation' => 'Sicuro che vuole cancellare l ordine?',
+    'dashboard.cancelYes' => 'Si',
+    'dashboard.cancelNo' => 'No',
+
+    'dashboard.yourBooking' => 'La sua prenotazione',
+    'dashboard.yourBookingData' => 'Dettagli prenotazione',
+    'dashboard.date' => 'Data',
+    'dashboard.cancelOrder' => 'Cancellare ordine',
+    'dashboard.completedOrder' => 'Ordine inviato',
+    'dashboard.noPlace' => 'Non ci sono piu posti disponibili',
+    'product.calcPrice' => 'Calcolare prezzo',
+    'spa.duration' => 'Durata',
+    'product.totPrice' => 'Prezzo totale',
+    'trips.available' => 'Posti disponibili',
+    'product.select' => 'Seleziona prodotto',
+
     /*
 restaurant
 */
@@ -88,6 +117,7 @@ trips
     /*
 events
 */
+    'event.name' => 'Eventi',
     'event.selectEvent' => 'Scegli un evento',
     'event.location' => 'Luogo',
     'event.day' => 'Giorno',
@@ -97,7 +127,7 @@ taxi
 */
     'taxi.name' => 'Taxi',
     'taxi.description' => 'Descrizione taxi',
-    'taxi.hour' => 'Ora',
+    'taxi.hour' => 'Giorno e ora',
 
     /*
 housekeeping

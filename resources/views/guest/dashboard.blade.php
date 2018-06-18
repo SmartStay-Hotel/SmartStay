@@ -172,7 +172,7 @@
                         </div>
                         <div class="row">
                             {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
-                            <p class="errorForm errorDayHour col-md-12" v-if="errorDayHour">*La fecha debe ser entre @{{dataActualFormat}} y @{{ checkoutDateFormat }}</p>
+                            <p class="errorForm errorDayHour col-md-12" v-if="errorDayHour">*{{trans('smartstay.dashboard.errorFecha')}} @{{dataActualFormat}} {{trans('smartstay.dashboard.and')}} @{{ checkoutDateFormat }}</p>
                         </div>
                         <div class="row">
                             <label for="numPersonRest" class="col-md-6" style="width:40%;">{{trans('smartstay.restaurant.numPers')}}</label>
@@ -200,18 +200,18 @@
                     <div class="windowTitle">
                         <button class="returnWindow " v-if="show" @click="showWindow(0)"><i
                                     class="fas fa-long-arrow-alt-left"></i></button>
-                        <h2>Tu reserva</h2>
+                        <h2>{{trans('smartstay.dashboard.yourBooking')}}</h2>
                     </div>
-                    <p class="windowDesc">Datos de tu reserva </p>
+                    <p class="windowDesc">{{trans('smartstay.dashboard.yourBookingData')}}</p>
                     <div class="windowContent" v-for="info in existsRestaurant">
-                        <p><strong>Nombre de la reserva: </strong> @{{ info.guest_id }} </p>
-                        <p><strong>Fecha: </strong>@{{ info.day_hour }}</p>
-                        <p><strong>Número de personas:</strong> @{{ info.quantity }}</p>
+                        <p><strong>{{trans('smartstay.dashboard.bookingName')}}: </strong> @{{ info.guest_id }} </p>
+                        <p><strong>{{trans('smartstay.dashboard.date')}}: </strong>@{{ info.day_hour }}</p>
+                        <p><strong>{{trans('smartstay.restaurant.numPers')}}:</strong> @{{ info.quantity }}</p>
                         <div class="bttnSubmit">
-                            <button type="submit" v-if="!pedidoHecho" v-on:click="showCancelConfirm=true">Cancelar pedido</button>
-                            <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">¡Pedido completado!</button>
+                            <button type="submit" v-if="!pedidoHecho" v-on:click="showCancelConfirm=true">{{trans('smartstay.dashboard.cancelOrder')}}</button>
+                            <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">{{trans('smartstay.dashboard.completedOrder')}}</button>
                         </div>
-                        <confirmcancel v-if="showCancelConfirm" @yes-cancel="deleteOrder(info.service_id,info.id)" @no-cancel="showCancelConfirm=false"></confirmcancel>
+                        <confirmcancel v-if="showCancelConfirm" v-bind:transcancel="['{{trans('smartstay.dashboard.cancelConfirmation')}}', '{{trans('smartstay.dashboard.cancelNo')}}', '{{trans('smartstay.dashboard.cancelYes')}}']" @yes-cancel="deleteOrder(info.service_id,info.id)" @no-cancel="showCancelConfirm=false"></confirmcancel>
                     </div>
 
                 </div>
@@ -229,8 +229,8 @@
 
                                     <div class="col-md-5">
                                     <div style="display:flex;">
-                                    <label for="orderProduct" style="padding-left:4%;width:80%" >Select a product</label>
-                                    <label for="cantProduct" style="width:20%;">Cantidad </label>
+                                    <label for="orderProduct" style="padding-left:4%;width:80%" >{{trans('smartstay.product.select')}}</label>
+                                    <label for="cantProduct" style="width:20%;">{{trans('smartstay.dashboard.quantity')}}</label>
                                     </div>
                                         <div class="selSnackDrinks" v-for="numP in numProducts" style="display:flex; flex-direction: row; justify-content: space-around;">
 
@@ -283,12 +283,12 @@
                 </div>
                 <div class="bttnSubmit col-md-12" style="display:flex; justify-content:flex-start; justify-content: space-between">
                     <div>
-                        <p v-if="showPrecioProduct"><strong>Precio total:</strong> @{{ precioTotalSD.toFixed(2) }} €</p>
+                        <p v-if="showPrecioProduct"><strong>{{trans('smartstay.product.totPrice')}}:</strong> @{{ precioTotalSD.toFixed(2) }} €</p>
                     </div>
                     <div style="display:flex;">
-                        <button @click="showProdPrice" v-if="!pedidoHecho" style="width:150px">Calcular precio</button>
+                        <button @click="showProdPrice" v-if="!pedidoHecho" style="width:150px">{{trans('smartstay.product.calcPrice')}}</button>
                         <button type="submit" v-if="!pedidoHecho" form="formIns1" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
-                        <button type="submit" v-if="pedidoHecho" style="width:150px" class="bttnPedidoHecho">¡Pedido completado!</button>
+                        <button type="submit" v-if="pedidoHecho" style="width:150px" class="bttnPedidoHecho">{{trans('smartstay.dashboard.completedOrder')}}</button>
                     </div>
                 </div>
 
@@ -310,7 +310,7 @@
                         </div>
                         <div class="row">
                             {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
-                            <p class="errorForm errorDayHour col-md-12" v-if="errorDayHour">*La fecha debe ser entre @{{dataActualFormat}} y @{{ checkoutDateFormat }}</p>
+                            <p class="errorForm errorDayHour col-md-12" v-if="errorDayHour">{{trans('smartstay.dashboard.errorFecha')}} @{{dataActualFormat}} {{trans('smartstay.dashboard.and')}} @{{ checkoutDateFormat }}</p>
                         </div>
                         <div class="row">
                         <label for="typeSpa" class="col-md-6" style="width:40%;">{{trans('smartstay.spa.type')}}</label>
@@ -323,8 +323,8 @@
                     <div class="resultOrder col-md-5">
                         <div class="windowInfo" v-for="item in infoSpa" v-if="spaSelected != ''">
                         <div class="col-md-5">
-                            <p>Duration: @{{ item.duration }} min</p>
-                        <p>Precio: @{{ item.price }} €</p>
+                            <p>{{trans('smartstay.spa.duration')}}: @{{ item.duration }} min</p>
+                        <p>{{trans('smartstay.spa.price')}}: @{{ item.price }} €</p>
                         </div>
                             <img v-bind:src="item.image" alt="Spa type" style="width:200px;" class="col-md-5">
 
@@ -334,8 +334,8 @@
 
                 </div>
                 <div class="bttnSubmit">
-                    <button type="submit" v-if="!pedidoHecho" form="formIns2" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
-                    <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">¡Pedido completado!</button>
+                    <button type="submit" v-if="!pedidoHecho" form="formIns2" value="{{trans('smartstay.dashboard.send')}}">{{trans('smartstay.dashboard.send')}}</button>
+                    <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">{{trans('smartstay.dashboard.completedOrder')}}</button>
                 </div>
 
             </div>
@@ -355,13 +355,13 @@
 
                             <div class="col-md-12" style="display:flex; justify-content: center; padding-top:2%;">
                         {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
-                        <p class="errorForm errorDayHour" v-if="errorDayHour">*La fecha debe ser entre @{{dataActualFormat}} y @{{ checkoutDateFormat }}</p>
+                        <p class="errorForm errorDayHour" v-if="errorDayHour">{{trans('smartstay.dashboard.errorFecha')}}@{{dataActualFormat}} {{trans('smartstay.dashboard.and')}} @{{ checkoutDateFormat }}</p>
                             </div>
 
                     </div>
                     <div class="col-md-12 bttnSubmit" style="justify-content: center; padding-top:2%">
                         <button type="submit" v-if="!pedidoHecho" form="formIns3" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
-                        <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">¡Pedido completado!</button>
+                        <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">{{trans('smartstay.dashboard.completedOrder')}}</button>
                     </div>
 
                 </div>
@@ -383,7 +383,7 @@
                     </form>
                     <div class="col-md-12 bttnSubmit" style="justify-content: center; padding-top:2%">
                         <button type="submit" v-if="!pedidoHecho" form="formIns4" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
-                        <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">¡Pedido completado!</button>
+                        <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">{{trans('smartstay.dashboard.completedOrder')}}</button>
                     </div>
                 </div>
             </div>
@@ -411,13 +411,13 @@
                         </div>
                         <div class="row">
                             {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
-                            <p class="errorForm col-md-12" v-if="errorPlazas">*No hay plazas suficientes.</p>
+                            <p class="errorForm col-md-12" v-if="errorPlazas">{{trans('smartstay.dashboard.noPlace')}}</p>
                         </div>
                     </form>
                         <div class="windowInfo" v-for="item in infoTrip" v-if="tripSelected != ''">
                             <div style="display:flex">
                             <div class="col-md-8 col-sm-7 col-xs-7 col-lg-7 col-xl-7">
-                                <p><strong> Places available:</strong> @{{ getTripPlaces(item.id) }}</p>
+                                <p><strong> {{trans('smartstay.trips.available')}}:</strong> @{{ getTripPlaces(item.id) }}</p>
                             <p><strong>{{trans('smartstay.trips.location')}}:</strong> @{{ item.location }}</p>
                             <p><strong>{{trans('smartstay.trips.day')}}: </strong>@{{ item.day_week }}</p>
                             <p><strong>{{trans('smartstay.trips.price')}}: </strong>@{{ setPriceTrip(item.price) }} €</p>
@@ -431,7 +431,7 @@
                 </div>
                 <div class="bttnSubmit">
                     <button type="submit"  v-if="!pedidoHecho" form="formIns5" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
-                    <button type="submit" v-if="pedidoHecho" style="width:150px" class="bttnPedidoHecho">¡Pedido completado!</button>
+                    <button type="submit" v-if="pedidoHecho" style="width:150px" class="bttnPedidoHecho">{{trans('smartstay.dashboard.completedOrder')}}</button>
                 </div>
             </div>
             <div class="windowService" v-if="window[6]">
@@ -457,7 +457,7 @@
                         </div>
                         <div class="row">
                             {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
-                            <p class="errorForm col-md-12" v-if="errorPlazas">*No hay plazas suficientes.</p>
+                            <p class="errorForm col-md-12" v-if="errorPlazas">{{trans('smartstay.dashboard.noPlace')}}</p>
                         </div>
 
                     </form>
@@ -466,7 +466,7 @@
                     <div class="windowInfo" v-for="item in infoEvent" v-if="eventSelected != ''">
                         <div style="display:flex">
                         <div class="col-md-8 col-sm-7 col-xs-7 col-lg-7 col-xl-7">
-                            <p><strong>Places available: </strong>@{{ getEventPlaces(item.id) }}</p>
+                            <p><strong>{{trans('smartstay.trips.available')}}: </strong>@{{ getEventPlaces(item.id) }}</p>
                             <p><strong>{{trans('smartstay.event.location')}}:</strong> @{{ item.location }}</p>
                             <p><strong>{{trans('smartstay.event.day')}}:</strong> @{{ item.day_week }}</p>
                         </div>
@@ -481,7 +481,7 @@
                 </div>
                 <div class="bttnSubmit">
                     <button type="submit" v-if="!pedidoHecho" form="formIns6">{{trans('smartstay.dashboard.send')}}</button>
-                    <button type="submit" v-if="pedidoHecho" style="width:150px" class="bttnPedidoHecho">¡Pedido completado!</button>
+                    <button type="submit" v-if="pedidoHecho" style="width:150px" class="bttnPedidoHecho">{{trans('smartstay.dashboard.completedOrder')}}</button>
                 </div>
             </div>
             <div class="windowService" v-if="window[7]">
@@ -493,18 +493,18 @@
                 <p class="windowDesc">{{trans('smartstay.taxi.description')}}</p>
                 <div class="windowContent row">
                     <div class="col-md-12" style="display:flex;justify-content: center;"><label for="dateTaxi" style="width:auto; font-weight: bolder; text-transform: uppercase; font-size:150%;">{{trans('smartstay.alarm.date')}}</label></div>
-                    <form class="attribOrder col-md-12" style="display:flex;justify-content: center;" action="#" method="post" v-on:submit.prevent="insertTaxi" if="formIns7">
+                    <form class="attribOrder col-md-12" style="display:flex;justify-content: center;" action="#" method="post" v-on:submit.prevent="insertTaxi" id="formIns7">
                     <input type="datetime-local" name="dateTaxi" v-model="dayHourServ">
                     </form>
                     <div class="row">
                         <div class="col-md-12" style="display:flex; justify-content: center; padding-top:2%;">
                             {{--<p class="errorForm errorDayHour col-md-12" v-if="errorExists">Ha habido un error, no se ha podido insertar.</p>--}}
-                            <p class="errorForm errorDayHour" v-if="errorDayHour">*La fecha debe ser entre @{{dataActualFormat}} y @{{ checkoutDateFormat }}</p>
+                            <p class="errorForm errorDayHour" v-if="errorDayHour">{{trans('smartstay.dashboard.errorFecha')}} @{{dataActualFormat}} {{trans('smartstay.dashboard.and')}} @{{ checkoutDateFormat }}</p>
                         </div>
                     </div>
                     <div class="col-md-12 bttnSubmit" style="justify-content: center; padding-top:2%">
                         <button type="submit" v-if="!pedidoHecho" form="formIns7" value="enviar">{{trans('smartstay.dashboard.send')}}</button>
-                        <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">¡Pedido completado!</button>
+                        <button type="submit" v-if="pedidoHecho" class="bttnPedidoHecho">{{trans('smartstay.dashboard.completedOrder')}}</button>
                     </div>
                 </div>
             </div>

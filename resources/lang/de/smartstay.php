@@ -31,6 +31,35 @@ return [
     'dashboard.selectProduct' => 'Produkt auswählen',
     'dashboard.quantity' => 'Menge',
 
+    'dashboard.errorFecha' => 'Die Datum muss zwischen ',
+    'dashboard.and' => ' und ',
+    'dashboard.history' => 'Bestellungen',
+    'dashboard.process' => 'Bearbeiten',
+    'dashboard.completed' => 'Fertig',
+    'dashboard.snacksDrinks' => 'Snacks und Getränke',
+    'dashboard.bookingDate' => 'Buchungsdatum',
+    'dashboard.numPers' => 'Teilnehmerzahl',
+    'dashboard.bookingName' => 'Buchungsname',
+    'dashboard.product' => 'Produkt',
+    'dashboard.price' => 'Preis',
+    'dashboard.treatment' => 'Behandlung',
+    'dashboard.alarmSet' => 'Wecker gestellt um',
+    'dashboard.cancelConfirmation' => 'Sind Sie sicher, dass Sie Ihre Bestellung stornieren wollen?',
+    'dashboard.cancelYes' => 'Ja',
+    'dashboard.cancelNo' => 'Nein',
+
+    'dashboard.yourBooking' => 'Ihre Buchung',
+    'dashboard.yourBookingData' => 'Ihre Buchung Detail',
+    'dashboard.date' => 'Datum',
+    'dashboard.cancelOrder' => 'Bestellung stornieren',
+    'dashboard.completedOrder' => 'Bestellung gesendet',
+    'dashboard.noPlace' => 'Keine Tickets mehr verfügbar',
+    'product.calcPrice' => 'Preis rechnen',
+    'spa.duration' => 'Dauer',
+    'product.totPrice' => 'Gesamtpreis',
+    'trips.available' => 'Verfügbarkeit',
+    'product.select' => 'Produkt auswählen',
+
     /*
 restaurant
 */
@@ -87,7 +116,8 @@ trips
     /*
 events
 */
-    'event.selectEvent' => 'Veranstaltung',
+    'event.name' => 'Veranstaltung',
+    'event.selectEvent' => 'Veranstaltung wählen',
     'event.location' => 'Ort',
     'event.day' => 'Tag',
 
